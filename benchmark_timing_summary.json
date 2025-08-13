@@ -1,0 +1,738 @@
+{
+  "generated_time": "2025-08-04T02:26:59.466518",
+  "total_programs": 13,
+  "total_symbolic_execution_time": 808.249153137207,
+  "total_equivalence_time": 12.017011880874634,
+  "program_details": {
+    "s173": {
+      "symbolic_execution_time": 22.800774335861206,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.10363268852233887,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.11301946640014648,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.11737179756164551,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        }
+      ],
+      "total_equivalence_time": 0.33402395248413086,
+      "total_paths": 6,
+      "comparison_count": 3,
+      "average_se_time": 7.600258111953735,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 8.537042379379272,
+          "paths_found": 2,
+          "setup_time": 0.051,
+          "exploration_time": 5.615,
+          "analysis_time": 1.87
+        },
+        "O2": {
+          "execution_time": 7.487478256225586,
+          "paths_found": 2,
+          "setup_time": 0.048,
+          "exploration_time": 4.561,
+          "analysis_time": 1.871
+        },
+        "O3": {
+          "execution_time": 6.776253700256348,
+          "paths_found": 2,
+          "setup_time": 0.048,
+          "exploration_time": 3.795,
+          "analysis_time": 1.94
+        }
+      },
+      "se_binary_count": 3
+    },
+    "vtv": {
+      "symbolic_execution_time": 68.23946738243103,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.3630249500274658,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.3201718330383301,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.32436084747314453,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.0075576305389404,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 22.74648912747701,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 24.03521227836609,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 6.429,
+          "analysis_time": 15.592
+        },
+        "O2": {
+          "execution_time": 22.7312753200531,
+          "paths_found": 16,
+          "setup_time": 0.049,
+          "exploration_time": 5.086,
+          "analysis_time": 15.626
+        },
+        "O3": {
+          "execution_time": 21.47297978401184,
+          "paths_found": 16,
+          "setup_time": 0.049,
+          "exploration_time": 3.913,
+          "analysis_time": 15.522
+        }
+      },
+      "se_binary_count": 3
+    },
+    "vpvtv": {
+      "symbolic_execution_time": 64.30464959144592,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.28174853324890137,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.2533736228942871,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.293851375579834,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 0.8289735317230225,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 21.43488319714864,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.0100576877594,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 5.046,
+          "analysis_time": 14.941
+        },
+        "O2": {
+          "execution_time": 21.077287435531616,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 3.927,
+          "analysis_time": 15.137
+        },
+        "O3": {
+          "execution_time": 21.217304468154907,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 3.776,
+          "analysis_time": 15.405
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s000": {
+      "symbolic_execution_time": 89.24266457557678,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O0",
+          "opt2": "O1",
+          "time": 0.3407588005065918,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O0",
+          "opt2": "O2",
+          "time": 0.38293910026550293,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O0",
+          "opt2": "O3",
+          "time": 0.35034894943237305,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.28111982345581055,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.26534414291381836,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.28183865547180176,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.9023494720458984,
+      "total_paths": 64,
+      "comparison_count": 6,
+      "average_se_time": 22.310666143894196,
+      "se_optimization_levels": {
+        "O0": {
+          "execution_time": 26.285855770111084,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 8.827,
+          "analysis_time": 15.417
+        },
+        "O1": {
+          "execution_time": 22.02224826812744,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 4.95,
+          "analysis_time": 15.042
+        },
+        "O2": {
+          "execution_time": 20.61756706237793,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 3.903,
+          "analysis_time": 14.704
+        },
+        "O3": {
+          "execution_time": 20.316993474960327,
+          "paths_found": 16,
+          "setup_time": 0.049,
+          "exploration_time": 3.516,
+          "analysis_time": 14.798
+        }
+      },
+      "se_binary_count": 4
+    },
+    "s1351": {
+      "symbolic_execution_time": 64.37535166740417,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.2795696258544922,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.264768123626709,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.2813084125518799,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 0.825646162033081,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 21.45845055580139,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.26298213005066,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 4.967,
+          "analysis_time": 15.29
+        },
+        "O2": {
+          "execution_time": 21.75427269935608,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 3.917,
+          "analysis_time": 15.831
+        },
+        "O3": {
+          "execution_time": 20.358096837997437,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 3.572,
+          "analysis_time": 14.732
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s2244": {
+      "symbolic_execution_time": 69.7692301273346,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.32224011421203613,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.36377930641174316,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.3749675750732422,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.0609869956970215,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 23.256410042444866,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 24.110206127166748,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 6.462,
+          "analysis_time": 15.606
+        },
+        "O2": {
+          "execution_time": 21.99722123146057,
+          "paths_found": 16,
+          "setup_time": 0.053,
+          "exploration_time": 5.269,
+          "analysis_time": 14.688
+        },
+        "O3": {
+          "execution_time": 23.661802768707275,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 7.008,
+          "analysis_time": 14.599
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s1251": {
+      "symbolic_execution_time": 64.71032691001892,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.28159332275390625,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.26087164878845215,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.2837188243865967,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 0.8261837959289551,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 21.570108970006306,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.793277263641357,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 5.386,
+          "analysis_time": 15.381
+        },
+        "O2": {
+          "execution_time": 21.163522243499756,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 4.181,
+          "analysis_time": 14.97
+        },
+        "O3": {
+          "execution_time": 20.753527402877808,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 3.885,
+          "analysis_time": 14.851
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s1221": {
+      "symbolic_execution_time": 66.28627324104309,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.34882569313049316,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.3792150020599365,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.3820462226867676,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.1100869178771973,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 22.09542441368103,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 23.359997749328613,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 6.111,
+          "analysis_time": 15.219
+        },
+        "O2": {
+          "execution_time": 22.02691078186035,
+          "paths_found": 16,
+          "setup_time": 0.049,
+          "exploration_time": 5.027,
+          "analysis_time": 14.969
+        },
+        "O3": {
+          "execution_time": 20.899364709854126,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 3.741,
+          "analysis_time": 15.144
+        }
+      },
+      "se_binary_count": 3
+    },
+    "vpvpv": {
+      "symbolic_execution_time": 64.52922868728638,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.27831196784973145,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.26611828804016113,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.27942800521850586,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 0.8238582611083984,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 21.509742895762127,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.168177366256714,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 5.068,
+          "analysis_time": 15.081
+        },
+        "O2": {
+          "execution_time": 21.25218892097473,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 4.051,
+          "analysis_time": 15.155
+        },
+        "O3": {
+          "execution_time": 21.10886240005493,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 3.766,
+          "analysis_time": 15.303
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s1112": {
+      "symbolic_execution_time": 32.220075368881226,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.10556912422180176,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.11594486236572266,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.11778521537780762,
+          "equivalent_pairs": 2,
+          "paths_compared": 2
+        }
+      ],
+      "total_equivalence_time": 0.33929920196533203,
+      "total_paths": 6,
+      "comparison_count": 3,
+      "average_se_time": 10.74002512296041,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 12.716519117355347,
+          "paths_found": 2,
+          "setup_time": 0.051,
+          "exploration_time": 9.736,
+          "analysis_time": 1.916
+        },
+        "O2": {
+          "execution_time": 11.473610877990723,
+          "paths_found": 2,
+          "setup_time": 0.05,
+          "exploration_time": 8.496,
+          "analysis_time": 1.922
+        },
+        "O3": {
+          "execution_time": 8.029945373535156,
+          "paths_found": 2,
+          "setup_time": 0.05,
+          "exploration_time": 5.161,
+          "analysis_time": 1.826
+        }
+      },
+      "se_binary_count": 3
+    },
+    "vpv": {
+      "symbolic_execution_time": 67.72902035713196,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.3619515895843506,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.32265639305114746,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.3227066993713379,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.007314682006836,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 22.576340119043987,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 23.839548349380493,
+          "paths_found": 16,
+          "setup_time": 0.053,
+          "exploration_time": 6.193,
+          "analysis_time": 15.574
+        },
+        "O2": {
+          "execution_time": 22.59264063835144,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 5.086,
+          "analysis_time": 15.491
+        },
+        "O3": {
+          "execution_time": 21.296831369400024,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 3.732,
+          "analysis_time": 15.536
+        }
+      },
+      "se_binary_count": 3
+    },
+    "s121": {
+      "symbolic_execution_time": 68.89846396446228,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.36311864852905273,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.39015650749206543,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.3906731605529785,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 1.1439483165740967,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 22.96615465482076,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.933043479919434,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 6.158,
+          "analysis_time": 14.745
+        },
+        "O2": {
+          "execution_time": 22.99996590614319,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 5.083,
+          "analysis_time": 15.883
+        },
+        "O3": {
+          "execution_time": 22.965454578399658,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 6.104,
+          "analysis_time": 14.823
+        }
+      },
+      "se_binary_count": 3
+    },
+    "vtvtv": {
+      "symbolic_execution_time": 65.14362692832947,
+      "equivalence_comparisons": [
+        {
+          "opt1": "O1",
+          "opt2": "O2",
+          "time": 0.275223970413208,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O1",
+          "opt2": "O3",
+          "time": 0.2543609142303467,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        },
+        {
+          "opt1": "O2",
+          "opt2": "O3",
+          "time": 0.27719807624816895,
+          "equivalent_pairs": 16,
+          "paths_compared": 16
+        }
+      ],
+      "total_equivalence_time": 0.8067829608917236,
+      "total_paths": 48,
+      "comparison_count": 3,
+      "average_se_time": 21.714542309443157,
+      "se_optimization_levels": {
+        "O1": {
+          "execution_time": 22.39527177810669,
+          "paths_found": 16,
+          "setup_time": 0.051,
+          "exploration_time": 5.031,
+          "analysis_time": 15.35
+        },
+        "O2": {
+          "execution_time": 21.422823429107666,
+          "paths_found": 16,
+          "setup_time": 0.05,
+          "exploration_time": 4.027,
+          "analysis_time": 15.391
+        },
+        "O3": {
+          "execution_time": 21.325531721115112,
+          "paths_found": 16,
+          "setup_time": 0.052,
+          "exploration_time": 3.918,
+          "analysis_time": 15.361
+        }
+      },
+      "se_binary_count": 3
+    }
+  }
+}

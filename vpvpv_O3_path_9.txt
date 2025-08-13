@@ -1,0 +1,64 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun scanf_0_57_32 () (_ BitVec 32))
+(assert
+ (bvuge scanf_0_57_32 (_ bv0 32)))
+(assert
+ (bvule scanf_0_57_32 (_ bv15 32)))
+(assert
+ (let ((?x38 ((_ zero_extend 32) scanf_0_57_32)))
+ (let ((?x44 (bvshl ?x38 (_ bv3 64))))
+ (let ((?x45 ((_ extract 31 0) ?x44)))
+ (bvslt (_ bv0 32) ?x45)))))
+(assert
+ (let ((?x55 ((_ extract 28 0) scanf_0_57_32)))
+ (let ((?x51 (concat ?x55 (_ bv0 3))))
+ (let ((?x40 ((_ zero_extend 32) ?x51)))
+ (let ((?x41 (bvlshr ?x40 (_ bv2 64))))
+ (let ((?x35 ((_ extract 31 0) ?x41)))
+ (let ((?x36 ((_ zero_extend 32) ?x35)))
+ (let ((?x29 (bvshl ?x36 (_ bv4 64))))
+ (and (distinct (_ bv16 64) ?x29) true)))))))))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv32 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv64 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv96 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv128 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv160 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv192 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (and (distinct (_ bv224 64) ?x191) true)))
+(assert
+ (let ((?x191 (concat (concat (_ bv0 30) ((_ extract 28 0) scanf_0_57_32)) (_ bv0 5))))
+ (= (_ bv256 64) ?x191)))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {'scanf_0': 8}
+; 数组初始值: {'a': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0}, 'b': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0}, 'c': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0}, 'd': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0}, 'e': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0}}
+; 数组最终值: {'a': {0: 0, 1: 6, 2: 12, 3: 18, 4: 24, 5: 30, 6: 36, 7: 42, 8: 48, 9: 54, 10: 60, 11: 66, 12: 72, 13: 78, 14: 84, 15: 90}, 'b': {0: 0, 1: 2, 2: 4, 3: 6, 4: 8, 5: 10, 6: 12, 7: 14, 8: 16, 9: 18, 10: 20, 11: 22, 12: 24, 13: 26, 14: 28, 15: 30}, 'c': {0: 0, 1: 3, 2: 6, 3: 9, 4: 12, 5: 15, 6: 18, 7: 21}, 'd': {0: 0, 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24, 7: 28}, 'e': {0: 0, 1: 5, 2: 10, 3: 15, 4: 20, 5: 25, 6: 30, 7: 35}}
+; 数组符号表达式: {'a': {0: '<BV32 0x0>', 1: '<BV32 0x6>', 2: '<BV32 0xc>', 3: '<BV32 0x12>', 4: '<BV32 0x18>', 5: '<BV32 0x1e>', 6: '<BV32 0x24>', 7: '<BV32 0x2a>', 8: '<BV32 0x30>', 9: '<BV32 0x36>', 10: '<BV32 0x3c>', 11: '<BV32 0x42>', 12: '<BV32 0x48>', 13: '<BV32 0x4e>', 14: '<BV32 0x54>', 15: '<BV32 0x5a>'}, 'b': {0: '<BV32 0x0>', 1: '<BV32 0x2>', 2: '<BV32 0x4>', 3: '<BV32 0x6>', 4: '<BV32 0x8>', 5: '<BV32 0xa>', 6: '<BV32 0xc>', 7: '<BV32 0xe>', 8: '<BV32 0x10>', 9: '<BV32 0x12>', 10: '<BV32 0x14>', 11: '<BV32 0x16>', 12: '<BV32 0x18>', 13: '<BV32 0x1a>', 14: '<BV32 0x1c>', 15: '<BV32 0x1e>'}, 'c': {0: '<BV32 0x0>', 1: '<BV32 0x3>', 2: '<BV32 0x6>', 3: '<BV32 0x9>', 4: '<BV32 0xc>', 5: '<BV32 0xf>', 6: '<BV32 0x12>', 7: '<BV32 0x15>'}, 'd': {0: '<BV32 0x0>', 1: '<BV32 0x4>', 2: '<BV32 0x8>', 3: '<BV32 0xc>', 4: '<BV32 0x10>', 5: '<BV32 0x14>', 6: '<BV32 0x18>', 7: '<BV32 0x1c>'}, 'e': {0: '<BV32 0x0>', 1: '<BV32 0x5>', 2: '<BV32 0xa>', 3: '<BV32 0xf>', 4: '<BV32 0x14>', 5: '<BV32 0x19>', 6: '<BV32 0x1e>', 7: '<BV32 0x23>'}}
+; 约束信息: {'count': 12, 'types': ['other', 'other', 'other', 'inequality', 'inequality', 'inequality', 'inequality', 'inequality', 'inequality', 'inequality', 'inequality', 'equality'], 'array_related_count': 0}
+; 内存哈希: 2242100423110268602
+; 
+; 时间信息:
+; 符号执行开始时间: 2025-08-04 00:10:26
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.052 秒
+; 路径探索时间: 3.766 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 9/9
+; 程序输出:
+请输入count参数:

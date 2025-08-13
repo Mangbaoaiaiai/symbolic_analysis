@@ -1,0 +1,49 @@
+符号执行时间报告
+==================================================
+
+分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_vpvpv/vpvpv_O2
+输出前缀: vpvpv_O2
+超时设置: 180 秒
+数组符号化: 启用
+
+时间统计:
+------------------------------
+开始时间: 2025-08-04 00:10:05
+结束时间: 2025-08-04 00:10:24
+项目设置时间: 0.051 秒 (0.3%)
+路径探索时间: 4.051 秒 (21.0%)
+状态分析时间: 15.155 秒 (78.7%)
+总计时间: 19.256 秒
+
+分析结果:
+------------------------------
+发现路径数: 16
+探索效率: 3.95 路径/秒
+平均路径分析时间: 0.947 秒/路径
+
+数组符号化信息:
+------------------------------
+1. a: 16/128 个元素
+2. b: 16/128 个元素
+3. c: 8/128 个元素
+4. d: 8/128 个元素
+5. e: 8/128 个元素
+
+生成的文件:
+------------------------------
+vpvpv_O2_path_1.txt
+vpvpv_O2_path_2.txt
+vpvpv_O2_path_3.txt
+vpvpv_O2_path_4.txt
+vpvpv_O2_path_5.txt
+vpvpv_O2_path_6.txt
+vpvpv_O2_path_7.txt
+vpvpv_O2_path_8.txt
+vpvpv_O2_path_9.txt
+vpvpv_O2_path_10.txt
+vpvpv_O2_path_11.txt
+vpvpv_O2_path_12.txt
+vpvpv_O2_path_13.txt
+vpvpv_O2_path_14.txt
+vpvpv_O2_path_15.txt
+vpvpv_O2_path_16.txt

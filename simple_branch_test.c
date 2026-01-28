@@ -10,16 +10,16 @@ int main(int argc, char* argv[]) {
         x = 0;
     }
     
-    // 简单的条件分支
+    // Simple conditional branching
     if (x > 10) {
         result = x * 2;
-        printf("大于10: %d\n", result);
+        printf("greater than 10: %d\n", result);
     } else if (x > 5) {
         result = x + 10;
-        printf("大于5: %d\n", result);
+        printf("greater than 5: %d\n", result);
     } else {
         result = x - 1;
-        printf("小于等于5: %d\n", result);
+        printf("less than or equal to 5: %d\n", result);
     }
     
     return result;

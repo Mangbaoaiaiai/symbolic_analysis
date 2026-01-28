@@ -19,20 +19,22 @@ under `data/` and `experiments/`. It is designed so that you can either:
 - **`scripts/`** – Entry-point scripts and small demos.
   - `quick_start_demo.py` – End-to-end smoke test for dependencies, path
     generation, symbolic analysis, and a mini TSVC benchmark run.
-  - `se_script.py` / `se_script_improved.py` – Standalone symbolic-execution
-    drivers for TSVC-style programs.
-  - `simple_demo_tsvc.py` – Minimal TSVC benchmark demo.
+  - `se_script_improved.py` – Standalone symbolic-execution driver for
+    TSVC-style programs.
   - `simple_angr_test.py` – Simple angr-based test to verify the environment.
   - `run_benchmark_analysis.py` – Convenience script to run a batch of analyses.
   - `create_all_benchmarks.py` – Generate / materialize all TSVC benchmarks.
+  - **`ardiff_comparison/`** – ARDiff-specific scripts: `analyze_airy_max_eq.py`,
+    `enhanced_equivalence_analyzer.py`, `verify_java_equivalence.py`,
+    `semantic_equivalence_analyzer_enhanced.py`, and shell scripts for
+    convert/compile.
 
 - **`src/symbolic_analysis/`** – Core reusable library code.
   - **`benchmarks/`**
     - `tsvc_benchmark_runner.py` – Extract and compile TSVC benchmark functions,
       manage optimization-level variants (O1/O2/O3).
-    - `real_tsvc_analyzer.py`, `improved_real_tsvc_analyzer.py`,
-      `enhanced_mock_tsvc_analyzer.py` – Higher-level benchmark analyzers
-      that coordinate compilation and analysis.
+    - `improved_real_tsvc_analyzer.py`, `enhanced_mock_tsvc_analyzer.py` –
+      Higher-level benchmark analyzers that coordinate compilation and analysis.
   - **`integration/`**
     - `tsvc_symbolic_integration.py` – Main integrator that runs the TSVC
       pipeline end to end and produces comparison reports versus PLDI'19.
@@ -74,16 +76,20 @@ under `data/` and `experiments/`. It is designed so that you can either:
   - `data/tsvc/reports/` – Timing and equivalence reports for TSVC benchmarks.
   - `data/batch/` – Batch-level summary JSON (`batch_*_data.json`).
   - `data/benchmark_timing/` – Overall timing summary JSON files.
+  - `data/ardiff_comparison/` – ARDiff comparison outputs: JSON summaries,
+    `reports/` (text reports), `artifacts/` (test C/SMT/binaries).
 
 - **`experiments/`** – Experiment-specific scripts and results.
   - `experiments/tsvc_experiments/` – TSVC-focused experiments and reports
     (e.g., various `vtv*`, `vpv*` timing and equivalence studies).
-  - `experiments/ardiff_comparison/` – Symbolic-analysis experiments comparing
-    against ARDiff-style Java-based equivalence checking, including
-    `symbolic_analysis/benchmarks/` and `symbolic_analysis/equivalence_results/`.
+  - `experiments/ardiff_comparison/` – ARDiff comparison: **only** the C/Java
+    benchmark programs, under `benchmarks/` (Airy, Bess, caldat, dart, Ell,
+    gam, ModDiff, power, Ran, etc.). ARDiff-specific scripts live in
+    `scripts/ardiff_comparison/`; reports and data in `data/ardiff_comparison/`;
+    extra docs in `docs/ardiff_comparison/`.
 
-- **`docs/`** – Higher-level documentation (currently in Chinese; can be used
-  as reference for methodology and design decisions).
+- **`docs/`** – Higher-level documentation (methodology, usage). ARDiff-related
+  notes and reports are under `docs/ardiff_comparison/`.
 
 - **`tests/`** – Python-based tests for core components such as the layered
   system and enhanced symbolic execution / equivalence.
@@ -122,7 +128,7 @@ under `data/` and `experiments/`. It is designed so that you can either:
   - Run standalone symbolic execution:
 
     ```bash
-    python3 scripts/se_script.py
+    python3 scripts/se_script_improved.py
     ```
 
   - Run enhanced path equivalence on two sets of path files:

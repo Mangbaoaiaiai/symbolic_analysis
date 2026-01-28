@@ -1,0 +1,42 @@
+批量等价性分析报告
+============================================================
+
+分析时间: 2025-08-28 03:51:29
+
+总体统计:
+  Eq程序对: 30 个
+  NEq程序对: 25 个
+  总程序对: 55 个
+  成功分析: 55 个 (100.0%)
+  预测准确: 33 个 (60.0%)
+  总分析时间: 83.5 秒
+
+错误预测的程序:
+------------------------------
+Eq程序被错误预测为不等价:
+  - benchmarks/Airy/MAX/Eq
+  - benchmarks/Airy/MAX/Eq/instrumented
+  - benchmarks/ModDiff/Eq/LoopMult10
+  - benchmarks/ModDiff/Eq/LoopMult15
+  - benchmarks/ModDiff/Eq/LoopMult20
+  - benchmarks/ModDiff/Eq/LoopMult5
+  - benchmarks/Ran/ranzero/Eq
+  - benchmarks/dart/test/Eq
+
+NEq程序被错误预测为等价:
+  - benchmarks/Airy/MAX/NEq
+  - benchmarks/Bess/SQR/NEq
+  - benchmarks/Bess/bessi0/NEq
+  - benchmarks/Bess/probks/NEq
+  - benchmarks/ModDiff/NEq/LoopSub
+  - benchmarks/ModDiff/NEq/LoopUnreach10
+  - benchmarks/ModDiff/NEq/LoopUnreach15
+  - benchmarks/ModDiff/NEq/LoopUnreach2
+  - benchmarks/ModDiff/NEq/LoopUnreach20
+  - benchmarks/ModDiff/NEq/LoopUnreach5
+  - benchmarks/Ran/ranzero/NEq
+  - benchmarks/caldat/julday/NEq
+  - benchmarks/gam/erfcc/NEq
+  - benchmarks/power/test/NEq
+
+详细结果请查看各个程序目录下的 equivalence_analysis_*.txt 文件

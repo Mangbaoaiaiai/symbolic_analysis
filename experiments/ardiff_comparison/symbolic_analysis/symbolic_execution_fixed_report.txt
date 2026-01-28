@@ -1,0 +1,229 @@
+符号化文件批量符号执行分析报告
+============================================================
+
+基本信息:
+------------------------------
+分析目录: benchmarks
+超时设置: 60 秒
+总文件数: 24
+开始时间: 2025-08-21 02:52:19
+结束时间: 2025-08-21 02:52:56
+总耗时: 37.22 秒
+
+执行统计:
+------------------------------
+成功执行: 24 个
+失败执行: 0 个
+成功率: 100.0%
+总有意义约束: 2 个
+
+成功案例详情:
+------------------------------
+benchmarks/Airy/MAX/Eq/instrumented/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.54 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/instrumented/se_symbolic_newV
+
+benchmarks/Airy/MAX/Eq/instrumented/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.75 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/instrumented/se_symbolic_oldV
+
+benchmarks/Airy/MAX/Eq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.55 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/se_symbolic_newV
+
+benchmarks/Airy/MAX/Eq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.66 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/se_symbolic_oldV
+
+benchmarks/Airy/MAX/NEq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.67 秒
+  输出前缀: benchmarks/Airy/MAX/NEq/se_symbolic_newV
+
+benchmarks/Airy/MAX/NEq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.69 秒
+  输出前缀: benchmarks/Airy/MAX/NEq/se_symbolic_oldV
+
+benchmarks/Bess/SQR/Eq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.49 秒
+  输出前缀: benchmarks/Bess/SQR/Eq/se_symbolic_newV
+
+benchmarks/Bess/SQR/Eq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/Bess/SQR/Eq/se_symbolic_oldV
+
+benchmarks/Bess/SQR/NEq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.63 秒
+  输出前缀: benchmarks/Bess/SQR/NEq/se_symbolic_newV
+
+benchmarks/Bess/SQR/NEq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.43 秒
+  输出前缀: benchmarks/Bess/SQR/NEq/se_symbolic_oldV
+
+benchmarks/ModDiff/Eq/Add/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.43 秒
+  输出前缀: benchmarks/ModDiff/Eq/Add/se_symbolic_newV
+
+benchmarks/ModDiff/Eq/Add/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.46 秒
+  输出前缀: benchmarks/ModDiff/Eq/Add/se_symbolic_oldV
+
+benchmarks/ModDiff/Eq/Const/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/Eq/Const/se_symbolic_newV
+
+benchmarks/ModDiff/Eq/Const/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/Eq/Const/se_symbolic_oldV
+
+benchmarks/ModDiff/NEq/LoopSub/symbolic_newV:
+  生成路径数: 1
+  有意义约束: 1
+  执行时间: 1.43 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopSub/se_symbolic_newV
+
+benchmarks/ModDiff/NEq/LoopSub/symbolic_oldV:
+  生成路径数: 1
+  有意义约束: 1
+  执行时间: 1.49 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopSub/se_symbolic_oldV
+
+benchmarks/Ran/gammln/Eq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.48 秒
+  输出前缀: benchmarks/Ran/gammln/Eq/se_symbolic_newV
+
+benchmarks/Ran/gammln/Eq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.45 秒
+  输出前缀: benchmarks/Ran/gammln/Eq/se_symbolic_oldV
+
+benchmarks/Ran/gammln/NEq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.54 秒
+  输出前缀: benchmarks/Ran/gammln/NEq/se_symbolic_newV
+
+benchmarks/Ran/gammln/NEq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.60 秒
+  输出前缀: benchmarks/Ran/gammln/NEq/se_symbolic_oldV
+
+benchmarks/Ran/ranzero/Eq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.70 秒
+  输出前缀: benchmarks/Ran/ranzero/Eq/se_symbolic_newV
+
+benchmarks/Ran/ranzero/Eq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.61 秒
+  输出前缀: benchmarks/Ran/ranzero/Eq/se_symbolic_oldV
+
+benchmarks/Ran/ranzero/NEq/symbolic_newV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.78 秒
+  输出前缀: benchmarks/Ran/ranzero/NEq/se_symbolic_newV
+
+benchmarks/Ran/ranzero/NEq/symbolic_oldV:
+  生成路径数: 0
+  有意义约束: 0
+  执行时间: 1.61 秒
+  输出前缀: benchmarks/Ran/ranzero/NEq/se_symbolic_oldV
+
+总计生成路径数: 2
+平均路径数/文件: 0.1
+平均执行时间: 1.55 秒
+约束质量率: 100.0%
+
+测试组结果:
+------------------------------
+
+Airy/MAX/Eq/instrumented:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.54s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.75s
+
+Airy/MAX/Eq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.55s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.66s
+
+Airy/MAX/NEq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.67s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.69s
+
+Bess/SQR/Eq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.49s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.40s
+
+Bess/SQR/NEq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.63s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.43s
+
+ModDiff/Eq/Add:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.43s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.46s
+
+ModDiff/Eq/Const:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.40s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.40s
+
+ModDiff/NEq/LoopSub:
+  newV: ✅ 路径数=1 有效约束=1 时间=1.43s
+  oldV: ✅ 路径数=1 有效约束=1 时间=1.49s
+
+Ran/gammln/Eq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.48s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.45s
+
+Ran/gammln/NEq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.54s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.60s
+
+Ran/ranzero/Eq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.70s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.61s
+
+Ran/ranzero/NEq:
+  newV: ✅ 路径数=0 有效约束=0 时间=1.78s
+  oldV: ✅ 路径数=0 有效约束=0 时间=1.61s
+
+生成的约束文件:
+------------------------------
+每个成功分析的符号化文件都生成了以下文件:
+- se_symbolic_{exe_name}_path_*.txt  - 路径约束文件
+- se_symbolic_{exe_name}_timing_report.txt  - 时间统计报告
+
+查看有意义约束文件示例:
+find . -name 'se_symbolic_*_path_*.txt' | head -5

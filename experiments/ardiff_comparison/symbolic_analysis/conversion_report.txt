@@ -1,0 +1,430 @@
+开始批量转换Java测试为C代码并编译...
+时间: Thu Aug 21 01:30:48 CST 2025
+========================================
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/dart/test/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/dart/test/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/dart/test/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/dart/test/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/sine/mysin/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/sine/mysin/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/sine/mysin/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/sine/mysin/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/normAngle/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/normAngle/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/normAngle/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/normAngle/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/conflict/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/conflict/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/conflict/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/conflict/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/snippet/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/snippet/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/snippet/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/tsafe/snippet/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gamdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gamdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gamdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gamdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/poidev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/poidev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/poidev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/poidev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/expdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/expdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/expdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/expdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gasdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gasdev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gasdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/gasdev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/bnldev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/bnldev/NEq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/bnldev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...
+    ✓ oldV 编译成功
+    ✓ newV 编译成功
+  测试可执行文件...
+    ✓ 两个可执行文件都可用
+  ----------------------------------------
+处理测试目录: /root/ardiff/symbolic_analysis/benchmarks/Ran/bnldev/Eq
+  转换 oldV.java -> oldV.c
+  转换 newV.java -> newV.c
+  编译C代码...

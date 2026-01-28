@@ -1,0 +1,81 @@
+增强的批量等价性分析报告
+============================================================
+
+分析时间: 2025-09-11 00:46:10
+
+四类判断流程:
+  1️⃣  约束等价且输出相同 → 等价
+  2️⃣  约束不等价但输出相同 → 疑似不等价（约束）
+  3️⃣  约束等价但输出不同 → 疑似不等价（输出）
+  4️⃣  约束不等价且输出不同 → 不等价
+
+总体统计:
+  Eq程序对: 30 个
+  NEq程序对: 25 个
+  总程序对: 55 个
+  成功分析: 55 个 (100.0%)
+  预测准确: 44 个 (80.0%)
+  总分析时间: 139.0 秒
+
+Eq程序四类结果详情:
+------------------------------
+  benchmarks/Airy/MAX/Eq: suspicious_constraint
+  benchmarks/Airy/MAX/Eq/instrumented: suspicious_constraint
+  benchmarks/Airy/Sign/Eq: equivalent
+  benchmarks/Bess/SIGN/Eq: equivalent
+  benchmarks/Bess/SQR/Eq: equivalent
+  benchmarks/Bess/bessi0/Eq: equivalent
+  benchmarks/Bess/bessi1/Eq: suspicious_constraint
+  benchmarks/Bess/probks/Eq: equivalent
+  benchmarks/Ell/rc/Eq: equivalent
+  benchmarks/ModDiff/Eq/Add: equivalent
+  benchmarks/ModDiff/Eq/Comp: equivalent
+  benchmarks/ModDiff/Eq/Const: equivalent
+  benchmarks/ModDiff/Eq/LoopMult10: suspicious_constraint
+  benchmarks/ModDiff/Eq/LoopMult15: suspicious_constraint
+  benchmarks/ModDiff/Eq/LoopMult20: suspicious_constraint
+  benchmarks/ModDiff/Eq/LoopMult5: suspicious_constraint
+  benchmarks/ModDiff/Eq/LoopSub: equivalent
+  benchmarks/ModDiff/Eq/LoopUnreach10: equivalent
+  benchmarks/ModDiff/Eq/LoopUnreach15: equivalent
+  benchmarks/ModDiff/Eq/LoopUnreach2: equivalent
+  benchmarks/ModDiff/Eq/LoopUnreach20: equivalent
+  benchmarks/ModDiff/Eq/LoopUnreach5: equivalent
+  benchmarks/ModDiff/Eq/Sub: equivalent
+  benchmarks/Ran/gammln/Eq: equivalent
+  benchmarks/Ran/ranzero/Eq: suspicious_constraint
+  benchmarks/caldat/julday/Eq: suspicious_constraint
+  benchmarks/dart/test/Eq: suspicious_constraint
+  benchmarks/gam/ei/Eq: suspicious_output
+  benchmarks/gam/erfcc/Eq: equivalent
+  benchmarks/power/test/Eq: equivalent
+
+NEq程序四类结果详情:
+------------------------------
+  benchmarks/Airy/MAX/NEq: suspicious_output
+  benchmarks/Airy/Sign/NEq: suspicious_constraint
+  benchmarks/Bess/SIGN/NEq: suspicious_constraint
+  benchmarks/Bess/SQR/NEq: suspicious_output
+  benchmarks/Bess/bessi0/NEq: suspicious_output
+  benchmarks/Bess/bessi1/NEq: suspicious_constraint
+  benchmarks/Bess/probks/NEq: suspicious_output
+  benchmarks/Ell/rc/NEq: suspicious_constraint
+  benchmarks/ModDiff/NEq/LoopMult10: not_equivalent
+  benchmarks/ModDiff/NEq/LoopMult15: not_equivalent
+  benchmarks/ModDiff/NEq/LoopMult20: not_equivalent
+  benchmarks/ModDiff/NEq/LoopMult5: not_equivalent
+  benchmarks/ModDiff/NEq/LoopSub: suspicious_output
+  benchmarks/ModDiff/NEq/LoopUnreach10: suspicious_output
+  benchmarks/ModDiff/NEq/LoopUnreach15: suspicious_output
+  benchmarks/ModDiff/NEq/LoopUnreach2: suspicious_output
+  benchmarks/ModDiff/NEq/LoopUnreach20: suspicious_output
+  benchmarks/ModDiff/NEq/LoopUnreach5: suspicious_output
+  benchmarks/Ran/gammln/NEq: not_equivalent
+  benchmarks/Ran/ranzero/NEq: suspicious_output
+  benchmarks/caldat/julday/NEq: suspicious_output
+  benchmarks/dart/test/NEq: suspicious_constraint
+  benchmarks/gam/ei/NEq: suspicious_constraint
+  benchmarks/gam/erfcc/NEq: suspicious_constraint
+  benchmarks/power/test/NEq: suspicious_constraint
+
+详细结果请查看各个程序目录下的 equivalence_analysis_*.txt 文件

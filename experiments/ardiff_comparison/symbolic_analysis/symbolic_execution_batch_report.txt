@@ -1,0 +1,912 @@
+批量符号执行分析报告
+============================================================
+
+基本信息:
+------------------------------
+分析目录: benchmarks
+超时设置: 60 秒
+总文件数: 146
+开始时间: 2025-08-21 02:26:54
+结束时间: 2025-08-21 02:30:18
+总耗时: 204.15 秒
+
+执行统计:
+------------------------------
+成功执行: 146 个
+失败执行: 0 个
+成功率: 100.0%
+
+成功案例详情:
+------------------------------
+benchmarks/Airy/MAX/Eq/instrumented/newV:
+  生成路径数: 1
+  执行时间: 1.66 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/instrumented/se_newV
+benchmarks/Airy/MAX/Eq/instrumented/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/instrumented/se_oldV
+benchmarks/Airy/MAX/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/se_newV
+benchmarks/Airy/MAX/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Airy/MAX/Eq/se_oldV
+benchmarks/Airy/MAX/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Airy/MAX/NEq/se_newV
+benchmarks/Airy/MAX/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Airy/MAX/NEq/se_oldV
+benchmarks/Airy/Sign/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Airy/Sign/Eq/se_newV
+benchmarks/Airy/Sign/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.53 秒
+  输出前缀: benchmarks/Airy/Sign/Eq/se_oldV
+benchmarks/Airy/Sign/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Airy/Sign/NEq/se_newV
+benchmarks/Airy/Sign/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Airy/Sign/NEq/se_oldV
+benchmarks/Bess/SIGN/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Bess/SIGN/Eq/se_newV
+benchmarks/Bess/SIGN/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/SIGN/Eq/se_oldV
+benchmarks/Bess/SIGN/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/Bess/SIGN/NEq/se_newV
+benchmarks/Bess/SIGN/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/SIGN/NEq/se_oldV
+benchmarks/Bess/SQR/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/SQR/Eq/se_newV
+benchmarks/Bess/SQR/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/SQR/Eq/se_oldV
+benchmarks/Bess/SQR/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/Bess/SQR/NEq/se_newV
+benchmarks/Bess/SQR/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/SQR/NEq/se_oldV
+benchmarks/Bess/bessi0/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/bessi0/Eq/se_newV
+benchmarks/Bess/bessi0/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessi0/Eq/se_oldV
+benchmarks/Bess/bessi0/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Bess/bessi0/NEq/se_newV
+benchmarks/Bess/bessi0/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/bessi0/NEq/se_oldV
+benchmarks/Bess/bessi1/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessi1/Eq/se_newV
+benchmarks/Bess/bessi1/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessi1/Eq/se_oldV
+benchmarks/Bess/bessi1/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Bess/bessi1/NEq/se_newV
+benchmarks/Bess/bessi1/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessi1/NEq/se_oldV
+benchmarks/Bess/bessj0/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessj0/Eq/se_newV
+benchmarks/Bess/bessj0/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Bess/bessj0/Eq/se_oldV
+benchmarks/Bess/bessj0/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessj0/NEq/se_newV
+benchmarks/Bess/bessj0/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Bess/bessj0/NEq/se_oldV
+benchmarks/Bess/bessj1/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessj1/Eq/se_newV
+benchmarks/Bess/bessj1/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/Bess/bessj1/Eq/se_oldV
+benchmarks/Bess/bessj1/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Bess/bessj1/NEq/se_newV
+benchmarks/Bess/bessj1/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.49 秒
+  输出前缀: benchmarks/Bess/bessj1/NEq/se_oldV
+benchmarks/Bess/probks/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Bess/probks/Eq/se_newV
+benchmarks/Bess/probks/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.45 秒
+  输出前缀: benchmarks/Bess/probks/Eq/se_oldV
+benchmarks/Bess/probks/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/Bess/probks/NEq/se_newV
+benchmarks/Bess/probks/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Bess/probks/NEq/se_oldV
+benchmarks/Ell/plgndr/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Ell/plgndr/Eq/se_newV
+benchmarks/Ell/plgndr/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ell/plgndr/Eq/se_oldV
+benchmarks/Ell/plgndr/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Ell/plgndr/NEq/se_newV
+benchmarks/Ell/plgndr/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Ell/plgndr/NEq/se_oldV
+benchmarks/Ell/rc/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Ell/rc/Eq/se_newV
+benchmarks/Ell/rc/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/Ell/rc/Eq/se_oldV
+benchmarks/Ell/rc/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ell/rc/NEq/se_newV
+benchmarks/Ell/rc/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Ell/rc/NEq/se_oldV
+benchmarks/ModDiff/Eq/Add/newV:
+  生成路径数: 1
+  执行时间: 1.43 秒
+  输出前缀: benchmarks/ModDiff/Eq/Add/se_newV
+benchmarks/ModDiff/Eq/Add/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/Add/se_oldV
+benchmarks/ModDiff/Eq/Comp/newV:
+  生成路径数: 0
+  执行时间: 1.32 秒
+  输出前缀: benchmarks/ModDiff/Eq/Comp/se_newV
+benchmarks/ModDiff/Eq/Comp/oldV:
+  生成路径数: 0
+  执行时间: 1.33 秒
+  输出前缀: benchmarks/ModDiff/Eq/Comp/se_oldV
+benchmarks/ModDiff/Eq/Const/newV:
+  生成路径数: 1
+  执行时间: 1.57 秒
+  输出前缀: benchmarks/ModDiff/Eq/Const/se_newV
+benchmarks/ModDiff/Eq/Const/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/Eq/Const/se_oldV
+benchmarks/ModDiff/Eq/LoopMult10/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult10/se_newV
+benchmarks/ModDiff/Eq/LoopMult10/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult10/se_oldV
+benchmarks/ModDiff/Eq/LoopMult15/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult15/se_newV
+benchmarks/ModDiff/Eq/LoopMult15/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult15/se_oldV
+benchmarks/ModDiff/Eq/LoopMult2/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult2/se_newV
+benchmarks/ModDiff/Eq/LoopMult2/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult2/se_oldV
+benchmarks/ModDiff/Eq/LoopMult20/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult20/se_newV
+benchmarks/ModDiff/Eq/LoopMult20/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult20/se_oldV
+benchmarks/ModDiff/Eq/LoopMult5/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult5/se_newV
+benchmarks/ModDiff/Eq/LoopMult5/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopMult5/se_oldV
+benchmarks/ModDiff/Eq/LoopSub/newV:
+  生成路径数: 0
+  执行时间: 1.33 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopSub/se_newV
+benchmarks/ModDiff/Eq/LoopSub/oldV:
+  生成路径数: 0
+  执行时间: 1.34 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopSub/se_oldV
+benchmarks/ModDiff/Eq/LoopUnreach10/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach10/se_newV
+benchmarks/ModDiff/Eq/LoopUnreach10/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach10/se_oldV
+benchmarks/ModDiff/Eq/LoopUnreach15/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach15/se_newV
+benchmarks/ModDiff/Eq/LoopUnreach15/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach15/se_oldV
+benchmarks/ModDiff/Eq/LoopUnreach2/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach2/se_newV
+benchmarks/ModDiff/Eq/LoopUnreach2/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach2/se_oldV
+benchmarks/ModDiff/Eq/LoopUnreach20/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach20/se_newV
+benchmarks/ModDiff/Eq/LoopUnreach20/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach20/se_oldV
+benchmarks/ModDiff/Eq/LoopUnreach5/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach5/se_newV
+benchmarks/ModDiff/Eq/LoopUnreach5/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/Eq/LoopUnreach5/se_oldV
+benchmarks/ModDiff/Eq/Sub/newV:
+  生成路径数: 0
+  执行时间: 1.33 秒
+  输出前缀: benchmarks/ModDiff/Eq/Sub/se_newV
+benchmarks/ModDiff/Eq/Sub/oldV:
+  生成路径数: 0
+  执行时间: 1.34 秒
+  输出前缀: benchmarks/ModDiff/Eq/Sub/se_oldV
+benchmarks/ModDiff/Eq/UnchLoop/newV:
+  生成路径数: 1
+  执行时间: 1.52 秒
+  输出前缀: benchmarks/ModDiff/Eq/UnchLoop/se_newV
+benchmarks/ModDiff/Eq/UnchLoop/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/Eq/UnchLoop/se_oldV
+benchmarks/ModDiff/NEq/LoopMult10/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult10/se_newV
+benchmarks/ModDiff/NEq/LoopMult10/oldV:
+  生成路径数: 1
+  执行时间: 1.45 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult10/se_oldV
+benchmarks/ModDiff/NEq/LoopMult15/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult15/se_newV
+benchmarks/ModDiff/NEq/LoopMult15/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult15/se_oldV
+benchmarks/ModDiff/NEq/LoopMult2/newV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult2/se_newV
+benchmarks/ModDiff/NEq/LoopMult2/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult2/se_oldV
+benchmarks/ModDiff/NEq/LoopMult20/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult20/se_newV
+benchmarks/ModDiff/NEq/LoopMult20/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult20/se_oldV
+benchmarks/ModDiff/NEq/LoopMult5/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult5/se_newV
+benchmarks/ModDiff/NEq/LoopMult5/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopMult5/se_oldV
+benchmarks/ModDiff/NEq/LoopSub/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopSub/se_newV
+benchmarks/ModDiff/NEq/LoopSub/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopSub/se_oldV
+benchmarks/ModDiff/NEq/LoopUnreach10/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach10/se_newV
+benchmarks/ModDiff/NEq/LoopUnreach10/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach10/se_oldV
+benchmarks/ModDiff/NEq/LoopUnreach15/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach15/se_newV
+benchmarks/ModDiff/NEq/LoopUnreach15/oldV:
+  生成路径数: 1
+  执行时间: 1.54 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach15/se_oldV
+benchmarks/ModDiff/NEq/LoopUnreach2/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach2/se_newV
+benchmarks/ModDiff/NEq/LoopUnreach2/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach2/se_oldV
+benchmarks/ModDiff/NEq/LoopUnreach20/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach20/se_newV
+benchmarks/ModDiff/NEq/LoopUnreach20/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach20/se_oldV
+benchmarks/ModDiff/NEq/LoopUnreach5/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach5/se_newV
+benchmarks/ModDiff/NEq/LoopUnreach5/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/LoopUnreach5/se_oldV
+benchmarks/ModDiff/NEq/UnchLoop/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/ModDiff/NEq/UnchLoop/se_newV
+benchmarks/ModDiff/NEq/UnchLoop/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/ModDiff/NEq/UnchLoop/se_oldV
+benchmarks/Ran/gammln/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/Ran/gammln/Eq/se_newV
+benchmarks/Ran/gammln/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ran/gammln/Eq/se_oldV
+benchmarks/Ran/gammln/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ran/gammln/NEq/se_newV
+benchmarks/Ran/gammln/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/Ran/gammln/NEq/se_oldV
+benchmarks/Ran/ran/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ran/ran/Eq/se_newV
+benchmarks/Ran/ran/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/Ran/ran/Eq/se_oldV
+benchmarks/Ran/ran/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/Ran/ran/NEq/se_newV
+benchmarks/Ran/ran/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/Ran/ran/NEq/se_oldV
+benchmarks/Ran/ranzero/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Ran/ranzero/Eq/se_newV
+benchmarks/Ran/ranzero/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Ran/ranzero/Eq/se_oldV
+benchmarks/Ran/ranzero/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/Ran/ranzero/NEq/se_newV
+benchmarks/Ran/ranzero/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.51 秒
+  输出前缀: benchmarks/Ran/ranzero/NEq/se_oldV
+benchmarks/caldat/julday/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/caldat/julday/Eq/se_newV
+benchmarks/caldat/julday/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/caldat/julday/Eq/se_oldV
+benchmarks/caldat/julday/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/caldat/julday/NEq/se_newV
+benchmarks/caldat/julday/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/caldat/julday/NEq/se_oldV
+benchmarks/dart/test/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/dart/test/Eq/se_newV
+benchmarks/dart/test/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/dart/test/Eq/se_oldV
+benchmarks/dart/test/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/dart/test/NEq/se_newV
+benchmarks/dart/test/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/dart/test/NEq/se_oldV
+benchmarks/gam/betacf/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/gam/betacf/Eq/se_newV
+benchmarks/gam/betacf/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.37 秒
+  输出前缀: benchmarks/gam/betacf/Eq/se_oldV
+benchmarks/gam/betacf/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.45 秒
+  输出前缀: benchmarks/gam/betacf/NEq/se_newV
+benchmarks/gam/betacf/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/gam/betacf/NEq/se_oldV
+benchmarks/gam/ei/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/gam/ei/Eq/se_newV
+benchmarks/gam/ei/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/gam/ei/Eq/se_oldV
+benchmarks/gam/ei/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/gam/ei/NEq/se_newV
+benchmarks/gam/ei/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/gam/ei/NEq/se_oldV
+benchmarks/gam/erfcc/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/gam/erfcc/Eq/se_newV
+benchmarks/gam/erfcc/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/gam/erfcc/Eq/se_oldV
+benchmarks/gam/erfcc/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/gam/erfcc/NEq/se_newV
+benchmarks/gam/erfcc/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.50 秒
+  输出前缀: benchmarks/gam/erfcc/NEq/se_oldV
+benchmarks/gam/expint/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/gam/expint/Eq/se_newV
+benchmarks/gam/expint/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.41 秒
+  输出前缀: benchmarks/gam/expint/Eq/se_oldV
+benchmarks/gam/expint/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.44 秒
+  输出前缀: benchmarks/gam/expint/NEq/se_newV
+benchmarks/gam/expint/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/gam/expint/NEq/se_oldV
+benchmarks/gam/gcf/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/gam/gcf/Eq/se_newV
+benchmarks/gam/gcf/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.42 秒
+  输出前缀: benchmarks/gam/gcf/Eq/se_oldV
+benchmarks/gam/gcf/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/gam/gcf/NEq/se_newV
+benchmarks/gam/gcf/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.38 秒
+  输出前缀: benchmarks/gam/gcf/NEq/se_oldV
+benchmarks/power/test/Eq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/power/test/Eq/se_newV
+benchmarks/power/test/Eq/oldV:
+  生成路径数: 1
+  执行时间: 1.51 秒
+  输出前缀: benchmarks/power/test/Eq/se_oldV
+benchmarks/power/test/NEq/newV:
+  生成路径数: 1
+  执行时间: 1.40 秒
+  输出前缀: benchmarks/power/test/NEq/se_newV
+benchmarks/power/test/NEq/oldV:
+  生成路径数: 1
+  执行时间: 1.39 秒
+  输出前缀: benchmarks/power/test/NEq/se_oldV
+
+总计生成路径数: 140
+平均路径数/文件: 1.0
+平均执行时间: 1.40 秒
+
+测试组结果:
+------------------------------
+
+Airy/MAX/Eq/instrumented:
+  newV: ✅ 路径数=1 时间=1.66s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+Airy/MAX/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+Airy/MAX/NEq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+Airy/Sign/Eq:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.53s
+
+Airy/Sign/NEq:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+Bess/SIGN/Eq:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Bess/SIGN/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Bess/SQR/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Bess/SQR/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Bess/bessi0/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Bess/bessi0/NEq:
+  newV: ✅ 路径数=1 时间=1.42s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Bess/bessi1/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Bess/bessi1/NEq:
+  newV: ✅ 路径数=1 时间=1.42s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Bess/bessj0/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+Bess/bessj0/NEq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Bess/bessj1/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+Bess/bessj1/NEq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.49s
+
+Bess/probks/Eq:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.45s
+
+Bess/probks/NEq:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+Ell/plgndr/Eq:
+  newV: ✅ 路径数=1 时间=1.42s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Ell/plgndr/NEq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Ell/rc/Eq:
+  newV: ✅ 路径数=1 时间=1.42s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+Ell/rc/NEq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+ModDiff/Eq/Add:
+  newV: ✅ 路径数=1 时间=1.43s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/Eq/Comp:
+  newV: ✅ 路径数=0 时间=1.32s
+  oldV: ✅ 路径数=0 时间=1.33s
+
+ModDiff/Eq/Const:
+  newV: ✅ 路径数=1 时间=1.57s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+ModDiff/Eq/LoopMult10:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+ModDiff/Eq/LoopMult15:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+ModDiff/Eq/LoopMult2:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+ModDiff/Eq/LoopMult20:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/Eq/LoopMult5:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+ModDiff/Eq/LoopSub:
+  newV: ✅ 路径数=0 时间=1.33s
+  oldV: ✅ 路径数=0 时间=1.34s
+
+ModDiff/Eq/LoopUnreach10:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+ModDiff/Eq/LoopUnreach15:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+ModDiff/Eq/LoopUnreach2:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+ModDiff/Eq/LoopUnreach20:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/Eq/LoopUnreach5:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+ModDiff/Eq/Sub:
+  newV: ✅ 路径数=0 时间=1.33s
+  oldV: ✅ 路径数=0 时间=1.34s
+
+ModDiff/Eq/UnchLoop:
+  newV: ✅ 路径数=1 时间=1.52s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/NEq/LoopMult10:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.45s
+
+ModDiff/NEq/LoopMult15:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+ModDiff/NEq/LoopMult2:
+  newV: ✅ 路径数=1 时间=1.37s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+ModDiff/NEq/LoopMult20:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+ModDiff/NEq/LoopMult5:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+ModDiff/NEq/LoopSub:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/NEq/LoopUnreach10:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+ModDiff/NEq/LoopUnreach15:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.54s
+
+ModDiff/NEq/LoopUnreach2:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+ModDiff/NEq/LoopUnreach20:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/NEq/LoopUnreach5:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+ModDiff/NEq/UnchLoop:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Ran/gammln/Eq:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+Ran/gammln/NEq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+Ran/ran/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+Ran/ran/NEq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+Ran/ranzero/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+Ran/ranzero/NEq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.51s
+
+caldat/julday/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+caldat/julday/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.40s
+
+dart/test/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+dart/test/NEq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+gam/betacf/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.37s
+
+gam/betacf/NEq:
+  newV: ✅ 路径数=1 时间=1.45s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+gam/ei/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+gam/ei/NEq:
+  newV: ✅ 路径数=1 时间=1.41s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+gam/erfcc/Eq:
+  newV: ✅ 路径数=1 时间=1.39s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+gam/erfcc/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.50s
+
+gam/expint/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.41s
+
+gam/expint/NEq:
+  newV: ✅ 路径数=1 时间=1.44s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+gam/gcf/Eq:
+  newV: ✅ 路径数=1 时间=1.38s
+  oldV: ✅ 路径数=1 时间=1.42s
+
+gam/gcf/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.38s
+
+power/test/Eq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.51s
+
+power/test/NEq:
+  newV: ✅ 路径数=1 时间=1.40s
+  oldV: ✅ 路径数=1 时间=1.39s
+
+生成的约束文件:
+------------------------------
+每个成功分析的可执行文件都生成了以下文件:
+- se_{exe_name}_path_*.txt  - 路径约束文件
+- se_{exe_name}_timing_report.txt  - 时间统计报告
+
+查看约束文件示例:
+find . -name 'se_*_path_*.txt' | head -5

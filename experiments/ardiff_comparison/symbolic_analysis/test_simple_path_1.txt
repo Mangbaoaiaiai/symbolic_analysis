@@ -1,0 +1,21 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7fffffffffeff50_1_32 () (_ BitVec 32))
+(assert
+ (bvsge (_ bv5 32) mem_7fffffffffeff50_1_32))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 1, 'types': ['other'], 'array_related_count': 0}
+; 内存哈希: 359105483990168442
+; 
+; 时间信息:
+; 符号执行开始时间: 2025-08-27 20:29:54
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.033 秒
+; 路径探索时间: 0.660 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 1/1
+; 程序输出:
+Result: 0

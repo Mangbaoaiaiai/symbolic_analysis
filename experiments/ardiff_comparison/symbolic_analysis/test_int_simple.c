@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int snippet(int x) {
+    if (x > 5) {
+        return x * 2;
+    } else {
+        return x + 1;
+    }
+}
+
+int main() {
+    int x;
+    scanf("%d", &x);
+    int result = snippet(x);
+    printf("Result: %d\n", result);
+    return 0;
+} 

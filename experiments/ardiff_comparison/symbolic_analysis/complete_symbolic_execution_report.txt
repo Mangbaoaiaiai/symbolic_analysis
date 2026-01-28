@@ -1,0 +1,107 @@
+完整符号执行报告
+生成时间: 2025-08-21 03:27:10
+==================================================
+
+总体统计:
+总文件数: 24
+执行成功: 0
+执行失败: 24
+有意义约束: 0
+空约束: 0
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/instrumented/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/instrumented/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/instrumented/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/instrumented/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/NEq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/NEq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/NEq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/NEq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/Eq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/Eq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/Eq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/Eq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/NEq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/NEq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/NEq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Bess/SQR/NEq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Add/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Add/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Add/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Add/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Const/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Const/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Const/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/Eq/Const/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/NEq/LoopSub/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/NEq/LoopSub/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/ModDiff/NEq/LoopSub/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/ModDiff/NEq/LoopSub/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/Eq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/gammln/NEq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/Eq/symbolic_oldV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq/symbolic_newV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq/symbolic_newV
+
+/root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq/symbolic_oldV: failed - none - 执行失败: usage: se_script.py [-h] [--benchmark BENCHMARK] [--binary BINARY]
+                    [--timeout TIMEOUT] [--output-prefix OUTPUT_PREFIX]
+se_script.py: error: unrecognized arguments: /root/ardiff/symbolic_analysis/benchmarks/Ran/ranzero/NEq/symbolic_oldV
+

@@ -1,0 +1,7323 @@
+
+🎯 约束质量分析详细报告
+============================================================
+
+📊 总体统计:
+  • 总约束文件数: 561
+  • 有意义约束数: 560
+  • 空约束数: 1
+  • 有意义比率: 99.8%
+
+🏆 高质量约束文件详情:
+========================================
+
+[1] benchmarks/ModDiff/NEq/LoopSub/symbolic_newV_path_1.txt
+  ✅ 质量分数: 6/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 885
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ✅ has_program_output: True
+
+[2] benchmarks/ModDiff/NEq/LoopSub/symbolic_oldV_path_1.txt
+  ✅ 质量分数: 6/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 890
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ✅ has_program_output: True
+
+[3] s000_O0_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[4] s000_O0_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[5] s000_O0_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[6] s000_O0_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[7] s000_O0_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[8] s000_O0_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[9] s000_O0_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[10] s000_O0_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[11] s000_O0_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[12] s000_O0_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[13] s000_O0_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[14] s000_O0_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[15] s000_O0_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[16] s000_O0_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[17] s000_O0_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[18] s000_O0_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[19] s000_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[20] s000_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[21] s000_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[22] s000_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[23] s000_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[24] s000_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[25] s000_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[26] s000_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[27] s000_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[28] s000_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[29] s000_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[30] s000_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[31] s000_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[32] s000_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[33] s000_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[34] s000_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[35] s000_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[36] s000_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[37] s000_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[38] s000_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[39] s000_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[40] s000_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[41] s000_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[42] s000_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[43] s000_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[44] s000_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[45] s000_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[46] s000_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[47] s000_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[48] s000_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[49] s000_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[50] s000_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[51] s000_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[52] s000_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[53] s000_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[54] s000_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[55] s000_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[56] s000_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[57] s000_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[58] s000_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[59] s000_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[60] s000_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[61] s000_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[62] s000_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[63] s000_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[64] s000_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[65] s000_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[66] s000_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[67] s1112_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[68] s1112_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[69] s1112_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[70] s1112_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[71] s1112_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[72] s1112_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[73] s121_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[74] s121_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[75] s121_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[76] s121_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[77] s121_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[78] s121_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[79] s121_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[80] s121_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[81] s121_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[82] s121_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[83] s121_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[84] s121_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[85] s121_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[86] s121_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[87] s121_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[88] s121_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[89] s121_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[90] s121_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[91] s121_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[92] s121_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[93] s121_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[94] s121_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[95] s121_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[96] s121_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[97] s121_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[98] s121_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[99] s121_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[100] s121_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[101] s121_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[102] s121_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[103] s121_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[104] s121_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[105] s121_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[106] s121_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[107] s121_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[108] s121_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[109] s121_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[110] s121_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[111] s121_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[112] s121_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[113] s121_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[114] s121_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[115] s121_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[116] s121_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[117] s121_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[118] s121_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[119] s121_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[120] s121_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[121] s1221_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[122] s1221_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[123] s1221_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[124] s1221_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[125] s1221_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[126] s1221_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[127] s1221_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[128] s1221_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[129] s1221_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[130] s1221_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[131] s1221_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[132] s1221_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[133] s1221_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[134] s1221_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[135] s1221_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[136] s1221_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[137] s1221_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[138] s1221_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[139] s1221_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[140] s1221_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[141] s1221_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[142] s1221_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[143] s1221_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[144] s1221_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[145] s1221_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[146] s1221_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[147] s1221_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[148] s1221_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[149] s1221_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[150] s1221_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[151] s1221_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[152] s1221_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[153] s1221_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[154] s1221_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[155] s1221_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[156] s1221_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[157] s1221_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[158] s1221_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[159] s1221_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[160] s1221_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[161] s1221_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[162] s1221_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[163] s1221_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[164] s1221_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[165] s1221_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[166] s1221_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[167] s1221_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[168] s1221_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[169] s1251_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[170] s1251_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[171] s1251_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[172] s1251_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[173] s1251_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[174] s1251_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[175] s1251_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[176] s1251_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[177] s1251_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[178] s1251_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[179] s1251_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[180] s1251_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[181] s1251_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[182] s1251_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[183] s1251_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[184] s1251_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[185] s1251_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[186] s1251_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[187] s1251_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[188] s1251_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[189] s1251_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[190] s1251_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[191] s1251_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[192] s1251_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[193] s1251_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[194] s1251_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[195] s1251_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[196] s1251_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[197] s1251_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[198] s1251_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[199] s1251_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[200] s1251_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[201] s1251_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[202] s1251_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[203] s1251_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[204] s1251_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[205] s1251_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[206] s1251_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[207] s1251_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[208] s1251_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[209] s1251_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[210] s1251_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[211] s1251_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[212] s1251_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[213] s1251_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[214] s1251_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[215] s1251_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[216] s1251_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[217] s1351_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[218] s1351_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[219] s1351_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[220] s1351_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[221] s1351_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[222] s1351_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[223] s1351_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[224] s1351_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[225] s1351_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[226] s1351_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[227] s1351_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[228] s1351_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[229] s1351_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[230] s1351_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[231] s1351_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[232] s1351_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[233] s1351_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[234] s1351_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[235] s1351_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[236] s1351_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[237] s1351_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[238] s1351_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[239] s1351_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[240] s1351_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[241] s1351_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[242] s1351_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[243] s1351_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[244] s1351_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[245] s1351_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[246] s1351_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[247] s1351_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[248] s1351_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[249] s1351_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[250] s1351_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[251] s1351_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[252] s1351_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[253] s1351_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[254] s1351_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[255] s1351_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[256] s1351_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[257] s1351_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[258] s1351_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[259] s1351_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[260] s1351_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[261] s1351_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[262] s1351_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[263] s1351_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[264] s1351_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[265] s173_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[266] s173_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[267] s173_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[268] s173_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[269] s173_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[270] s173_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[271] s2244_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[272] s2244_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[273] s2244_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[274] s2244_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[275] s2244_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[276] s2244_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[277] s2244_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[278] s2244_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[279] s2244_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[280] s2244_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[281] s2244_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[282] s2244_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[283] s2244_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[284] s2244_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[285] s2244_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[286] s2244_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[287] s2244_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[288] s2244_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[289] s2244_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[290] s2244_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[291] s2244_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[292] s2244_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[293] s2244_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[294] s2244_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[295] s2244_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[296] s2244_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[297] s2244_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[298] s2244_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[299] s2244_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[300] s2244_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[301] s2244_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[302] s2244_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[303] s2244_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[304] s2244_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[305] s2244_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[306] s2244_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[307] s2244_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[308] s2244_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[309] s2244_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[310] s2244_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[311] s2244_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[312] s2244_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[313] s2244_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[314] s2244_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[315] s2244_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[316] s2244_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[317] s2244_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[318] s2244_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[319] symbolic_newV_path_1.txt
+  ✅ 质量分数: 6/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 885
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ✅ has_program_output: True
+
+[320] symbolic_oldV_path_1.txt
+  ✅ 质量分数: 6/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 890
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ✅ has_program_output: True
+
+[321] vpv_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[322] vpv_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[323] vpv_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[324] vpv_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[325] vpv_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[326] vpv_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[327] vpv_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[328] vpv_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[329] vpv_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[330] vpv_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[331] vpv_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[332] vpv_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[333] vpv_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[334] vpv_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[335] vpv_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[336] vpv_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[337] vpv_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[338] vpv_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[339] vpv_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[340] vpv_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[341] vpv_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[342] vpv_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[343] vpv_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[344] vpv_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[345] vpv_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[346] vpv_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[347] vpv_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[348] vpv_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[349] vpv_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[350] vpv_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[351] vpv_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[352] vpv_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[353] vpv_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[354] vpv_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[355] vpv_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[356] vpv_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[357] vpv_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[358] vpv_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[359] vpv_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[360] vpv_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[361] vpv_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[362] vpv_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[363] vpv_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[364] vpv_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[365] vpv_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[366] vpv_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[367] vpv_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[368] vpv_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[369] vpvpv_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[370] vpvpv_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[371] vpvpv_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[372] vpvpv_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[373] vpvpv_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[374] vpvpv_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[375] vpvpv_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[376] vpvpv_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[377] vpvpv_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[378] vpvpv_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[379] vpvpv_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[380] vpvpv_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[381] vpvpv_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[382] vpvpv_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[383] vpvpv_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[384] vpvpv_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[385] vpvpv_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[386] vpvpv_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[387] vpvpv_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[388] vpvpv_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[389] vpvpv_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[390] vpvpv_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[391] vpvpv_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[392] vpvpv_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[393] vpvpv_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[394] vpvpv_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[395] vpvpv_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[396] vpvpv_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[397] vpvpv_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[398] vpvpv_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[399] vpvpv_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[400] vpvpv_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[401] vpvpv_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[402] vpvpv_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[403] vpvpv_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[404] vpvpv_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[405] vpvpv_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[406] vpvpv_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[407] vpvpv_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[408] vpvpv_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[409] vpvpv_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[410] vpvpv_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[411] vpvpv_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[412] vpvpv_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[413] vpvpv_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[414] vpvpv_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[415] vpvpv_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[416] vpvpv_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[417] vpvtv_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[418] vpvtv_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[419] vpvtv_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[420] vpvtv_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[421] vpvtv_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[422] vpvtv_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[423] vpvtv_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[424] vpvtv_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[425] vpvtv_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[426] vpvtv_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[427] vpvtv_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[428] vpvtv_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[429] vpvtv_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[430] vpvtv_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[431] vpvtv_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[432] vpvtv_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[433] vpvtv_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[434] vpvtv_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[435] vpvtv_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[436] vpvtv_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[437] vpvtv_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[438] vpvtv_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[439] vpvtv_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[440] vpvtv_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[441] vpvtv_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[442] vpvtv_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[443] vpvtv_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[444] vpvtv_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[445] vpvtv_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[446] vpvtv_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[447] vpvtv_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[448] vpvtv_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[449] vpvtv_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[450] vpvtv_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[451] vpvtv_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[452] vpvtv_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[453] vpvtv_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[454] vpvtv_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[455] vpvtv_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[456] vpvtv_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[457] vpvtv_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[458] vpvtv_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[459] vpvtv_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[460] vpvtv_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[461] vpvtv_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[462] vpvtv_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[463] vpvtv_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[464] vpvtv_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[465] vtv_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[466] vtv_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[467] vtv_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[468] vtv_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[469] vtv_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[470] vtv_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[471] vtv_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[472] vtv_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[473] vtv_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[474] vtv_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[475] vtv_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[476] vtv_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[477] vtv_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[478] vtv_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[479] vtv_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[480] vtv_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[481] vtv_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[482] vtv_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[483] vtv_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[484] vtv_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[485] vtv_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[486] vtv_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[487] vtv_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[488] vtv_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[489] vtv_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[490] vtv_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[491] vtv_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[492] vtv_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[493] vtv_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[494] vtv_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[495] vtv_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[496] vtv_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[497] vtv_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[498] vtv_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[499] vtv_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[500] vtv_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[501] vtv_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[502] vtv_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[503] vtv_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[504] vtv_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[505] vtv_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[506] vtv_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[507] vtv_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[508] vtv_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[509] vtv_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[510] vtv_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[511] vtv_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[512] vtv_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[513] vtvtv_O1_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[514] vtvtv_O1_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[515] vtvtv_O1_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[516] vtvtv_O1_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[517] vtvtv_O1_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[518] vtvtv_O1_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[519] vtvtv_O1_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[520] vtvtv_O1_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[521] vtvtv_O1_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[522] vtvtv_O1_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[523] vtvtv_O1_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[524] vtvtv_O1_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[525] vtvtv_O1_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[526] vtvtv_O1_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[527] vtvtv_O1_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[528] vtvtv_O1_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[529] vtvtv_O2_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[530] vtvtv_O2_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[531] vtvtv_O2_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[532] vtvtv_O2_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[533] vtvtv_O2_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[534] vtvtv_O2_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[535] vtvtv_O2_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[536] vtvtv_O2_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[537] vtvtv_O2_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[538] vtvtv_O2_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[539] vtvtv_O2_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[540] vtvtv_O2_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[541] vtvtv_O2_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[542] vtvtv_O2_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[543] vtvtv_O2_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[544] vtvtv_O2_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[545] vtvtv_O3_path_1.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 0}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[546] vtvtv_O3_path_10.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 9}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[547] vtvtv_O3_path_11.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 10}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[548] vtvtv_O3_path_12.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 11}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[549] vtvtv_O3_path_13.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 12}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[550] vtvtv_O3_path_14.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 13}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[551] vtvtv_O3_path_15.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 14}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[552] vtvtv_O3_path_16.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 15}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[553] vtvtv_O3_path_2.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 1}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[554] vtvtv_O3_path_3.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 2}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[555] vtvtv_O3_path_4.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 3}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[556] vtvtv_O3_path_5.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 4}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[557] vtvtv_O3_path_6.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 5}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[558] vtvtv_O3_path_7.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 6}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[559] vtvtv_O3_path_8.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 7}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+[560] vtvtv_O3_path_9.txt
+  ✅ 质量分数: 5/6
+  📊 约束数量: 0
+  🎲 输入变量: {'scanf_0': 8}
+  📤 程序输出: 
+  🔍 质量指标:
+    ✅ has_scanf_vars: True
+    ✅ has_smt_assertions: True
+    ✅ non_zero_constraints: True
+    ✅ has_variables: True
+    ✅ has_bitvec_declarations: True
+    ❌ has_program_output: False
+
+📁 空约束文件概览:
+========================================
+
+🔸 /root/ardiff/symbolic_analysis: 1个空约束文件
+    • test_fixed_oldV_path_1.txt (质量分数: 1/6)
+
+🎯 符号化程序专项分析:
+========================================
+
+  📊 符号化程序约束统计:
+    • 总符号化约束: 4个
+    • 有意义约束: 4个
+    • 空约束: 0个
+    • 成功率: 100.0%
+
+  🏆 成功的符号化测试用例:
+    ✅ ModDiff/NEq/LoopSub/symbolic_newV_path_1.txt
+    ✅ ModDiff/NEq/LoopSub/symbolic_oldV_path_1.txt
+    ✅ /root/ardiff/symbolic_analysis/symbolic_newV_path_1.txt
+    ✅ /root/ardiff/symbolic_analysis/symbolic_oldV_path_1.txt
+
+💡 改进建议:
+========================================
+
+  🎉 约束生成成功率良好！可以考虑：
+    1. 扩大符号变量的取值范围
+    2. 增加更多路径探索
+    3. 优化约束求解器配置
+
+⏱️  分析完成时间: 2025-08-27 19:51:36

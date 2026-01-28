@@ -1,0 +1,34 @@
+
+🎯 所有Benchmark符号化程序约束生成完成报告
+======================================================================
+
+📊 执行统计:
+  • 总符号化程序数: 28
+  • 成功执行数: 28
+  • 失败执行数: 0
+  • 成功率: 100.0%
+
+🔍 约束生成统计:
+  • 总约束文件数: 2
+  • 有意义约束文件数: 2
+  • 空约束文件数: 0
+  • 约束质量率: 100.0%
+
+💡 有意义约束的测试用例 (2个):
+  1. ModDiff/NEq/LoopSub/symbolic_newV - 1个约束
+  2. ModDiff/NEq/LoopSub/symbolic_oldV - 1个约束
+
+📁 约束文件查看方法:
+  • 查看所有约束文件: find benchmarks/ -name "*_path_*.txt"
+  • 查看有意义约束: find benchmarks/ -name "*_path_*.txt" -exec grep -l "(assert" {} \;
+  • 统计约束类型: grep -h "(assert" benchmarks/**/*_path_*.txt | sort | uniq -c
+
+🎯 使用建议:
+  ✅ 您现在拥有 2 个有效的SMT约束文件！
+  📖 使用方法:
+    1. 查看约束内容: cat benchmarks/路径/symbolic_*_path_*.txt
+    2. 使用Z3求解: z3 约束文件名.txt
+    3. SMT-LIB格式可直接用于其他SMT求解器
+
+⏱️  生成完成时间: 2025-08-27 20:48:22
+📄 约束文件位置: benchmarks/**/symbolic_*_path_*.txt

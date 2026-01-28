@@ -1,0 +1,208 @@
+增强的程序等价性分析报告（四类判断）
+============================================================
+
+📋 总体结论:
+------------------------------
+程序等价性: ❌ 不等价
+
+📊 四类分析统计:
+------------------------------
+✅ 等价路径对: 0
+⚠️  疑似不等价-约束: 6
+⚠️  疑似不等价-输出: 0
+❌ 不等价路径对: 14
+程序1未匹配路径: 5
+程序2未匹配路径: 4
+
+⏱️  时间统计:
+------------------------------
+分析开始时间: 2025-09-11 02:15:04
+分析结束时间: 2025-09-11 02:15:05
+总分析时间: 0.884 秒
+  - 符号执行时间: 0.000 秒
+  - 文件加载时间: 0.002 秒
+  - 路径比较时间: 0.880 秒
+    * SMT约束验证: 0.878 秒 (20 次)
+    * 数组状态比较: 0.000 秒 (0 次)
+平均SMT求解时间: 0.044 秒
+平均数组比较时间: 0.000 秒
+
+⚠️  疑似不等价-约束 (约束不等价但输出相同):
+------------------------------
+1. 路径 1 vs 路径 2
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_1.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_2.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.032 秒
+
+2. 路径 1 vs 路径 3
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_1.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_3.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.031 秒
+
+3. 路径 1 vs 路径 4
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_1.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_4.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.031 秒
+
+4. 路径 2 vs 路径 2
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_2.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_2.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.030 秒
+
+5. 路径 2 vs 路径 3
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_2.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_3.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.029 秒
+
+6. 路径 2 vs 路径 4
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_2.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_4.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 0
+   比较耗时: 0.056 秒
+
+❌ 不等价路径对:
+------------------------------
+1. 路径 1 vs 路径 1
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_1.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_1.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 1
+   比较耗时: 0.174 秒
+
+2. 路径 2 vs 路径 1
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_2.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_1.txt
+   约束结果: not_equivalent
+   输出1: Result: 0
+   输出2: Result: 1
+   比较耗时: 0.061 秒
+
+3. 路径 3 vs 路径 1
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_3.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_1.txt
+   约束结果: not_equivalent
+   输出1: Result: 90
+   输出2: Result: 1
+   比较耗时: 0.031 秒
+
+4. 路径 3 vs 路径 2
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_3.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_2.txt
+   约束结果: not_equivalent
+   输出1: Result: 90
+   输出2: Result: 0
+   比较耗时: 0.033 秒
+
+5. 路径 3 vs 路径 3
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_3.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_3.txt
+   约束结果: not_equivalent
+   输出1: Result: 90
+   输出2: Result: 0
+   比较耗时: 0.031 秒
+
+6. 路径 3 vs 路径 4
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_3.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_4.txt
+   约束结果: not_equivalent
+   输出1: Result: 90
+   输出2: Result: 0
+   比较耗时: 0.033 秒
+
+7. 路径 4 vs 路径 1
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_4.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_1.txt
+   约束结果: not_equivalent
+   输出1: Result: 100
+   输出2: Result: 1
+   比较耗时: 0.031 秒
+
+8. 路径 4 vs 路径 2
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_4.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_2.txt
+   约束结果: not_equivalent
+   输出1: Result: 100
+   输出2: Result: 0
+   比较耗时: 0.032 秒
+
+9. 路径 4 vs 路径 3
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_4.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_3.txt
+   约束结果: not_equivalent
+   输出1: Result: 100
+   输出2: Result: 0
+   比较耗时: 0.031 秒
+
+10. 路径 4 vs 路径 4
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_4.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_4.txt
+   约束结果: not_equivalent
+   输出1: Result: 100
+   输出2: Result: 0
+   比较耗时: 0.031 秒
+
+11. 路径 5 vs 路径 1
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_5.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_1.txt
+   约束结果: not_equivalent
+   输出1: Result: 110
+   输出2: Result: 1
+   比较耗时: 0.032 秒
+
+12. 路径 5 vs 路径 2
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_5.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_2.txt
+   约束结果: not_equivalent
+   输出1: Result: 110
+   输出2: Result: 0
+   比较耗时: 0.057 秒
+
+13. 路径 5 vs 路径 3
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_5.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_3.txt
+   约束结果: not_equivalent
+   输出1: Result: 110
+   输出2: Result: 0
+   比较耗时: 0.058 秒
+
+14. 路径 5 vs 路径 4
+   文件1: benchmarks/ModDiff/Eq/LoopMult10/symbolic_newV_path_5.txt
+   文件2: benchmarks/Bess/bessi1/Eq/symbolic_oldV_path_4.txt
+   约束结果: not_equivalent
+   输出1: Result: 110
+   输出2: Result: 0
+   比较耗时: 0.035 秒
+
+❌ 程序1中的未匹配路径:
+------------------------------
+  路径 1
+  路径 2
+  路径 3
+  路径 4
+  路径 5
+
+❌ 程序2中的未匹配路径:
+------------------------------
+  路径 1
+  路径 2
+  路径 3
+  路径 4
+

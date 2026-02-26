@@ -1,149 +1,70 @@
 ## Overview
 
-This repository contains a symbolic-analysis framework for the TSVC benchmark
-suite, plus experiments that compare the framework against the PLDI'19
-equivalence checker and against ARDiff-style program-difference analyses.
-
-The project is organized as a **library-style core** under `src/`, a set of
-**user-facing scripts** under `scripts/`, and **experiment and result data**
-under `data/` and `experiments/`. It is designed so that you can either:
-
-- run ready-made end-to-end analyses on TSVC benchmarks, or  
-- reuse the individual components (symbolic execution, SMT-based equivalence,
-  benchmark orchestration) in your own workflows.
+Symbolic-analysis framework for the TSVC benchmark suite and ARDiff-style comparison. Core library lives under `src/symbolic_analysis/`; scripts under `scripts/` (and `scripts/ardiff_comparison/` for ARDiff-only).
 
 ---
 
-## Project Structure
+## Key Scripts
 
-- **`scripts/`** – Entry-point scripts and small demos.
-  - `quick_start_demo.py` – End-to-end smoke test for dependencies, path
-    generation, symbolic analysis, and a mini TSVC benchmark run.
-  - `se_script_improved.py` – Standalone symbolic-execution driver for
-    TSVC-style programs.
-  - `simple_angr_test.py` – Simple angr-based test to verify the environment.
-  - `run_benchmark_analysis.py` – Convenience script to run a batch of analyses.
-  - `create_all_benchmarks.py` – Generate / materialize all TSVC benchmarks.
-  - **`ardiff_comparison/`** – ARDiff-specific scripts: `analyze_airy_max_eq.py`,
-    `enhanced_equivalence_analyzer.py`, `verify_java_equivalence.py`,
-    `semantic_equivalence_analyzer_enhanced.py`, and shell scripts for
-    convert/compile.
-
-- **`src/symbolic_analysis/`** – Core reusable library code.
-  - **`benchmarks/`**
-    - `tsvc_benchmark_runner.py` – Extract and compile TSVC benchmark functions,
-      manage optimization-level variants (O1/O2/O3).
-    - `improved_real_tsvc_analyzer.py`, `enhanced_mock_tsvc_analyzer.py` –
-      Higher-level benchmark analyzers that coordinate compilation and analysis.
-  - **`integration/`**
-    - `tsvc_symbolic_integration.py` – Main integrator that runs the TSVC
-      pipeline end to end and produces comparison reports versus PLDI'19.
-    - `batch_symbolic_execution.py` – Batch driver for symbolic execution.
-    - `batch_equivalence_analyzer.py` – Batch driver for equivalence checking.
-    - `integrated_analysis.py` – Glue code for combined workflows.
-  - **`symbolic_execution/`**
-    - `enhanced_symbolic_execution.py` – Core symbolic-execution engine for the
-      TSVC-style programs.
-    - `path_analyzer_fixed.py` – Robust path-file processing and analysis.
-    - `angr_memory_analysis.py` – angr-based memory and state inspection.
-    - `memory_optimized_analysis.py` – Memory-optimized analysis flows for
-      large benchmarks.
-    - `debug_path_generation.py` – Utilities to debug path generation.
-  - **`equivalence/`**
-    - `semantic_equivalence_analyzer.py` – Enhanced three-step equivalence
-      analyzer (constraint equivalence + array initial/final states).
-    - `path_constraint_equivalence_verifier.py` – Path-constraint equivalence
-      checker over SMT encodings.
-    - `smt_equivalence_checker.py` – Low-level Z3-based equivalence routines.
-    - `equivalence_summary.py` – Helpers for aggregating and summarizing
-      equivalence results.
-    - `constraint_analysis.py` – Additional analyses over generated constraints.
-  - **`analysis/`**
-    - `program_semantic_analysis.py` – Higher-level semantic analysis passes.
-    - `smt_performance_analysis.py` – Measure and analyze SMT solver behavior.
-    - `benchmark_timing_analysis.py`,
-      `benchmark_timing_summary_table.py`,
-      `corrected_analysis.py` – Timing and quality-of-result analyses.
-  - **`tooling/`**
-    - `clang_improved.py` – Utilities around Clang / compilation for TSVC.
-    - `benchmark_source_fixer.py` – Fix-ups and normalization for benchmark
-      source code.
-
-- **`data/`** – Machine-readable analysis results.
-  - `data/tsvc/tsvc_analysis_results/` – Per-benchmark JSON summaries.
-  - `data/tsvc/paths/` – Raw path constraint files (`*_path_*.txt`) generated
-    during symbolic execution.
-  - `data/tsvc/reports/` – Timing and equivalence reports for TSVC benchmarks.
-  - `data/batch/` – Batch-level summary JSON (`batch_*_data.json`).
-  - `data/benchmark_timing/` – Overall timing summary JSON files.
-  - `data/ardiff_comparison/` – ARDiff comparison outputs: JSON summaries,
-    `reports/` (text reports), `artifacts/` (test C/SMT/binaries).
-
-- **`experiments/`** – Experiment-specific scripts and results.
-  - `experiments/tsvc_experiments/` – TSVC-focused experiments and reports
-    (e.g., various `vtv*`, `vpv*` timing and equivalence studies).
-  - `experiments/ardiff_comparison/` – ARDiff comparison: **only** the C/Java
-    benchmark programs, under `benchmarks/` (Airy, Bess, caldat, dart, Ell,
-    gam, ModDiff, power, Ran, etc.). ARDiff-specific scripts live in
-    `scripts/ardiff_comparison/`; reports and data in `data/ardiff_comparison/`;
-    extra docs in `docs/ardiff_comparison/`.
-
-- **`docs/`** – Higher-level documentation (methodology, usage). ARDiff-related
-  notes and reports are under `docs/ardiff_comparison/`.
-
-- **`tests/`** – Python-based tests for core components such as the layered
-  system and enhanced symbolic execution / equivalence.
+| Script | Purpose |
+|--------|--------|
+| `scripts/quick_start_demo.py` | Smoke test: dependencies, path generation, symbolic analysis, mini TSVC run. |
+| `scripts/se_script_improved.py` | Standalone symbolic-execution driver for TSVC-style programs. |
+| `scripts/simple_angr_test.py` | Quick check that angr is installed and usable. |
+| `scripts/run_benchmark_analysis.py` | Run a batch of TSVC benchmark analyses. |
+| `scripts/create_all_benchmarks.py` | Generate / materialize all TSVC benchmarks. |
+| `src/symbolic_analysis/integration/tsvc_symbolic_integration.py` | Full TSVC pipeline: extract, compile (O1/O2/O3), generate paths, run equivalence analysis, write results. |
+| `src/symbolic_analysis/equivalence/semantic_equivalence_analyzer.py` | Compare two sets of path files for equivalence (three-step: constraints + array initial/final state). |
+| `scripts/ardiff_comparison/analyze_airy_max_eq.py` | ARDiff comparison: analyze Airy MAX equivalence. |
+| `scripts/ardiff_comparison/enhanced_equivalence_analyzer.py` | ARDiff: enhanced equivalence analysis. |
+| `scripts/ardiff_comparison/verify_java_equivalence.py` | ARDiff: verify Java program equivalence. |
+| `scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py` | ARDiff: enhanced semantic equivalence. |
+| `scripts/ardiff_comparison/convert_and_compile.sh` | ARDiff: convert and compile benchmark programs. |
 
 ---
 
-## Key Workflows
+## How to Run
 
-- **Quick smoke test**
+- **Working directory:** always the project root (the `symbolic_analysis/` directory).
+- **Imports:** scripts that use `src/symbolic_analysis` need it on `PYTHONPATH`. From the project root, run:
 
   ```bash
-  cd symbolic_analysis
-  python3 scripts/quick_start_demo.py
+  export PYTHONPATH=src
   ```
 
-  This checks for required files, runs extraction/compilation of a small TSVC
-  benchmark, generates example paths, and runs basic symbolic-analysis checks.
+  or prefix each command with `PYTHONPATH=src`.
 
-- **Run the full TSVC integration pipeline**
+**Suggested order:**
 
-  ```bash
-  cd symbolic_analysis
-  python3 src/symbolic_analysis/integration/tsvc_symbolic_integration.py
-  ```
+1. **Sanity check (optional)**  
+   ```bash
+   cd symbolic_analysis
+   PYTHONPATH=src python3 scripts/quick_start_demo.py
+   ```
 
-  This:
-  - extracts and compiles recommended TSVC benchmarks at multiple optimization
-    levels,
-  - generates path constraints,
-  - runs symbolic equivalence analysis, and
-  - writes JSON summaries under `data/tsvc/tsvc_analysis_results/` and a
-    consolidated comparison report.
+2. **Full TSVC pipeline**  
+   ```bash
+   PYTHONPATH=src python3 src/symbolic_analysis/integration/tsvc_symbolic_integration.py
+   ```  
+   Writes to `data/tsvc/tsvc_analysis_results/` and a comparison report.
 
-- **Symbolic execution and equivalence as standalone tools**
+3. **Standalone symbolic execution**  
+   ```bash
+   PYTHONPATH=src python3 scripts/se_script_improved.py
+   ```
 
-  - Run standalone symbolic execution:
+4. **Path equivalence (two path prefixes)**  
+   ```bash
+   PYTHONPATH=src python3 src/symbolic_analysis/equivalence/semantic_equivalence_analyzer.py \
+     <prefix1> <prefix2> --output report.txt
+   ```  
+   Example: `paths_prog1/path_` and `paths_prog2/path_`.
 
-    ```bash
-    python3 scripts/se_script_improved.py
-    ```
+5. **ARDiff scripts**  
+   Run from project root with `PYTHONPATH=src`; ARDiff benchmarks live under `experiments/ardiff_comparison/benchmarks/`, e.g.:
 
-  - Run enhanced path equivalence on two sets of path files:
+   ```bash
+   PYTHONPATH=src python3 scripts/ardiff_comparison/analyze_airy_max_eq.py
+   ```
 
-    ```bash
-    python3 src/symbolic_analysis/equivalence/semantic_equivalence_analyzer.py \
-      paths_prog1/path_ paths_prog2/path_ \
-      --output enhanced_equivalence_report.txt
-    ```
-
----
-
-## Notes
-
-- The repository assumes a working Python 3 environment with Z3 and angr
-  installed for the full feature set.
-- Large result directories under `data/` and `experiments/` can be safely
-  regenerated by re-running the appropriate scripts if needed. 
+**Requirements:** Python 3, Z3, angr (for full functionality).

@@ -1,35 +1,35 @@
-符号执行时间报告
+Symbolic execution timing report
 ==================================================
 
-分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_vpvtv/vpvtv_O2
-输出前缀: vpvtv_O2
-超时设置: 180 秒
-数组符号化: 启用
+Analyzed program: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_vpvtv/vpvtv_O2
+Output prefix: vpvtv_O2
+Timeout setting: 180 sec
+Array symbolization: Enabled
 
-时间统计:
+Timing statistics:
 ------------------------------
-开始时间: 2025-08-04 00:11:09
-结束时间: 2025-08-04 00:11:28
-项目设置时间: 0.050 秒 (0.3%)
-路径探索时间: 3.927 秒 (20.5%)
-状态分析时间: 15.137 秒 (79.2%)
-总计时间: 19.114 秒
+Start time: 2025-08-04 00:11:09
+End time: 2025-08-04 00:11:28
+Project setup time: 0.050 sec (0.3%)
+Path exploration time: 3.927 sec (20.5%)
+State analysis time: 15.137 sec (79.2%)
+Total time: 19.114 sec
 
-分析结果:
+Analysis results:
 ------------------------------
-发现路径数: 16
-探索效率: 4.07 路径/秒
-平均路径分析时间: 0.946 秒/路径
+Paths found: 16
+Exploration rate: 4.07 paths/sec
+Average path analysis time: 0.946 sec/path
 
-数组符号化信息:
+Array symbolization info:
 ------------------------------
-1. a: 16/128 个元素
-2. b: 16/128 个元素
-3. c: 8/128 个元素
-4. d: 8/128 个元素
-5. e: 8/128 个元素
+1. a: 16/128 elements
+2. b: 16/128 elements
+3. c: 8/128 elements
+4. d: 8/128 elements
+5. e: 8/128 elements
 
-生成的文件:
+Generated files:
 ------------------------------
 vpvtv_O2_path_1.txt
 vpvtv_O2_path_2.txt

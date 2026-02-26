@@ -1,5 +1,5 @@
 
-; 等价测试约束1A
+; Equivalent test constraint1A
 (set-info :status unknown)
 (declare-fun x () (_ BitVec 32))
 (assert (bvuge x (_ bv5 32)))

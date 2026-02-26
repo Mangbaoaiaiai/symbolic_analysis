@@ -1,35 +1,35 @@
-符号执行时间报告
+Symbolic execution timing report
 ==================================================
 
-分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s173/s173_O2
-输出前缀: s173_O2
-超时设置: 180 秒
-数组符号化: 启用
+Analyzed program: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s173/s173_O2
+Output prefix: s173_O2
+Timeout setting: 180 sec
+Array symbolization: Enabled
 
-时间统计:
+Timing statistics:
 ------------------------------
-开始时间: 2025-08-04 00:07:11
-结束时间: 2025-08-04 00:07:17
-项目设置时间: 0.048 秒 (0.7%)
-路径探索时间: 4.561 秒 (70.4%)
-状态分析时间: 1.871 秒 (28.9%)
-总计时间: 6.481 秒
+Start time: 2025-08-04 00:07:11
+End time: 2025-08-04 00:07:17
+Project setup time: 0.048 sec (0.7%)
+Path exploration time: 4.561 sec (70.4%)
+State analysis time: 1.871 sec (28.9%)
+Total time: 6.481 sec
 
-分析结果:
+Analysis results:
 ------------------------------
-发现路径数: 2
-探索效率: 0.44 路径/秒
-平均路径分析时间: 0.935 秒/路径
+Paths found: 2
+Exploration rate: 0.44 paths/sec
+Average path analysis time: 0.935 sec/path
 
-数组符号化信息:
+Array symbolization info:
 ------------------------------
-1. a: 16/128 个元素
-2. b: 16/128 个元素
-3. c: 8/128 个元素
-4. d: 8/128 个元素
-5. e: 8/128 个元素
+1. a: 16/128 elements
+2. b: 16/128 elements
+3. c: 8/128 elements
+4. d: 8/128 elements
+5. e: 8/128 elements
 
-生成的文件:
+Generated files:
 ------------------------------
 s173_O2_path_1.txt
 s173_O2_path_2.txt

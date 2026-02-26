@@ -1,35 +1,35 @@
-符号执行时间报告
+Symbolic execution timing report
 ==================================================
 
-分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s1251/s1251_O1
-输出前缀: s1251_O1
-超时设置: 180 秒
-数组符号化: 启用
+Analyzed program: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s1251/s1251_O1
+Output prefix: s1251_O1
+Timeout setting: 180 sec
+Array symbolization: Enabled
 
-时间统计:
+Timing statistics:
 ------------------------------
-开始时间: 2025-08-04 00:04:53
-结束时间: 2025-08-04 00:05:14
-项目设置时间: 0.051 秒 (0.2%)
-路径探索时间: 5.386 秒 (25.9%)
-状态分析时间: 15.381 秒 (73.9%)
-总计时间: 20.818 秒
+Start time: 2025-08-04 00:04:53
+End time: 2025-08-04 00:05:14
+Project setup time: 0.051 sec (0.2%)
+Path exploration time: 5.386 sec (25.9%)
+State analysis time: 15.381 sec (73.9%)
+Total time: 20.818 sec
 
-分析结果:
+Analysis results:
 ------------------------------
-发现路径数: 16
-探索效率: 2.97 路径/秒
-平均路径分析时间: 0.961 秒/路径
+Paths found: 16
+Exploration rate: 2.97 paths/sec
+Average path analysis time: 0.961 sec/path
 
-数组符号化信息:
+Array symbolization info:
 ------------------------------
-1. a: 16/128 个元素
-2. b: 16/128 个元素
-3. c: 8/128 个元素
-4. d: 8/128 个元素
-5. e: 8/128 个元素
+1. a: 16/128 elements
+2. b: 16/128 elements
+3. c: 8/128 elements
+4. d: 8/128 elements
+5. e: 8/128 elements
 
-生成的文件:
+Generated files:
 ------------------------------
 s1251_O1_path_1.txt
 s1251_O1_path_2.txt

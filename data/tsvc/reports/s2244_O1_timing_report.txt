@@ -1,35 +1,35 @@
-符号执行时间报告
+Symbolic execution timing report
 ==================================================
 
-分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s2244/s2244_O1
-输出前缀: s2244_O1
-超时设置: 180 秒
-数组符号化: 启用
+Analyzed program: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s2244/s2244_O1
+Output prefix: s2244_O1
+Timeout setting: 180 sec
+Array symbolization: Enabled
 
-时间统计:
+Timing statistics:
 ------------------------------
-开始时间: 2025-08-04 00:07:25
-结束时间: 2025-08-04 00:07:47
-项目设置时间: 0.052 秒 (0.2%)
-路径探索时间: 6.462 秒 (29.2%)
-状态分析时间: 15.606 秒 (70.6%)
-总计时间: 22.120 秒
+Start time: 2025-08-04 00:07:25
+End time: 2025-08-04 00:07:47
+Project setup time: 0.052 sec (0.2%)
+Path exploration time: 6.462 sec (29.2%)
+State analysis time: 15.606 sec (70.6%)
+Total time: 22.120 sec
 
-分析结果:
+Analysis results:
 ------------------------------
-发现路径数: 16
-探索效率: 2.48 路径/秒
-平均路径分析时间: 0.975 秒/路径
+Paths found: 16
+Exploration rate: 2.48 paths/sec
+Average path analysis time: 0.975 sec/path
 
-数组符号化信息:
+Array symbolization info:
 ------------------------------
-1. a: 16/128 个元素
-2. b: 16/128 个元素
-3. c: 8/128 个元素
-4. d: 8/128 个元素
-5. e: 8/128 个元素
+1. a: 16/128 elements
+2. b: 16/128 elements
+3. c: 8/128 elements
+4. d: 8/128 elements
+5. e: 8/128 elements
 
-生成的文件:
+Generated files:
 ------------------------------
 s2244_O1_path_1.txt
 s2244_O1_path_2.txt

@@ -1,5 +1,5 @@
 
-; 不等价测试约束3A
+; Not-equivalent test constraint3A
 (set-info :status unknown)
 (declare-fun z () (_ BitVec 32))
 (assert (bvuge z (_ bv5 32)))

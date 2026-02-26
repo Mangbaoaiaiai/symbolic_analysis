@@ -1,35 +1,35 @@
-符号执行时间报告
+Symbolic execution timing report
 ==================================================
 
-分析程序: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s000/s000_O2
-输出前缀: s000_O2
-超时设置: 180 秒
-数组符号化: 启用
+Analyzed program: /root/symbolic_analysis/symbolic_analysis/benchmark_temp_s000/s000_O2
+Output prefix: s000_O2
+Timeout setting: 180 sec
+Array symbolization: Enabled
 
-时间统计:
+Timing statistics:
 ------------------------------
-开始时间: 2025-08-04 00:01:25
-结束时间: 2025-08-04 00:01:44
-项目设置时间: 0.050 秒 (0.3%)
-路径探索时间: 3.903 秒 (20.9%)
-状态分析时间: 14.704 秒 (78.8%)
-总计时间: 18.657 秒
+Start time: 2025-08-04 00:01:25
+End time: 2025-08-04 00:01:44
+Project setup time: 0.050 sec (0.3%)
+Path exploration time: 3.903 sec (20.9%)
+State analysis time: 14.704 sec (78.8%)
+Total time: 18.657 sec
 
-分析结果:
+Analysis results:
 ------------------------------
-发现路径数: 16
-探索效率: 4.10 路径/秒
-平均路径分析时间: 0.919 秒/路径
+Paths found: 16
+Exploration rate: 4.10 paths/sec
+Average path analysis time: 0.919 sec/path
 
-数组符号化信息:
+Array symbolization info:
 ------------------------------
-1. a: 16/128 个元素
-2. b: 16/128 个元素
-3. c: 8/128 个元素
-4. d: 8/128 个元素
-5. e: 8/128 个元素
+1. a: 16/128 elements
+2. b: 16/128 elements
+3. c: 8/128 elements
+4. d: 8/128 elements
+5. e: 8/128 elements
 
-生成的文件:
+Generated files:
 ------------------------------
 s000_O2_path_1.txt
 s000_O2_path_2.txt

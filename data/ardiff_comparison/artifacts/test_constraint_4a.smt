@@ -1,5 +1,5 @@
 
-; 不等价测试约束4A
+; Not-equivalent test constraint4A
 (set-info :status unknown)
 (declare-fun w () (_ BitVec 32))
 (assert (= w (_ bv0 32)))

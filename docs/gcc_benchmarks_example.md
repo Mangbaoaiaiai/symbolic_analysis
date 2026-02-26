@@ -1,9 +1,9 @@
-# GCC编译benchmark统计报告
+# GCC-compiled benchmark statistics report
 
-## 详细时间统计
+## Detailed timing statistics
 
-| 程序 | 符号执行(s) | 等价性分析(s) | 总时间(s) | 路径数 | 比较次数 | 平均SE时间 |
-|------|-------------|---------------|-----------|--------|----------|------------|
+| Program | Symbolic execution (s) | Equivalence analysis (s) | Total time (s) | Paths | Comparisons | Avg SE time |
+|---------|------------------------|---------------------------|----------------|-------|-------------|-------------|
 | s000-gcc | 96.4 | 2.00 | 98.4 | 64 | 6 | 24.1 |
 | s2244-gcc | 75.4 | 1.11 | 76.5 | 48 | 3 | 25.1 |
 | s121-gcc | 74.4 | 1.20 | 75.6 | 48 | 3 | 24.8 |

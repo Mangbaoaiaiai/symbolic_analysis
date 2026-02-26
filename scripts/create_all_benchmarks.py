@@ -1,7 +1,8 @@
                       
 """
-自动创建所有TSVC benchmark文件夹
-根据pldi19的TSVC clean.c生成所有推荐benchmark的O1、O2、O3版本
+Automatically create all TSVC benchmark folders.
+
+Generates O1, O2, O3 variants of all recommended benchmarks from pldi19 TSVC clean.c.
 """
 
 import os
@@ -22,13 +23,13 @@ class TSVCBenchmarkGenerator:
               
         self.c_template = """
 #include <stdlib.h>
-#include <stdio.h>  // 添加stdio.h用于scanf
+#include <stdio.h>  /* for scanf */
 
 #define LEN 128
 #define LEN2 16
 #define TYPE int
 
-// 内存段定义
+/* Memory segments */
 TYPE a[LEN] __attribute__((section ("SEGMENT_A")));
 TYPE b[LEN] __attribute__((section ("SEGMENT_B")));
 TYPE c[LEN] __attribute__((section ("SEGMENT_C")));
@@ -55,7 +56,7 @@ void init_data() {{
 
 int main() {{
     int count;
-    printf("请输入count参数: ");
+    printf("Please enter count parameter: ");
     scanf("%d", &count);
     
     init_data();
@@ -65,18 +66,16 @@ int main() {{
 """
 
     def read_tsvc_source(self):
-        """读取TSVC源代码"""
+        """Read TSVC source code."""
         with open(self.tsvc_source, 'r') as f:
             return f.read()
     
     def extract_function_definition(self, content, function_name):
-        """从源代码中提取指定函数的定义"""
-                   
+        """Extract the given function definition from source."""
         pattern = rf'TYPE\s+{function_name}\s*\([^)]*\)\s*\{{'
         match = re.search(pattern, content)
-        
         if not match:
-            print(f"警告: 未找到函数 {function_name}")
+            print(f"Warning: function {function_name} not found")
             return None
         
         start_pos = match.start()
@@ -95,72 +94,59 @@ int main() {{
         return '\n'.join(function_lines)
     
     def create_benchmark_folder(self, function_name, function_definition):
-        """为指定函数创建benchmark文件夹"""
+        """Create benchmark folder for the given function."""
         folder_name = f"benchmark_temp_{function_name}"
         folder_path = Path(".") / folder_name
-        
-               
         folder_path.mkdir(exist_ok=True, parents=True)
-        print(f"创建文件夹: {folder_path}")
-        
-                     
+        print(f"Creating folder: {folder_path}")
         for opt_level in self.optimization_levels:
-                    
             source_file = folder_path / f"{function_name}_{opt_level}.c"
             c_code = self.c_template.format(
                 function_definition=function_definition,
                 function_name=function_name
             )
-            
             with open(source_file, 'w') as f:
                 f.write(c_code)
-            print(f"  创建源码: {source_file}")
+            print(f"  Created source: {source_file}")
             
                        
             binary_file = folder_path / f"{function_name}_{opt_level}"
             self.compile_source(source_file, binary_file, opt_level)
     
     def compile_source(self, source_file, binary_file, opt_level):
-        """编译源码生成可执行文件"""
+        """Compile source to executable."""
         try:
             cmd = [
-                'gcc', 
-                f'-{opt_level}', 
-                '-o', str(binary_file), 
+                'gcc',
+                f'-{opt_level}',
+                '-o', str(binary_file),
                 str(source_file)
             ]
-            
             result = subprocess.run(cmd, capture_output=True, text=True)
             if result.returncode == 0:
-                print(f"    编译成功: {binary_file}")
+                print(f"    Compiled: {binary_file}")
             else:
-                print(f"    编译失败: {binary_file}")
-                print(f"    错误信息: {result.stderr}")
+                print(f"    Compilation failed: {binary_file}")
+                print(f"    Error: {result.stderr}")
         except Exception as e:
-            print(f"    编译异常: {e}")
+            print(f"    Compilation error: {e}")
     
     def generate_all_benchmarks(self):
-        """生成所有推荐的benchmark"""
-        print("开始生成所有TSVC benchmark文件夹...")
-        print(f"推荐的benchmark: {self.recommended_benchmarks}")
-        
-                   
+        """Generate all recommended benchmarks."""
+        print("Generating all TSVC benchmark folders...")
+        print(f"Recommended benchmarks: {self.recommended_benchmarks}")
         content = self.read_tsvc_source()
-        
         for func_name in self.recommended_benchmarks:
-            print(f"\n处理benchmark: {func_name}")
-            
-                    
+            print(f"\nProcessing benchmark: {func_name}")
             func_def = self.extract_function_definition(content, func_name)
             if func_def:
                 self.create_benchmark_folder(func_name, func_def)
             else:
-                print(f"跳过 {func_name}: 无法提取函数定义")
-        
-        print("\n所有benchmark生成完成！")
+                print(f"Skipping {func_name}: could not extract function definition")
+        print("\nAll benchmarks generated.")
     
     def list_existing_benchmarks(self):
-        """列出现有的benchmark文件夹"""
+        """List existing benchmark folders."""
         symbolic_path = Path(".")
         existing = []
         
@@ -171,23 +157,16 @@ int main() {{
         return existing
 
 def main():
-    print("TSVC Benchmark文件夹生成器")
+    print("TSVC Benchmark folder generator")
     print("=" * 50)
-    
     generator = TSVCBenchmarkGenerator()
-    
-                    
     existing = generator.list_existing_benchmarks()
     if existing:
-        print(f"现有benchmark文件夹: {existing}")
-    
-                   
+        print(f"Existing benchmark folders: {existing}")
     generator.generate_all_benchmarks()
-    
-            
     final = generator.list_existing_benchmarks()
-    print(f"\n最终benchmark文件夹数量: {len(final)}")
-    print(f"文件夹列表: {final}")
+    print(f"\nTotal benchmark folders: {len(final)}")
+    print(f"Folders: {final}")
 
 if __name__ == "__main__":
     main() 

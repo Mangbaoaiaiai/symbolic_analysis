@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""
+Batch path similarity: cosine similarity between path feature vectors, output ranking only (no threshold).
+
+Loads a JSON of path_id -> 11-dim vector (from generate_path_feature_vectors.py), optionally
+normalizes using min_max in the file, then:
+  - One target: rank all other paths by similarity to target (descending).
+  - All-pairs: compute full similarity matrix and output sorted pairs (descending).
+
+Usage:
+  python path_similarity_batch.py --vectors path_feature_vectors.json --target s000_O0_path_1 --out ranking.json
+  python path_similarity_batch.py --vectors path_feature_vectors.json --all-pairs --top 100 --out pairs.json
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+# Allow importing from src
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from symbolic_analysis.analysis.path_constraint_features import (
+    FEATURE_RANGES,
+    normalize_features,
+)
+
+
+def cosine_similarity(a: list[float], b: list[float]) -> float:
+    """Cosine similarity in [0, 1] for non-negative vectors; 1 = identical direction."""
+    if len(a) != len(b):
+        return 0.0
+    dot = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(y * y for y in b) ** 0.5
+    if na == 0 or nb == 0:
+        return 0.0
+    # Clamp to [0, 1] for non-negative features
+    return max(0.0, min(1.0, dot / (na * nb)))
+
+
+def load_vectors(path: Path) -> tuple[dict[str, list[float]], dict | None, list[str]]:
+    """
+    Load vectors JSON. Returns (path_id -> vector, min_max or None, feature_names).
+    Prefer normalized_vectors if present; else use vectors and optionally normalize with min_max.
+    """
+    data = json.loads(path.read_text(encoding="utf-8"))
+    feature_names = data.get("feature_names", list(FEATURE_RANGES.keys()))
+    min_max = None
+    if "min_max" in data:
+        min_max = {k: tuple(v) for k, v in data["min_max"].items()}
+
+    if "normalized_vectors" in data:
+        return data["normalized_vectors"], min_max, feature_names
+    vectors = dict(data["vectors"])
+    # Optionally normalize with min_max
+    if min_max and vectors:
+        first = next(iter(vectors.values()))
+        if first and (min(first) < 0 or max(first) > 1.01):
+            vectors = {
+                pid: normalize_features(vec, min_max)
+                for pid, vec in vectors.items()
+            }
+    return vectors, min_max, feature_names
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Batch path similarity by cosine (ranking only, no threshold)."
+    )
+    parser.add_argument(
+        "--vectors",
+        type=Path,
+        required=True,
+        help="JSON from generate_path_feature_vectors.py (path_id -> 11-dim vector).",
+    )
+    parser.add_argument(
+        "--target",
+        type=str,
+        help="Path ID to use as target; rank all others by similarity to this.",
+    )
+    parser.add_argument(
+        "--all-pairs",
+        action="store_true",
+        help="Compute all-pairs similarity and output sorted pairs (no single target).",
+    )
+    parser.add_argument(
+        "--top",
+        type=int,
+        default=None,
+        help="Limit output to top N by similarity (for --target: N others; for --all-pairs: N pairs).",
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=Path("path_similarity_ranking.json"),
+        help="Output JSON file.",
+    )
+    parser.add_argument(
+        "--format",
+        choices=("json", "table"),
+        default="json",
+        help="Output format: json or human-readable table (for --target only).",
+    )
+    args = parser.parse_args()
+
+    if (args.target is None) == (not args.all_pairs):
+        parser.error("Provide exactly one of --target or --all-pairs.")
+
+    if not args.vectors.is_file():
+        print(f"Error: vectors file not found: {args.vectors}", file=sys.stderr)
+        sys.exit(1)
+
+    vectors, min_max, _ = load_vectors(args.vectors)
+    if not vectors:
+        print("No vectors in file.", file=sys.stderr)
+        sys.exit(1)
+
+    if args.target:
+        if args.target not in vectors:
+            print(f"Error: target '{args.target}' not in vectors. Available: {list(vectors.keys())[:5]}...", file=sys.stderr)
+            sys.exit(1)
+        target_vec = vectors[args.target]
+        ranking = []
+        for pid, vec in vectors.items():
+            if pid == args.target:
+                continue
+            sim = cosine_similarity(target_vec, vec)
+            ranking.append({"path_id": pid, "similarity": round(sim, 4)})
+        ranking.sort(key=lambda x: -x["similarity"])
+        if args.top is not None:
+            ranking = ranking[: args.top]
+
+        out_data = {
+            "target": args.target,
+            "ranking": ranking,
+        }
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        if args.format == "table":
+            lines = [
+                "Rank\tPath\tSimilarity",
+                *[
+                    f"{i+1}\t{r['path_id']}\t{r['similarity']}"
+                    for i, r in enumerate(ranking)
+                ],
+            ]
+            args.out.write_text("\n".join(lines), encoding="utf-8")
+            print("\n".join(lines))
+        else:
+            args.out.write_text(json.dumps(out_data, indent=2, ensure_ascii=False), encoding="utf-8")
+            print(f"Wrote ranking of {len(ranking)} paths (target={args.target}) to {args.out}")
+
+    else:
+        # All-pairs
+        ids = sorted(vectors.keys())
+        pairs = []
+        for i in range(len(ids)):
+            for j in range(i + 1, len(ids)):
+                a, b = ids[i], ids[j]
+                sim = cosine_similarity(vectors[a], vectors[b])
+                pairs.append({"path_a": a, "path_b": b, "similarity": round(sim, 4)})
+        pairs.sort(key=lambda x: -x["similarity"])
+        if args.top is not None:
+            pairs = pairs[: args.top]
+        out_data = {
+            "mode": "all_pairs",
+            "pairs": pairs,
+        }
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(json.dumps(out_data, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"Wrote {len(pairs)} pairs (all-pairs similarity) to {args.out}")
+
+
+if __name__ == "__main__":
+    main()

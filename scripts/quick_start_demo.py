@@ -58,7 +58,7 @@ def test_benchmark_extraction():
         return True
         
     except Exception as e:
-        print(f"  ✗ benchmark提取失败: {e}")
+        print(f"  ✗ Benchmark extraction failed: {e}")
         return False
 
 def test_single_benchmark():
@@ -252,11 +252,11 @@ def main():
         try:
             if test_func():
                 passed_tests += 1
-                print(f"✓ {test_name} 通过")
+                print(f"✓ {test_name} passed")
             else:
-                print(f"✗ {test_name} 失败")
+                print(f"✗ {test_name} failed")
         except Exception as e:
-            print(f"✗ {test_name} 出现异常: {e}")
+            print(f"✗ {test_name} exception: {e}")
     
     end_time = time.time()
     
@@ -290,7 +290,7 @@ def main():
         else:
             print("Keeping test files for debugging.")
     except KeyboardInterrupt:
-        print("\n\n测试完成")
+        print("\n\nTests finished")
 
 if __name__ == "__main__":
     main() 

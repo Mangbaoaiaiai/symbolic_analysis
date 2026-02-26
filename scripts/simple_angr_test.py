@@ -1,13 +1,13 @@
                       
 """
-简单的angr测试：验证是否能从条件分支中提取真实约束
+Simple angr test: verify that real constraints can be extracted from conditional branches.
 """
 
 import angr
 import claripy
 
 def test_simple_branch():
-    print("🔍 测试简单条件分支的约束提取")
+    print("🔍 Testing constraint extraction from simple conditional branch")
     
               
     project = angr.Project('./simple_branch_test', auto_load_libs=False)
@@ -22,35 +22,26 @@ def test_simple_branch():
                           
     simgr = project.factory.simulation_manager(state)
     
-    print("开始符号执行...")
-    
-            
+    print("Starting symbolic execution...")
     simgr.explore()
-    
-    print(f"探索完成:")
-    print(f"  找到的路径: {len(simgr.found)}")
-    print(f"  活跃的路径: {len(simgr.active)}")
-    print(f"  死锁的路径: {len(simgr.deadended)}")
-    print(f"  错误的路径: {len(simgr.errored)}")
-    
-               
+    print("Exploration done:")
+    print(f"  Found: {len(simgr.found)}")
+    print(f"  Active: {len(simgr.active)}")
+    print(f"  Deadended: {len(simgr.deadended)}")
+    print(f"  Errored: {len(simgr.errored)}")
     all_states = simgr.found + simgr.deadended
-    
-    for i, state in enumerate(all_states[:5]):            
-        print(f"\n路径 {i}:")
+    for i, state in enumerate(all_states[:5]):
+        print(f"\nPath {i}:")
         constraints = state.solver.constraints
-        print(f"  约束数量: {len(constraints)}")
-        
+        print(f"  Constraint count: {len(constraints)}")
         for j, constraint in enumerate(constraints):
-            print(f"  约束 {j}: {constraint}")
-        
-                   
+            print(f"  Constraint {j}: {constraint}")
         try:
             if hasattr(state.solver, 'eval'):
-                example_val = state.solver.eval(x_sym, cast_to=int) 
-                print(f"  示例x值: {example_val}")
+                example_val = state.solver.eval(x_sym, cast_to=int)
+                print(f"  Example x value: {example_val}")
         except Exception as e:
-            print(f"  无法求解示例值: {e}")
+            print(f"  Could not get example value: {e}")
 
 if __name__ == "__main__":
     test_simple_branch() 

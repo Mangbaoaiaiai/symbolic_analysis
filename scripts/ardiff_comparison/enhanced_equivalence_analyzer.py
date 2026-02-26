@@ -1,11 +1,11 @@
                       
 """
-分层等价性检查系统
-Level 1: 控制流等价性
-Level 2: 内存访问模式等价性  
-Level 3: 数据变换等价性
+Layered equivalence checking system.
+Level 1: Control-flow equivalence
+Level 2: Memory access pattern equivalence
+Level 3: Data transformation equivalence
 
-解决传统符号执行约束表示层次过高的问题
+Addresses the issue of overly high-level constraint representation in traditional symbolic execution.
 """
 
 import re
@@ -22,7 +22,7 @@ import hashlib
 
 @dataclass
 class ConstraintAnalysis:
-    """约束分析结果"""
+    """Constraint analysis result."""
     control_flow_constraints: List[str]
     memory_access_constraints: List[str]
     data_transformation_constraints: List[str]
@@ -30,9 +30,9 @@ class ConstraintAnalysis:
     memory_addresses: Set[str]
     arithmetic_operations: List[str]
 
-@dataclass 
+@dataclass
 class LayeredEquivalenceResult:
-    """分层等价性检查结果"""
+    """Layered equivalence check result."""
     level1_control_flow: str                                       
     level2_memory_access: str
     level3_data_transformation: str
@@ -41,7 +41,7 @@ class LayeredEquivalenceResult:
     detailed_analysis: Dict
     
 class ConstraintClassifier:
-    """约束分类器 - 将SMT约束分类到不同层次"""
+    """Constraint classifier: assign SMT constraints to layers."""
     
     def __init__(self):
                
@@ -72,7 +72,7 @@ class ConstraintClassifier:
         ]
     
     def classify_constraint(self, constraint: str) -> str:
-        """将约束分类到控制流、内存访问或数据变换"""
+        """Classify constraint as control-flow, memory-access, or data-transformation."""
                     
         clean_constraint = re.sub(r'\s+', ' ', constraint.strip())
         
@@ -93,7 +93,7 @@ class ConstraintClassifier:
         return 'control_flow'
     
     def extract_memory_addresses(self, constraints: List[str]) -> Set[str]:
-        """提取约束中的内存地址"""
+        """Extract memory addresses from constraints."""
         addresses = set()
         for constraint in constraints:
                                          
@@ -102,7 +102,7 @@ class ConstraintClassifier:
         return addresses
     
     def extract_arithmetic_operations(self, constraints: List[str]) -> List[str]:
-        """提取算术运算操作"""
+        """Extract arithmetic operations."""
         operations = []
         for constraint in constraints:
                     
@@ -111,7 +111,7 @@ class ConstraintClassifier:
         return operations
     
     def analyze_constraints(self, constraints: List[str], variables: Dict[str, int]) -> ConstraintAnalysis:
-        """全面分析约束结构"""
+        """Analyze full constraint structure."""
         control_flow = []
         memory_access = []
         data_transformation = []
@@ -142,7 +142,7 @@ class ConstraintClassifier:
         )
     
     def extract_variable_bounds(self, constraints: List[str], var_name: str) -> Optional[Tuple[int, int]]:
-        """提取变量的上下界"""
+        """Extract variable lower/upper bounds."""
         lower_bound = None
         upper_bound = None
         
@@ -162,7 +162,7 @@ class ConstraintClassifier:
         return None
 
 class LayeredEquivalenceChecker:
-    """分层等价性检查器"""
+    """Layered equivalence checker."""
     
     def __init__(self, timeout=30000):
         self.timeout = timeout
@@ -171,7 +171,7 @@ class LayeredEquivalenceChecker:
         self.z3_call_count = 0
     
     def extract_constraint_formula(self, file_path: str):
-        """从文件中提取约束公式（复用原有方法）"""
+        """Extract constraint formula from file."""
         with open(file_path, 'r') as f:
             content = f.read()
         
@@ -197,8 +197,8 @@ class LayeredEquivalenceChecker:
     
     def check_level1_control_flow_equivalence(self, analysis1: ConstraintAnalysis, 
                                             analysis2: ConstraintAnalysis) -> Tuple[str, Dict]:
-        """Level 1: 控制流等价性检查"""
-        print("    📊 Level 1: 控制流等价性检查")
+        """Level 1: Control-flow equivalence check."""
+        print("    📊 Level 1: Control-flow equivalence")
         
         start_time = time.time()
         
@@ -226,27 +226,25 @@ class LayeredEquivalenceChecker:
         count_diff = abs(len(cf1) - len(cf2))
         if count_diff > 2:          
             result = "not_equivalent"
-            details['reason'] = f"控制流约束数量差异过大: {len(cf1)} vs {len(cf2)}"
+            details['reason'] = f"Control-flow constraint count diff too large: {len(cf1)} vs {len(cf2)}"
         elif not bounds_equivalent:
-            result = "not_equivalent" 
-            details['reason'] = "变量边界不一致"
+            result = "not_equivalent"
+            details['reason'] = "Variable bounds inconsistent"
         else:
             result = "equivalent"
-            details['reason'] = "控制流结构基本一致"
-        
+            details['reason'] = "Control-flow structure largely consistent"
         solve_time = time.time() - start_time
         details['check_time'] = solve_time
-        
-        print(f"      结果: {result}")
-        print(f"      控制流约束: {len(cf1)} vs {len(cf2)}")
-        print(f"      变量边界: {analysis1.variable_bounds} vs {analysis2.variable_bounds}")
+        print(f"      Result: {result}")
+        print(f"      Control-flow constraints: {len(cf1)} vs {len(cf2)}")
+        print(f"      Variable bounds: {analysis1.variable_bounds} vs {analysis2.variable_bounds}")
         
         return result, details
     
     def check_level2_memory_access_equivalence(self, analysis1: ConstraintAnalysis,
                                              analysis2: ConstraintAnalysis) -> Tuple[str, Dict]:
-        """Level 2: 内存访问模式等价性检查"""
-        print("    🔍 Level 2: 内存访问模式等价性检查")
+        """Level 2: Memory access pattern equivalence check."""
+        print("    🔍 Level 2: Memory access pattern equivalence")
         
         start_time = time.time()
         
@@ -279,31 +277,29 @@ class LayeredEquivalenceChecker:
         
         if access_count_diff > 5 and addr_similarity < 0.3:
             result = "not_equivalent"
-            details['reason'] = f"内存访问模式显著不同: 约束数差异{access_count_diff}, 地址相似度{addr_similarity:.2f}"
+            details['reason'] = f"Memory access pattern very different: count diff {access_count_diff}, addr similarity {addr_similarity:.2f}"
         elif addr_similarity < 0.1:
             result = "not_equivalent"
-            details['reason'] = f"内存地址集合几乎完全不同: 相似度{addr_similarity:.2f}"
+            details['reason'] = f"Memory address sets almost disjoint: similarity {addr_similarity:.2f}"
         elif addr_similarity > 0.8 and access_count_diff <= 3:
             result = "equivalent"
-            details['reason'] = f"内存访问模式高度相似: 相似度{addr_similarity:.2f}"
+            details['reason'] = f"Memory access pattern highly similar: similarity {addr_similarity:.2f}"
         else:
             result = "partial_equivalent"
-            details['reason'] = f"内存访问模式部分相似: 相似度{addr_similarity:.2f}"
-        
+            details['reason'] = f"Memory access pattern partially similar: similarity {addr_similarity:.2f}"
         solve_time = time.time() - start_time
         details['check_time'] = solve_time
-        
-        print(f"      结果: {result}")
-        print(f"      内存访问约束: {len(ma1)} vs {len(ma2)}")
-        print(f"      地址相似度: {addr_similarity:.2f}")
-        print(f"      共同地址: {len(addr_intersection)} 个")
+        print(f"      Result: {result}")
+        print(f"      Memory access constraints: {len(ma1)} vs {len(ma2)}")
+        print(f"      Address similarity: {addr_similarity:.2f}")
+        print(f"      Common addresses: {len(addr_intersection)}")
         
         return result, details
     
     def check_level3_data_transformation_equivalence(self, analysis1: ConstraintAnalysis,
                                                    analysis2: ConstraintAnalysis) -> Tuple[str, Dict]:
-        """Level 3: 数据变换等价性检查"""
-        print("    🧮 Level 3: 数据变换等价性检查")
+        """Level 3: Data transformation equivalence check."""
+        print("    🧮 Level 3: Data transformation equivalence")
         
         start_time = time.time()
         
@@ -342,30 +338,28 @@ class LayeredEquivalenceChecker:
         
         if len(dt1) == 0 and len(dt2) == 0:
             result = "equivalent"
-            details['reason'] = "都没有数据变换操作"
+            details['reason'] = "No data transformation ops in either"
         elif op_similarity > 0.8 and complexity_diff <= 2:
             result = "equivalent"
-            details['reason'] = f"数据变换模式高度相似: 运算相似度{op_similarity:.2f}"
+            details['reason'] = f"Data transformation pattern highly similar: op similarity {op_similarity:.2f}"
         elif op_similarity < 0.3:
             result = "not_equivalent"
-            details['reason'] = f"数据变换模式显著不同: 运算相似度{op_similarity:.2f}"
+            details['reason'] = f"Data transformation pattern very different: op similarity {op_similarity:.2f}"
         else:
             result = "partial_equivalent"
-            details['reason'] = f"数据变换模式部分相似: 运算相似度{op_similarity:.2f}"
-        
+            details['reason'] = f"Data transformation pattern partially similar: op similarity {op_similarity:.2f}"
         solve_time = time.time() - start_time
         details['check_time'] = solve_time
-        
-        print(f"      结果: {result}")
-        print(f"      数据变换约束: {len(dt1)} vs {len(dt2)}")
-        print(f"      运算模式相似度: {op_similarity:.2f}")
-        print(f"      算术操作: {dict(ops1)} vs {dict(ops2)}")
+        print(f"      Result: {result}")
+        print(f"      Data transformation constraints: {len(dt1)} vs {len(dt2)}")
+        print(f"      Operation similarity: {op_similarity:.2f}")
+        print(f"      Arithmetic ops: {dict(ops1)} vs {dict(ops2)}")
         
         return result, details
     
     def calculate_confidence_score(self, level1_result: str, level2_result: str, 
                                  level3_result: str) -> float:
-        """计算置信度分数"""
+        """Compute confidence score."""
         score_map = {
             'equivalent': 1.0,
             'partial_equivalent': 0.5,
@@ -383,7 +377,7 @@ class LayeredEquivalenceChecker:
     
     def determine_overall_result(self, level1_result: str, level2_result: str, 
                                level3_result: str, confidence: float) -> str:
-        """确定总体等价性结果"""
+        """Determine overall equivalence result."""
                                    
         if 'not_equivalent' in [level1_result, level2_result, level3_result]:
             if confidence < 0.4:
@@ -407,8 +401,8 @@ class LayeredEquivalenceChecker:
             return 'not_equivalent'
     
     def check_layered_equivalence(self, file1: str, file2: str) -> LayeredEquivalenceResult:
-        """执行分层等价性检查"""
-        print(f"\n🔬 分层等价性检查: {os.path.basename(file1)} vs {os.path.basename(file2)}")
+        """Run layered equivalence check."""
+        print(f"\n🔬 Layered equivalence check: {os.path.basename(file1)} vs {os.path.basename(file2)}")
         
               
         try:
@@ -428,8 +422,8 @@ class LayeredEquivalenceChecker:
         analysis1 = self.classifier.analyze_constraints(constraints1, vars1)
         analysis2 = self.classifier.analyze_constraints(constraints2, vars2)
         
-        print(f"  路径1: {len(constraints1)} 约束 -> CF:{len(analysis1.control_flow_constraints)} MA:{len(analysis1.memory_access_constraints)} DT:{len(analysis1.data_transformation_constraints)}")
-        print(f"  路径2: {len(constraints2)} 约束 -> CF:{len(analysis2.control_flow_constraints)} MA:{len(analysis2.memory_access_constraints)} DT:{len(analysis2.data_transformation_constraints)}")
+        print(f"  Path1: {len(constraints1)} constraints -> CF:{len(analysis1.control_flow_constraints)} MA:{len(analysis1.memory_access_constraints)} DT:{len(analysis1.data_transformation_constraints)}")
+        print(f"  Path2: {len(constraints2)} constraints -> CF:{len(analysis2.control_flow_constraints)} MA:{len(analysis2.memory_access_constraints)} DT:{len(analysis2.data_transformation_constraints)}")
         
               
         level1_result, level1_details = self.check_level1_control_flow_equivalence(analysis1, analysis2)
@@ -440,12 +434,12 @@ class LayeredEquivalenceChecker:
         confidence = self.calculate_confidence_score(level1_result, level2_result, level3_result)
         overall_result = self.determine_overall_result(level1_result, level2_result, level3_result, confidence)
         
-        print(f"\n  📊 分层结果:")
-        print(f"    Level 1 (控制流): {level1_result}")
-        print(f"    Level 2 (内存访问): {level2_result}")
-        print(f"    Level 3 (数据变换): {level3_result}")
-        print(f"    整体结果: {overall_result}")
-        print(f"    置信度: {confidence:.2f}")
+        print(f"\n  📊 Layered results:")
+        print(f"    Level 1 (control flow): {level1_result}")
+        print(f"    Level 2 (memory access): {level2_result}")
+        print(f"    Level 3 (data transformation): {level3_result}")
+        print(f"    Overall: {overall_result}")
+        print(f"    Confidence: {confidence:.2f}")
         
         return LayeredEquivalenceResult(
             level1_control_flow=level1_result,
@@ -463,101 +457,81 @@ class LayeredEquivalenceChecker:
         )
 
 class EnhancedEquivalenceAnalyzer:
-    """增强等价性分析器"""
+    """Enhanced equivalence analyzer."""
     
     def __init__(self, benchmark_dir: str = '.'):
         self.benchmark_dir = benchmark_dir
         self.checker = LayeredEquivalenceChecker()
         
     def analyze_path_pair(self, file1: str, file2: str) -> LayeredEquivalenceResult:
-        """分析单个路径对"""
+        """Analyze a single path pair."""
         return self.checker.check_layered_equivalence(file1, file2)
     
     def generate_layered_report(self, results: List[Tuple[str, str, LayeredEquivalenceResult]], 
                                output_file: str = "layered_equivalence_report.txt"):
-        """生成分层分析报告"""
+        """Generate layered analysis report."""
         with open(output_file, "w", encoding='utf-8') as f:
-            f.write("分层等价性分析报告\n")
+            f.write("Layered equivalence analysis report\n")
             f.write("=" * 60 + "\n\n")
-            
-            f.write("分析方法:\n")
-            f.write("  Level 1: 控制流等价性 (循环边界、分支条件)\n")
-            f.write("  Level 2: 内存访问模式等价性 (地址模式、访问频率)\n") 
-            f.write("  Level 3: 数据变换等价性 (算术运算、数据流)\n\n")
-            
-                  
+            f.write("Method:\n")
+            f.write("  Level 1: Control-flow equivalence (loop bounds, branch conditions)\n")
+            f.write("  Level 2: Memory access pattern equivalence (address patterns, access frequency)\n")
+            f.write("  Level 3: Data transformation equivalence (arithmetic ops, data flow)\n\n")
             total_pairs = len(results)
             overall_equivalent = sum(1 for _, _, result in results if result.overall_result == 'equivalent')
             overall_not_equivalent = sum(1 for _, _, result in results if result.overall_result == 'not_equivalent')
-            
-            f.write(f"总体统计:\n")
-            f.write(f"  分析路径对数: {total_pairs}\n")
-            f.write(f"  整体等价: {overall_equivalent} ({overall_equivalent/total_pairs*100:.1f}%)\n")
-            f.write(f"  整体不等价: {overall_not_equivalent} ({overall_not_equivalent/total_pairs*100:.1f}%)\n")
-            f.write(f"  其他情况: {total_pairs - overall_equivalent - overall_not_equivalent}\n\n")
-            
-                  
+            f.write(f"Overall stats:\n")
+            f.write(f"  Path pairs analyzed: {total_pairs}\n")
+            f.write(f"  Overall equivalent: {overall_equivalent} ({overall_equivalent/total_pairs*100:.1f}%)\n")
+            f.write(f"  Overall not equivalent: {overall_not_equivalent} ({overall_not_equivalent/total_pairs*100:.1f}%)\n")
+            f.write(f"  Other: {total_pairs - overall_equivalent - overall_not_equivalent}\n\n")
             level1_eq = sum(1 for _, _, result in results if result.level1_control_flow == 'equivalent')
-            level2_eq = sum(1 for _, _, result in results if result.level2_memory_access == 'equivalent') 
+            level2_eq = sum(1 for _, _, result in results if result.level2_memory_access == 'equivalent')
             level3_eq = sum(1 for _, _, result in results if result.level3_data_transformation == 'equivalent')
-            
-            f.write(f"分层等价性统计:\n")
-            f.write(f"  Level 1 (控制流) 等价: {level1_eq}/{total_pairs} ({level1_eq/total_pairs*100:.1f}%)\n")
-            f.write(f"  Level 2 (内存访问) 等价: {level2_eq}/{total_pairs} ({level2_eq/total_pairs*100:.1f}%)\n")
-            f.write(f"  Level 3 (数据变换) 等价: {level3_eq}/{total_pairs} ({level3_eq/total_pairs*100:.1f}%)\n\n")
-            
-                  
-            f.write("详细分析结果:\n")
+            f.write(f"Layered equivalence stats:\n")
+            f.write(f"  Level 1 (control flow) equivalent: {level1_eq}/{total_pairs} ({level1_eq/total_pairs*100:.1f}%)\n")
+            f.write(f"  Level 2 (memory access) equivalent: {level2_eq}/{total_pairs} ({level2_eq/total_pairs*100:.1f}%)\n")
+            f.write(f"  Level 3 (data transformation) equivalent: {level3_eq}/{total_pairs} ({level3_eq/total_pairs*100:.1f}%)\n\n")
+            f.write("Detailed results:\n")
             f.write("-" * 60 + "\n")
-            
             for file1, file2, result in results:
-                f.write(f"\n比较: {os.path.basename(file1)} vs {os.path.basename(file2)}\n")
-                f.write(f"  Level 1 (控制流): {result.level1_control_flow}\n")
-                f.write(f"  Level 2 (内存访问): {result.level2_memory_access}\n")
-                f.write(f"  Level 3 (数据变换): {result.level3_data_transformation}\n")
-                f.write(f"  整体结果: {result.overall_result}\n")
-                f.write(f"  置信度: {result.confidence_score:.2f}\n")
-                
-                      
+                f.write(f"\nCompare: {os.path.basename(file1)} vs {os.path.basename(file2)}\n")
+                f.write(f"  Level 1 (control flow): {result.level1_control_flow}\n")
+                f.write(f"  Level 2 (memory access): {result.level2_memory_access}\n")
+                f.write(f"  Level 3 (data transformation): {result.level3_data_transformation}\n")
+                f.write(f"  Overall: {result.overall_result}\n")
+                f.write(f"  Confidence: {result.confidence_score:.2f}\n")
                 if 'level1_details' in result.detailed_analysis:
                     level1 = result.detailed_analysis['level1_details']
-                    f.write(f"  控制流详情: {level1.get('reason', '')}\n")
-                
+                    f.write(f"  Control-flow details: {level1.get('reason', '')}\n")
                 if 'level2_details' in result.detailed_analysis:
                     level2 = result.detailed_analysis['level2_details']
-                    f.write(f"  内存访问详情: {level2.get('reason', '')}\n")
+                    f.write(f"  Memory access details: {level2.get('reason', '')}\n")
                     if 'address_similarity' in level2:
-                        f.write(f"    地址相似度: {level2['address_similarity']:.2f}\n")
-                
+                        f.write(f"    Address similarity: {level2['address_similarity']:.2f}\n")
                 if 'level3_details' in result.detailed_analysis:
                     level3 = result.detailed_analysis['level3_details']
-                    f.write(f"  数据变换详情: {level3.get('reason', '')}\n")
+                    f.write(f"  Data transformation details: {level3.get('reason', '')}\n")
                     if 'operation_similarity' in level3:
-                        f.write(f"    运算相似度: {level3['operation_similarity']:.2f}\n")
-        
-        print(f"📄 分层分析报告已保存到: {output_file}")
+                        f.write(f"    Operation similarity: {level3['operation_similarity']:.2f}\n")
+        print(f"📄 Layered report saved to: {output_file}")
 
 def main():
-    """主函数"""
+    """Main entry."""
     import argparse
-    
-    parser = argparse.ArgumentParser(description='分层等价性检查系统')
-    parser.add_argument('--file1', help='第一个路径文件')
-    parser.add_argument('--file2', help='第二个路径文件')
-    parser.add_argument('--benchmark', default='.', help='基准测试目录')
-    parser.add_argument('--output', default='layered_equivalence_report.txt', help='输出报告文件')
-    
+    parser = argparse.ArgumentParser(description='Layered equivalence checking system')
+    parser.add_argument('--file1', help='First path file')
+    parser.add_argument('--file2', help='Second path file')
+    parser.add_argument('--benchmark', default='.', help='Benchmark directory')
+    parser.add_argument('--output', default='layered_equivalence_report.txt', help='Output report file')
     args = parser.parse_args()
-    
     analyzer = EnhancedEquivalenceAnalyzer(args.benchmark)
-    
     if args.file1 and args.file2:
-              
         result = analyzer.analyze_path_pair(args.file1, args.file2)
         results = [(args.file1, args.file2, result)]
         analyzer.generate_layered_report(results, args.output)
     else:
-        print("请提供要比较的两个路径文件: --file1 <file1> --file2 <file2>")
+        print("Provide two path files to compare: --file1 <file1> --file2 <file2>")
 
 if __name__ == "__main__":
     main() 

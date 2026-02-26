@@ -1,0 +1,45 @@
+{
+  "target": "s000_O0_path_1",
+  "ranking": [
+    {
+      "path_id": "s000_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s000_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s000_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s1112_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s121_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s121_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s121_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s1221_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s1221_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_id": "s1221_O3_path_1",
+      "similarity": 1.0
+    }
+  ]
+}

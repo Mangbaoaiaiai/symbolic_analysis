@@ -1,0 +1,80 @@
+{
+  "mode": "all_pairs",
+  "pairs": [
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s000_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s000_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s000_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1112_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s121_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s121_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s121_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1221_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1221_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1221_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1251_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1251_O2_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1251_O3_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1351_O1_path_1",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "s000_O0_path_1",
+      "path_b": "s1351_O2_path_1",
+      "similarity": 1.0
+    }
+  ]
+}

@@ -1,8 +1,9 @@
                       
 """
-改进的符号执行脚本，专门处理benchmark程序
+Improved symbolic execution script for benchmark programs.
 
-针对没有外部输入的程序，通过符号化函数参数或内存状态来生成有意义的约束
+For programs without external input: generates meaningful constraints by
+symbolizing function parameters or memory state.
 """
 
 import angr
@@ -22,7 +23,7 @@ symbolic_var_counter = 0
 symbolic_variables = {}
 
 class BenchmarkSymbolicExecution:
-    """专门用于benchmark程序的符号执行"""
+    """Symbolic execution tailored for benchmark programs."""
     
     def __init__(self, binary_path, output_prefix=None, timeout=120):
         self.binary_path = binary_path
@@ -38,26 +39,25 @@ class BenchmarkSymbolicExecution:
             self.output_prefix = output_prefix
     
     def setup_project(self):
-        """设置angr项目"""
+        """Set up angr project."""
         self.project = angr.Project(self.binary_path, auto_load_libs=False)
-        print(f"加载二进制文件: {self.binary_path}")
+        print(f"Loading binary: {self.binary_path}")
         
                 
         self.find_target_functions()
     
     def find_target_functions(self):
-        """查找目标函数"""
-                  
+        """Find target functions."""
         s000_symbol = self.project.loader.find_symbol('s000')
         if s000_symbol:
-            print(f"找到s000函数地址: 0x{s000_symbol.rebased_addr:x}")
+            print(f"Found s000 at: 0x{s000_symbol.rebased_addr:x}")
             self.s000_addr = s000_symbol.rebased_addr
         else:
-            print("未找到s000函数，将分析整个main函数")
+            print("s000 not found; will analyze entire main")
             self.s000_addr = None
     
     def create_symbolic_state(self):
-        """创建带符号变量的初始状态"""
+        """Create initial state with symbolic variables."""
         initial_state = self.project.factory.entry_state()
         
                            
@@ -72,57 +72,38 @@ class BenchmarkSymbolicExecution:
             symbolic_variables['count_param'] = count_var
             symbolic_var_counter += 1
             
-            print(f"创建符号变量: count_param (范围: 0-10)")
-        
-                         
-                         
-        for i in range(3):             
+            print(f"Created symbolic variable: count_param (range 0-10)")
+        for i in range(3):
             array_var = claripy.BVS(f'array_b_{i}', 32)
             initial_state.solver.add(array_var >= 0)
-            initial_state.solver.add(array_var <= 200)        
-            
+            initial_state.solver.add(array_var <= 200)
             symbolic_variables[f'array_b_{i}'] = array_var
             symbolic_var_counter += 1
-            
-            print(f"创建符号变量: array_b_{i} (范围: 0-200)")
+            print(f"Created symbolic variable: array_b_{i} (range 0-200)")
         
         return initial_state
     
     def run_symbolic_execution(self):
-        """运行符号执行"""
-        print(f"开始符号执行: {self.binary_path}")
-        
-                
+        """Run symbolic execution."""
+        print(f"Starting symbolic execution: {self.binary_path}")
         global symbolic_var_counter, symbolic_variables
         symbolic_var_counter = 0
         symbolic_variables = {}
-        
-              
         self.setup_project()
-        
         if self.project is None:
-            print("项目初始化失败")
+            print("Project initialization failed")
             return []
-        
-                       
         initial_state = self.create_symbolic_state()
-        
-                 
         simgr = self.project.factory.simulation_manager(initial_state)
-        
-                
-        print("开始探索路径...")
+        print("Exploring paths...")
         simgr.run(timeout=self.timeout)
-        
-        print(f"符号执行完成：")
-        print(f"  终止路径数: {len(simgr.deadended)}")
-        print(f"  活跃路径数: {len(simgr.active)}")
-        print(f"  错误路径数: {len(simgr.errored)}")
-        
-                
+        print("Symbolic execution finished:")
+        print(f"  Deadended: {len(simgr.deadended)}")
+        print(f"  Active: {len(simgr.active)}")
+        print(f"  Errored: {len(simgr.errored)}")
         all_states = simgr.deadended + simgr.active
         if simgr.errored:
-            print(f"  处理错误状态: {len(simgr.errored)}")
+            print(f"  Handling errored states: {len(simgr.errored)}")
             for errored in simgr.errored:
                 all_states.append(errored.state)
         
@@ -131,9 +112,9 @@ class BenchmarkSymbolicExecution:
         return self.paths_info
     
     def analyze_states(self, states):
-        """分析所有状态"""
+        """Analyze all states."""
         for i, state in enumerate(states):
-            print(f"\n分析路径 {i + 1}...")
+            print(f"\nAnalyzing path {i + 1}...")
             
                     
             signature = self.extract_path_signature(state)
@@ -155,11 +136,11 @@ class BenchmarkSymbolicExecution:
             self.save_path_to_file(path_info)
             
                   
-            print(f"  符号变量值: {signature['variables']}")
-            print(f"  约束数量: {signature['constraints']['count']}")
+            print(f"  Symbolic variable values: {signature['variables']}")
+            print(f"  Constraint count: {signature['constraints']['count']}")
     
     def extract_path_signature(self, state):
-        """提取路径的多维签名"""
+        """Extract multi-dimensional path signature."""
         signature = {}
         
                    
@@ -214,7 +195,7 @@ class BenchmarkSymbolicExecution:
         return signature
     
     def generate_smt_constraints(self, state):
-        """生成SMT约束"""
+        """Generate SMT constraints."""
         solver = claripy.Solver()
         for constraint in state.solver.constraints:
             solver.add(constraint)
@@ -224,21 +205,19 @@ class BenchmarkSymbolicExecution:
 
     
     def save_path_to_file(self, path_info):
-        """保存路径信息到文件"""
+        """Save path info to file."""
         filename = f"{self.output_prefix}_path_{path_info['index']}.txt"
-        
         with open(filename, "w", encoding='utf-8') as f:
             f.write(path_info['smt_constraints'])
-            f.write("\n; 路径签名信息:\n")
-            f.write(f"; 符号变量值: {path_info['signature']['variables']}\n")
-            f.write(f"; 约束信息: {path_info['signature']['constraints']}\n")
-            f.write(f"; 执行轨迹: {path_info['signature']['execution_trace']}\n")
-            f.write(f"; 内存哈希: {path_info['signature']['memory_hash']}\n")
-        
-        print(f"  已保存到: {filename}")
+            f.write("\n; Path signature:\n")
+            f.write(f"; Symbolic variable values: {path_info['signature']['variables']}\n")
+            f.write(f"; Constraint info: {path_info['signature']['constraints']}\n")
+            f.write(f"; Execution trace: {path_info['signature']['execution_trace']}\n")
+            f.write(f"; Memory hash: {path_info['signature']['memory_hash']}\n")
+        print(f"  Saved to: {filename}")
 
 class BenchmarkAnalyzer:
-    """benchmark批量分析器"""
+    """Batch analyzer for benchmarks."""
     
     def __init__(self, benchmark_dir, timeout=120):
         self.benchmark_dir = benchmark_dir
@@ -246,91 +225,73 @@ class BenchmarkAnalyzer:
         self.results = {}
     
     def find_binary_files(self):
-        """查找benchmark目录中的二进制文件"""
+        """Find binary files in benchmark directory."""
         pattern = os.path.join(self.benchmark_dir, "*_O[0123]")
         binary_files = glob.glob(pattern)
         binary_files = [f for f in binary_files if not f.endswith('.c')]
         return sorted(binary_files)
     
     def analyze_all_binaries(self):
-        """分析所有二进制文件"""
+        """Analyze all binaries."""
         binary_files = self.find_binary_files()
-        
         if not binary_files:
-            print(f"在 {self.benchmark_dir} 中未找到二进制文件")
+            print(f"No binaries found in {self.benchmark_dir}")
             return
-        
-        print(f"发现 {len(binary_files)} 个二进制文件:")
+        print(f"Found {len(binary_files)} binaries:")
         for binary in binary_files:
             print(f"  {binary}")
-        
         for binary_path in binary_files:
             print(f"\n{'='*60}")
-            print(f"正在分析: {binary_path}")
+            print(f"Analyzing: {binary_path}")
             print(f"{'='*60}")
-            
             basename = os.path.basename(binary_path)
             output_prefix = basename
-            
             try:
                 analyzer = BenchmarkSymbolicExecution(binary_path, output_prefix, self.timeout)
                 results = analyzer.run_symbolic_execution()
                 self.results[basename] = results
-                
-                print(f"完成分析 {basename}: 共 {len(results)} 条路径")
-                
+                print(f"Finished {basename}: {len(results)} paths")
             except Exception as e:
-                print(f"分析 {basename} 时出错: {e}")
+                print(f"Error analyzing {basename}: {e}")
                 self.results[basename] = []
-        
         return self.results
     
     def generate_summary_report(self):
-        """生成分析摘要报告"""
+        """Generate analysis summary report."""
         report_file = os.path.join(self.benchmark_dir, "improved_symbolic_execution_summary.txt")
-        
         with open(report_file, "w", encoding='utf-8') as f:
-            f.write("改进的符号执行批量分析摘要报告\n")
+            f.write("Improved symbolic execution batch analysis summary\n")
             f.write("=" * 50 + "\n\n")
-            
-            f.write(f"分析目录: {self.benchmark_dir}\n")
-            f.write(f"分析的二进制文件数量: {len(self.results)}\n")
-            f.write("符号化策略: 函数参数 + 数组元素\n\n")
-            
+            f.write(f"Analysis directory: {self.benchmark_dir}\n")
+            f.write(f"Binaries analyzed: {len(self.results)}\n")
+            f.write("Symbolization: function params + array elements\n\n")
             for binary_name, paths in self.results.items():
-                f.write(f"二进制文件: {binary_name}\n")
-                f.write(f"  发现路径数: {len(paths)}\n")
-                f.write(f"  生成的文件: {binary_name}_path_*.txt\n\n")
-            
-            f.write("下一步: 使用 semantic_equivalence_analyzer.py 进行等价性分析\n")
-        
-        print(f"摘要报告已保存到: {report_file}")
+                f.write(f"Binary: {binary_name}\n")
+                f.write(f"  Paths: {len(paths)}\n")
+                f.write(f"  Output files: {binary_name}_path_*.txt\n\n")
+            f.write("Next: run semantic_equivalence_analyzer.py for equivalence analysis\n")
+        print(f"Summary saved to: {report_file}")
 
 def main():
-    """主函数"""
+    """Main entry."""
     import sys
     import argparse
-    
-    parser = argparse.ArgumentParser(description='改进的符号执行分析工具')
-    parser.add_argument('--benchmark', help='benchmark目录路径，用于批量分析')
-    parser.add_argument('--binary', help='单个二进制文件路径')
-    parser.add_argument('--timeout', type=int, default=120, help='符号执行超时时间(秒)')
-    parser.add_argument('--output-prefix', help='输出文件前缀')
-    
+    parser = argparse.ArgumentParser(description='Improved symbolic execution analysis tool')
+    parser.add_argument('--benchmark', help='Benchmark directory for batch analysis')
+    parser.add_argument('--binary', help='Single binary path')
+    parser.add_argument('--timeout', type=int, default=120, help='Symbolic execution timeout (seconds)')
+    parser.add_argument('--output-prefix', help='Output file prefix')
     args = parser.parse_args()
-    
     if args.benchmark:
-        print(f"开始批量分析benchmark: {args.benchmark}")
+        print(f"Starting batch analysis: {args.benchmark}")
         analyzer = BenchmarkAnalyzer(args.benchmark, args.timeout)
         analyzer.analyze_all_binaries()
         analyzer.generate_summary_report()
-        
     elif args.binary:
-        print(f"开始分析单个文件: {args.binary}")
+        print(f"Analyzing single binary: {args.binary}")
         analyzer = BenchmarkSymbolicExecution(args.binary, args.output_prefix, args.timeout)
         results = analyzer.run_symbolic_execution()
-        print(f"分析完成！共发现 {len(results)} 条路径")
-        
+        print(f"Done. Found {len(results)} paths")
     else:
         parser.print_help()
 

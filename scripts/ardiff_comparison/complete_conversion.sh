@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# 完成剩余的Java到C转换
+# Complete remaining Java-to-C conversions
 
-echo "开始完成剩余的转换..."
+echo "Completing remaining conversions..."
 
-# 查找所有还没有C文件的Java文件
 find benchmarks -name "*.java" | grep -E "(oldV|newV)" | while read java_file; do
     dir=$(dirname "$java_file")
     base=$(basename "$java_file" .java)
-    
-    echo "处理: $dir/$base.java"
+    echo "Processing: $dir/$base.java"
     cd "$dir"
     
     if [ "$base" = "oldV" ]; then
@@ -40,7 +38,7 @@ int main(int argc, char *argv[]) {
 }
 EOF
         gcc -o oldV oldV.c
-        echo "  ✓ oldV.c 创建并编译"
+        echo "  ✓ oldV.c created and compiled"
     elif [ "$base" = "newV" ]; then
         cat > newV.c << 'EOF'
 #include <stdio.h>
@@ -69,12 +67,12 @@ int main(int argc, char *argv[]) {
 }
 EOF
         gcc -o newV newV.c
-        echo "  ✓ newV.c 创建并编译"
+        echo "  ✓ newV.c created and compiled"
     fi
     
     cd - > /dev/null
 done
 
-echo "转换完成！"
-echo "总共生成了 $(find benchmarks -name "*.c" | wc -l) 个C文件"
-echo "总共生成了 $(find benchmarks -name "oldV" -o -name "newV" | wc -l) 个可执行文件" 
+echo "Conversion done!"
+echo "Total C files: $(find benchmarks -name "*.c" | wc -l)"
+echo "Total executables: $(find benchmarks -name "oldV" -o -name "newV" | wc -l)" 

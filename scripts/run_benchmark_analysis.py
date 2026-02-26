@@ -1,9 +1,9 @@
                       
 """
-Benchmark分析自动化脚本
+Benchmark analysis automation script.
 
-自动运行符号执行和语义等价性分析的完整流程
-使用改进的符号执行脚本处理没有输入的benchmark程序
+Runs symbolic execution and semantic equivalence analysis in one flow.
+Uses the improved symbolic execution script for benchmarks without external input.
 """
 
 import os
@@ -13,87 +13,81 @@ import time
 import argparse
 
 def run_command(cmd, description):
-    """运行命令并显示进度"""
+    """Run command and show progress."""
     print(f"\n{'='*60}")
-    print(f"正在执行: {description}")
-    print(f"命令: {cmd}")
+    print(f"Running: {description}")
+    print(f"Command: {cmd}")
     print(f"{'='*60}")
     
     start_time = time.time()
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     end_time = time.time()
     
-    print(f"执行时间: {end_time - start_time:.2f} 秒")
+    print(f"Elapsed: {end_time - start_time:.2f} s")
     
     if result.returncode == 0:
-        print("✓ 执行成功")
+        print("✓ Success")
         if result.stdout:
-            print("输出:")
+            print("Output:")
             print(result.stdout)
     else:
-        print("❌ 执行失败")
-        print("错误输出:")
+        print("❌ Failed")
+        print("Stderr:")
         print(result.stderr)
         return False
     
     return True
 
 def analyze_benchmark(benchmark_dir, timeout=120, use_improved=True):
-    """分析整个benchmark"""
-    print(f"开始分析benchmark: {benchmark_dir}")
+    """Analyze the whole benchmark."""
+    print(f"Starting benchmark analysis: {benchmark_dir}")
     
     if not os.path.exists(benchmark_dir):
-        print(f"错误: benchmark目录 '{benchmark_dir}' 不存在")
+        print(f"Error: benchmark directory '{benchmark_dir}' does not exist")
         return False
     
-              
     se_script = "se_script_improved.py" if use_improved else "se_script.py"
     
-                 
-    print(f"\n第一步: 使用{se_script}对所有优化等级运行符号执行")
+    print(f"\nStep 1: Run symbolic execution for all optimization levels using {se_script}")
     se_cmd = f"python {se_script} --benchmark {benchmark_dir} --timeout {timeout}"
-    if not run_command(se_cmd, "改进的符号执行分析"):
+    if not run_command(se_cmd, "Improved symbolic execution analysis"):
         return False
     
-                    
-    print("\n第二步: 进行语义等价性分析")
+    print("\nStep 2: Run semantic equivalence analysis")
     equiv_cmd = f"python semantic_equivalence_analyzer.py --benchmark {benchmark_dir}"
-    if not run_command(equiv_cmd, "语义等价性分析"):
+    if not run_command(equiv_cmd, "Semantic equivalence analysis"):
         return False
     
-                 
-    print("\n第三步: 显示分析结果")
+    print("\nStep 3: Show analysis results")
     summary_file = os.path.join(benchmark_dir, "optimization_equivalence_summary.txt")
     if os.path.exists(summary_file):
-        print(f"分析完成！结果摘要:")
+        print("Analysis complete. Summary:")
         with open(summary_file, 'r', encoding='utf-8') as f:
             content = f.read()
             print(content)
-            
-                   
-        if "✓ 所有优化等级在语义上完全等价" in content:
-            print("\n🎉 结论: 所有优化等级保持语义等价，编译器优化是安全的！")
-        elif "⚠ 大部分优化等级在语义上等价" in content:
-            print("\n⚠️  结论: 大部分优化等价，但需要检查差异部分")
+        
+        if "✓ 所有优化等级在语义上完全等价" in content or "all optimization levels are semantically fully equivalent" in content.lower():
+            print("\n🎉 Conclusion: All optimization levels are semantically equivalent; compiler optimizations are safe.")
+        elif "⚠ 大部分优化等级在语义上等价" in content or "mostly equivalent" in content.lower():
+            print("\n⚠️  Conclusion: Mostly equivalent; check differing parts.")
         else:
-            print("\n🔍 结论: 发现优化差异，这可能表明：")
-            print("   1. 编译器优化改变了程序行为")
-            print("   2. 需要进一步分析具体差异")
-            print("   3. 对于benchmark程序，这种差异可能是正常的")
-            
+            print("\n🔍 Conclusion: Optimization differences found. This may indicate:")
+            print("   1. Compiler optimizations changed program behavior")
+            print("   2. Further analysis of the differences is needed")
+            print("   3. For benchmark programs, such differences may be expected")
     else:
-        print("未找到分析摘要文件")
+        print("Summary file not found")
     
     return True
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark分析自动化工具')
-    parser.add_argument('benchmark_dir', help='benchmark目录路径')
-    parser.add_argument('--timeout', type=int, default=120, help='符号执行超时时间(秒)')
+    parser = argparse.ArgumentParser(description='Benchmark analysis automation tool')
+    parser.add_argument('benchmark_dir', help='Path to benchmark directory')
+    parser.add_argument('--timeout', type=int, default=120, help='Symbolic execution timeout (seconds)')
     parser.add_argument('--step', choices=['se', 'equiv', 'all'], default='all', 
-                       help='执行的步骤: se(仅符号执行), equiv(仅等价性分析), all(全部)')
+                       help='Step to run: se (symbolic execution only), equiv (equivalence only), all')
     parser.add_argument('--use-original', action='store_true', 
-                       help='使用原始符号执行脚本(适合有输入的程序)')
+                       help='Use original symbolic execution script (for programs with input)')
     
     args = parser.parse_args()
     
@@ -101,49 +95,38 @@ def main():
     se_script = "se_script.py" if args.use_original else "se_script_improved.py"
     
     if args.step in ['se', 'all']:
-                
-        print(f"使用脚本: {se_script}")
+        print(f"Using script: {se_script}")
         se_cmd = f"python {se_script} --benchmark {args.benchmark_dir} --timeout {args.timeout}"
-        if not run_command(se_cmd, "符号执行分析"):
+        if not run_command(se_cmd, "Symbolic execution analysis"):
             return
     
     if args.step in ['equiv', 'all']:
-                 
         equiv_cmd = f"python semantic_equivalence_analyzer.py --benchmark {args.benchmark_dir}"
-        if not run_command(equiv_cmd, "语义等价性分析"):
+        if not run_command(equiv_cmd, "Semantic equivalence analysis"):
             return
     
-          
     summary_file = os.path.join(args.benchmark_dir, "optimization_equivalence_summary.txt")
     if os.path.exists(summary_file):
-        print(f"\n分析完成！结果摘要在: {summary_file}")
-        
-                 
-        print(f"\n生成的关键文件:")
-        
-                
+        print(f"\nAnalysis complete. Summary: {summary_file}")
+        print("\nGenerated files:")
         path_files = subprocess.run(f"find {args.benchmark_dir} -name '*_path_*.txt' -type f 2>/dev/null", 
                                    shell=True, capture_output=True, text=True)
         if path_files.stdout:
-            print("路径约束文件:")
+            print("Path constraint files:")
             for file in sorted(path_files.stdout.strip().split('\n')):
                 if file:
                     print(f"  {file}")
-        
-                 
         report_files = subprocess.run(f"find {args.benchmark_dir} -name 'equivalence_report_*.txt' -type f 2>/dev/null", 
                                      shell=True, capture_output=True, text=True)
         if report_files.stdout:
-            print("等价性分析报告:")
+            print("Equivalence reports:")
             for file in sorted(report_files.stdout.strip().split('\n')):
                 if file:
                     print(f"  {file}")
-                    
-              
         summary_files = subprocess.run(f"find {args.benchmark_dir} -name '*summary*.txt' -type f 2>/dev/null", 
                                       shell=True, capture_output=True, text=True)
         if summary_files.stdout:
-            print("摘要报告:")
+            print("Summary reports:")
             for file in sorted(summary_files.stdout.strip().split('\n')):
                 if file:
                     print(f"  {file}")

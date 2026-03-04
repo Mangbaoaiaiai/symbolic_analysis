@@ -1,6 +1,6 @@
                       
 """
-内存优化的TSVC符号执行脚本
+Memory-optimized TSVC symbolic execution script.
 """
 
 import angr
@@ -9,10 +9,10 @@ import gc
 import psutil
 
 def memory_aware_analysis(binary_path, max_memory_gb=4):
-    """内存感知的符号执行"""
+    """Memory-aware symbolic execution."""
     
     def check_memory():
-        """检查内存使用"""
+        """Check memory usage."""
         memory = psutil.virtual_memory()
         used_gb = memory.used / (1024**3)
         return used_gb < max_memory_gb
@@ -35,7 +35,7 @@ def memory_aware_analysis(binary_path, max_memory_gb=4):
     
     while simgr.active and step_count < max_steps:
         if not check_memory():
-            print(f"内存不足，停止符号执行")
+            print("Insufficient memory; stopping symbolic execution")
             break
             
         simgr.step()
@@ -54,7 +54,7 @@ def memory_aware_analysis(binary_path, max_memory_gb=4):
     return paths
 
 def extract_constraints(state):
-    """提取约束（简化版）"""
+    """Extract constraints (simplified)."""
     try:
         constraints = state.solver.constraints
         return {
@@ -65,6 +65,4 @@ def extract_constraints(state):
         return {'constraint_count': 0, 'constraints': []}
 
 if __name__ == "__main__":
-          
-                                                                       
-    print("内存优化的符号执行脚本已准备就绪")
+    print("Memory-optimized symbolic execution script ready.")

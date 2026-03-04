@@ -1,19 +1,21 @@
                       
 """
-程序语义分析：对比s000和s121程序的实际行为差异
-展示路径约束等价与程序语义等价的区别
+Program semantic analysis: compare the concrete behavior of s000 and s121.
+
+Illustrates the difference between path-constraint equivalence and full semantic
+equivalence of programs.
 """
 
 def analyze_program_semantics():
-    """分析两个程序的语义差异"""
+    """Analyze semantic differences between two programs."""
     print("=" * 80)
-    print("程序语义分析：s000 vs s121")
+    print("Program semantic analysis: s000 vs s121")
     print("=" * 80)
     
-    print("1. 函数签名和循环结构对比")
+    print("1. Function signature and loop structure comparison")
     print("-" * 40)
     
-    print("s000程序:")
+    print("s000:")
     print("  TYPE s000(int count) {")
     print("    for (int i = 0; i < count*8; i++) {")
     print("      a[i] = b[i] + 1;")
@@ -21,7 +23,7 @@ def analyze_program_semantics():
     print("    return 0;")
     print("  }")
     
-    print("\ns121程序:")
+    print("\ns121:")
     print("  TYPE s121(int count) {")
     print("    for (int i = 0; i < count*8-1; i++) {")
     print("      a[i] = a[i+1] + b[i];")
@@ -29,31 +31,31 @@ def analyze_program_semantics():
     print("    return 0;")
     print("  }")
     
-    print("\n2. 关键差异分析")
+    print("\n2. Key differences")
     print("-" * 40)
     
-    print("差异1 - 循环次数:")
-    print("  s000: 循环 count*8 次")
-    print("  s121: 循环 count*8-1 次")
-    print("  → 当count>0时，s121比s000少执行1次")
+    print("Difference 1 - Loop iterations:")
+    print("  s000: loop count*8 times")
+    print("  s121: loop count*8-1 times")
+    print("  → When count>0, s121 executes one fewer iteration than s000")
     
-    print("\n差异2 - 循环体操作:")
+    print("\nDifference 2 - Loop body operations:")
     print("  s000: a[i] = b[i] + 1")
-    print("        简单的数组元素赋值，每个a[i]独立计算")
+    print("        Simple element-wise update; each a[i] is independent")
     print("  s121: a[i] = a[i+1] + b[i]")
-    print("        复杂的数据依赖，a[i]依赖于a[i+1]的值")
+    print("        More complex data dependency: a[i] depends on a[i+1]")
     
-    print("\n差异3 - 内存访问模式:")
-    print("  s000: 只读取b[i]，写入a[i]")
-    print("  s121: 读取a[i+1]和b[i]，写入a[i]")
-    print("        存在读写依赖（Read-After-Write hazard）")
+    print("\nDifference 3 - Memory access pattern:")
+    print("  s000: read b[i], write a[i]")
+    print("  s121: read a[i+1] and b[i], write a[i]")
+    print("        Read-after-write-style dependency in the array")
     
-    print("\n3. 具体执行行为模拟")
+    print("\n3. Concrete execution simulation")
     print("-" * 40)
     
           
     def simulate_s000(count, a_init, b_init):
-        """模拟s000程序执行"""
+        """Simulate execution of s000."""
         a = a_init.copy()
         b = b_init.copy()
         
@@ -64,7 +66,7 @@ def analyze_program_semantics():
         return a
     
     def simulate_s121(count, a_init, b_init):
-        """模拟s121程序执行"""
+        """Simulate execution of s121."""
         a = a_init.copy()
         b = b_init.copy()
         
@@ -75,19 +77,19 @@ def analyze_program_semantics():
         return a
     
           
-    test_count = 1                  
-    a_init = [i % 100 for i in range(16)]          
-    b_init = [(i * 2) % 100 for i in range(16)]          
+    test_count = 1
+    a_init = [i % 100 for i in range(16)]
+    b_init = [(i * 2) % 100 for i in range(16)]
     
-    print(f"测试case: count = {test_count}")
-    print(f"初始a数组: {a_init[:10]}... (前10个元素)")
-    print(f"初始b数组: {b_init[:10]}... (前10个元素)")
+    print(f"Test case: count = {test_count}")
+    print(f"Initial a: {a_init[:10]}... (first 10 elements)")
+    print(f"Initial b: {b_init[:10]}... (first 10 elements)")
     
     result_s000 = simulate_s000(test_count, a_init, b_init)
     result_s121 = simulate_s121(test_count, a_init, b_init)
     
-    print(f"\ns000执行后a数组: {result_s000[:10]}... (前10个元素)")
-    print(f"s121执行后a数组: {result_s121[:10]}... (前10个元素)")
+    print(f"\nAfter s000: a = {result_s000[:10]}... (first 10 elements)")
+    print(f"After s121: a = {result_s121[:10]}... (first 10 elements)")
     
           
     differences = []
@@ -95,98 +97,98 @@ def analyze_program_semantics():
         if result_s000[i] != result_s121[i]:
             differences.append((i, result_s000[i], result_s121[i]))
     
-    print(f"\n结果对比:")
+    print(f"\nResult comparison:")
     if differences:
-        print(f"  发现 {len(differences)} 个差异:")
+        print(f"  Found {len(differences)} differences:")
         for i, val_s000, val_s121 in differences[:5]:            
             print(f"    a[{i}]: s000={val_s000}, s121={val_s121}")
         if len(differences) > 5:
-            print(f"    ... 还有 {len(differences)-5} 个差异")
+            print(f"    ... and {len(differences)-5} more differences")
     else:
-        print("  ✓ 数组结果完全相同")
+        print("  ✓ Arrays are completely identical")
 
 def analyze_path_constraint_limitations():
-    """分析路径约束验证的局限性"""
+    """Analyze limitations of path-constraint-based verification."""
     print(f"\n" + "=" * 80)
-    print("路径约束验证的局限性分析")
+    print("Limitations of path-constraint-based verification")
     print("=" * 80)
     
-    print("1. 路径约束关注的内容")
+    print("1. What path constraints focus on")
     print("-" * 40)
-    print("✓ 输入值的取值范围 (count ∈ [0,10])")
-    print("✓ 分支条件的满足性")
-    print("✓ 内存访问的边界检查")
-    print("✓ 循环终止条件")
-    print("✓ 数组索引的合法性")
+    print("✓ Input value ranges (count ∈ [0,10])")
+    print("✓ Branch feasibility")
+    print("✓ Memory-bound checks")
+    print("✓ Loop termination conditions")
+    print("✓ Array index safety")
     
-    print("\n2. 路径约束无法捕获的内容")
+    print("\n2. What path constraints cannot capture")
     print("-" * 40)
-    print("✗ 具体的计算逻辑 (b[i]+1 vs a[i+1]+b[i])")
-    print("✗ 数据流的依赖关系")
-    print("✗ 程序的功能语义")
-    print("✗ 内存内容的变化")
-    print("✗ 计算结果的正确性")
+    print("✗ Concrete computation (b[i]+1 vs a[i+1]+b[i])")
+    print("✗ Data-flow dependencies")
+    print("✗ Functional semantics of the program")
+    print("✗ Detailed memory content evolution")
+    print("✗ Correctness of computed results")
     
-    print("\n3. 为什么s000和s121路径约束等价？")
+    print("\n3. Why are s000 and s121 path-constraints equivalent?")
     print("-" * 40)
-    print("原因分析:")
-    print("  • 两个程序都有相同的输入约束: count ∈ [0,10]")
-    print("  • 两个程序的控制流结构相似 (都是单个循环)")
-    print("  • 内存访问的抽象模式相似")
-    print("  • 符号执行主要关注可达性，而非计算语义")
+    print("Reasoning:")
+    print("  • Both programs share the same input constraints: count ∈ [0,10]")
+    print("  • Control-flow structure is similar (single loop) in both")
+    print("  • Abstract memory-access patterns are similar")
+    print("  • Symbolic execution focuses on reachability, not full computation semantics")
     
-    print("\n当count=0时的特殊情况:")
-    print("  • s000: 循环0次，数组不变")
-    print("  • s121: 循环-1次，实际不执行，数组不变")
-    print("  • 两个程序在count=0时行为相同")
-    print("  • 这可能是约束求解器找到的唯一解")
+    print("\nSpecial case when count=0:")
+    print("  • s000: loop runs 0 times; arrays unchanged")
+    print("  • s121: loop bound is negative; effectively 0 iterations; arrays unchanged")
+    print("  • Thus behavior is identical when count=0")
+    print("  • This may be the only satisfying model the solver finds")
     
-    print("\n4. 完整程序等价性验证需要考虑")
+    print("\n4. What full program-equivalence requires")
     print("-" * 40)
-    print("• 功能等价性 (Functional Equivalence)")
-    print("  - 相同输入产生相同输出")
-    print("  - 需要语义分析和符号执行")
-    print("• 行为等价性 (Behavioral Equivalence)")  
-    print("  - 相同的状态转换")
-    print("  - 需要状态空间分析")
-    print("• 观察等价性 (Observational Equivalence)")
-    print("  - 外部可观察行为相同")
-    print("  - 需要输入输出关系分析")
+    print("• Functional equivalence")
+    print("  - Same inputs produce same outputs")
+    print("  - Requires semantic analysis and symbolic execution")
+    print("• Behavioral equivalence")
+    print("  - Same state transitions")
+    print("  - Requires state-space analysis")
+    print("• Observational equivalence")
+    print("  - Same externally observable behavior")
+    print("  - Requires reasoning about input/output relations")
 
 def propose_enhanced_verification():
-    """提出增强的验证方法"""
+    """Propose an enhanced verification methodology."""
     print(f"\n" + "=" * 80)
-    print("增强验证方法建议")
+    print("Enhanced verification strategy")
     print("=" * 80)
     
-    print("1. 多层次验证框架")
+    print("1. Multi-layer verification framework")
     print("-" * 40)
-    print("Level 1: 路径约束等价性 (已实现)")
-    print("  ✓ 验证控制流和输入约束的等价性")
-    print("Level 2: 数据流等价性")
-    print("  • 分析变量依赖关系")
-    print("  • 验证内存访问模式")
-    print("Level 3: 功能语义等价性")
-    print("  • 符号执行比较计算逻辑")
-    print("  • 验证输入输出关系")
+    print("Level 1: path-constraint equivalence (already implemented)")
+    print("  ✓ Verify equivalence of control flow and input constraints")
+    print("Level 2: data-flow equivalence")
+    print("  • Analyze variable-dependency relations")
+    print("  • Verify memory-access patterns")
+    print("Level 3: functional semantic equivalence")
+    print("  • Use symbolic execution to compare computation logic")
+    print("  • Verify input-output relations")
     
-    print("\n2. 建议的验证策略")
+    print("\n2. Suggested verification workflow")
     print("-" * 40)
-    print("步骤1: 路径约束验证 (快速筛选)")
-    print("  → 如果路径约束不等价，程序必定不等价")
-    print("步骤2: 语义差异检测")
-    print("  → 分析AST结构和计算模式的差异")
-    print("步骤3: 测试用例验证")
-    print("  → 生成测试输入，比较程序输出")
-    print("步骤4: 形式化验证")
-    print("  → 使用定理证明器验证等价性")
+    print("Step 1: path-constraint verification (fast filter)")
+    print("  → If path constraints are not equivalent, programs are not equivalent")
+    print("Step 2: semantic difference detection")
+    print("  → Analyze AST structure and computation patterns")
+    print("Step 3: test-case validation")
+    print("  → Generate test inputs and compare program outputs")
+    print("Step 4: formal verification")
+    print("  → Use theorem provers to certify equivalence")
     
-    print("\n3. 实现工具链")
+    print("\n3. Supporting tooling")
     print("-" * 40)
-    print("• 静态分析工具: AST对比，控制流分析")
-    print("• 动态分析工具: 执行跟踪，状态比较")  
-    print("• 符号执行工具: 路径探索，约束求解")
-    print("• 等价性验证工具: 形式化证明")
+    print("• Static analysis: AST diffing, control-flow analysis")
+    print("• Dynamic analysis: execution tracing, state comparison")
+    print("• Symbolic execution: path exploration, constraint solving")
+    print("• Equivalence checking: formal proof backends")
 
 if __name__ == "__main__":
     analyze_program_semantics()

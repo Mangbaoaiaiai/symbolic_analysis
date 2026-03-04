@@ -1,113 +1,108 @@
                       
 """
-增强符号执行分析：比较不同符号化策略对约束捕获的影响
-实现程序最终状态关键变量值的比较
+Enhanced symbolic execution: compare impact of different symbolization strategies
+on constraint capture; compare key variable values in program final state.
 """
 
 from z3 import *
 
 class EnhancedSymbolicExecution:
-    """增强的符号执行分析器"""
+    """Enhanced symbolic execution analyzer."""
     
     def __init__(self):
         self.ctx = Context()
         
     def analyze_current_symbolization(self):
-        """分析当前符号化策略的局限性"""
+        """Analyze limitations of current symbolization strategy."""
         print("=" * 80)
-        print("当前符号化策略分析")
+        print("Current symbolization strategy analysis")
         print("=" * 80)
         
-        print("1. 当前符号化范围")
+        print("1. Current symbolization scope")
         print("-" * 40)
-        print("✓ 符号化输入: scanf_0_1_32 (count参数)")
-        print("✗ 未符号化: 数组a[]的初始值")
-        print("✗ 未符号化: 数组b[]的初始值")
-        print("✗ 未符号化: 数组元素的计算过程")
+        print("✓ Symbolized input: scanf_0_1_32 (count parameter)")
+        print("✗ Not symbolized: initial values of array a[]")
+        print("✗ Not symbolized: initial values of array b[]")
+        print("✗ Not symbolized: computation of array elements")
         
-        print("\n2. 导致的问题")
+        print("\n2. Resulting issues")
         print("-" * 40)
-        print("• 只能捕获控制流约束（循环边界、分支条件）")
-        print("• 无法捕获数据流约束（变量间的计算关系）")
-        print("• 丢失了程序的核心计算逻辑")
-        print("• 无法区分不同的计算模式")
+        print("• Only control-flow constraints captured (loop bounds, branch conditions)")
+        print("• Data-flow constraints not captured (computation relations between variables)")
+        print("• Core computation logic of the program is lost")
+        print("• Cannot distinguish different computation patterns")
         
-        print("\n3. 具体表现")
+        print("\n3. Concrete manifestation")
         print("-" * 40)
-        print("s000和s121的当前约束:")
-        print("  • 都只关注: count ∈ [0,10] 且 count*8的边界检查")
-        print("  • 忽略了: a[i] = b[i] + 1 vs a[i] = a[i+1] + b[i]")
-        print("  • 结果: 错误地认为两个程序等价")
+        print("Current constraints for s000 and s121:")
+        print("  • Both only consider: count ∈ [0,10] and count*8 boundary checks")
+        print("  • Ignore: a[i] = b[i] + 1 vs a[i] = a[i+1] + b[i]")
+        print("  • Result: incorrectly consider the two programs equivalent")
 
     def propose_enhanced_symbolization(self):
-        """提出增强的符号化策略"""
+        """Propose enhanced symbolization strategies."""
         print(f"\n" + "=" * 80)
-        print("增强符号化策略方案")
+        print("Enhanced symbolization strategy options")
         print("=" * 80)
         
-        print("方案1: 完全符号化")
+        print("Option 1: Full symbolization")
         print("-" * 40)
-        print("• 符号化所有输入变量")
-        print("• 符号化数组的初始状态")
-        print("• 跟踪每个数组元素的符号表达式")
-        print("• 建立完整的数据依赖图")
+        print("• Symbolize all input variables")
+        print("• Symbolize initial state of arrays")
+        print("• Track symbolic expression for each array element")
+        print("• Build complete data dependency graph")
         
-        print("\n方案2: 部分符号化（推荐）")
+        print("\nOption 2: Partial symbolization (recommended)")
         print("-" * 40)
-        print("• 符号化输入参数")
-        print("• 符号化关键数组区域（受影响的部分）")
-        print("• 使用符号常量表示初始值")
-        print("• 重点关注计算逻辑差异")
+        print("• Symbolize input parameters")
+        print("• Symbolize critical array regions (affected parts)")
+        print("• Use symbolic constants for initial values")
+        print("• Focus on computation logic differences")
         
-        print("\n方案3: 混合符号化")
+        print("\nOption 3: Hybrid symbolization")
         print("-" * 40)
-        print("• 具体值 + 符号值混合")
-        print("• 对关键路径使用符号化")
-        print("• 对边界条件使用具体值测试")
+        print("• Mix concrete and symbolic values")
+        print("• Use symbolization on critical paths")
+        print("• Use concrete values for boundary condition testing")
 
     def demonstrate_enhanced_symbolization(self):
-        """演示增强符号化的效果"""
+        """Demonstrate effect of enhanced symbolization."""
         print(f"\n" + "=" * 80)
-        print("增强符号化演示：s000 vs s121")
+        print("Enhanced symbolization demo: s000 vs s121")
         print("=" * 80)
-        
-                
+
         count = BitVec('count', 32, ctx=self.ctx)
-        
-                         
-        print("1. 符号化策略")
+
+        print("1. Symbolization strategy")
         print("-" * 40)
-        print("• count: 输入参数（符号化）")
-        print("• a_init[i]: 数组a的初始值（符号化）")
-        print("• b_init[i]: 数组b的初始值（符号化）")
-        
-                          
+        print("• count: input parameter (symbolic)")
+        print("• a_init[i]: initial values of array a (symbolic)")
+        print("• b_init[i]: initial values of array b (symbolic)")
+
         array_size = 8
         a_init = [BitVec(f'a_init_{i}', 32, ctx=self.ctx) for i in range(array_size)]
         b_init = [BitVec(f'b_init_{i}', 32, ctx=self.ctx) for i in range(array_size)]
-        
-        print(f"\n2. 建立符号约束")
+
+        print(f"\n2. Build symbolic constraints")
         print("-" * 40)
-        
-              
+
         base_constraints = [
             UGE(count, 0),
             ULE(count, 10)
         ]
-        
-        print("基础约束:")
+
+        print("Base constraints:")
         for i, constraint in enumerate(base_constraints):
             print(f"  {i+1}. {constraint}")
-        
-                     
-        print(f"\n3. s000程序符号执行")
+
+        print(f"\n3. Symbolic execution of s000")
         print("-" * 40)
-        
+
         s000_final_a = []
         s000_constraints = base_constraints.copy()
-        
-        print("循环逻辑: for (i = 0; i < count*8; i++)")
-        print("循环体: a[i] = b_init[i] + 1")
+
+        print("Loop logic: for (i = 0; i < count*8; i++)")
+        print("Loop body: a[i] = b_init[i] + 1")
         
         for i in range(array_size):
                            
@@ -119,15 +114,14 @@ class EnhancedSymbolicExecution:
             
             print(f"  a_final[{i}] = If({i} < count*8, b_init[{i}] + 1, a_init[{i}])")
         
-                     
-        print(f"\n4. s121程序符号执行")
+        print(f"\n4. Symbolic execution of s121")
         print("-" * 40)
-        
+
         s121_final_a = []
         s121_constraints = base_constraints.copy()
-        
-        print("循环逻辑: for (i = 0; i < count*8-1; i++)")
-        print("循环体: a[i] = a_init[i+1] + b_init[i]")
+
+        print("Loop logic: for (i = 0; i < count*8-1; i++)")
+        print("Loop body: a[i] = a_init[i+1] + b_init[i]")
         
         for i in range(array_size):
                            
@@ -144,17 +138,17 @@ class EnhancedSymbolicExecution:
             if i + 1 < array_size:
                 print(f"  a_final[{i}] = If({i} < count*8-1, a_init[{i+1}] + b_init[{i}], a_init[{i}])")
             else:
-                print(f"  a_final[{i}] = a_init[{i}] (超出范围)")
+                print(f"  a_final[{i}] = a_init[{i}] (out of range)")
         
         return s000_final_a, s121_final_a, s000_constraints, s121_constraints
 
     def compare_final_states(self, s000_final, s121_final, s000_constraints, s121_constraints):
-        """比较两个程序的最终状态"""
+        """Compare final states of two programs."""
         print(f"\n" + "=" * 80)
-        print("最终状态比较分析")
+        print("Final state comparison analysis")
         print("=" * 80)
         
-        print("1. 逐元素等价性检查")
+        print("1. Element-wise equivalence check")
         print("-" * 40)
         
         solver = Solver(ctx=self.ctx)
@@ -164,7 +158,7 @@ class EnhancedSymbolicExecution:
         differences_found = []
         
         for i in range(len(s000_final)):
-            print(f"\n检查 a[{i}] 的等价性:")
+            print(f"\nChecking equivalence of a[{i}]:")
             print(f"  s000: {s000_final[i]}")
             print(f"  s121: {s121_final[i]}")
             
@@ -177,8 +171,8 @@ class EnhancedSymbolicExecution:
             
             if result == sat:
                 model = solver.model()
-                print(f"  结果: 不等价 ❌")
-                print(f"  反例:")
+                print(f"  Result: not equivalent ❌")
+                print(f"  Counterexample:")
                 
                           
                 count_val = model.eval(BitVec('count', 32, ctx=self.ctx))
@@ -192,48 +186,47 @@ class EnhancedSymbolicExecution:
                 
                 differences_found.append((i, model))
             else:
-                print(f"  结果: 等价 ✅")
+                print(f"  Result: equivalent ✅")
             
             solver.pop()
         
-        print(f"\n2. 整体等价性分析")
+        print(f"\n2. Overall equivalence analysis")
         print("-" * 40)
         
         if differences_found:
-            print(f"发现 {len(differences_found)} 个数组元素不等价")
-            print("结论: 两个程序在计算语义上不等价 ❌")
+            print(f"Found {len(differences_found)} array elements not equivalent")
+            print("Conclusion: the two programs are not equivalent in computation semantics ❌")
         else:
-            print("所有数组元素都等价")
-            print("结论: 两个程序在符号层面等价 ✅")
+            print("All array elements are equivalent")
+            print("Conclusion: the two programs are equivalent at the symbolic level ✅")
         
         return differences_found
 
     def implement_concrete_state_comparison(self):
-        """实现具体状态比较方法"""
+        """Implement concrete state comparison methods."""
         print(f"\n" + "=" * 80)
-        print("具体状态比较方法")
+        print("Concrete state comparison methods")
         print("=" * 80)
         
-        print("方法1: 符号表达式比较")
+        print("Method 1: Symbolic expression comparison")
         print("-" * 40)
-        print("• 将程序状态表示为符号表达式")
-        print("• 使用SMT求解器检查表达式等价性")
-        print("• 适用于程序逻辑分析")
+        print("• Represent program state as symbolic expressions")
+        print("• Use SMT solver to check expression equivalence")
+        print("• Suitable for program logic analysis")
         
-        print("\n方法2: 测试用例生成")
+        print("\nMethod 2: Test case generation")
         print("-" * 40)
-        print("• 生成多个测试输入")
-        print("• 比较程序在各输入下的输出")
-        print("• 适用于快速验证")
+        print("• Generate multiple test inputs")
+        print("• Compare program output under each input")
+        print("• Suitable for quick verification")
         
-        print("\n方法3: 状态空间抽象")
+        print("\nMethod 3: State space abstraction")
         print("-" * 40)
-        print("• 定义关键变量的抽象域")
-        print("• 比较抽象状态的等价性")
-        print("• 适用于大规模程序")
+        print("• Define abstract domains for key variables")
+        print("• Compare equivalence of abstract states")
+        print("• Suitable for large-scale programs")
         
-                      
-        print(f"\n演示：测试用例生成验证")
+        print(f"\nDemo: test case generation verification")
         print("-" * 30)
         
         def simulate_s000(count, a_init, b_init):
@@ -261,19 +254,19 @@ class EnhancedSymbolicExecution:
             result_s000 = simulate_s000(count, a_init, b_init)
             result_s121 = simulate_s121(count, a_init, b_init)
             
-            print(f"\n测试 count={count}:")
-            print(f"  初始a: {a_init}")
-            print(f"  初始b: {b_init}")
-            print(f"  s000结果: {result_s000}")
-            print(f"  s121结果: {result_s121}")
+            print(f"\nTest count={count}:")
+            print(f"  Initial a: {a_init}")
+            print(f"  Initial b: {b_init}")
+            print(f"  s000 result: {result_s000}")
+            print(f"  s121 result: {result_s121}")
             
             if result_s000 == result_s121:
-                print(f"  状态比较: 相同 ✅")
+                print(f"  State comparison: same ✅")
             else:
                 differences = [(i, result_s000[i], result_s121[i]) 
                              for i in range(len(result_s000)) 
                              if result_s000[i] != result_s121[i]]
-                print(f"  状态比较: 不同 ❌ ({len(differences)}个差异)")
+                print(f"  State comparison: different ❌ ({len(differences)} differences)")
 
 def main():
     analyzer = EnhancedSymbolicExecution()

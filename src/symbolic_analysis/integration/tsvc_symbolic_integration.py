@@ -261,7 +261,7 @@ class TSVCSymbolicIntegrator:
         return results
     
     def save_intermediate_results(self, benchmark_name, result):
-        """保存中间结果"""
+        """Save intermediate per-benchmark results to JSON."""
         results_dir = Path("tsvc_analysis_results")
         results_dir.mkdir(exist_ok=True)
         

@@ -1,8 +1,9 @@
                       
 """
-路径约束等价性验证器
-使用Z3求解器直接验证两个不同路径约束的等价性
-包含正例和反例的验证测试
+Path-constraint equivalence verifier.
+
+Uses the Z3 solver to directly check whether two SMT-LIB path constraints
+are logically equivalent, including both positive and negative test cases.
 """
 
 import sys
@@ -10,22 +11,23 @@ import time
 from z3 import *
 
 class PathConstraintEquivalenceVerifier:
-    """路径约束等价性验证器"""
+    """Verifier for logical equivalence of path constraints."""
     
     def __init__(self, timeout=30000):
         """
-        初始化验证器
-        :param timeout: Z3求解器超时时间（毫秒）
+        Initialize the verifier.
+
+        :param timeout: Z3 solver timeout in milliseconds.
         """
         self.timeout = timeout
         
     def create_test_constraints(self):
-        """创建测试用的路径约束"""
-        print("创建测试约束文件...")
+        """Create example SMT files used as test constraints."""
+        print("Creating test constraint files...")
         
                              
         constraint1_a = """
-; 等价测试约束1A
+; Equivalence test constraint 1A
 (set-info :status unknown)
 (declare-fun x () (_ BitVec 32))
 (assert (bvuge x (_ bv5 32)))
@@ -34,7 +36,7 @@ class PathConstraintEquivalenceVerifier:
 """
         
         constraint1_b = """
-; 等价测试约束1B
+; Equivalence test constraint 1B
 (set-info :status unknown)
 (declare-fun x () (_ BitVec 32))
 (assert (and (bvuge x (_ bv5 32)) (bvule x (_ bv10 32))))
@@ -43,7 +45,7 @@ class PathConstraintEquivalenceVerifier:
         
                                
         constraint2_a = """
-; 等价测试约束2A
+; Equivalence test constraint 2A
 (set-info :status unknown)
 (declare-fun y () (_ BitVec 32))
 (assert (or (bvult y (_ bv3 32)) (bvugt y (_ bv7 32))))
@@ -51,7 +53,7 @@ class PathConstraintEquivalenceVerifier:
 """
         
         constraint2_b = """
-; 等价测试约束2B
+; Equivalence test constraint 2B
 (set-info :status unknown)
 (declare-fun y () (_ BitVec 32))
 (assert (not (and (bvuge y (_ bv3 32)) (bvule y (_ bv7 32)))))
@@ -60,7 +62,7 @@ class PathConstraintEquivalenceVerifier:
         
                               
         constraint3_a = """
-; 不等价测试约束3A
+; Non-equivalence test constraint 3A
 (set-info :status unknown)
 (declare-fun z () (_ BitVec 32))
 (assert (bvuge z (_ bv5 32)))
@@ -69,7 +71,7 @@ class PathConstraintEquivalenceVerifier:
 """
         
         constraint3_b = """
-; 不等价测试约束3B
+; Non-equivalence test constraint 3B
 (set-info :status unknown)
 (declare-fun z () (_ BitVec 32))
 (assert (bvuge z (_ bv6 32)))
@@ -79,7 +81,7 @@ class PathConstraintEquivalenceVerifier:
         
                               
         constraint4_a = """
-; 不等价测试约束4A
+; Non-equivalence test constraint 4A
 (set-info :status unknown)
 (declare-fun w () (_ BitVec 32))
 (assert (= w (_ bv0 32)))
@@ -87,7 +89,7 @@ class PathConstraintEquivalenceVerifier:
 """
         
         constraint4_b = """
-; 不等价测试约束4B
+; Non-equivalence test constraint 4B
 (set-info :status unknown)
 (declare-fun w () (_ BitVec 32))
 (assert (= w (_ bv1 32)))
@@ -110,14 +112,15 @@ class PathConstraintEquivalenceVerifier:
             with open(filename, 'w') as f:
                 f.write(content)
                 
-        print(f"成功创建 {len(test_files)} 个测试约束文件")
+        print(f"Successfully created {len(test_files)} test constraint files")
         return test_files
     
     def parse_smt_constraint(self, file_path):
         """
-        解析SMT约束文件
-        :param file_path: SMT文件路径
-        :return: Z3约束表达式
+        Parse an SMT constraint file.
+
+        :param file_path: Path to the SMT-LIB file.
+        :return: Z3 formula and its context.
         """
         try:
             with open(file_path, 'r') as f:
@@ -136,7 +139,6 @@ class PathConstraintEquivalenceVerifier:
             
             smt_content = '\n'.join(lines)
             
-                    
             formulas = parse_smt2_string(smt_content, ctx=ctx)
             
             if len(formulas) == 0:
@@ -147,32 +149,33 @@ class PathConstraintEquivalenceVerifier:
                 return And(*formulas), ctx
                 
         except Exception as e:
-            print(f"解析约束文件 {file_path} 失败: {e}")
+            print(f"Failed to parse constraint file {file_path}: {e}")
             return None, None
     
     def verify_equivalence(self, file1, file2, description=""):
         """
-        验证两个约束文件的等价性
-        :param file1: 第一个约束文件
-        :param file2: 第二个约束文件
-        :param description: 测试描述
-        :return: 等价性验证结果
+        Verify logical equivalence of two SMT constraint files.
+
+        :param file1: First SMT file.
+        :param file2: Second SMT file.
+        :param description: Description of the test.
+        :return: True / False / None for equivalent / not equivalent / unknown.
         """
         print(f"\n{'='*60}")
-        print(f"验证路径约束等价性: {description}")
-        print(f"约束文件1: {file1}")
-        print(f"约束文件2: {file2}")
+        print(f"Verifying path-constraint equivalence: {description}")
+        print(f"Constraint file 1: {file1}")
+        print(f"Constraint file 2: {file2}")
         print(f"{'='*60}")
         
         start_time = time.time()
         
                   
-        print("步骤1: 解析约束文件...")
+        print("Step 1: parsing constraint files...")
         constraint1, ctx1 = self.parse_smt_constraint(file1)
         constraint2, ctx2 = self.parse_smt_constraint(file2)
         
         if constraint1 is None or constraint2 is None:
-            print("错误: 约束解析失败")
+            print("Error: constraint parsing failed")
             return None
         
                    
@@ -217,21 +220,21 @@ class PathConstraintEquivalenceVerifier:
                 formula2 = And(*formulas2)
                 
         except Exception as e:
-            print(f"错误: 约束解析失败 - {e}")
+            print(f"Error: failed to parse cleaned constraints - {e}")
             return None
         
         parse_time = time.time() - start_time
-        print(f"约束解析完成，耗时: {parse_time:.3f} 秒")
+        print(f"Constraint parsing finished in {parse_time:.3f} seconds")
         
                 
-        print(f"\n步骤2: 约束信息分析")
-        print(f"约束1: {formula1}")
-        print(f"约束2: {formula2}")
+        print(f"\nStep 2: constraint inspection")
+        print(f"Constraint 1: {formula1}")
+        print(f"Constraint 2: {formula2}")
         
                
-        print(f"\n步骤3: 等价性验证")
-        print("使用逻辑等价检查方法: (C1 ∧ ¬C2) ∨ (¬C1 ∧ C2)")
-        print("如果此公式不可满足(UNSAT)，则C1 ≡ C2")
+        print(f"\nStep 3: equivalence checking")
+        print("Using logical equivalence check: (C1 ∧ ¬C2) ∨ (¬C1 ∧ C2)")
+        print("If this formula is UNSAT, then C1 ≡ C2")
         
         verification_start = time.time()
         
@@ -247,76 +250,73 @@ class PathConstraintEquivalenceVerifier:
         
         solver.add(equivalence_check)
         
-        print("正在求解...")
+        print("Solving...")
         result = solver.check()
         
         verification_time = time.time() - verification_start
         total_time = time.time() - start_time
         
-              
-        print(f"\n步骤4: 验证结果")
-        print(f"求解状态: {result}")
-        print(f"验证耗时: {verification_time:.3f} 秒")
-        print(f"总耗时: {total_time:.3f} 秒")
+        print(f"\nStep 4: verification result")
+        print(f"Solve status: {result}")
+        print(f"Verification time: {verification_time:.3f} seconds")
+        print(f"Total time: {total_time:.3f} seconds")
         
         if result == unsat:
-            print("🟢 结论: 两个路径约束在逻辑上等价")
-            print("   解释: 等价检查公式不可满足，表明不存在使两约束真值不同的赋值")
+            print("🟢 Conclusion: the two path constraints are logically equivalent")
+            print("   Explanation: the equivalence-check formula is UNSAT,")
+            print("   meaning no assignment makes the truth values differ.")
             return True
         elif result == sat:
-            print("🔴 结论: 两个路径约束在逻辑上不等价")
-            print("   解释: 找到反例，存在使两约束真值不同的赋值")
+            print("🔴 Conclusion: the two path constraints are NOT logically equivalent")
+            print("   Explanation: a counterexample was found where their truth values differ.")
             
-                  
             model = solver.model()
-            print(f"   反例模型:")
+            print(f"   Counterexample model:")
             for decl in model.decls():
                 print(f"     {decl.name()} = {model[decl]}")
             
-                  
-            print(f"   反例验证:")
+            print(f"   Counterexample evaluation:")
             eval1 = simplify(substitute(formula1, [(decl(), model[decl]) for decl in model.decls()]))
             eval2 = simplify(substitute(formula2, [(decl(), model[decl]) for decl in model.decls()]))
-            print(f"     约束1在反例下的值: {eval1}")
-            print(f"     约束2在反例下的值: {eval2}")
+            print(f"     Constraint 1 value under counterexample: {eval1}")
+            print(f"     Constraint 2 value under counterexample: {eval2}")
             
             return False
         else:
-            print("🟡 结论: 无法确定等价性（求解超时或未知状态）")
+            print("🟡 Conclusion: equivalence unknown (timeout or unknown solver status)")
             return None
     
     def run_comprehensive_test(self):
-        """运行完整的测试套件"""
-        print("路径约束等价性验证器 - 完整测试")
+        """Run the full built-in test suite."""
+        print("Path-constraint equivalence verifier - full test suite")
         print("=" * 80)
         
                 
         test_files = self.create_test_constraints()
         
-                
         test_cases = [
             {
                 "file1": "test_constraint_1a.smt",
                 "file2": "test_constraint_1b.smt",
-                "description": "正例1 - 分离约束vs合并约束",
+                "description": "Positive 1 - separate vs combined constraints",
                 "expected": True
             },
             {
                 "file1": "test_constraint_2a.smt", 
                 "file2": "test_constraint_2b.smt",
-                "description": "正例2 - 德摩根定律等价变换",
+                "description": "Positive 2 - De Morgan equivalence",
                 "expected": True
             },
             {
                 "file1": "test_constraint_3a.smt",
                 "file2": "test_constraint_3b.smt", 
-                "description": "反例1 - 不同数值范围约束",
+                "description": "Negative 1 - different numeric ranges",
                 "expected": False
             },
             {
                 "file1": "test_constraint_4a.smt",
                 "file2": "test_constraint_4b.smt",
-                "description": "反例2 - 完全不同的等值约束", 
+                "description": "Negative 2 - completely different equality constraints", 
                 "expected": False
             }
         ]
@@ -326,7 +326,7 @@ class PathConstraintEquivalenceVerifier:
         passed_tests = 0
         
         for i, test_case in enumerate(test_cases, 1):
-            print(f"\n测试用例 {i}/{len(test_cases)}")
+            print(f"\nTest case {i}/{len(test_cases)}")
             
             result = self.verify_equivalence(
                 test_case["file1"],
@@ -336,12 +336,12 @@ class PathConstraintEquivalenceVerifier:
             
                     
             if result == test_case["expected"]:
-                test_status = "✅ 通过"
+                test_status = "✅ PASSED"
                 passed_tests += 1
             elif result is None:
-                test_status = "⚠️  无法确定"
+                test_status = "⚠️  UNKNOWN"
             else:
-                test_status = "❌ 失败"
+                test_status = "❌ FAILED"
                 
             results.append({
                 "test": test_case["description"],
@@ -350,57 +350,62 @@ class PathConstraintEquivalenceVerifier:
                 "status": test_status
             })
             
-            print(f"测试状态: {test_status}")
+            print(f"Test status: {test_status}")
         
-                
         print(f"\n{'='*80}")
-        print(f"测试总结")
+        print(f"Test summary")
         print(f"{'='*80}")
-        print(f"总测试数: {len(test_cases)}")
-        print(f"通过测试: {passed_tests}")
-        print(f"成功率: {passed_tests/len(test_cases)*100:.1f}%")
+        print(f"Total tests: {len(test_cases)}")
+        print(f"Passed: {passed_tests}")
+        print(f"Pass rate: {passed_tests/len(test_cases)*100:.1f}%")
         
-        print(f"\n详细结果:")
+        print(f"\nDetailed results:")
         for i, result in enumerate(results, 1):
             print(f"{i}. {result['test']}")
-            print(f"   期望: {'等价' if result['expected'] else '不等价'}")
-            print(f"   实际: {'等价' if result['actual'] else '不等价' if result['actual'] is False else '无法确定'}")
-            print(f"   状态: {result['status']}")
+            print(f"   Expected: {'equivalent' if result['expected'] else 'not equivalent'}")
+            if result['actual'] is True:
+                actual_str = 'equivalent'
+            elif result['actual'] is False:
+                actual_str = 'not equivalent'
+            else:
+                actual_str = 'unknown'
+            print(f"   Actual: {actual_str}")
+            print(f"   Status: {result['status']}")
         
         return results
 
 def main():
-    """主函数"""
-    print("路径约束等价性验证器")
-    print("使用Z3求解器验证两个路径约束的逻辑等价性")
+    """CLI entry point for the path-constraint equivalence verifier."""
+    print("Path-constraint equivalence verifier")
+    print("Use Z3 to check whether two path constraints are logically equivalent.")
     print("-" * 50)
     
     if len(sys.argv) == 1:
-                     
-        print("未提供参数，运行完整测试套件...")
+        print("No arguments provided; running full internal test suite...")
         verifier = PathConstraintEquivalenceVerifier()
         verifier.run_comprehensive_test()
         
     elif len(sys.argv) == 3:
-                        
         file1, file2 = sys.argv[1], sys.argv[2]
-        print(f"验证指定文件: {file1} vs {file2}")
+        print(f"Verifying user-specified files: {file1} vs {file2}")
         
         verifier = PathConstraintEquivalenceVerifier()
-        result = verifier.verify_equivalence(file1, file2, "用户指定文件")
+        result = verifier.verify_equivalence(file1, file2, "user-specified files")
         
-        print(f"\n最终结论:")
+        print(f"\nFinal conclusion:")
         if result is True:
-            print("✅ 两个路径约束在逻辑上等价")
+            print("✅ The two path constraints are logically equivalent")
         elif result is False:
-            print("❌ 两个路径约束在逻辑上不等价")
+            print("❌ The two path constraints are NOT logically equivalent")
         else:
-            print("⚠️  无法确定等价性")
+            print("⚠️  Equivalence could not be determined")
             
     else:
-        print("用法:")
-        print("  python path_constraint_equivalence_verifier.py                    # 运行完整测试")
-        print("  python path_constraint_equivalence_verifier.py <file1> <file2>   # 验证两个文件")
+        print("Usage:")
+        print("  python path_constraint_equivalence_verifier.py")
+        print("      # Run the full internal test suite")
+        print("  python path_constraint_equivalence_verifier.py <file1> <file2>")
+        print("      # Verify equivalence of two SMT-LIB files")
         sys.exit(1)
 
 if __name__ == "__main__":

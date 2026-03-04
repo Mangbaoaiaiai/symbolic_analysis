@@ -1,7 +1,8 @@
                       
 """
-改进的真实TSVC Benchmark符号执行分析器
-修复了约束提取问题，改进了angr配置
+Improved real TSVC benchmark symbolic-execution analyzer.
+
+Fixes constraint-extraction issues and improves angr configuration.
 """
 
 import os
@@ -24,21 +25,21 @@ except ImportError:
 from semantic_equivalence_analyzer import PathClusterAnalyzer
 
 class ImprovedRealTSVCAnalyzer:
-    """改进的真实TSVC benchmark分析器"""
+    """Improved TSVC benchmark analyzer using real binaries and angr."""
     
     def __init__(self, tsvc_source="pldi19-equivalence-checker/pldi19/TSVC/clean.c"):
         self.tsvc_source = tsvc_source
         self.temp_dirs = []
         
     def __del__(self):
-        """清理临时目录"""
+        """Clean up temporary directories."""
         for temp_dir in self.temp_dirs:
             if os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir, ignore_errors=True)
     
     def extract_function_code(self, function_name: str) -> str:
-        """从TSVC源代码中提取单个函数"""
-        print(f"  提取函数: {function_name}")
+        """Extract a single function from the TSVC source file."""
+        print(f"  Extracting function: {function_name}")
         
         with open(self.tsvc_source, 'r') as f:
             content = f.read()
@@ -48,7 +49,7 @@ class ImprovedRealTSVCAnalyzer:
         match = re.search(pattern, content)
         
         if not match:
-            raise ValueError(f"未找到函数 {function_name}")
+            raise ValueError(f"Function {function_name} not found in TSVC source")
         
                       
         start_pos = match.start()
@@ -65,14 +66,14 @@ class ImprovedRealTSVCAnalyzer:
             i += 1
         
         if brace_count != 0:
-            raise ValueError(f"函数 {function_name} 的大括号不匹配")
+            raise ValueError(f"Braces do not match for function {function_name}")
         
         function_code = content[start_pos:i+1]
         return function_code
     
     def create_standalone_program(self, function_name: str, optimization_level: str) -> Path:
-        """创建独立的可执行程序"""
-        print(f"  创建独立程序: {function_name} (优化级别: {optimization_level})")
+        """Create a standalone executable for a TSVC function."""
+        print(f"  Creating standalone program: {function_name} (opt level: {optimization_level})")
         
                 
         function_code = self.extract_function_code(function_name)
@@ -82,18 +83,18 @@ class ImprovedRealTSVCAnalyzer:
 #include <stdlib.h>
 #include <stdio.h>
 
-#define LEN 8  // 减小数组大小以便符号执行
+#define LEN 8  // Reduce array size to make symbolic execution tractable
 #define TYPE int
 
-// 全局数组定义
+// Global array definitions
 TYPE a[LEN];
 TYPE b[LEN]; 
 TYPE c[LEN];
 TYPE d[LEN];
 TYPE e[LEN];
-TYPE aa[4][4];  // 减小2D数组大小
+TYPE aa[4][4];  // Smaller 2D array
 
-// 简化的初始化函数
+// Simplified initialization
 void init_arrays() {{
     for (int i = 0; i < LEN; i++) {{
         a[i] = i;
@@ -109,16 +110,16 @@ void init_arrays() {{
     }}
 }}
 
-// 提取的benchmark函数
+// Extracted benchmark function
 {function_code}
 
 int main(int argc, char* argv[]) {{
     init_arrays();
     
-    // 使用较小的count值进行符号执行
-    int count = 1;  // 固定count为1，减少路径爆炸
+    // Use a small count value for symbolic execution
+    int count = 1;  // Fix count to 1 to reduce path explosion
     
-    // 调用benchmark函数
+    // Call benchmark function
     TYPE result = {function_name}(count);
     
     printf("Result: %d\\n", result);
@@ -148,19 +149,19 @@ int main(int argc, char* argv[]) {{
         
         try:
             result = subprocess.run(compile_cmd, capture_output=True, text=True, check=True)
-            print(f"    编译成功: {binary_file}")
+            print(f"    Compilation succeeded: {binary_file}")
             return binary_file
         except subprocess.CalledProcessError as e:
-            print(f"    编译失败: {e}")
-            print(f"    错误输出: {e.stderr}")
+            print(f"    Compilation failed: {e}")
+            print(f"    Stderr: {e.stderr}")
             raise
     
     def extract_real_paths_with_angr(self, binary_path: Path, max_paths: int = 10) -> List[Dict]:
-        """使用angr进行改进的真实符号执行"""
+        """Use angr to perform improved real-path symbolic execution."""
         if not ANGR_AVAILABLE:
             return self._fallback_enhanced_mock_paths(binary_path, max_paths)
         
-        print(f"    使用angr分析: {binary_path}")
+        print(f"    Running angr analysis on: {binary_path}")
         
         try:
                       
@@ -176,7 +177,7 @@ int main(int argc, char* argv[]) {{
                                   
             simgr = project.factory.simulation_manager(state)
             
-            print(f"    开始符号执行...")
+            print(f"    Starting symbolic execution...")
             
                           
             simgr.run(n=50)
@@ -190,42 +191,38 @@ int main(int argc, char* argv[]) {{
                 if hasattr(state, 'solver'):
                     path_info = self._extract_improved_path_constraints(state, i, binary_path.stem)
                     paths.append(path_info)
-                elif hasattr(state, 'state'):                  
+                elif hasattr(state, 'state'):
                     path_info = self._extract_improved_path_constraints(state.state, i, binary_path.stem)
                     paths.append(path_info)
             
-            print(f"    成功提取了 {len(paths)} 条真实执行路径")
+            print(f"    Successfully extracted {len(paths)} real execution paths")
             return paths
             
         except Exception as e:
-            print(f"    angr分析失败: {e}")
-            print(f"    使用增强模拟模式...")
+            print(f"    angr analysis failed: {e}")
+            print(f"    Falling back to enhanced mock-path generation...")
             return self._fallback_enhanced_mock_paths(binary_path, max_paths)
     
     def _extract_improved_path_constraints(self, state, path_index: int, benchmark_name: str) -> Dict:
-        """改进的路径约束提取"""
+        """Improved path-constraint extraction from an angr state."""
         try:
                     
             constraints = state.solver.constraints
             
-                    
             variables = set()
             smt_constraints = []
             
             for constraint in constraints:
-                            
                 try:
                     constraint_vars = constraint.variables
                     variables.update(str(v) for v in constraint_vars)
                     
-                                    
                     smt_str = str(constraint)
-                    if smt_str and len(smt_str) < 1000:           
+                    if smt_str and len(smt_str) < 1000:
                         smt_constraints.append(f"(assert {smt_str})")
                         
                 except Exception as e:
-                                      
-                    print(f"      约束处理警告: {e}")
+                    print(f"      Warning while processing constraint: {e}")
                     continue
             
                     
@@ -240,7 +237,7 @@ int main(int argc, char* argv[]) {{
                 if hasattr(state, 'regs'):
                     register_values['eax'] = str(state.regs.eax)
                     register_values['ebx'] = str(state.regs.ebx)
-            except:
+            except Exception:
                 pass
             
                     
@@ -260,7 +257,7 @@ int main(int argc, char* argv[]) {{
             return path_info
             
         except Exception as e:
-            print(f"      约束提取失败: {e}")
+            print(f"      Constraint extraction failed: {e}")
                        
             return {
                 'path_index': path_index,
@@ -277,8 +274,8 @@ int main(int argc, char* argv[]) {{
             }
     
     def _fallback_enhanced_mock_paths(self, binary_path: Path, max_paths: int) -> List[Dict]:
-        """增强的备用路径生成"""
-        print(f"    使用增强模拟路径生成")
+        """Enhanced mock-path generation used as a fallback when angr fails."""
+        print(f"    Using enhanced mock path generation")
         
         function_name = binary_path.stem.split('_')[0]
         optimization = binary_path.stem.split('_')[1] if '_' in binary_path.stem else 'O1'
@@ -288,7 +285,6 @@ int main(int argc, char* argv[]) {{
                             
         for i in range(max_paths):
             if function_name == 's000':
-                                       
                 variables = [f"a_{i}", f"b_{i}", f"i_{i}", f"count"]
                 constraints = [
                     f"(assert (= a_{i} (bvadd b_{i} #x00000001)))",
@@ -307,7 +303,6 @@ int main(int argc, char* argv[]) {{
                     variables.extend([f"vectorized_{i}", f"prefetch_{i}"])
                     
             elif function_name == 's1112':
-                                                       
                 variables = [f"a_{i}", f"b_{i}", f"i_{i}", f"count"]
                 constraints = [
                     f"(assert (= a_{i} (bvadd b_{i} #x00000001)))",
@@ -319,7 +314,6 @@ int main(int argc, char* argv[]) {{
                     variables.append(f"reverse_optimized_{i}")
                     
             elif function_name == 's121':
-                                                              
                 variables = [f"a_{i}", f"a_{i+1}", f"b_{i}", f"i_{i}", f"count"]
                 constraints = [
                     f"(assert (= a_{i} (bvadd a_{i+1} b_{i})))",
@@ -327,12 +321,10 @@ int main(int argc, char* argv[]) {{
                     f"(assert (= count #x00000001))"
                 ]
                 if optimization == 'O2':
-                                    
                     constraints.append(f"(assert (= dependency_block_{i} #x00000001))")
                     variables.append(f"dependency_block_{i}")
                     
             else:
-                      
                 variables = [f"i_{i}", f"result_{i}", f"count"]
                 constraints = [
                     f"(assert (bvule i_{i} #x00000008))",
@@ -365,27 +357,26 @@ int main(int argc, char* argv[]) {{
         return paths
     
     def save_path_constraints(self, paths: List[Dict], output_dir: Path, benchmark_name: str) -> None:
-        """保存改进的路径约束到文件"""
+        """Save improved path constraints to SMT-LIB files."""
         output_dir.mkdir(exist_ok=True)
         
         for path_info in paths:
             path_file = output_dir / f"path_{path_info['path_index']:03d}.txt"
             
             with open(path_file, 'w') as f:
-                f.write(f"; 改进的真实TSVC Benchmark路径约束\\n")
+                f.write(f"; Improved real TSVC benchmark path constraints\\n")
                 f.write(f"; Benchmark: {benchmark_name}\\n") 
                 f.write(f"; Path: {path_info['path_index']}\\n")
-                f.write(f"; 变量数量: {path_info['variable_count']}\\n")
-                f.write(f"; 约束数量: {path_info['constraint_count']}\\n")
-                f.write(f"; 内存哈希: {path_info['memory_hash']}\\n")
+                f.write(f"; Variable count: {path_info['variable_count']}\\n")
+                f.write(f"; Constraint count: {path_info['constraint_count']}\\n")
+                f.write(f"; Memory hash: {path_info['memory_hash']}\\n")
                 if path_info.get('mock'):
-                    f.write(f"; 模式: 增强模拟（{path_info.get('optimization', 'unknown')}优化）\\n")
+                    f.write(f"; Mode: enhanced mock ({path_info.get('optimization', 'unknown')} optimization)\\n")
                 else:
-                    f.write(f"; 模式: 真实angr符号执行\\n")
+                    f.write(f"; Mode: real angr symbolic execution\\n")
                 
-                         
                 if path_info.get('register_values'):
-                    f.write(f"; 寄存器值: {path_info['register_values']}\\n")
+                    f.write(f"; Register values: {path_info['register_values']}\\n")
                 
                 f.write(f"\\n")
                 
@@ -403,11 +394,11 @@ int main(int argc, char* argv[]) {{
                 
                 f.write("(check-sat)\\n")
         
-        print(f"    保存了 {len(paths)} 个改进的路径文件到 {output_dir}")
+        print(f"    Saved {len(paths)} improved path files to {output_dir}")
     
     def analyze_single_benchmark(self, benchmark_name: str) -> Dict:
-        """分析单个benchmark的改进版"""
-        print(f"\\n🔍 改进分析benchmark: {benchmark_name}")
+        """Run the improved analysis workflow on a single TSVC benchmark."""
+        print(f"\\n🔍 Improved analysis for benchmark: {benchmark_name}")
         
         opt_levels = ['O1', 'O2', 'O3']
         results = {}
@@ -416,7 +407,7 @@ int main(int argc, char* argv[]) {{
         
                       
         for opt_level in opt_levels:
-            print(f"  处理优化级别: {opt_level}")
+            print(f"  Processing optimization level: {opt_level}")
             
             try:
                       
@@ -432,7 +423,7 @@ int main(int argc, char* argv[]) {{
                 self.save_path_constraints(paths, output_dir, f"{benchmark_name}_{opt_level}")
                 
             except Exception as e:
-                print(f"    处理 {opt_level} 失败: {e}")
+                print(f"    Failed to process {opt_level}: {e}")
                 results[opt_level] = {'error': str(e)}
         
                  
@@ -441,7 +432,7 @@ int main(int argc, char* argv[]) {{
             for opt2 in opt_levels[i+1:]:
                 if opt1 in all_paths and opt2 in all_paths:
                     comparison_name = f"{benchmark_name}_{opt1}_vs_{opt2}"
-                    print(f"  比较: {opt1} vs {opt2}")
+                    print(f"  Comparing: {opt1} vs {opt2}")
                     
                     try:
                                     
@@ -465,10 +456,10 @@ int main(int argc, char* argv[]) {{
                             }
                         }
                         
-                        print(f"    ✅ 改进比较完成: {report_file}")
+                        print(f"    ✅ Improved comparison finished: {report_file}")
                         
                     except Exception as e:
-                        print(f"    ❌ 比较失败: {e}")
+                        print(f"    ❌ Comparison failed: {e}")
                         comparisons[comparison_name] = {'error': str(e)}
         
         return {
@@ -481,30 +472,30 @@ int main(int argc, char* argv[]) {{
 
 
 def main():
-    """运行改进的TSVC benchmark分析"""
-    print("🚀 启动改进的真实TSVC Benchmark符号执行分析")
+    """Run the improved TSVC benchmark analysis demo."""
+    print("🚀 Starting improved real TSVC benchmark symbolic-execution analysis")
     print("=" * 70)
     
     analyzer = ImprovedRealTSVCAnalyzer()
     
                    
-    test_benchmark = 's000'           
+    test_benchmark = 's000'
     
     start_time = time.time()
     
     try:
         result = analyzer.analyze_single_benchmark(test_benchmark)
         
-        print(f"\\n🎉 改进分析完成！")
-        print(f"📊 结果: {result['benchmark_name']}")
-        print(f"📁 路径数量: {result['path_counts']}")
-        print(f"📄 比较数量: {len(result['comparisons'])}")
+        print(f"\\n🎉 Improved analysis finished!")
+        print(f"📊 Benchmark: {result['benchmark_name']}")
+        print(f"📁 Path counts: {result['path_counts']}")
+        print(f"📄 Comparison count: {len(result['comparisons'])}")
         
         end_time = time.time()
-        print(f"⏱️  总耗时: {end_time - start_time:.2f} 秒")
+        print(f"⏱️  Total time: {end_time - start_time:.2f} s")
         
     except Exception as e:
-        print(f"❌ 分析失败: {e}")
+        print(f"❌ Analysis failed: {e}")
 
 
 if __name__ == "__main__":

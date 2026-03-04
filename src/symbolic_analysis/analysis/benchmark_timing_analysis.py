@@ -1,11 +1,11 @@
                       
 """
-Benchmark时间分析脚本
+Benchmark timing analysis script.
 
-整理和统计每个benchmark验证过程的用时，包括：
-1. 符号执行时间
-2. 等价性分析时间
-3. 总体统计
+Aggregates and summarizes each benchmark's verification time, including:
+1. Symbolic execution time
+2. Equivalence analysis time
+3. Overall statistics
 """
 
 import json
@@ -22,44 +22,44 @@ class BenchmarkTimingAnalyzer:
         self.combined_stats = defaultdict(dict)
     
     def load_equivalence_data(self):
-        """加载等价性分析数据"""
+        """Load equivalence analysis data."""
         try:
             with open('batch_equivalence_analysis_data.json', 'r', encoding='utf-8') as f:
                 self.equivalence_data = json.load(f)
-            print("✅ 成功加载等价性分析数据")
+            print("✅ Loaded equivalence analysis data")
             return True
         except FileNotFoundError:
-            print("❌ 未找到等价性分析数据文件")
+            print("❌ Equivalence analysis data file not found")
             return False
     
     def load_symbolic_execution_data(self):
-        """加载符号执行数据"""
+        """Load symbolic execution data."""
         try:
                             
             if os.path.exists('batch_symbolic_execution_data.json'):
                 with open('batch_symbolic_execution_data.json', 'r', encoding='utf-8') as f:
                     se_json = json.load(f)
                 self.parse_symbolic_execution_json(se_json)
-                print("✅ 成功加载符号执行JSON数据")
+                print("✅ Loaded symbolic execution JSON data")
                 return True
             
                                    
             se_files = glob.glob("*symbolic_execution_report.txt")
             if not se_files:
-                print("⚠️  未找到符号执行数据文件")
+                print("⚠️  No symbolic-execution data files found")
                 return False
             
             for file in se_files:
                 self.parse_symbolic_execution_file(file)
             
-            print(f"✅ 成功加载 {len(se_files)} 个符号执行报告")
+            print(f"✅ Loaded {len(se_files)} symbolic-execution reports")
             return True
         except Exception as e:
-            print(f"❌ 加载符号执行数据失败: {e}")
+            print(f"❌ Failed to load symbolic-execution data: {e}")
             return False
     
     def parse_symbolic_execution_json(self, se_json):
-        """解析符号执行JSON数据"""
+        """Parse symbolic-execution JSON data."""
         try:
             for benchmark, binaries in se_json['results'].items():
                                                                
@@ -98,25 +98,25 @@ class BenchmarkTimingAnalyzer:
                 }
                 
         except Exception as e:
-            print(f"⚠️  解析符号执行JSON数据失败: {e}")
+            print(f"⚠️  Failed to parse symbolic-execution JSON data: {e}")
     
     def parse_symbolic_execution_file(self, filename):
-        """解析符号执行报告文件"""
+        """Parse a textual symbolic-execution report file."""
         try:
             with open(filename, 'r', encoding='utf-8') as f:
                 content = f.read()
             
                          
-            programs = re.findall(r'程序: (.+?)\n', content)
-            execution_times = re.findall(r'执行时间: ([0-9.]+) 秒', content)
+            programs = re.findall(r'Program: (.+?)\n', content)
+            execution_times = re.findall(r'Execution time: ([0-9.]+) s', content)
             
                          
             sections = content.split('=' * 60)
             for section in sections:
-                if '分析结果:' in section and '程序:' in section:
-                    program_match = re.search(r'程序: (.+?)\n', section)
-                    time_match = re.search(r'执行时间: ([0-9.]+) 秒', section)
-                    paths_match = re.search(r'发现路径: (\d+)', section)
+                if 'Analysis result:' in section and 'Program:' in section:
+                    program_match = re.search(r'Program: (.+?)\n', section)
+                    time_match = re.search(r'Execution time: ([0-9.]+) s', section)
+                    paths_match = re.search(r'Paths found: (\d+)', section)
                     
                     if program_match and time_match:
                         program = program_match.group(1).strip()
@@ -130,10 +130,10 @@ class BenchmarkTimingAnalyzer:
                         }
         
         except Exception as e:
-            print(f"⚠️  解析 {filename} 失败: {e}")
+            print(f"⚠️  Failed to parse {filename}: {e}")
     
     def combine_timing_data(self):
-        """合并符号执行和等价性分析的时间数据"""
+        """Merge symbolic-execution and equivalence-analysis timing data."""
         if not self.equivalence_data:
             return
         
@@ -201,12 +201,12 @@ class BenchmarkTimingAnalyzer:
                         self.combined_stats[matched_program]['total_paths'] = se_data['paths_found']
     
     def generate_timing_report(self):
-        """生成时间统计报告"""
+        """Generate a timing summary report."""
         if not self.combined_stats:
-            print("❌ 没有可用的时间数据")
+            print("❌ No timing data available")
             return
         
-        print("\n🕐 Benchmark验证过程时间统计报告")
+        print("\n🕐 Benchmark verification timing report")
         print("=" * 80)
         
               
@@ -215,17 +215,16 @@ class BenchmarkTimingAnalyzer:
         total_programs = len(self.combined_stats)
         total_comparisons = sum(stats['comparison_count'] for stats in self.combined_stats.values())
         
-        print(f"\n📊 总体统计:")
-        print(f"  分析程序数: {total_programs}")
-        print(f"  等价性比较次数: {total_comparisons}")
-        print(f"  符号执行总时间: {total_se_time:.2f} 秒")
-        print(f"  等价性分析总时间: {total_eq_time:.2f} 秒")
-        print(f"  验证总时间: {total_se_time + total_eq_time:.2f} 秒")
+        print(f"\n📊 Overall statistics:")
+        print(f"  Programs analyzed: {total_programs}")
+        print(f"  Equivalence comparisons: {total_comparisons}")
+        print(f"  Total symbolic execution time: {total_se_time:.2f} s")
+        print(f"  Total equivalence analysis time: {total_eq_time:.2f} s")
+        print(f"  Total verification time: {total_se_time + total_eq_time:.2f} s")
         
-                   
-        print(f"\n📋 各程序详细统计:")
+        print(f"\n📋 Per-program statistics:")
         print("-" * 80)
-        print(f"{'程序名':<12} {'符号执行':<10} {'等价性分析':<12} {'总时间':<10} {'路径数':<8} {'比较次数':<8}")
+        print(f"{'Program':<12} {'SE time':<10} {'Eq time':<12} {'Total':<10} {'Paths':<8} {'Comps':<8}")
         print("-" * 80)
         
         sorted_programs = sorted(self.combined_stats.items(), 
@@ -242,52 +241,52 @@ class BenchmarkTimingAnalyzer:
             print(f"{program:<12} {se_time:<10.2f} {eq_time:<12.2f} {total_time:<10.2f} {paths:<8} {comparisons:<8}")
         
                 
-        print(f"\n⚡ 时间分布分析:")
+        print(f"\n⚡ Time distribution:")
         se_percentage = (total_se_time / (total_se_time + total_eq_time)) * 100 if (total_se_time + total_eq_time) > 0 else 0
         eq_percentage = (total_eq_time / (total_se_time + total_eq_time)) * 100 if (total_se_time + total_eq_time) > 0 else 0
         
-        print(f"  符号执行占比: {se_percentage:.1f}%")
-        print(f"  等价性分析占比: {eq_percentage:.1f}%")
+        print(f"  Symbolic execution share: {se_percentage:.1f}%")
+        print(f"  Equivalence analysis share: {eq_percentage:.1f}%")
         
         avg_se_time = total_se_time / total_programs if total_programs > 0 else 0
         avg_eq_time = total_eq_time / total_comparisons if total_comparisons > 0 else 0
         
-        print(f"  平均符号执行时间: {avg_se_time:.2f} 秒/程序")
-        print(f"  平均等价性分析时间: {avg_eq_time:.2f} 秒/比较")
+        print(f"  Avg SE time: {avg_se_time:.2f} s/program")
+        print(f"  Avg equivalence time: {avg_eq_time:.2f} s/comparison")
     
     def generate_detailed_breakdown(self):
-        """生成详细的时间分解报告"""
-        print(f"\n🔍 详细时间分解:")
+        """Generate a detailed timing breakdown report."""
+        print(f"\n🔍 Detailed timing breakdown:")
         print("=" * 80)
         
         for program, stats in sorted(self.combined_stats.items()):
             print(f"\n📁 {program}:")
-            print(f"  符号执行总时间: {stats['symbolic_execution_time']:.2f} 秒")
+            print(f"  Total symbolic execution time: {stats['symbolic_execution_time']:.2f} s")
             
                             
             if 'se_optimization_levels' in stats:
-                print(f"  符号执行详情 ({stats.get('se_binary_count', 0)} 个二进制文件):")
+                print(f"  SE details ({stats.get('se_binary_count', 0)} binaries):")
                 for opt_level, opt_data in stats['se_optimization_levels'].items():
                     print(f"    {opt_level}: {opt_data['execution_time']:.2f}s "
-                          f"(设置: {opt_data.get('setup_time', 0):.3f}s, "
-                          f"探索: {opt_data.get('exploration_time', 0):.3f}s, "
-                          f"分析: {opt_data.get('analysis_time', 0):.3f}s, "
-                          f"路径: {opt_data['paths_found']})")
-                print(f"    平均时间: {stats.get('average_se_time', 0):.2f} 秒/二进制")
+                          f"(setup: {opt_data.get('setup_time', 0):.3f}s, "
+                          f"explore: {opt_data.get('exploration_time', 0):.3f}s, "
+                          f"analysis: {opt_data.get('analysis_time', 0):.3f}s, "
+                          f"paths: {opt_data['paths_found']})")
+                print(f"    Avg SE time: {stats.get('average_se_time', 0):.2f} s/binary")
             
-            print(f"  发现路径总数: {stats['total_paths']} 条")
-            print(f"  等价性比较 ({stats['comparison_count']} 次):")
+            print(f"  Total paths found: {stats['total_paths']}")
+            print(f"  Equivalence comparisons ({stats['comparison_count']}):")
             
             for comp in stats['equivalence_comparisons']:
                 print(f"    {comp['opt1']} vs {comp['opt2']}: {comp['time']:.3f}s "
-                      f"({comp['equivalent_pairs']} 等价对, {comp['paths_compared']} 路径)")
+                      f"({comp['equivalent_pairs']} equivalent pairs, {comp['paths_compared']} paths)")
             
-            print(f"  等价性分析总时间: {stats['total_equivalence_time']:.2f} 秒")
+            print(f"  Total equivalence analysis time: {stats['total_equivalence_time']:.2f} s")
             total_time = stats['symbolic_execution_time'] + stats['total_equivalence_time']
-            print(f"  🕐 总耗时: {total_time:.2f} 秒")
+            print(f"  🕐 Total time: {total_time:.2f} s")
     
     def save_timing_summary(self):
-        """保存时间统计摘要到文件"""
+        """Save timing summary JSON to disk."""
         summary = {
             'generated_time': datetime.now().isoformat(),
             'total_programs': len(self.combined_stats),
@@ -299,10 +298,10 @@ class BenchmarkTimingAnalyzer:
         with open('benchmark_timing_summary.json', 'w', encoding='utf-8') as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
         
-        print(f"\n💾 时间统计摘要已保存到: benchmark_timing_summary.json")
+        print(f"\n💾 Timing summary saved to: benchmark_timing_summary.json")
 
 def main():
-    """主函数"""
+    """Main entry."""
     analyzer = BenchmarkTimingAnalyzer()
     
           

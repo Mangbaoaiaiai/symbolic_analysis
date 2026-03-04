@@ -34,16 +34,14 @@ class ArrayStateComparator:
         for line in lines:
             line = line.strip()
             
-                                        
-            if line.startswith('; 数组初始值:') or line.startswith('; Initial array state:'):
+            # Expect English array-state markers in path files
+            if line.startswith('; Initial array state:'):
                 try:
                     array_str = line.split(':', 1)[1].strip()
                     array_initial = eval(array_str)                                
                 except:
                     pass
-                    
-                                      
-            elif line.startswith('; 数组最终值:') or line.startswith('; Final array state:'):
+            elif line.startswith('; Final array state:'):
                 try:
                     array_str = line.split(':', 1)[1].strip()
                     array_final = eval(array_str)                                
@@ -331,14 +329,14 @@ class EnhancedPathAnalyzer:
     def analyze_program_equivalence(self, file_prefix1, file_prefix2):
         """Analyze full program equivalence based on path files from two binaries."""
         self.analysis_start_time = time.time()
-        print(f"开始程序等价性分析: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Starting program equivalence analysis at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
                                  
         files1 = sorted(glob.glob(f"{file_prefix1}*.txt"))
         files2 = sorted(glob.glob(f"{file_prefix2}*.txt"))
         
-        print(f"程序1路径数: {len(files1)}")
-        print(f"程序2路径数: {len(files2)}")
+        print(f"Number of paths in program 1: {len(files1)}")
+        print(f"Number of paths in program 2: {len(files2)}")
         
                                          
         load_start = time.time()

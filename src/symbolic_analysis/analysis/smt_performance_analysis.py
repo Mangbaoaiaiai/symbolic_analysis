@@ -1,8 +1,8 @@
                       
 """
-SMT等价性验证性能分析
+SMT equivalence-checking performance analysis.
 
-分析为什么即使约束看起来复杂，SMT比较速度仍然很快
+Explains why SMT-based comparisons stay fast even when constraints look complex.
 """
 
 import re
@@ -10,7 +10,7 @@ import time
 from collections import defaultdict
 
 def analyze_smt_file(filename):
-    """分析SMT文件的约束模式"""
+    """Analyze constraint patterns in an SMT file."""
     with open(filename, 'r') as f:
         content = f.read()
     
@@ -55,121 +55,121 @@ def analyze_smt_file(filename):
     }
 
 def explain_fast_performance():
-    """解释为什么SMT验证如此快速"""
+    """Explain why SMT verification is so fast."""
     
-    print("🔍 SMT等价性验证性能分析")
+    print("🔍 SMT equivalence-check performance analysis")
     print("=" * 60)
     
             
     o0_analysis = analyze_smt_file('s000_O0_path_11.txt')
     o2_analysis = analyze_smt_file('s000_O2_path_11.txt')
     
-    print(f"\n📊 约束复杂度对比:")
-    print(f"  {o0_analysis['filename']}: {o0_analysis['assert_count']} 个约束")
-    print(f"  {o2_analysis['filename']}: {o2_analysis['assert_count']} 个约束")
+    print(f"\n📊 Constraint complexity comparison:")
+    print(f"  {o0_analysis['filename']}: {o0_analysis['assert_count']} asserts")
+    print(f"  {o2_analysis['filename']}: {o2_analysis['assert_count']} asserts")
     
-    print(f"\n🔢 约束类型分布:")
-    print(f"  O0版本: {o0_analysis['constraint_types']}")
-    print(f"  O2版本: {o2_analysis['constraint_types']}")
+    print(f"\n🔢 Constraint type distribution:")
+    print(f"  O0 version: {o0_analysis['constraint_types']}")
+    print(f"  O2 version: {o2_analysis['constraint_types']}")
     
-    print(f"\n🧮 表达式复杂度:")
-    print(f"  O0版本: {o0_analysis['complexity_indicators']}")
-    print(f"  O2版本: {o2_analysis['complexity_indicators']}")
+    print(f"\n🧮 Expression complexity indicators:")
+    print(f"  O0 version: {o0_analysis['complexity_indicators']}")
+    print(f"  O2 version: {o2_analysis['complexity_indicators']}")
     
-    print(f"\n⚡ 性能快速的关键原因:")
+    print(f"\n⚡ Key reasons for fast performance:")
     
-    print(f"\n1️⃣  **约束模式规律性强**")
-    print(f"   • O0版本: {o0_analysis['constraint_types'].get('bvslt', 0)} 个 bvslt 约束")
-    print(f"     所有约束都是对同一个表达式的递增边界检查")
-    print(f"     模式: bvslt (_ bv0 32) ?x45, bvslt (_ bv1 32) ?x45, ...")
-    print(f"     Z3 可以快速识别这种线性递增模式")
+    print(f"\n1️⃣  Regular constraint patterns")
+    print(f"   • O0: {o0_analysis['constraint_types'].get('bvslt', 0)} bvslt constraints")
+    print(f"     All asserts are increasing bound checks on the same expression")
+    print(f"     Pattern: bvslt (_ bv0 32) ?x45, bvslt (_ bv1 32) ?x45, ...")
+    print(f"     Z3 quickly recognizes this linear pattern")
     
-    print(f"\n2️⃣  **变量映射简单**")
-    print(f"   • 两个版本使用相同的变量名: {o0_analysis['variables'][0]}")
-    print(f"   • 不需要复杂的变量重命名和映射")
+    print(f"\n2️⃣  Simple variable mapping")
+    print(f"   • Both versions use the same variable name: {o0_analysis['variables'][0]}")
+    print(f"   • No complex renaming or mapping is required")
     
-    print(f"\n3️⃣  **语义等价性明显**")
-    print(f"   • O0: 83个简单的线性约束（未优化版本）")
-    print(f"   • O2: 14个复杂但等价的约束（编译器优化版本）")
-    print(f"   • 两者描述相同的约束集合，只是表示方式不同")
+    print(f"\n3️⃣  Clear semantic equivalence")
+    print(f"   • O0: 83 simple linear constraints (unoptimized)")
+    print(f"   • O2: 14 more complex but equivalent constraints (optimized)")
+    print(f"   • Both describe the same constraint set with different encodings")
     
-    print(f"\n4️⃣  **数组状态比较极快**")
-    print(f"   • 数组初始状态: 直接字典比较 ~0.000秒")
-    print(f"   • 数组最终状态: 直接字典比较 ~0.000秒")
-    print(f"   • 无需复杂的符号计算")
+    print(f"\n4️⃣  Array-state comparisons are trivial")
+    print(f"   • Initial arrays: direct dict comparison (~0.000 s)")
+    print(f"   • Final arrays: direct dict comparison (~0.000 s)")
+    print(f"   • No heavy symbolic reasoning required")
     
-    print(f"\n5️⃣  **Z3求解器优化**")
-    print(f"   • Z3对线性整数算术(LIA)有高度优化")
-    print(f"   • BitVector操作(bvslt, bvuge等)有专门的求解策略")
-    print(f"   • 约束简化和预处理非常高效")
+    print(f"\n5️⃣  Z3 solver optimizations")
+    print(f"   • Highly optimized for linear integer arithmetic (LIA)")
+    print(f"   • Specialized strategies for BitVector ops (bvslt, bvuge, etc.)")
+    print(f"   • Very effective constraint simplification and pre-processing")
     
-    print(f"\n6️⃣  **三步验证策略**")
-    print(f"   • 第1步: SMT约束逻辑等价性 (平均 0.018秒)")
-    print(f"   • 第2步: 数组初始状态比较 (几乎 0秒)")
-    print(f"   • 第3步: 数组最终状态比较 (几乎 0秒)")
-    print(f"   • 只有在第1步成功时才进行后续步骤")
+    print(f"\n6️⃣  Three-step verification strategy")
+    print(f"   • Step 1: SMT logical equivalence (avg ~0.018 s)")
+    print(f"   • Step 2: initial array-state comparison (≈0 s)")
+    print(f"   • Step 3: final array-state comparison (≈0 s)")
+    print(f"   • Later steps only run if Step 1 passes")
 
 def analyze_optimization_patterns():
-    """分析编译器优化对约束的影响"""
+    """Analyze the impact of compiler optimizations on constraints."""
     
-    print(f"\n🔧 编译器优化对约束的影响:")
+    print(f"\n🔧 Impact of compiler optimizations on constraints:")
     print("-" * 40)
     
-    print(f"\n📈 O0 (无优化):")
-    print(f"   • 每个循环迭代生成一个 bvslt 约束")
-    print(f"   • 约束数量 = 循环次数 (83次)")
-    print(f"   • 约束形式简单但数量大")
-    print(f"   • 示例: bvslt (_ bv42 32) (extract 31 0 (bvshl ...))")
+    print(f"\n📈 O0 (no optimization):")
+    print(f"   • Each loop iteration generates one bvslt constraint")
+    print(f"   • Number of constraints = loop trip count (83)")
+    print(f"   • Constraints are simple but numerous")
+    print(f"   • Example: bvslt (_ bv42 32) (extract 31 0 (bvshl ...))")
     
-    print(f"\n🎯 O2 (中等优化):")
-    print(f"   • 编译器合并和优化了约束")
-    print(f"   • 约束数量大幅减少 (14个)")
-    print(f"   • 使用更复杂的 distinct 和 concat 操作")
-    print(f"   • 但表达相同的语义约束")
+    print(f"\n🎯 O2 (medium optimization):")
+    print(f"   • Compiler merges and optimizes constraints")
+    print(f"   • Number of constraints drops sharply (14)")
+    print(f"   • Uses more complex distinct and concat operations")
+    print(f"   • Still encodes the same semantic constraints")
     
-    print(f"\n✨ 关键洞察:")
-    print(f"   • 虽然O2的约束看起来更复杂(concat, distinct)")
-    print(f"   • 但数量更少(14 vs 83)，整体复杂度可能更低")
-    print(f"   • Z3能够识别两种表示方式的等价性")
-    print(f"   • 编译器优化保持了完美的语义等价性")
+    print(f"\n✨ Key insight:")
+    print(f"   • O2 constraints look more complex (concat, distinct)")
+    print(f"   • But there are fewer of them (14 vs 83), so total complexity may be lower")
+    print(f"   • Z3 recognizes the equivalence of the two encodings")
+    print(f"   • Compiler optimizations preserve perfect semantic equivalence")
 
 def performance_comparison():
-    """性能对比分析"""
+    """Compare empirical performance numbers."""
     
-    print(f"\n⏱️  实际性能数据:")
+    print(f"\n⏱️  Measured performance:")
     print("-" * 30)
-    print(f"  • 平均SMT验证时间: 0.018秒")
-    print(f"  • 最快验证时间: ~0.010秒")
-    print(f"  • 最慢验证时间: ~0.039秒")
-    print(f"  • 总共42次比较，总耗时: 12.1秒")
-    print(f"  • 效率: 3.47次比较/秒")
+    print(f"  • Avg SMT verification time: 0.018 s")
+    print(f"  • Fastest verification: ~0.010 s")
+    print(f"  • Slowest verification: ~0.039 s")
+    print(f"  • 42 comparisons, total 12.1 s")
+    print(f"  • Throughput: 3.47 comparisons/s")
     
-    print(f"\n🚀 为什么比预估快50倍?")
-    print(f"  • 预估基于复杂约束的悲观估计")
-    print(f"  • 实际约束具有高度规律性")
-    print(f"  • Z3的优化超出预期")
-    print(f"  • 三步验证策略的效率优势")
+    print(f"\n🚀 Why ~50x faster than naive estimates?")
+    print(f"  • Naive estimate assumed pessimistic complex-constraint behavior")
+    print(f"  • Actual constraints are highly regular")
+    print(f"  • Z3 optimizations are stronger than expected")
+    print(f"  • Three-step strategy avoids unnecessary work")
 
 def main():
-    """主函数"""
+    """Main entry."""
     try:
         explain_fast_performance()
         analyze_optimization_patterns()
         performance_comparison()
         
-        print(f"\n🎯 总结:")
+        print(f"\n🎯 Summary:")
         print("=" * 60)
-        print("SMT验证速度快的根本原因是:")
-        print("1. 约束模式的规律性 (Z3可以快速识别)")
-        print("2. 编译器优化保持语义等价性")
-        print("3. Z3求解器的高度优化")
-        print("4. 三步验证策略的效率")
-        print("5. 数组状态比较的简单性")
-        print("\n这证明了现代SMT求解器的强大能力！")
+        print("Fundamental reasons SMT verification is fast:")
+        print("1. Regular constraint patterns (Z3 can recognize them quickly)")
+        print("2. Compiler optimizations preserve semantic equivalence")
+        print("3. Highly optimized Z3 internals")
+        print("4. Efficient three-step verification strategy")
+        print("5. Simple array-state comparisons")
+        print("\nThis demonstrates the strength of modern SMT solvers.")
         
     except FileNotFoundError as e:
-        print(f"❌ 文件未找到: {e}")
-        print("请确保在包含SMT路径文件的目录中运行此脚本")
+        print(f"❌ File not found: {e}")
+        print("Please run this script in a directory containing the SMT path files.")
 
 if __name__ == "__main__":
     main() 

@@ -1,9 +1,9 @@
                       
 """
-Benchmark源代码修复脚本
+Benchmark source fixer script.
 
-批量修改所有benchmark源代码，将固定输入改为scanf输入，
-使其能够进行有效的符号执行分析
+Batch-modify benchmark sources: replace fixed inputs with scanf so that
+symbolic execution analysis can run effectively.
 """
 
 import os
@@ -12,14 +12,14 @@ import glob
 from pathlib import Path
 
 class BenchmarkSourceFixer:
-    """Benchmark源代码修复器"""
+    """Benchmark source fixer."""
     
     def __init__(self):
         self.fixed_count = 0
         self.total_count = 0
         
     def find_all_benchmark_directories(self):
-        """查找所有benchmark目录"""
+        """Find all benchmark directories."""
         benchmark_dirs = []
         pattern = "benchmark_temp_*"
         
@@ -30,7 +30,7 @@ class BenchmarkSourceFixer:
         return sorted(benchmark_dirs)
     
     def find_c_files_in_directory(self, directory):
-        """在目录中查找所有C源代码文件"""
+        """Find all C source files in a directory."""
         c_files = []
         pattern = os.path.join(directory, "*.c")
         
@@ -40,7 +40,7 @@ class BenchmarkSourceFixer:
         return sorted(c_files)
     
     def analyze_source_file(self, file_path):
-        """分析源文件，确定需要的修改"""
+        """Analyze source file and determine required changes."""
         with open(file_path, 'r') as f:
             content = f.read()
         
@@ -70,7 +70,7 @@ class BenchmarkSourceFixer:
         }
     
     def extract_function_name_from_filename(self, file_path):
-        """从文件路径提取函数名"""
+        """Extract function name from file path."""
         basename = os.path.basename(file_path)
                                
         match = re.match(r'(\w+)_O[0-3]\.c', basename)
@@ -79,52 +79,45 @@ class BenchmarkSourceFixer:
         return None
     
     def fix_source_file(self, file_path):
-        """修复单个源文件"""
-        print(f"正在修复: {file_path}")
+        """Fix a single source file."""
+        print(f"Fixing: {file_path}")
         
-              
         analysis = self.analyze_source_file(file_path)
         content = analysis['content']
         
-                       
         if analysis['has_scanf']:
-            print(f"  ✓ 已包含scanf，跳过")
+            print(f"  ✓ Already has scanf, skipping")
             return False
         
-                      
         if not analysis['has_stdio']:
             content = content.replace(
                 '#include <stdlib.h>',
-                '#include <stdlib.h>\n#include <stdio.h>  // 添加stdio.h用于scanf'
+                '#include <stdlib.h>\n#include <stdio.h>  // for scanf'
             )
-            print(f"  + 添加了stdio.h头文件")
+            print(f"  + Added stdio.h")
         
-               
         function_name = self.extract_function_name_from_filename(file_path)
         if not function_name:
-            print(f"  ❌ 无法提取函数名")
+            print(f"  ❌ Could not extract function name")
             return False
         
-                  
         new_main = self.create_new_main_function(function_name, content)
         if new_main:
-                      
             main_pattern = r'int main\(\)[^{]*\{[^}]*\}'
             content = re.sub(main_pattern, new_main, content, flags=re.DOTALL)
-            print(f"  + 修改了main函数以使用scanf")
+            print(f"  + Modified main to use scanf")
         else:
-            print(f"  ❌ 无法修改main函数")
+            print(f"  ❌ Could not modify main")
             return False
         
-              
         with open(file_path, 'w') as f:
             f.write(content)
         
-        print(f"  ✅ 修复完成")
+        print(f"  ✅ Fix complete")
         return True
     
     def create_new_main_function(self, function_name, content):
-        """创建新的main函数"""
+        """Create new main function."""
                           
         main_match = re.search(r'int main\(\)[^{]*\{([^}]*)\}', content, re.DOTALL)
         if not main_match:
@@ -137,10 +130,9 @@ class BenchmarkSourceFixer:
         match = re.search(function_call_pattern, main_body)
         
         if match:
-                      
             new_main = f'''int main() {{
     int count;
-    printf("请输入count参数: ");
+    printf("Enter count: ");
     scanf("%d", &count);
     
     init_data();
@@ -148,10 +140,9 @@ class BenchmarkSourceFixer:
     return 0;
 }}'''
         else:
-                      
             new_main = f'''int main() {{
     int count;
-    printf("请输入count参数: ");
+    printf("Enter count: ");
     scanf("%d", &count);
     
     init_data();
@@ -162,12 +153,12 @@ class BenchmarkSourceFixer:
         return new_main
     
     def fix_benchmark_directory(self, directory):
-        """修复一个benchmark目录中的所有文件"""
-        print(f"\n📁 修复目录: {directory}")
+        """Fix all files in a benchmark directory."""
+        print(f"\n📁 Fixing directory: {directory}")
         
         c_files = self.find_c_files_in_directory(directory)
         if not c_files:
-            print(f"  ❌ 目录中没有找到C文件")
+            print(f"  ❌ No C files found in directory")
             return 0
         
         fixed_files = 0
@@ -177,12 +168,12 @@ class BenchmarkSourceFixer:
                 fixed_files += 1
                 self.fixed_count += 1
         
-        print(f"  📊 修复 {fixed_files}/{len(c_files)} 个文件")
+        print(f"  📊 Fixed {fixed_files}/{len(c_files)} files")
         return fixed_files
     
     def recompile_directory_binaries(self, directory):
-        """重新编译目录中的二进制文件"""
-        print(f"\n🔨 重新编译: {directory}")
+        """Recompile binaries in directory."""
+        print(f"\n🔨 Recompiling: {directory}")
         
         c_files = self.find_c_files_in_directory(directory)
         
@@ -209,31 +200,30 @@ class BenchmarkSourceFixer:
                 output_path = os.path.join(directory, output_name)
                 compile_cmd = f"cd {directory} && gcc -{opt_level} -o {output_name} {basename}"
                 
-                print(f"  编译: {compile_cmd}")
+                print(f"  Compile: {compile_cmd}")
                 result = os.system(compile_cmd + " 2>/dev/null")
                 
                 if result == 0:
                     compiled_count += 1
-                    print(f"    ✅ 编译成功: {output_name}")
+                    print(f"    ✅ Compiled: {output_name}")
                 else:
-                    print(f"    ❌ 编译失败: {output_name}")
+                    print(f"    ❌ Compile failed: {output_name}")
         
-        print(f"  📊 编译 {compiled_count}/{len(c_files)} 个二进制文件")
+        print(f"  📊 Compiled {compiled_count}/{len(c_files)} binaries")
         return compiled_count
     
     def run_batch_fix(self):
-        """运行批量修复"""
-        print("🚀 开始批量修复benchmark源代码")
+        """Run batch fix."""
+        print("🚀 Starting batch fix of benchmark sources")
         print("=" * 60)
         
-                         
         benchmark_dirs = self.find_all_benchmark_directories()
         
         if not benchmark_dirs:
-            print("❌ 没有找到任何benchmark目录")
+            print("❌ No benchmark directories found")
             return
         
-        print(f"📋 找到 {len(benchmark_dirs)} 个benchmark目录:")
+        print(f"📋 Found {len(benchmark_dirs)} benchmark directories:")
         for dir_name in benchmark_dirs:
             print(f"  - {dir_name}")
         
@@ -255,18 +245,18 @@ class BenchmarkSourceFixer:
         
             
         print("\n" + "=" * 60)
-        print("🎯 批量修复完成!")
-        print(f"📊 总计修复 {self.fixed_count}/{self.total_count} 个源文件")
-        print(f"🔨 总计编译 {total_compiled_files} 个二进制文件")
+        print("🎯 Batch fix complete!")
+        print(f"📊 Fixed {self.fixed_count}/{self.total_count} source files")
+        print(f"🔨 Compiled {total_compiled_files} binaries")
         
         if self.fixed_count > 0:
-            print("\n💡 建议:")
-            print("  1. 删除旧的路径文件: rm -f benchmark_temp_*/s*_O*_path_*.txt")  
-            print("  2. 重新运行符号执行测试，验证修复效果")
-            print("  3. 检查生成的约束是否包含符号变量")
+            print("\n💡 Suggestions:")
+            print("  1. Remove old path files: rm -f benchmark_temp_*/s*_O*_path_*.txt")  
+            print("  2. Re-run symbolic execution tests to verify")
+            print("  3. Check that generated constraints include symbolic variables")
 
 def main():
-    """主函数"""
+    """Main entry."""
     fixer = BenchmarkSourceFixer()
     fixer.run_batch_fix()
 

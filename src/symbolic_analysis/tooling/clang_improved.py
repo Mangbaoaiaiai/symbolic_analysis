@@ -1,9 +1,8 @@
                       
 """
-改进的符号执行脚本，获取路径签名信息
+Improved symbolic execution script: obtain path signature info.
 
-改进的符号执行脚本
-修复了angr API兼容性问题，改善了路径标识方法
+Fixes angr API compatibility and improves path identification.
 """
 
 import angr
@@ -21,7 +20,7 @@ scanf_counter = 0
 scanf_variables = {}
 
 class ScanfSymProc(angr.SimProcedure):
-    """改进的scanf符号化过程"""
+    """Improved scanf symbolization."""
     
     def run(self, fmt_ptr, value_ptr):
         global scanf_counter, scanf_variables
@@ -43,7 +42,7 @@ class ScanfSymProc(angr.SimProcedure):
         return claripy.BVV(1, self.state.arch.bits)
 
 class ImprovedPathAnalyzer:
-    """改进的路径分析器"""
+    """Improved path analyzer."""
     
     def __init__(self, binary_path, timeout=120):
         self.binary_path = binary_path
@@ -52,18 +51,17 @@ class ImprovedPathAnalyzer:
         self.paths_info = []
     
     def setup_project(self):
-        """设置angr项目"""
+        """Set up angr project."""
         self.project = angr.Project(self.binary_path, auto_load_libs=False)
         
-                          
         scanf_symbols = ['scanf', '__isoc99_scanf', '__isoc23_scanf', '__scanf_chk']
         for symbol in scanf_symbols:
             if self.project.loader.find_symbol(symbol):
                 self.project.hook_symbol(symbol, ScanfSymProc())
-                print(f"已hook符号: {symbol}")
+                print(f"Hooked symbol: {symbol}")
     
     def extract_path_signature(self, state):
-        """提取路径的多维签名"""
+        """Extract multi-dimensional path signature."""
         signature = {}
         
                    
@@ -121,14 +119,13 @@ class ImprovedPathAnalyzer:
         return signature
     
     def run_symbolic_execution(self):
-        """运行符号执行"""
-        print(f"开始符号执行: {self.binary_path}")
+        """Run symbolic execution."""
+        print(f"Starting symbolic execution: {self.binary_path}")
         
-              
         self.setup_project()
         
         if self.project is None:
-            print("项目初始化失败")
+            print("Project initialization failed")
             return []
         
                 
@@ -138,13 +135,13 @@ class ImprovedPathAnalyzer:
         simgr = self.project.factory.simulation_manager(initial_state)
         
                 
-        print("开始探索路径...")
+        print("Exploring paths...")
         simgr.run(timeout=self.timeout)
         
-        print(f"符号执行完成：")
-        print(f"  终止路径数: {len(simgr.deadended)}")
-        print(f"  活跃路径数: {len(simgr.active)}")
-        print(f"  错误路径数: {len(simgr.errored)}")
+        print("Symbolic execution finished:")
+        print(f"  Deadended paths: {len(simgr.deadended)}")
+        print(f"  Active paths: {len(simgr.active)}")
+        print(f"  Errored paths: {len(simgr.errored)}")
         
                   
         self.analyze_deadended_states(simgr.deadended)
@@ -152,9 +149,9 @@ class ImprovedPathAnalyzer:
         return self.paths_info
     
     def analyze_deadended_states(self, deadended_states):
-        """分析所有终止状态"""
+        """Analyze all deadended states."""
         for i, state in enumerate(deadended_states):
-            print(f"\n分析路径 {i + 1}...")
+            print(f"\nAnalyzing path {i + 1}...")
             
                     
             signature = self.extract_path_signature(state)
@@ -176,12 +173,12 @@ class ImprovedPathAnalyzer:
             self.save_path_to_file(path_info)
             
                   
-            print(f"  变量值: {signature['variables']}")
-            print(f"  约束数量: {signature['constraints']['count']}")
-            print(f"  程序输出: {signature['output']}")
+            print(f"  Variable values: {signature['variables']}")
+            print(f"  Constraint count: {signature['constraints']['count']}")
+            print(f"  Program output: {signature['output']}")
     
     def generate_smt_constraints(self, state):
-        """生成SMT约束"""
+        """Generate SMT constraints."""
         try:
             solver = claripy.Solver()
             for constraint in state.solver.constraints:
@@ -189,27 +186,27 @@ class ImprovedPathAnalyzer:
             smt2_text = claripy_solver_to_smt2(solver)
             return smt2_text
         except Exception as e:
-            print(f"生成SMT约束失败: {e}")
+            print(f"Failed to generate SMT constraints: {e}")
             return ""
     
     def save_path_to_file(self, path_info):
-        """保存路径信息到文件"""
+        """Save path info to file."""
         filename = f"{self.binary_path.split('/')[-1]}_path_{path_info['index']}.txt"
         
         with open(filename, "w", encoding='utf-8') as f:
             f.write(path_info['smt_constraints'])
-            f.write("\n; 路径签名信息:\n")
-            f.write(f"; 变量值: {path_info['signature']['variables']}\n")
-            f.write(f"; 约束信息: {path_info['signature']['constraints']}\n")
-            f.write(f"; 内存哈希: {path_info['signature']['memory_hash']}\n")
-            f.write(f"; 程序输出:\n")
+            f.write("\n; Path signature:\n")
+            f.write(f"; Variable values: {path_info['signature']['variables']}\n")
+            f.write(f"; Constraint info: {path_info['signature']['constraints']}\n")
+            f.write(f"; Memory hash: {path_info['signature']['memory_hash']}\n")
+            f.write(f"; Program output:\n")
             f.write(path_info['signature']['output'])
         
-        print(f"  已保存到: {filename}")
+        print(f"  Saved to: {filename}")
 
 def compare_path_collections_improved(analyzer1_results, analyzer2_results):
-    """改进的路径集合比较"""
-    print("\n开始改进的路径比较...")
+    """Improved path collection comparison."""
+    print("\nStarting improved path comparison...")
     
     matches = {
         'exact_variable_matches': [],
@@ -256,30 +253,29 @@ def compare_path_collections_improved(analyzer1_results, analyzer2_results):
             matches['no_matches'].append(path1['index'])
     
             
-    print(f"\n路径匹配结果:")
-    print(f"  精确变量匹配: {len(matches['exact_variable_matches'])} 对")
-    print(f"  精确输出匹配: {len(matches['exact_output_matches'])} 对")
-    print(f"  约束结构匹配: {len(matches['constraint_structure_matches'])} 对")
-    print(f"  无匹配路径: {len(matches['no_matches'])} 个")
+    print("Path match results:")
+    print(f"  Exact variable matches: {len(matches['exact_variable_matches'])} pairs")
+    print(f"  Exact output matches: {len(matches['exact_output_matches'])} pairs")
+    print(f"  Constraint structure matches: {len(matches['constraint_structure_matches'])} pairs")
+    print(f"  Unmatched paths: {len(matches['no_matches'])}")
     
     return matches
 
 def main():
-    """主函数 - 示例用法"""
+    """Main entry and example usage."""
     import sys
     
     if len(sys.argv) < 2:
-        print("用法: python clang_improved.py <binary_path>")
-        print("例如: python clang_improved.py ./test1_clang")
+        print("Usage: python clang_improved.py <binary_path>")
+        print("Example: python clang_improved.py ./test1_clang")
         return
     
     binary_path = sys.argv[1]
     
-              
     analyzer = ImprovedPathAnalyzer(binary_path)
     results = analyzer.run_symbolic_execution()
     
-    print(f"\n分析完成！共发现 {len(results)} 条路径")
+    print(f"\nAnalysis complete. Found {len(results)} paths")
 
 if __name__ == "__main__":
     main() 

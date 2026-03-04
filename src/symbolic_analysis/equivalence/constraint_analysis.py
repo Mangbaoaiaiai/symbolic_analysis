@@ -1,15 +1,17 @@
                       
 """
-路径约束深度分析
-详细分析s121和s000约束为什么等价
+In-depth analysis of path constraints.
+
+Provides a detailed explanation of why the s121 and s000 constraints
+are logically equivalent.
 """
 
 from z3 import *
 
 def analyze_constraint_semantics():
-    """分析约束的语义含义"""
+    """Explain the semantic meaning of the constraints."""
     print("=" * 80)
-    print("路径约束深度分析: s121_O1_path_1.txt vs s000_O1_path_1.txt")
+    print("Deep path-constraint analysis: s121_O1_path_1.txt vs s000_O1_path_1.txt")
     print("=" * 80)
     
           
@@ -19,76 +21,76 @@ def analyze_constraint_semantics():
     base_constraint1 = UGE(scanf_0_1_32, 0)
     base_constraint2 = ULE(scanf_0_1_32, 10)
     
-    print("基础约束（两个文件共有）:")
+    print("Base constraints (shared by both files):")
     print(f"  1. scanf_0_1_32 >= 0")
     print(f"  2. scanf_0_1_32 <= 10")
-    print(f"  即: scanf_0_1_32 ∈ [0, 10]")
+    print(f"  i.e., scanf_0_1_32 ∈ [0, 10]")
     
            
     x38 = ZeroExt(32, scanf_0_1_32)         
     x41 = x38 << 3                              
     x42 = Extract(31, 0, x41)               
     
-    print(f"\n关键表达式分析:")
-    print(f"  x38 = ZeroExt(32, scanf_0_1_32)  // 扩展为64位")
-    print(f"  x41 = x38 << 3                   // 左移3位，相当于乘以8")
-    print(f"  x42 = Extract(31, 0, x41)        // 取低32位")
-    print(f"  因此: x42 = scanf_0_1_32 * 8 (在32位范围内)")
+    print(f"\nKey expression analysis:")
+    print(f"  x38 = ZeroExt(32, scanf_0_1_32)  // extend to 64 bits")
+    print(f"  x41 = x38 << 3                   // shift left by 3, i.e. multiply by 8")
+    print(f"  x42 = Extract(31, 0, x41)        // take lower 32 bits")
+    print(f"  Therefore: x42 = scanf_0_1_32 * 8 (within 32-bit range)")
     
           
     s121_constraint = 1 >= x42              
     s000_constraint = 0 >= x42              
     
-    print(f"\n差异约束:")
-    print(f"  s121: 1 >= x42  即  x42 <= 1")
-    print(f"  s000: 0 >= x42  即  x42 <= 0")
+    print(f"\nDiffering constraints:")
+    print(f"  s121: 1 >= x42  i.e.  x42 <= 1")
+    print(f"  s000: 0 >= x42  i.e.  x42 <= 0")
     
                
-    print(f"\n在输入范围[0,10]内，x42的可能值:")
+    print(f"\nPossible values of x42 for inputs in [0,10]:")
     possible_values = []
     for i in range(11):
         val = i * 8
         possible_values.append((i, val))
         print(f"  scanf_0_1_32 = {i:2d} → x42 = {val:2d}")
     
-    print(f"\n约束满足性分析:")
+    print(f"\nSatisfaction analysis of the constraints:")
     
                          
-    print(f"  s000约束 (x42 <= 0):")
+    print(f"  s000 constraint (x42 <= 0):")
     s000_satisfying = []
     for input_val, x42_val in possible_values:
         if x42_val <= 0:
             s000_satisfying.append(input_val)
-            print(f"    ✓ scanf_0_1_32 = {input_val} (x42 = {x42_val}) 满足 x42 <= 0")
+            print(f"    ✓ scanf_0_1_32 = {input_val} (x42 = {x42_val}) satisfies x42 <= 0")
         else:
-            print(f"    ✗ scanf_0_1_32 = {input_val} (x42 = {x42_val}) 不满足 x42 <= 0")
+            print(f"    ✗ scanf_0_1_32 = {input_val} (x42 = {x42_val}) does NOT satisfy x42 <= 0")
     
                          
-    print(f"  s121约束 (x42 <= 1):")
+    print(f"  s121 constraint (x42 <= 1):")
     s121_satisfying = []
     for input_val, x42_val in possible_values:
         if x42_val <= 1:
             s121_satisfying.append(input_val)
-            print(f"    ✓ scanf_0_1_32 = {input_val} (x42 = {x42_val}) 满足 x42 <= 1")
+            print(f"    ✓ scanf_0_1_32 = {input_val} (x42 = {x42_val}) satisfies x42 <= 1")
         else:
-            print(f"    ✗ scanf_0_1_32 = {input_val} (x42 = {x42_val}) 不满足 x42 <= 1")
+            print(f"    ✗ scanf_0_1_32 = {input_val} (x42 = {x42_val}) does NOT satisfy x42 <= 1")
     
-    print(f"\n结论:")
-    print(f"  s000约束的满足解集: {s000_satisfying}")
-    print(f"  s121约束的满足解集: {s121_satisfying}")
+    print(f"\nConclusion:")
+    print(f"  Solution set for s000 constraint: {s000_satisfying}")
+    print(f"  Solution set for s121 constraint: {s121_satisfying}")
     
     if s000_satisfying == s121_satisfying:
-        print(f"  ✅ 两个约束的解集相同，因此逻辑等价！")
+        print(f"  ✅ The solution sets are identical; constraints are logically equivalent!")
     else:
-        print(f"  ❌ 两个约束的解集不同，不等价")
+        print(f"  ❌ Solution sets differ; constraints are not equivalent")
     
             
-    print(f"\n使用Z3验证分析结果:")
+    print(f"\nUsing Z3 to validate the analysis:")
     
     solver = Solver()
     
                 
-    print(f"  验证s000约束解集:")
+    print(f"  Checking solution set for s000 constraint:")
     for val in range(11):
         solver.push()
         solver.add(base_constraint1, base_constraint2, s000_constraint)
@@ -102,7 +104,7 @@ def analyze_constraint_semantics():
         solver.pop()
     
                 
-    print(f"  验证s121约束解集:")
+    print(f"  Checking solution set for s121 constraint:")
     for val in range(11):
         solver.push()
         solver.add(base_constraint1, base_constraint2, s121_constraint)
@@ -116,9 +118,9 @@ def analyze_constraint_semantics():
         solver.pop()
 
 def verify_equivalence_step_by_step():
-    """逐步验证等价性"""
+    """Verify equivalence step by step using Z3."""
     print(f"\n" + "=" * 80)
-    print("逐步等价性验证")
+    print("Step-by-step equivalence verification")
     print("=" * 80)
     
           
@@ -137,45 +139,45 @@ def verify_equivalence_step_by_step():
     s000_full = And(base_constraints, 0 >= x42)
     s121_full = And(base_constraints, 1 >= x42)
     
-    print("步骤1: 检查s000约束的可满足性")
+    print("Step 1: Check satisfiability of s000 constraints")
     solver = Solver()
     solver.add(s000_full)
     result = solver.check()
-    print(f"  结果: {result}")
+    print(f"  Result: {result}")
     if result == sat:
         model = solver.model()
-        print(f"  模型: {model}")
+        print(f"  Model: {model}")
     
-    print("步骤2: 检查s121约束的可满足性")
+    print("Step 2: Check satisfiability of s121 constraints")
     solver = Solver()
     solver.add(s121_full)
     result = solver.check()
-    print(f"  结果: {result}")
+    print(f"  Result: {result}")
     if result == sat:
         model = solver.model()
-        print(f"  模型: {model}")
+        print(f"  Model: {model}")
     
-    print("步骤3: 检查 s000 → s121 (s000蕴含s121)")
+    print("Step 3: Check s000 → s121 (s000 implies s121)")
     solver = Solver()
     solver.add(And(s000_full, Not(s121_full)))
     result = solver.check()
-    print(f"  s000 ∧ ¬s121 可满足性: {result}")
+    print(f"  Satisfiability of s000 ∧ ¬s121: {result}")
     if result == unsat:
-        print("  ✓ s000 → s121 成立")
+        print("  ✓ s000 → s121 holds")
     else:
-        print("  ✗ s000 → s121 不成立")
+        print("  ✗ s000 → s121 does NOT hold")
         
-    print("步骤4: 检查 s121 → s000 (s121蕴含s000)")
+    print("Step 4: Check s121 → s000 (s121 implies s000)")
     solver = Solver()
     solver.add(And(s121_full, Not(s000_full)))
     result = solver.check()
-    print(f"  s121 ∧ ¬s000 可满足性: {result}")
+    print(f"  Satisfiability of s121 ∧ ¬s000: {result}")
     if result == unsat:
-        print("  ✓ s121 → s000 成立")
+        print("  ✓ s121 → s000 holds")
     else:
-        print("  ✗ s121 → s000 不成立")
+        print("  ✗ s121 → s000 does NOT hold")
         
-    print("步骤5: 双向蕴含检查")
+    print("Step 5: Bi-directional implication check")
     solver = Solver()
     equivalence_check = Or(
         And(s000_full, Not(s121_full)),
@@ -183,11 +185,11 @@ def verify_equivalence_step_by_step():
     )
     solver.add(equivalence_check)
     result = solver.check()
-    print(f"  等价性检查公式可满足性: {result}")
+    print(f"  Satisfiability of equivalence-check formula: {result}")
     if result == unsat:
-        print("  ✅ s000 ≡ s121 (完全等价)")
+        print("  ✅ s000 ≡ s121 (fully equivalent)")
     else:
-        print("  ❌ s000 ≢ s121 (不等价)")
+        print("  ❌ s000 ≢ s121 (not equivalent)")
 
 if __name__ == "__main__":
     analyze_constraint_semantics()

@@ -1,7 +1,9 @@
                       
 """
-增强模拟TSVC Benchmark分析器
-专门使用智能模拟来展示不同优化级别和benchmark的真实差异
+Enhanced mock TSVC benchmark analyzer.
+
+Uses intelligent simulation to illustrate realistic differences across
+optimization levels and benchmarks.
 """
 
 import os
@@ -14,12 +16,12 @@ from typing import List, Dict
 from semantic_equivalence_analyzer import PathClusterAnalyzer
 
 class EnhancedMockTSVCAnalyzer:
-    """增强模拟TSVC benchmark分析器 - 展示真实差异"""
+    """Enhanced mock TSVC benchmark analyzer highlighting realistic differences."""
     
     def __init__(self):
         self.benchmark_patterns = {
             's000': {
-                'description': '简单向量加法: a[i] = b[i] + 1',
+                'description': 'Simple vector addition: a[i] = b[i] + 1',
                 'base_constraints': ['array_add', 'loop_bound'],
                 'optimization_effects': {
                     'O1': [],
@@ -28,7 +30,7 @@ class EnhancedMockTSVCAnalyzer:
                 }
             },
             's1112': {
-                'description': '反向循环: a[i] = b[i] + 1 (i从大到小)',
+                'description': 'Reverse loop: a[i] = b[i] + 1 (i from high to low)',
                 'base_constraints': ['array_add', 'reverse_loop'],
                 'optimization_effects': {
                     'O1': [],
@@ -37,7 +39,7 @@ class EnhancedMockTSVCAnalyzer:
                 }
             },
             's121': {
-                'description': '数据依赖: a[i] = a[i+1] + b[i]',
+                'description': 'Data dependency: a[i] = a[i+1] + b[i]',
                 'base_constraints': ['data_dependency', 'forward_reference'],
                 'optimization_effects': {
                     'O1': [],
@@ -46,7 +48,7 @@ class EnhancedMockTSVCAnalyzer:
                 }
             },
             's1221': {
-                'description': '延迟依赖: a[i] = a[i-4] + b[i]',
+                'description': 'Delayed dependency: a[i] = a[i-4] + b[i]',
                 'base_constraints': ['delayed_dependency', 'stride_access'],
                 'optimization_effects': {
                     'O1': [],
@@ -55,7 +57,7 @@ class EnhancedMockTSVCAnalyzer:
                 }
             },
             's2244': {
-                'description': '复杂赋值: a[i+1] = b[i] + e[i]; a[i] = b[i] + c[i]',
+                'description': 'Complex assignment: a[i+1] = b[i] + e[i]; a[i] = b[i] + c[i]',
                 'base_constraints': ['multi_assignment', 'complex_indexing'],
                 'optimization_effects': {
                     'O1': [],
@@ -64,7 +66,7 @@ class EnhancedMockTSVCAnalyzer:
                 }
             },
             'vpv': {
-                'description': '向量操作: a[i] = b[i] * c[i]',
+                'description': 'Vector operation: a[i] = b[i] * c[i]',
                 'base_constraints': ['vector_multiply'],
                 'optimization_effects': {
                     'O1': [],
@@ -75,7 +77,7 @@ class EnhancedMockTSVCAnalyzer:
         }
     
     def generate_realistic_constraints(self, benchmark_name: str, optimization: str, path_index: int) -> Dict:
-        """为特定benchmark和优化级别生成真实的约束"""
+        """Generate realistic constraints for a given benchmark and optimization level."""
         
         if benchmark_name not in self.benchmark_patterns:
             benchmark_name = 's000'      
@@ -195,7 +197,7 @@ class EnhancedMockTSVCAnalyzer:
         }
     
     def generate_paths_for_benchmark_opt(self, benchmark_name: str, optimization: str, num_paths: int = 5) -> List[Dict]:
-        """为特定benchmark和优化级别生成多个路径"""
+        """Generate multiple paths for a given benchmark and optimization level."""
         paths = []
         for i in range(num_paths):
             path_info = self.generate_realistic_constraints(benchmark_name, optimization, i)
@@ -203,21 +205,21 @@ class EnhancedMockTSVCAnalyzer:
         return paths
     
     def save_enhanced_paths(self, paths: List[Dict], output_dir: Path) -> None:
-        """保存增强的路径文件"""
+        """Save enhanced mock path-constraint files."""
         output_dir.mkdir(exist_ok=True)
         
         for path_info in paths:
             path_file = output_dir / f"path_{path_info['path_index']:03d}.txt"
             
             with open(path_file, 'w') as f:
-                f.write(f"; 增强模拟TSVC Benchmark路径约束\\n")
+                f.write(f"; Enhanced mock TSVC benchmark path constraints\\n")
                 f.write(f"; Benchmark: {path_info['benchmark_name']} ({path_info['description']})\\n")
-                f.write(f"; 优化级别: {path_info['optimization']}\\n")
+                f.write(f"; Optimization level: {path_info['optimization']}\\n")
                 f.write(f"; Path: {path_info['path_index']}\\n")
-                f.write(f"; 变量数量: {path_info['variable_count']}\\n")
-                f.write(f"; 约束数量: {path_info['constraint_count']}\\n")
-                f.write(f"; 优化效果: {', '.join(path_info['optimization_effects']) if path_info['optimization_effects'] else '无'}\\n")
-                f.write(f"; 内存哈希: {path_info['memory_hash']}\\n")
+                f.write(f"; Variable count: {path_info['variable_count']}\\n")
+                f.write(f"; Constraint count: {path_info['constraint_count']}\\n")
+                f.write(f"; Optimization effects: {', '.join(path_info['optimization_effects']) if path_info['optimization_effects'] else 'none'}\\n")
+                f.write(f"; Memory hash: {path_info['memory_hash']}\\n")
                 f.write(f"\\n")
                 
                 f.write("(set-logic QF_BV)\\n")
@@ -234,21 +236,21 @@ class EnhancedMockTSVCAnalyzer:
                 
                 f.write("(check-sat)\\n")
         
-        print(f"    保存了 {len(paths)} 个增强路径文件到 {output_dir}")
+        print(f"    Saved {len(paths)} enhanced mock path files to {output_dir}")
     
     def analyze_benchmark_comprehensive(self, benchmark_names: List[str] = None) -> Dict:
-        """全面分析多个benchmark"""
+        """Comprehensively analyze multiple benchmarks using enhanced mocks."""
         if benchmark_names is None:
             benchmark_names = ['s000', 's1112', 's121', 's2244', 'vpv']
         
-        print(f"🚀 开始增强模拟TSVC分析")
-        print(f"📋 将分析 {len(benchmark_names)} 个benchmarks")
+        print(f"🚀 Starting enhanced mock TSVC analysis")
+        print(f"📋 Will analyze {len(benchmark_names)} benchmarks")
         
         all_results = {}
         start_time = time.time()
         
         for benchmark_name in benchmark_names:
-            print(f"\\n🔍 分析 {benchmark_name}: {self.benchmark_patterns[benchmark_name]['description']}")
+            print(f"\\n🔍 Analyzing {benchmark_name}: {self.benchmark_patterns[benchmark_name]['description']}")
             
             benchmark_results = {
                 'benchmark_name': benchmark_name,
@@ -261,7 +263,7 @@ class EnhancedMockTSVCAnalyzer:
                          
             all_paths = {}
             for opt_level in ['O1', 'O2', 'O3']:
-                print(f"  生成 {opt_level} 路径...")
+                print(f"  Generating {opt_level} paths...")
                 paths = self.generate_paths_for_benchmark_opt(benchmark_name, opt_level, 5)
                 all_paths[opt_level] = paths
                 benchmark_results['path_counts'][opt_level] = len(paths)
@@ -275,7 +277,7 @@ class EnhancedMockTSVCAnalyzer:
             for i, opt1 in enumerate(opt_levels):
                 for opt2 in opt_levels[i+1:]:
                     comparison_name = f"{benchmark_name}_{opt1}_vs_{opt2}"
-                    print(f"  比较: {opt1} vs {opt2}")
+                    print(f"  Comparing: {opt1} vs {opt2}")
                     
                     try:
                                     
@@ -299,10 +301,10 @@ class EnhancedMockTSVCAnalyzer:
                             }
                         }
                         
-                        print(f"    ✅ 比较完成: {report_file}")
+                        print(f"    ✅ Comparison finished: {report_file}")
                         
                     except Exception as e:
-                        print(f"    ❌ 比较失败: {e}")
+                        print(f"    ❌ Comparison failed: {e}")
                         benchmark_results['comparisons'][comparison_name] = {'error': str(e)}
             
             all_results[benchmark_name] = benchmark_results
@@ -315,16 +317,16 @@ class EnhancedMockTSVCAnalyzer:
         return all_results
     
     def generate_comprehensive_report(self, results: Dict, start_time: float, end_time: float):
-        """生成综合分析报告"""
+        """Generate a comprehensive human-readable analysis report."""
         report_file = "enhanced_tsvc_comprehensive_report.txt"
         
         with open(report_file, 'w', encoding='utf-8') as f:
-            f.write("增强模拟TSVC Benchmark综合分析报告\\n")
+            f.write("Enhanced mock TSVC benchmark comprehensive analysis report\\n")
             f.write("=" * 70 + "\\n")
-            f.write(f"分析时间: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(start_time))}\\n")
-            f.write(f"总耗时: {end_time - start_time:.2f} 秒\\n")
-            f.write(f"分析模式: 增强智能模拟\\n")
-            f.write(f"分析的benchmark数量: {len(results)}\\n\\n")
+            f.write(f"Analysis time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(start_time))}\\n")
+            f.write(f"Total duration: {end_time - start_time:.2f} s\\n")
+            f.write(f"Analysis mode: enhanced intelligent simulation\\n")
+            f.write(f"Number of benchmarks analyzed: {len(results)}\\n\\n")
             
                   
             total_comparisons = sum(len(r['comparisons']) for r in results.values())
@@ -333,18 +335,18 @@ class EnhancedMockTSVCAnalyzer:
                 for r in results.values()
             )
             
-            f.write("=== 统计概览 ===\\n")
-            f.write(f"Benchmark总数: {len(results)}\\n")
-            f.write(f"比较总数: {total_comparisons}\\n")
-            f.write(f"成功比较: {successful_comparisons}\\n")
-            f.write(f"成功率: {successful_comparisons/total_comparisons*100:.1f}%\\n\\n")
+            f.write("=== Summary statistics ===\\n")
+            f.write(f"Total benchmarks: {len(results)}\\n")
+            f.write(f"Total comparisons: {total_comparisons}\\n")
+            f.write(f"Successful comparisons: {successful_comparisons}\\n")
+            f.write(f"Success rate: {successful_comparisons/total_comparisons*100:.1f}%\\n\\n")
             
                   
-            f.write("=== Benchmark详细分析 ===\\n")
+            f.write("=== Detailed benchmark analysis ===\\n")
             for benchmark_name, result in results.items():
                 f.write(f"\\n📋 {benchmark_name.upper()}\\n")
-                f.write(f"  描述: {result['description']}\\n")
-                f.write(f"  路径数量: {dict(result['path_counts'])}\\n")
+                f.write(f"  Description: {result['description']}\\n")
+                f.write(f"  Path counts: {dict(result['path_counts'])}\\n")
                 
                          
                 equivalences = {}
@@ -355,40 +357,39 @@ class EnhancedMockTSVCAnalyzer:
                         equiv_ratio = equiv_count / total_count if total_count > 0 else 0
                         equivalences[comp_name] = equiv_ratio
                 
-                f.write(f"  等价性分析:\\n")
+                f.write(f"  Equivalence analysis:\\n")
                 for comp_name, ratio in equivalences.items():
-                    f.write(f"    {comp_name}: {ratio*100:.1f}% 等价\\n")
+                    f.write(f"    {comp_name}: {ratio*100:.1f}% equivalent\\n")
                 
                         
                 pattern = self.benchmark_patterns.get(benchmark_name, {})
                 opt_effects = pattern.get('optimization_effects', {})
-                f.write(f"  优化效果:\\n")
+                f.write(f"  Optimization effects:\\n")
                 for opt_level, effects in opt_effects.items():
-                    f.write(f"    {opt_level}: {', '.join(effects) if effects else '基础版本'}\\n")
+                    f.write(f"    {opt_level}: {', '.join(effects) if effects else 'baseline'}\\n")
             
-            f.write(f"\\n=== 结论 ===\\n")
-            f.write(f"✅ 成功展示了不同benchmark和优化级别之间的真实差异\\n")
-            f.write(f"✅ 每个benchmark都体现了其特有的算法特征\\n")
-            f.write(f"✅ 优化级别差异得到了准确建模\\n")
-            f.write(f"✅ 为学术比较提供了有意义的基础数据\\n")
+            f.write(f"\\n=== Conclusions ===\\n")
+            f.write(f"✅ Successfully demonstrated real differences between benchmarks and optimization levels\\n")
+            f.write(f"✅ Each benchmark exhibits its characteristic algorithmic features\\n")
+            f.write(f"✅ Optimization-level differences are accurately modeled\\n")
+            f.write(f"✅ Provides meaningful baseline data for academic comparison\\n")
         
-        print(f"\\n📄 综合报告已保存: {report_file}")
+        print(f"\\n📄 Comprehensive report saved to: {report_file}")
 
 
 def main():
-    """主函数"""
-    print("🌟 启动增强模拟TSVC Benchmark分析")
+    """Main entry for running the enhanced mock TSVC analyzer."""
+    print("🌟 Starting enhanced mock TSVC benchmark analysis")
     print("=" * 60)
     
     analyzer = EnhancedMockTSVCAnalyzer()
     
-            
     results = analyzer.analyze_benchmark_comprehensive()
     
-    print(f"\\n🎉 增强模拟分析完成！")
-    print(f"📊 成功分析了 {len(results)} 个benchmarks")
-    print(f"🎯 展示了真实的优化级别差异")
-    print(f"📄 详见: enhanced_tsvc_comprehensive_report.txt")
+    print(f"\\n🎉 Enhanced mock analysis completed!")
+    print(f"📊 Benchmarks analyzed: {len(results)}")
+    print(f"🎯 Showed realistic optimization-level differences")
+    print(f"📄 See: enhanced_tsvc_comprehensive_report.txt")
 
 
 if __name__ == "__main__":

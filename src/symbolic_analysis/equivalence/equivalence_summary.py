@@ -1,52 +1,52 @@
                       
 """
-批量等价性分析结果总结脚本
+Summary script for batched equivalence-analysis results.
 """
 
 import json
 import datetime
 
 def load_analysis_data():
-    """加载分析数据"""
+    """Load batched equivalence-analysis data from JSON."""
     try:
         with open('batch_equivalence_analysis_data.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except FileNotFoundError:
-        print("❌ 未找到分析数据文件: batch_equivalence_analysis_data.json")
+        print("❌ Analysis data file not found: batch_equivalence_analysis_data.json")
         return None
 
 def print_summary(data):
-    """打印总结信息"""
+    """Print a human-readable summary of equivalence results."""
     summary = data['summary']
     results = data['results']
     
-    print("🎯 批量等价性分析总结")
+    print("🎯 Batched equivalence-analysis summary")
     print("=" * 60)
     
           
     start_time = datetime.datetime.fromtimestamp(summary['start_time'])
     end_time = datetime.datetime.fromtimestamp(summary['end_time'])
-    print(f"⏱️  分析时间:")
-    print(f"  开始: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"  结束: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"  总耗时: {summary['total_time']:.1f} 秒 ({summary['total_time']/60:.1f} 分钟)")
+    print(f"⏱️  Analysis time:")
+    print(f"  Start: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  End:   {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  Total: {summary['total_time']:.1f} s ({summary['total_time']/60:.1f} min)")
     
           
-    print(f"\n📊 总体统计:")
-    print(f"  分析程序数: {len(results)}")
-    print(f"  总比较次数: {summary['successful_count'] + summary['failed_count']}")
-    print(f"  成功比较: {summary['successful_count']}")
-    print(f"  失败比较: {summary['failed_count']}")
-    print(f"  成功率: {summary['successful_count']/(summary['successful_count']+summary['failed_count'])*100:.1f}%")
+    print(f"\n📊 Overall statistics:")
+    print(f"  Programs analyzed: {len(results)}")
+    print(f"  Total comparisons: {summary['successful_count'] + summary['failed_count']}")
+    print(f"  Successful comparisons: {summary['successful_count']}")
+    print(f"  Failed comparisons: {summary['failed_count']}")
+    print(f"  Success rate: {summary['successful_count']/(summary['successful_count']+summary['failed_count'])*100:.1f}%")
     
            
-    print(f"\n✅ 等价性结果:")
-    print(f"  完全等价的程序对: {summary['total_equivalent_programs']}")
-    print(f"  完全等价路径对总数: {summary['total_equivalent_pairs']}")
-    print(f"  部分等价路径对总数: {summary['total_partial_pairs']}")
+    print(f"\n✅ Equivalence results:")
+    print(f"  Fully equivalent program pairs: {summary['total_equivalent_programs']}")
+    print(f"  Total fully equivalent path pairs: {summary['total_equivalent_pairs']}")
+    print(f"  Total partially equivalent path pairs: {summary['total_partial_pairs']}")
     
            
-    print(f"\n📋 各程序结果:")
+    print(f"\n📋 Per-program results:")
     program_stats = []
     
     for program, program_results in results.items():
@@ -73,28 +73,28 @@ def print_summary(data):
     
                       
     if 's000' in results:
-        print(f"\n🔍 s000程序详细结果 (包含O0优化等级):")
+        print(f"\n🔍 Detailed results for s000 (including O0 optimization level):")
         s000_results = results['s000']
         for result in s000_results:
-            equiv_status = "✅ 等价" if result['program_equivalent'] else "❌ 不等价"
+            equiv_status = "✅ equivalent" if result['program_equivalent'] else "❌ not equivalent"
             print(f"  {result['opt1']} vs {result['opt2']}: {equiv_status} "
-                  f"({result['equivalent_pairs']} 完全等价对, {result['execution_time']:.1f}s)")
+                  f"({result['equivalent_pairs']} fully equivalent pairs, {result['execution_time']:.1f}s)")
     
           
     all_successful = data['successful_analyses']
     if all_successful:
         avg_time = sum(r['execution_time'] for r in all_successful) / len(all_successful)
-        print(f"\n⚡ 性能统计:")
-        print(f"  平均比较时间: {avg_time:.2f} 秒")
-        print(f"  最快比较: {min(r['execution_time'] for r in all_successful):.2f} 秒")
-        print(f"  最慢比较: {max(r['execution_time'] for r in all_successful):.2f} 秒")
+        print(f"\n⚡ Performance statistics:")
+        print(f"  Average comparison time: {avg_time:.2f} s")
+        print(f"  Fastest comparison: {min(r['execution_time'] for r in all_successful):.2f} s")
+        print(f"  Slowest comparison: {max(r['execution_time'] for r in all_successful):.2f} s")
 
 def main():
     data = load_analysis_data()
     if data:
         print_summary(data)
     else:
-        print("请先运行批量等价性分析: python batch_equivalence_analyzer.py")
+        print("Please run the batched equivalence analysis first: python batch_equivalence_analyzer.py")
 
 if __name__ == "__main__":
     main() 

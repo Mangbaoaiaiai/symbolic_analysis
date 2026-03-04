@@ -1,13 +1,14 @@
                       
 """
-批量符号执行脚本
-使用增强的 se_script.py 对所有 benchmark 进行符号执行分析
+Batch symbolic-execution script.
 
-功能：
-1. 自动发现所有 benchmark_temp_* 目录
-2. 对每个目录中的二进制文件运行符号执行
-3. 记录详细的时间统计信息
-4. 生成综合分析报告
+Uses the enhanced ``se_script.py`` to run symbolic execution over all benchmarks.
+
+Features:
+1. Automatically discover all ``benchmark_temp_*`` directories
+2. Run symbolic execution on every binary found in each directory
+3. Record detailed timing information
+4. Generate a comprehensive analysis report
 """
 
 import os
@@ -21,7 +22,7 @@ from pathlib import Path
 import argparse
 
 class BatchSymbolicExecutor:
-    """批量符号执行管理器"""
+    """Manager for batched symbolic-execution runs."""
     
     def __init__(self, root_dir=".", timeout=60, se_script="se_script.py"):
         self.root_dir = root_dir
@@ -34,14 +35,14 @@ class BatchSymbolicExecutor:
         self.successful_analyses = []
         
     def find_benchmark_directories(self):
-        """查找所有 benchmark 目录"""
+        """Find all benchmark directories under the root directory."""
         pattern = os.path.join(self.root_dir, "benchmark_temp_*")
         benchmark_dirs = glob.glob(pattern)
         benchmark_dirs = [d for d in benchmark_dirs if os.path.isdir(d)]
         return sorted(benchmark_dirs)
     
     def find_binary_files(self, benchmark_dir):
-        """在指定目录中查找二进制文件"""
+        """Find candidate binary files within a benchmark directory."""
                        
         patterns = [
             "*_O0", "*_O1", "*_O2", "*_O3",
@@ -64,7 +65,7 @@ class BatchSymbolicExecutor:
         return sorted(executable_files)
     
     def is_binary_file(self, file_path):
-        """检查文件是否为二进制文件"""
+        """Heuristically check whether a file is a binary (non-text) file."""
         try:
             with open(file_path, 'rb') as f:
                 chunk = f.read(1024)
@@ -78,9 +79,9 @@ class BatchSymbolicExecutor:
             return False
     
     def run_symbolic_execution(self, binary_path, output_dir=None):
-        """对单个二进制文件运行符号执行"""
+        """Run symbolic execution on a single binary."""
         binary_name = os.path.basename(binary_path)
-        print(f"  正在分析: {binary_name}")
+        print(f"  Analyzing: {binary_name}")
         
         start_time = time.time()
         
@@ -95,7 +96,7 @@ class BatchSymbolicExecutor:
                 "--timeout", str(self.timeout)
             ]
             
-            print(f"    执行命令: {' '.join(cmd)}")
+            print(f"    Command: {' '.join(cmd)}")
             
                                              
             result = subprocess.run(
@@ -120,25 +121,27 @@ class BatchSymbolicExecutor:
             analysis_time = 0
             
             for line in stdout_lines:
-                if "分析完成！共发现" in line and "条路径" in line:
+                if "Analysis complete! Found" in line and "paths" in line:
                     try:
-                        paths_found = int(line.split("共发现")[1].split("条路径")[0].strip())
-                    except:
+                        # Expect format like: "Analysis complete! Found N paths"
+                        parts = line.split("Found", 1)[1].split("paths", 1)[0]
+                        paths_found = int(parts.strip())
+                    except Exception:
                         pass
-                elif "路径探索:" in line and "秒" in line:
+                elif "Path exploration:" in line and "seconds" in line:
                     try:
-                        exploration_time = float(line.split("路径探索:")[1].split("秒")[0].strip())
-                    except:
+                        exploration_time = float(line.split("Path exploration:")[1].split("seconds")[0].strip())
+                    except Exception:
                         pass
-                elif "项目设置:" in line and "秒" in line:
+                elif "Setup:" in line and "seconds" in line:
                     try:
-                        setup_time = float(line.split("项目设置:")[1].split("秒")[0].strip())
-                    except:
+                        setup_time = float(line.split("Setup:")[1].split("seconds")[0].strip())
+                    except Exception:
                         pass
-                elif "状态分析:" in line and "秒" in line:
+                elif "State analysis:" in line and "seconds" in line:
                     try:
-                        analysis_time = float(line.split("状态分析:")[1].split("秒")[0].strip())
-                    except:
+                        analysis_time = float(line.split("State analysis:")[1].split("seconds")[0].strip())
+                    except Exception:
                         pass
             
             analysis_result = {
@@ -157,11 +160,11 @@ class BatchSymbolicExecutor:
             }
             
             if result.returncode == 0:
-                print(f"    ✅ 成功: 发现 {paths_found} 条路径 (耗时: {execution_time:.1f}s)")
+                print(f"    ✅ Success: found {paths_found} paths (time: {execution_time:.1f}s)")
                 self.successful_analyses.append(analysis_result)
             else:
-                print(f"    ❌ 失败: 返回码 {result.returncode} (耗时: {execution_time:.1f}s)")
-                analysis_result['error_output'] = result.stderr[:500]                  
+                print(f"    ❌ Failed: return code {result.returncode} (time: {execution_time:.1f}s)")
+                analysis_result['error_output'] = result.stderr[:500]
                 self.failed_analyses.append(analysis_result)
             
             return analysis_result
@@ -169,7 +172,7 @@ class BatchSymbolicExecutor:
         except subprocess.TimeoutExpired:
             end_time = time.time()
             execution_time = end_time - start_time
-            print(f"    ⏰ 超时: {execution_time:.1f}s")
+            print(f"    ⏰ Timeout: {execution_time:.1f}s")
             
             timeout_result = {
                 'binary_path': binary_path,
@@ -187,7 +190,7 @@ class BatchSymbolicExecutor:
         except Exception as e:
             end_time = time.time()
             execution_time = end_time - start_time
-            print(f"    💥 异常: {str(e)} (耗时: {execution_time:.1f}s)")
+            print(f"    💥 Exception: {str(e)} (time: {execution_time:.1f}s)")
             
             exception_result = {
                 'binary_path': binary_path,
@@ -203,19 +206,19 @@ class BatchSymbolicExecutor:
             return exception_result
     
     def analyze_benchmark(self, benchmark_dir):
-        """分析单个 benchmark 目录"""
+        """Analyze all binaries under a single benchmark directory."""
         benchmark_name = os.path.basename(benchmark_dir)
-        print(f"\n📁 分析 benchmark: {benchmark_name}")
+        print(f"\n📁 Analyzing benchmark: {benchmark_name}")
         print("=" * 60)
         
                  
         binary_files = self.find_binary_files(benchmark_dir)
         
         if not binary_files:
-            print(f"  ⚠️  未找到二进制文件")
+            print(f"  ⚠️  No binary files found")
             return []
         
-        print(f"  发现 {len(binary_files)} 个二进制文件:")
+        print(f"  Found {len(binary_files)} binary files:")
         for binary in binary_files:
             print(f"    - {os.path.basename(binary)}")
         
@@ -229,18 +232,18 @@ class BatchSymbolicExecutor:
         return benchmark_results
     
     def preview_analysis(self):
-        """预览要分析的文件，不实际执行"""
-        print("🔍 预览模式 - 扫描要分析的文件")
+        """Preview which files will be analyzed, without executing them."""
+        print("🔍 Preview mode - scanning binaries to be analyzed")
         print("=" * 60)
         
                            
         benchmark_dirs = self.find_benchmark_directories()
         
         if not benchmark_dirs:
-            print("❌ 未找到任何 benchmark 目录")
+            print("❌ No benchmark directories found")
             return
         
-        print(f"📋 发现 {len(benchmark_dirs)} 个 benchmark 目录:")
+        print(f"📋 Found {len(benchmark_dirs)} benchmark directories:")
         
         total_files = 0
         total_estimated_time = 0
@@ -253,10 +256,10 @@ class BatchSymbolicExecutor:
             binary_files = self.find_binary_files(benchmark_dir)
             
             if not binary_files:
-                print(f"    ⚠️  未找到二进制文件")
+                print(f"    ⚠️  No binary files found")
                 continue
             
-            print(f"    发现 {len(binary_files)} 个二进制文件:")
+            print(f"    Found {len(binary_files)} binary files:")
             for binary in binary_files:
                 binary_name = os.path.basename(binary)
                 file_size = os.path.getsize(binary)
@@ -266,60 +269,59 @@ class BatchSymbolicExecutor:
                             
             estimated_time = len(binary_files) * 30
             total_estimated_time += estimated_time
-            print(f"    预估分析时间: {estimated_time/60:.1f} 分钟")
+            print(f"    Estimated analysis time: {estimated_time/60:.1f} minutes")
         
-        print(f"\n📊 总体预览:")
-        print(f"  总benchmark数: {len(benchmark_dirs)}")
-        print(f"  总二进制文件数: {total_files}")
-        print(f"  预估总时间: {total_estimated_time/60:.1f} 分钟 ({total_estimated_time/3600:.1f} 小时)")
-        print(f"  使用超时设置: {self.timeout} 秒/文件")
-        print(f"  符号执行脚本: {self.se_script}")
+        print(f"\n📊 Overall preview:")
+        print(f"  Total benchmarks: {len(benchmark_dirs)}")
+        print(f"  Total binaries: {total_files}")
+        print(f"  Estimated total time: {total_estimated_time/60:.1f} minutes ({total_estimated_time/3600:.1f} hours)")
+        print(f"  Timeout setting: {self.timeout} seconds/file")
+        print(f"  Symbolic-execution script: {self.se_script}")
         
-        print(f"\n💡 要开始实际分析，请运行:")
+        print(f"\n💡 To start the actual analysis, run:")
         print(f"   python batch_symbolic_execution.py --timeout {self.timeout}")
         
-        if total_estimated_time > 3600:         
-            print(f"\n⚠️  预估时间较长，建议后台运行:")
+        if total_estimated_time > 3600:
+            print(f"\n⚠️  Long estimated time; consider running in the background:")
             print(f"   nohup python batch_symbolic_execution.py --timeout {self.timeout} > batch_analysis.log 2>&1 &")
     
     def run_batch_analysis(self):
-        """运行批量分析"""
-        print("🚀 开始批量符号执行分析")
+        """Run the full batch symbolic-execution analysis."""
+        print("🚀 Starting batch symbolic-execution analysis")
         print("=" * 60)
         
         self.total_start_time = time.time()
         start_datetime = datetime.datetime.now()
-        print(f"开始时间: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Start time: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
         
                            
         benchmark_dirs = self.find_benchmark_directories()
         
         if not benchmark_dirs:
-            print("❌ 未找到任何 benchmark 目录")
+            print("❌ No benchmark directories found")
             return
         
-        print(f"📋 发现 {len(benchmark_dirs)} 个 benchmark 目录:")
+        print(f"📋 Found {len(benchmark_dirs)} benchmark directories:")
         for i, benchmark_dir in enumerate(benchmark_dirs, 1):
             print(f"  {i}. {os.path.basename(benchmark_dir)}")
         
-                        
         for i, benchmark_dir in enumerate(benchmark_dirs, 1):
-            print(f"\n🔄 进度: {i}/{len(benchmark_dirs)}")
+            print(f"\n🔄 Progress: {i}/{len(benchmark_dirs)}")
             self.analyze_benchmark(benchmark_dir)
         
         self.total_end_time = time.time()
         total_time = self.total_end_time - self.total_start_time
         end_datetime = datetime.datetime.now()
         
-        print(f"\n🎉 批量分析完成!")
-        print(f"总耗时: {total_time:.1f} 秒 ({total_time/60:.1f} 分钟)")
-        print(f"结束时间: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"\n🎉 Batch symbolic-execution analysis complete!")
+        print(f"Total time: {total_time:.1f} s ({total_time/60:.1f} min)")
+        print(f"End time: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
         
               
         self.generate_comprehensive_report()
     
     def generate_comprehensive_report(self):
-        """生成综合分析报告"""
+        """Generate a comprehensive report for batch symbolic execution."""
         report_file = "batch_symbolic_execution_report.txt"
         
         total_time = self.total_end_time - self.total_start_time if self.total_end_time else 0
@@ -334,104 +336,103 @@ class BatchSymbolicExecutor:
         total_analysis_time = sum(result.get('analysis_time', 0) for result in self.successful_analyses)
         
         with open(report_file, 'w', encoding='utf-8') as f:
-            f.write("批量符号执行分析报告\n")
+            f.write("Batch symbolic-execution analysis report\n")
             f.write("=" * 60 + "\n\n")
             
                   
-            f.write("📊 总体统计:\n")
+            f.write("📊 Overall statistics:\n")
             f.write("-" * 30 + "\n")
-            f.write(f"开始时间: {datetime.datetime.fromtimestamp(self.total_start_time).strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"结束时间: {datetime.datetime.fromtimestamp(self.total_end_time).strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"总耗时: {total_time:.1f} 秒 ({total_time/60:.1f} 分钟)\n")
-            f.write(f"分析的benchmark数: {len(self.results)}\n")
-            f.write(f"分析的二进制文件数: {total_count}\n")
-            f.write(f"成功分析: {successful_count}\n")
-            f.write(f"失败分析: {failed_count}\n")
-            f.write(f"成功率: {successful_count/total_count*100:.1f}%\n")
-            f.write(f"发现的总路径数: {total_paths}\n")
+            f.write(f"Start time: {datetime.datetime.fromtimestamp(self.total_start_time).strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"End time:   {datetime.datetime.fromtimestamp(self.total_end_time).strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Total time: {total_time:.1f} s ({total_time/60:.1f} min)\n")
+            f.write(f"Benchmarks analyzed: {len(self.results)}\n")
+            f.write(f"Binaries analyzed: {total_count}\n")
+            f.write(f"Successful analyses: {successful_count}\n")
+            f.write(f"Failed analyses: {failed_count}\n")
+            f.write(f"Success rate: {successful_count/total_count*100:.1f}%\n")
+            f.write(f"Total paths found: {total_paths}\n")
             if successful_count > 0:
-                f.write(f"平均每个程序路径数: {total_paths/successful_count:.1f}\n")
-            f.write(f"总探索时间: {total_exploration_time:.1f} 秒\n")
-            f.write(f"总设置时间: {total_setup_time:.1f} 秒\n")
-            f.write(f"总分析时间: {total_analysis_time:.1f} 秒\n")
+                f.write(f"Average paths per binary: {total_paths/successful_count:.1f}\n")
+            f.write(f"Total exploration time: {total_exploration_time:.1f} s\n")
+            f.write(f"Total setup time: {total_setup_time:.1f} s\n")
+            f.write(f"Total analysis time: {total_analysis_time:.1f} s\n")
             if total_exploration_time > 0:
-                f.write(f"总体探索效率: {total_paths/total_exploration_time:.2f} 路径/秒\n")
+                f.write(f"Overall exploration throughput: {total_paths/total_exploration_time:.2f} paths/s\n")
             f.write("\n")
             
                           
-            f.write("📋 各Benchmark分析详情:\n")
+            f.write("📋 Per-benchmark analysis details:\n")
             f.write("-" * 50 + "\n")
             
             for benchmark_name, results in self.results.items():
                 f.write(f"\n🔹 {benchmark_name}:\n")
-                f.write(f"  二进制文件数: {len(results)}\n")
+                f.write(f"  Binary count: {len(results)}\n")
                 
                 successful_in_benchmark = [r for r in results if r['success']]
                 failed_in_benchmark = [r for r in results if not r['success']]
                 
-                f.write(f"  成功: {len(successful_in_benchmark)}\n")
-                f.write(f"  失败: {len(failed_in_benchmark)}\n")
+                f.write(f"  Successful: {len(successful_in_benchmark)}\n")
+                f.write(f"  Failed: {len(failed_in_benchmark)}\n")
                 
                 if successful_in_benchmark:
                     benchmark_paths = sum(r['paths_found'] for r in successful_in_benchmark)
                     benchmark_time = sum(r['execution_time'] for r in successful_in_benchmark)
-                    f.write(f"  总路径数: {benchmark_paths}\n")
-                    f.write(f"  总耗时: {benchmark_time:.1f} 秒\n")
-                    f.write(f"  平均耗时: {benchmark_time/len(successful_in_benchmark):.1f} 秒/程序\n")
+                    f.write(f"  Total paths: {benchmark_paths}\n")
+                    f.write(f"  Total time: {benchmark_time:.1f} s\n")
+                    f.write(f"  Average time: {benchmark_time/len(successful_in_benchmark):.1f} s/binary\n")
                 
                       
                 for result in results:
                     status = "✅" if result['success'] else "❌"
                     f.write(f"    {status} {result['binary_name']}: ")
                     if result['success']:
-                        f.write(f"{result['paths_found']} 路径, {result['execution_time']:.1f}s\n")
+                        f.write(f"{result['paths_found']} paths, {result['execution_time']:.1f}s\n")
                     else:
-                        error_type = result.get('error', f"返回码{result['return_code']}")
-                        f.write(f"失败 ({error_type}), {result['execution_time']:.1f}s\n")
+                        error_type = result.get('error', f"return code {result['return_code']}")
+                        f.write(f"Failed ({error_type}), {result['execution_time']:.1f}s\n")
             
                     
             if self.failed_analyses:
-                f.write(f"\n❌ 失败分析总结:\n")
+                f.write(f"\n❌ Failed-analysis summary:\n")
                 f.write("-" * 30 + "\n")
                 
-                         
                 error_types = {}
                 for failure in self.failed_analyses:
-                    error_type = failure.get('error', f"返回码{failure['return_code']}")
+                    error_type = failure.get('error', f"return code {failure['return_code']}")
                     if error_type not in error_types:
                         error_types[error_type] = []
                     error_types[error_type].append(failure)
                 
                 for error_type, failures in error_types.items():
-                    f.write(f"  {error_type}: {len(failures)} 个文件\n")
-                    for failure in failures[:3]:          
+                    f.write(f"  {error_type}: {len(failures)} files\n")
+                    for failure in failures[:3]:
                         f.write(f"    - {failure['binary_name']}\n")
                     if len(failures) > 3:
-                        f.write(f"    - ... 还有 {len(failures)-3} 个\n")
+                        f.write(f"    - ... and {len(failures)-3} more\n")
             
                   
             if successful_count >= 3:
-                f.write(f"\n🏆 性能排行:\n")
+                f.write(f"\n🏆 Performance ranking:\n")
                 f.write("-" * 30 + "\n")
                 
-                        
                 top_paths = sorted(self.successful_analyses, key=lambda x: x['paths_found'], reverse=True)[:5]
-                f.write("路径数TOP5:\n")
+                f.write("Top-5 binaries by path count:\n")
                 for i, result in enumerate(top_paths, 1):
-                    f.write(f"  {i}. {result['binary_name']}: {result['paths_found']} 路径\n")
+                    f.write(f"  {i}. {result['binary_name']}: {result['paths_found']} paths\n")
                 
-                       
                 speed_analyses = [r for r in self.successful_analyses if r.get('exploration_time', 0) > 0]
                 if speed_analyses:
-                    top_speed = sorted(speed_analyses, 
-                                     key=lambda x: x['paths_found']/max(x.get('exploration_time', 1), 0.1), 
-                                     reverse=True)[:5]
-                    f.write("\n探索效率TOP5:\n")
+                    top_speed = sorted(
+                        speed_analyses,
+                        key=lambda x: x['paths_found']/max(x.get('exploration_time', 1), 0.1),
+                        reverse=True
+                    )[:5]
+                    f.write("\nTop-5 binaries by exploration throughput:\n")
                     for i, result in enumerate(top_speed, 1):
                         efficiency = result['paths_found']/max(result.get('exploration_time', 1), 0.1)
-                        f.write(f"  {i}. {result['binary_name']}: {efficiency:.2f} 路径/秒\n")
+                        f.write(f"  {i}. {result['binary_name']}: {efficiency:.2f} paths/s\n")
         
-        print(f"📄 综合报告已保存到: {report_file}")
+        print(f"📄 Comprehensive report written to: {report_file}")
         
                      
         json_file = "batch_symbolic_execution_data.json"
@@ -452,22 +453,22 @@ class BatchSymbolicExecutor:
         with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(detailed_data, f, indent=2, ensure_ascii=False)
         
-        print(f"📊 详细数据已保存到: {json_file}")
+        print(f"📊 Detailed batch data written to: {json_file}")
 
 def main():
-    """主函数"""
-    parser = argparse.ArgumentParser(description='批量符号执行分析工具')
-    parser.add_argument('--root-dir', default='.', help='benchmark根目录路径')
-    parser.add_argument('--timeout', type=int, default=60, help='单个分析的超时时间(秒)')
-    parser.add_argument('--se-script', default='se_script.py', help='符号执行脚本路径')
-    parser.add_argument('--benchmarks', nargs='*', help='指定要分析的benchmark（如不指定则分析全部）')
-    parser.add_argument('--dry-run', action='store_true', help='预览模式，只显示要分析的文件，不实际执行')
+    """CLI entry point for the batch symbolic-execution tool."""
+    parser = argparse.ArgumentParser(description='Batch symbolic-execution analysis tool')
+    parser.add_argument('--root-dir', default='.', help='Root directory containing benchmark_temp_* subdirectories')
+    parser.add_argument('--timeout', type=int, default=60, help='Timeout per symbolic-execution run (seconds)')
+    parser.add_argument('--se-script', default='se_script.py', help='Path to symbolic-execution script')
+    parser.add_argument('--benchmarks', nargs='*', help='Restrict analysis to specific benchmark names')
+    parser.add_argument('--dry-run', action='store_true', help='Preview mode: list planned binaries without executing')
     
     args = parser.parse_args()
     
                      
     if not args.dry_run and not os.path.exists(args.se_script):
-        print(f"❌ 符号执行脚本不存在: {args.se_script}")
+        print(f"❌ Symbolic-execution script not found: {args.se_script}")
         sys.exit(1)
     
              
@@ -477,16 +478,12 @@ def main():
         se_script=args.se_script
     )
     
-                             
     if args.benchmarks:
-        print(f"🎯 指定分析 benchmark: {', '.join(args.benchmarks)}")
-                    
+        print(f"🎯 Target benchmarks: {', '.join(args.benchmarks)}")
     
-               
     if args.dry_run:
         executor.preview_analysis()
     else:
-                
         executor.run_batch_analysis()
 
 if __name__ == "__main__":

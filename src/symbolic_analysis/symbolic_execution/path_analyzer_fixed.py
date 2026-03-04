@@ -1,9 +1,9 @@
                       
 """
-变量名快速匹配路径
+Variable-name fast path matching.
 
-修复版的路径分析器
-直接从路径签名信息中提取数据，避免SMT解析问题
+Fixed path analyzer that extracts data directly from path signature comments
+in files, avoiding full SMT parsing.
 """
 
 import re
@@ -11,13 +11,13 @@ import glob
 import ast
 
 def extract_path_signature_from_file(file_path):
-    """从文件注释中提取路径签名信息"""
+    """Extract path signature from file comments (supports English labels)."""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
-        
-               
-        var_match = re.search(r'; 变量值: (.+)', content)
+
+        # Prefer English labels; fall back to legacy Chinese for old files
+        var_match = re.search(r'; Variable values?: (.+)', content) or re.search(r'; 变量值: (.+)', content)
         if var_match:
             var_str = var_match.group(1)
             try:
@@ -28,7 +28,7 @@ def extract_path_signature_from_file(file_path):
             variable_values = {}
         
                 
-        constraint_match = re.search(r'; 约束信息: (.+)', content)
+        constraint_match = re.search(r'; Constraint info: (.+)', content) or re.search(r'; 约束信息: (.+)', content)
         if constraint_match:
             constraint_str = constraint_match.group(1)
             try:
@@ -39,7 +39,7 @@ def extract_path_signature_from_file(file_path):
             constraint_info = {'count': 0, 'types': []}
         
                 
-        hash_match = re.search(r'; 内存哈希: (.+)', content)
+        hash_match = re.search(r'; Memory hash: (.+)', content) or re.search(r'; 内存哈希: (.+)', content)
         if hash_match:
             try:
                 memory_hash = int(hash_match.group(1))
@@ -49,10 +49,10 @@ def extract_path_signature_from_file(file_path):
             memory_hash = 0
         
                 
-        output_pattern = r'; 程序输出:\s*(.+?)(?:\n|$)'
+        output_pattern = r'; Program output:\s*(.+?)(?:\n|$)|; 程序输出:\s*(.+?)(?:\n|$)'
         output_match = re.search(output_pattern, content, re.DOTALL)
         if output_match:
-            program_output = output_match.group(1).strip()
+            program_output = (output_match.group(1) or output_match.group(2) or "").strip()
         else:
             program_output = ""
         
@@ -65,11 +65,11 @@ def extract_path_signature_from_file(file_path):
         }
     
     except Exception as e:
-        print(f"解析文件 {file_path} 失败: {e}")
+        print(f"Failed to parse file {file_path}: {e}")
         return None
 
 def compute_path_distance_fixed(path1, path2):
-    """计算两个路径之间的距离"""
+    """Compute distance between two paths."""
     if not path1 or not path2:
         return {
             'total': float('inf'),
@@ -118,8 +118,8 @@ def compute_path_distance_fixed(path1, path2):
     }
 
 def find_path_matches_fixed(paths1, paths2):
-    """寻找路径匹配"""
-    print(f"比较 {len(paths1)} 条路径与 {len(paths2)} 条路径...")
+    """Find path matches between two path sets."""
+    print(f"Comparing {len(paths1)} paths with {len(paths2)} paths...")
     
     matches = {
         'exact_variable_matches': [],             
@@ -192,14 +192,14 @@ def find_path_matches_fixed(paths1, paths2):
     return matches
 
 def analyze_and_compare_fixed(prefix1, prefix2, output_file="fixed_comparison.txt"):
-    """修复版的路径比较分析"""
-    print("开始修复版路径比较分析...")
+    """Run fixed path comparison analysis."""
+    print("Starting fixed path comparison analysis...")
     
           
     files1 = sorted(glob.glob(f"{prefix1}*.txt"))
     files2 = sorted(glob.glob(f"{prefix2}*.txt"))
     
-    print(f"找到文件: {len(files1)} vs {len(files2)}")
+    print(f"Found files: {len(files1)} vs {len(files2)}")
     
           
     paths1 = [extract_path_signature_from_file(f) for f in files1]
@@ -209,10 +209,10 @@ def analyze_and_compare_fixed(prefix1, prefix2, output_file="fixed_comparison.tx
     paths1 = [p for p in paths1 if p is not None]
     paths2 = [p for p in paths2 if p is not None]
     
-    print(f"有效路径: {len(paths1)} vs {len(paths2)}")
+    print(f"Valid paths: {len(paths1)} vs {len(paths2)}")
     
     if len(paths1) == 0 or len(paths2) == 0:
-        print("❌ 没有有效路径进行比较")
+        print("❌ No valid paths to compare")
         return
     
           
@@ -220,56 +220,56 @@ def analyze_and_compare_fixed(prefix1, prefix2, output_file="fixed_comparison.tx
     
           
     with open(output_file, "w", encoding='utf-8') as f:
-        f.write("修复版路径等价性分析报告\n")
+        f.write("Fixed path equivalence analysis report\n")
         f.write("=" * 50 + "\n\n")
         
-        f.write(f"数据源:\n")
-        f.write(f"  集合1: {prefix1}* ({len(paths1)} 有效路径)\n")
-        f.write(f"  集合2: {prefix2}* ({len(paths2)} 有效路径)\n\n")
+        f.write(f"Data sources:\n")
+        f.write(f"  Set 1: {prefix1}* ({len(paths1)} valid paths)\n")
+        f.write(f"  Set 2: {prefix2}* ({len(paths2)} valid paths)\n\n")
         
-        f.write(f"匹配统计:\n")
-        f.write(f"  精确变量匹配: {len(matches['exact_variable_matches'])} 对\n")
-        f.write(f"  精确输出匹配: {len(matches['exact_output_matches'])} 对\n")
-        f.write(f"  约束结构匹配: {len(matches['similar_constraint_matches'])} 对\n")
-        f.write(f"  近似匹配: {len(matches['approximate_matches'])} 对\n")
-        f.write(f"  无匹配路径: {len(matches['no_matches'])} 个\n\n")
+        f.write(f"Match statistics:\n")
+        f.write(f"  Exact variable matches: {len(matches['exact_variable_matches'])} pairs\n")
+        f.write(f"  Exact output matches: {len(matches['exact_output_matches'])} pairs\n")
+        f.write(f"  Similar constraint structure: {len(matches['similar_constraint_matches'])} pairs\n")
+        f.write(f"  Approximate matches: {len(matches['approximate_matches'])} pairs\n")
+        f.write(f"  Unmatched paths: {len(matches['no_matches'])}\n\n")
         
                 
         if matches['exact_variable_matches']:
-            f.write("精确变量匹配:\n")
+            f.write("Exact variable matches:\n")
             f.write("-" * 30 + "\n")
             for i, j, dist in matches['exact_variable_matches']:
-                f.write(f"路径 {i+1} <-> 路径 {j+1} (变量完全相同)\n")
-                f.write(f"  变量值: {paths1[i]['variable_values']}\n")
-                f.write(f"  输出1: {paths1[i]['program_output']}\n")
-                f.write(f"  输出2: {paths2[j]['program_output']}\n\n")
+                f.write(f"Path {i+1} <-> Path {j+1} (identical variables)\n")
+                f.write(f"  Variable values: {paths1[i]['variable_values']}\n")
+                f.write(f"  Output 1: {paths1[i]['program_output']}\n")
+                f.write(f"  Output 2: {paths2[j]['program_output']}\n\n")
         
         if matches['exact_output_matches']:
-            f.write("精确输出匹配:\n")
+            f.write("Exact output matches:\n")
             f.write("-" * 30 + "\n")
             for i, j, dist in matches['exact_output_matches']:
-                f.write(f"路径 {i+1} <-> 路径 {j+1} (输出完全相同)\n")
-                f.write(f"  变量值1: {paths1[i]['variable_values']}\n")
-                f.write(f"  变量值2: {paths2[j]['variable_values']}\n")
-                f.write(f"  共同输出: {paths1[i]['program_output']}\n")
-                f.write(f"  距离: {dist['total']}\n\n")
+                f.write(f"Path {i+1} <-> Path {j+1} (identical output)\n")
+                f.write(f"  Variables 1: {paths1[i]['variable_values']}\n")
+                f.write(f"  Variables 2: {paths2[j]['variable_values']}\n")
+                f.write(f"  Common output: {paths1[i]['program_output']}\n")
+                f.write(f"  Distance: {dist['total']}\n\n")
         
         if matches['similar_constraint_matches']:
-            f.write("约束结构匹配:\n")
+            f.write("Similar constraint structure:\n")
             f.write("-" * 30 + "\n")
             for i, j, dist in matches['similar_constraint_matches']:
-                f.write(f"路径 {i+1} <-> 路径 {j+1} (约束结构相似)\n")
-                f.write(f"  约束数1: {paths1[i]['constraint_info']['count']}\n")
-                f.write(f"  约束数2: {paths2[j]['constraint_info']['count']}\n")
-                f.write(f"  距离: {dist['total']}\n\n")
+                f.write(f"Path {i+1} <-> Path {j+1} (similar constraints)\n")
+                f.write(f"  Constraint count 1: {paths1[i]['constraint_info']['count']}\n")
+                f.write(f"  Constraint count 2: {paths2[j]['constraint_info']['count']}\n")
+                f.write(f"  Distance: {dist['total']}\n\n")
         
         if matches['no_matches']:
-            f.write("无匹配的路径:\n")
+            f.write("Unmatched paths:\n")
             f.write("-" * 30 + "\n")
             for i in matches['no_matches']:
-                f.write(f"路径 {i+1}: {paths1[i]['program_output']}\n")
+                f.write(f"Path {i+1}: {paths1[i]['program_output']}\n")
     
-    print(f"修复版分析完成，报告保存到: {output_file}")
+    print(f"Fixed analysis complete; report saved to: {output_file}")
     
           
     total_matched = (len(matches['exact_variable_matches']) + 
@@ -277,18 +277,18 @@ def analyze_and_compare_fixed(prefix1, prefix2, output_file="fixed_comparison.tx
                     len(matches['similar_constraint_matches']) + 
                     len(matches['approximate_matches']))
     
-    print(f"\n总结:")
-    print(f"  总路径数: {len(paths1)} vs {len(paths2)}")
-    print(f"  成功匹配: {total_matched}")
-    print(f"  匹配率: {total_matched/len(paths1)*100:.1f}%")
+    print(f"\nSummary:")
+    print(f"  Total paths: {len(paths1)} vs {len(paths2)}")
+    print(f"  Matched: {total_matched}")
+    print(f"  Match rate: {total_matched/len(paths1)*100:.1f}%")
 
 def main():
     import argparse
     
-    parser = argparse.ArgumentParser(description='修复版路径等价性分析')
-    parser.add_argument('prefix1', help='第一组路径文件的前缀')
-    parser.add_argument('prefix2', help='第二组路径文件的前缀')
-    parser.add_argument('--output', default='fixed_comparison.txt', help='输出报告文件')
+    parser = argparse.ArgumentParser(description='Fixed path equivalence analysis')
+    parser.add_argument('prefix1', help='Prefix for first set of path files')
+    parser.add_argument('prefix2', help='Prefix for second set of path files')
+    parser.add_argument('--output', default='fixed_comparison.txt', help='Output report file')
     
     args = parser.parse_args()
     

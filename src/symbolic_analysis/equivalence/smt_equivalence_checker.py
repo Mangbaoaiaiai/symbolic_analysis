@@ -1,8 +1,9 @@
                       
 """
-SMT约束公式等价性验证工具
-直接验证两个SMT-LIB格式的约束公式是否逻辑等价
-不进行任何简化或预处理
+SMT constraint-equivalence checking tool.
+
+Directly verifies whether two SMT-LIB formulas are logically equivalent,
+without performing any simplification or pre-processing.
 """
 
 import sys
@@ -10,13 +11,13 @@ import time
 from z3 import *
 
 class SMTEquivalenceChecker:
-    """SMT约束公式等价性检查器"""
+    """Checker for logical equivalence of SMT constraints."""
     
     def __init__(self, timeout=30000):
         self.timeout = timeout
         
     def parse_smt_file(self, file_path):
-        """解析SMT-LIB文件，返回完整的公式"""
+        """Parse an SMT-LIB file and return a combined formula."""
         try:
             with open(file_path, 'r') as f:
                 content = f.read()
@@ -46,10 +47,8 @@ class SMTEquivalenceChecker:
                     
             filtered_content = '\n'.join(lines)
             
-                     
             ctx = Context()
             
-                                        
             formulas = parse_smt2_string(filtered_content, ctx=ctx)
             
                        
@@ -61,14 +60,14 @@ class SMTEquivalenceChecker:
                 return And(*formulas)
                 
         except Exception as e:
-            print(f"解析文件 {file_path} 失败: {e}")
+            print(f"Failed to parse file {file_path}: {e}")
             return None
     
     def check_equivalence(self, file1, file2):
-        """检查两个SMT文件的约束是否等价"""
-        print(f"验证SMT约束等价性:")
-        print(f"  文件1: {file1}")
-        print(f"  文件2: {file2}")
+        """Check whether two SMT files encode logically equivalent constraints."""
+        print(f"Checking SMT constraint equivalence:")
+        print(f"  File 1: {file1}")
+        print(f"  File 2: {file2}")
         print("-" * 50)
         
                 
@@ -77,21 +76,20 @@ class SMTEquivalenceChecker:
                   
         ctx = Context()
         
-        print("解析文件1...")
+        print("Parsing file 1...")
         formula1 = self.parse_smt_file_with_context(file1, ctx)
         if formula1 is None:
             return False
             
-        print("解析文件2...")
+        print("Parsing file 2...")
         formula2 = self.parse_smt_file_with_context(file2, ctx)
         if formula2 is None:
             return False
             
         parse_time = time.time() - start_time
-        print(f"文件解析耗时: {parse_time:.3f} 秒")
+        print(f"File parsing time: {parse_time:.3f} seconds")
         
-               
-        print("\n开始等价性验证...")
+        print("\nStarting equivalence check...")
         verification_start = time.time()
         
                
@@ -107,33 +105,33 @@ class SMTEquivalenceChecker:
         
         solver.add(equivalence_check)
         
-        print("正在求解...")
+        print("Solving...")
         result = solver.check()
         
         verification_time = time.time() - verification_start
         total_time = time.time() - start_time
         
-        print(f"\n验证结果:")
-        print(f"  求解结果: {result}")
-        print(f"  验证耗时: {verification_time:.3f} 秒")
-        print(f"  总耗时: {total_time:.3f} 秒")
+        print(f"\nVerification result:")
+        print(f"  Solver result: {result}")
+        print(f"  Verification time: {verification_time:.3f} seconds")
+        print(f"  Total time: {total_time:.3f} seconds")
         
         if result == unsat:
-            print("  ✓ 约束公式等价")
+            print("  ✓ Constraints are logically equivalent")
             return True
         elif result == sat:
-            print("  ✗ 约束公式不等价")
+            print("  ✗ Constraints are NOT equivalent")
             model = solver.model()
-            print(f"  反例模型:")
+            print(f"  Counterexample model:")
             for decl in model.decls():
                 print(f"    {decl.name()} = {model[decl]}")
             return False
         else:
-            print("  ? 无法确定等价性（超时或未知）")
+            print("  ? Equivalence unknown (timeout or unknown status)")
             return None
     
     def parse_smt_file_with_context(self, file_path, ctx):
-        """使用指定上下文解析SMT-LIB文件"""
+        """Parse an SMT-LIB file using a provided Z3 context."""
         try:
             with open(file_path, 'r') as f:
                 content = f.read()
@@ -163,7 +161,6 @@ class SMTEquivalenceChecker:
                     
             filtered_content = '\n'.join(lines)
             
-                                        
             formulas = parse_smt2_string(filtered_content, ctx=ctx)
             
                        
@@ -175,95 +172,86 @@ class SMTEquivalenceChecker:
                 return And(*formulas)
                 
         except Exception as e:
-            print(f"解析文件 {file_path} 失败: {e}")
+            print(f"Failed to parse file {file_path}: {e}")
             return None
     
     def analyze_constraints(self, file_path):
-        """分析单个文件的约束结构"""
-        print(f"\n分析文件: {file_path}")
+        """Analyze the structure of constraints in a single SMT file."""
+        print(f"\nAnalyzing file: {file_path}")
         print("-" * 30)
         
         try:
             with open(file_path, 'r') as f:
                 content = f.read()
             
-                  
             lines = content.split('\n')
             total_lines = len(lines)
             comment_lines = sum(1 for line in lines if line.strip().startswith(';'))
             declare_lines = sum(1 for line in lines if 'declare-fun' in line)
             assert_lines = sum(1 for line in lines if line.strip().startswith('(assert'))
             
-            print(f"总行数: {total_lines}")
-            print(f"注释行: {comment_lines}")
-            print(f"变量声明: {declare_lines}")
-            print(f"约束断言: {assert_lines}")
+            print(f"Total lines: {total_lines}")
+            print(f"Comment lines: {comment_lines}")
+            print(f"Variable declarations: {declare_lines}")
+            print(f"Constraint assertions: {assert_lines}")
             
-                    
             variables = []
             for line in lines:
                 if 'declare-fun' in line:
-                              
                     import re
                     match = re.search(r'declare-fun\s+(\w+)', line)
                     if match:
                         variables.append(match.group(1))
             
-            print(f"变量列表: {variables}")
+            print(f"Variables: {variables}")
             
-                    
-            print(f"\n约束内容:")
+            print(f"\nConstraint bodies:")
             for i, line in enumerate(lines):
                 if line.strip().startswith('(assert'):
-                    print(f"  约束{i+1}: {line.strip()}")
+                    print(f"  Constraint {i+1}: {line.strip()}")
             
-                    
-            print(f"\n注释信息:")
+            print(f"\nComments:")
             for line in lines:
                 if line.strip().startswith(';'):
                     print(f"  {line.strip()}")
                     
         except Exception as e:
-            print(f"分析失败: {e}")
+            print(f"Analysis failed: {e}")
 
 def main():
-    """主函数"""
+    """CLI entry point for the SMT equivalence checker."""
     if len(sys.argv) < 3:
-        print("用法: python smt_equivalence_checker.py <file1> <file2>")
+        print("Usage: python smt_equivalence_checker.py <file1> <file2>")
         print("       python smt_equivalence_checker.py --analyze <file>")
         sys.exit(1)
     
     checker = SMTEquivalenceChecker()
     
     if sys.argv[1] == '--analyze':
-              
         if len(sys.argv) != 3:
-            print("分析模式用法: python smt_equivalence_checker.py --analyze <file>")
+            print("Analysis mode usage: python smt_equivalence_checker.py --analyze <file>")
             sys.exit(1)
         checker.analyze_constraints(sys.argv[2])
     else:
-                 
         if len(sys.argv) != 3:
-            print("验证模式用法: python smt_equivalence_checker.py <file1> <file2>")
+            print("Verification mode usage: python smt_equivalence_checker.py <file1> <file2>")
             sys.exit(1)
         
         file1 = sys.argv[1]
         file2 = sys.argv[2]
         
-                 
         checker.analyze_constraints(file1)
         checker.analyze_constraints(file2)
         
-                 
         result = checker.check_equivalence(file1, file2)
         
-        print(f"\n最终结论:")
+        print(f"\nFinal conclusion:")
         if result is True:
-            print("  ✓ 两个SMT约束公式在逻辑上等价")
+            print("  ✓ The two SMT constraint formulas are logically equivalent")
         elif result is False:
-            print("  ✗ 两个SMT约束公式在逻辑上不等价")
+            print("  ✗ The two SMT constraint formulas are NOT logically equivalent")
         else:
-            print("  ? 无法确定等价性")
+            print("  ? Could not determine equivalence")
 
 if __name__ == "__main__":
     main() 

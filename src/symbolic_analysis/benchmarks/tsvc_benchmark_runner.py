@@ -1,7 +1,9 @@
                       
 """
-TSVC Benchmark 运行器
-提取PLDI19 equivalence checker的TSVC benchmarks并用本地符号分析工具进行分析
+TSVC Benchmark runner.
+
+Extracts TSVC benchmarks from the PLDI19 equivalence checker repository
+and analyzes them using the local symbolic analysis tooling.
 """
 
 import os
@@ -15,7 +17,7 @@ import time
 import datetime
 
 class TSVCBenchmarkExtractor:
-    """TSVC benchmark提取器"""
+    """TSVC benchmark extractor."""
     
     def __init__(self, tsvc_source_path="pldi19-equivalence-checker/pldi19/TSVC/clean.c"):
         self.tsvc_source = tsvc_source_path
@@ -26,8 +28,8 @@ class TSVCBenchmarkExtractor:
         ]
         
     def extract_benchmark_functions(self):
-        """从clean.c中提取所有benchmark函数"""
-        print("正在提取TSVC benchmark函数...")
+        """Extract all benchmark functions from clean.c."""
+        print("Extracting TSVC benchmark functions...")
         
         with open(self.tsvc_source, 'r') as f:
             content = f.read()
@@ -69,8 +71,6 @@ class TSVCBenchmarkExtractor:
         
                  
         for func_name, full_definition, func_body in functions_found:
-            
-                              
             if func_name in ['main', 'testing']:
                 continue
                 
@@ -81,13 +81,13 @@ class TSVCBenchmarkExtractor:
                 'recommended': func_name in self.recommended_benchmarks
             }
         
-        print(f"提取了 {len(self.benchmark_functions)} 个benchmark函数")
+        print(f"Extracted {len(self.benchmark_functions)} benchmark functions")
         return self.benchmark_functions
     
     def create_benchmark_variants(self, func_name, optimization_levels=['O1', 'O2', 'O3']):
-        """为单个benchmark创建不同优化级别的变体"""
+        """Create variants for a single benchmark at different optimization levels."""
         if func_name not in self.benchmark_functions:
-            print(f"未找到函数: {func_name}")
+            print(f"Function not found: {func_name}")
             return {}
         
         func_data = self.benchmark_functions[func_name]
@@ -107,7 +107,7 @@ class TSVCBenchmarkExtractor:
 #define LEN2 16
 #define TYPE int
 
-// 内存段定义
+/* Memory segment definitions */
 TYPE a[LEN] __attribute__((section ("SEGMENT_A")));
 TYPE b[LEN] __attribute__((section ("SEGMENT_B")));
 TYPE c[LEN] __attribute__((section ("SEGMENT_C")));
@@ -156,7 +156,7 @@ void init_data() {
                             'compilation_success': True,
                             'compilation_output': result.stdout
                         }
-                        print(f"  {func_name}-{opt_level}: 编译成功")
+                        print(f"  {func_name}-{opt_level}: compiled successfully")
                     else:
                         variants[opt_level] = {
                             'source_file': str(source_file),
@@ -164,7 +164,7 @@ void init_data() {
                             'compilation_success': False,
                             'compilation_error': result.stderr
                         }
-                        print(f"  {func_name}-{opt_level}: 编译失败 - {result.stderr}")
+                        print(f"  {func_name}-{opt_level}: compile failed - {result.stderr}")
                         
                 except subprocess.TimeoutExpired:
                     variants[opt_level] = {
@@ -173,16 +173,16 @@ void init_data() {
                         'compilation_success': False,
                         'compilation_error': 'Compilation timeout'
                     }
-                    print(f"  {func_name}-{opt_level}: 编译超时")
+                    print(f"  {func_name}-{opt_level}: compile timeout")
             
             return variants
             
         except Exception as e:
-            print(f"创建benchmark变体时出错: {e}")
+            print(f"Error creating benchmark variants: {e}")
             return {}
 
 class TSVCBenchmarkRunner:
-    """TSVC benchmark运行器"""
+    """TSVC benchmark runner."""
     
     def __init__(self, extractor, symbolic_analyzer_script="semantic_equivalence_analyzer.py"):
         self.extractor = extractor
@@ -191,8 +191,8 @@ class TSVCBenchmarkRunner:
         self.results_dir.mkdir(exist_ok=True)
         
     def run_symbolic_analysis(self, binary1, binary2, benchmark_name, comparison_type):
-        """运行符号分析比较两个二进制文件"""
-        print(f"    正在分析 {benchmark_name} ({comparison_type})")
+        """Run symbolic analysis comparing two binaries."""
+        print(f"    Analyzing {benchmark_name} ({comparison_type})")
         
                          
                                  
@@ -226,7 +226,7 @@ class TSVCBenchmarkRunner:
             return analysis_result
             
         except Exception as e:
-            print(f"    分析失败: {e}")
+            print(f"    Analysis failed: {e}")
             return {
                 'benchmark_name': benchmark_name,
                 'comparison_type': comparison_type,
@@ -235,20 +235,20 @@ class TSVCBenchmarkRunner:
             }
     
     def run_benchmark_comparison(self, func_name):
-        """运行单个benchmark的完整比较"""
-        print(f"\n=== 运行benchmark: {func_name} ===")
+        """Run full comparison for a single benchmark."""
+        print(f"\n=== Running benchmark: {func_name} ===")
         
                      
         variants = self.extractor.create_benchmark_variants(func_name)
         
         if not variants:
-            print(f"无法创建 {func_name} 的变体")
+            print(f"Could not create variants for {func_name}")
             return None
         
         successful_variants = {k: v for k, v in variants.items() if v['compilation_success']}
         
         if len(successful_variants) < 2:
-            print(f"需要至少2个成功编译的变体，但只有 {len(successful_variants)} 个")
+            print(f"Need at least 2 successfully compiled variants, only {len(successful_variants)} available")
             return None
         
                 
@@ -273,9 +273,9 @@ class TSVCBenchmarkRunner:
         return results
     
     def run_recommended_benchmarks(self):
-        """运行推荐的benchmark集合"""
-        print("开始运行推荐的TSVC benchmarks...")
-        print(f"推荐benchmark列表: {self.extractor.recommended_benchmarks}")
+        """Run the recommended benchmark set."""
+        print("Starting recommended TSVC benchmarks...")
+        print(f"Recommended benchmark list: {self.extractor.recommended_benchmarks}")
         
         all_results = {}
         start_time = time.time()
@@ -285,7 +285,7 @@ class TSVCBenchmarkRunner:
                 results = self.run_benchmark_comparison(func_name)
                 all_results[func_name] = results
             except Exception as e:
-                print(f"运行 {func_name} 时出错: {e}")
+                print(f"Error running {func_name}: {e}")
                 all_results[func_name] = {'error': str(e)}
         
         end_time = time.time()
@@ -296,15 +296,15 @@ class TSVCBenchmarkRunner:
         return all_results
     
     def generate_summary_report(self, results, start_time, end_time):
-        """生成综合报告"""
+        """Generate a summary report."""
         report_file = self.results_dir / "tsvc_summary_report.txt"
         
         with open(report_file, 'w', encoding='utf-8') as f:
-            f.write("TSVC Benchmark 分析报告\n")
+            f.write("TSVC Benchmark analysis report\n")
             f.write("=" * 50 + "\n")
-            f.write(f"分析时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"总用时: {end_time - start_time:.2f} 秒\n")
-            f.write(f"分析benchmark数量: {len(results)}\n\n")
+            f.write(f"Analysis time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Total duration: {end_time - start_time:.2f} s\n")
+            f.write(f"Number of benchmarks analyzed: {len(results)}\n\n")
             
                   
             successful_benchmarks = 0
@@ -314,35 +314,35 @@ class TSVCBenchmarkRunner:
                 f.write(f"\n--- {func_name} ---\n")
                 
                 if isinstance(result, dict) and 'error' in result:
-                    f.write(f"  状态: 失败\n")
-                    f.write(f"  错误: {result['error']}\n")
+                    f.write(f"  Status: failed\n")
+                    f.write(f"  Error: {result['error']}\n")
                     failed_benchmarks += 1
                 elif isinstance(result, list):
-                    f.write(f"  状态: 成功\n")
-                    f.write(f"  比较数量: {len(result)}\n")
+                    f.write(f"  Status: success\n")
+                    f.write(f"  Comparisons: {len(result)}\n")
                     for comparison in result:
                         f.write(f"    {comparison['comparison_type']}: {comparison['status']}\n")
                     successful_benchmarks += 1
                 else:
-                    f.write(f"  状态: 未知\n")
+                    f.write(f"  Status: unknown\n")
             
-            f.write(f"\n总结:\n")
-            f.write(f"  成功: {successful_benchmarks}\n")
-            f.write(f"  失败: {failed_benchmarks}\n")
-            f.write(f"  成功率: {successful_benchmarks/(successful_benchmarks+failed_benchmarks)*100:.1f}%\n")
+            f.write(f"\nSummary:\n")
+            f.write(f"  Success: {successful_benchmarks}\n")
+            f.write(f"  Failed: {failed_benchmarks}\n")
+            f.write(f"  Success rate: {successful_benchmarks/(successful_benchmarks+failed_benchmarks)*100:.1f}%\n")
         
-        print(f"\n综合报告已保存到: {report_file}")
+        print(f"\nSummary report saved to: {report_file}")
 
 def main():
-    """主函数"""
-    print("TSVC Benchmark 运行器")
+    """Main entry."""
+    print("TSVC Benchmark runner")
     print("=" * 30)
     
                    
     tsvc_source = "pldi19-equivalence-checker/pldi19/TSVC/clean.c"
     if not os.path.exists(tsvc_source):
-        print(f"错误: 未找到TSVC源文件 {tsvc_source}")
-        print("请确保已经克隆了pldi19-equivalence-checker仓库")
+        print(f"Error: TSVC source file not found: {tsvc_source}")
+        print("Please ensure the pldi19-equivalence-checker repository is cloned.")
         return
     
                 
@@ -353,19 +353,18 @@ def main():
     functions = extractor.extract_benchmark_functions()
     
             
-    print(f"\n找到 {len(functions)} 个benchmark函数:")
+    print(f"\nFound {len(functions)} benchmark functions:")
     for name, info in functions.items():
-        status = "推荐" if info['recommended'] else "可选"
+        status = "recommended" if info['recommended'] else "optional"
         print(f"  {name} ({status})")
     
-    print(f"\n推荐运行的benchmark (基于原论文建议): {len(extractor.recommended_benchmarks)} 个")
+    print(f"\nRecommended benchmarks (per original paper): {len(extractor.recommended_benchmarks)}")
     
-                   
-    print("\n开始运行分析...")
+    print("\nStarting analysis...")
     results = runner.run_recommended_benchmarks()
     
-    print("\n分析完成!")
-    print("结果保存在 tsvc_results/ 目录中")
+    print("\nAnalysis finished!")
+    print("Results saved under tsvc_results/ directory")
 
 if __name__ == "__main__":
     main() 

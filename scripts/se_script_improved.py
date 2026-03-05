@@ -22,6 +22,24 @@ logging.getLogger('claripy').setLevel(logging.WARNING)
 symbolic_var_counter = 0
 symbolic_variables = {}
 
+# For binaries without s000 (e.g. ardiff): hook scanf and register symbolic vars here
+_scanf_symbolic_vars = {}
+
+class ScanfSymbolicHook(angr.SimProcedure):
+    """Hook scanf to inject symbolic 32-bit values (e.g. for ardiff snippet(a,b))."""
+    def run(self, fmt_ptr, *args):
+        global _scanf_symbolic_vars, symbolic_variables
+        # Treat each additional arg as a pointer to int; store one symbolic 32-bit per pointer
+        for i, ptr in enumerate(args):
+            if ptr is None:
+                continue
+            name = f"scanf_{len(_scanf_symbolic_vars)}"
+            sym = claripy.BVS(name, 32)
+            _scanf_symbolic_vars[name] = sym
+            symbolic_variables[name] = sym
+            self.state.memory.store(ptr, sym, endness=self.state.arch.memory_endness)
+        return claripy.BVV(len(args), self.state.arch.bits)
+
 class BenchmarkSymbolicExecution:
     """Symbolic execution tailored for benchmark programs."""
     
@@ -47,48 +65,69 @@ class BenchmarkSymbolicExecution:
         self.find_target_functions()
     
     def find_target_functions(self):
-        """Find target functions."""
-        s000_symbol = self.project.loader.find_symbol('s000')
-        if s000_symbol:
-            print(f"Found s000 at: 0x{s000_symbol.rebased_addr:x}")
-            self.s000_addr = s000_symbol.rebased_addr
-        else:
-            print("s000 not found; will analyze entire main")
+        """Find target functions (TSVC s000 or generic entry)."""
+        try:
+            s000_symbol = self.project.loader.find_symbol('s000')
+            if s000_symbol:
+                print(f"Found s000 at: 0x{s000_symbol.rebased_addr:x}")
+                self.s000_addr = s000_symbol.rebased_addr
+            else:
+                self.s000_addr = None
+        except (IndexError, AttributeError, TypeError):
+            # No symbol 's000' (e.g. ardiff benchmarks: symbolic_oldV/symbolic_newV)
             self.s000_addr = None
+        if self.s000_addr is None:
+            print("s000 not found; will analyze from entry (e.g. main)")
+            # Hook scanf so ardiff-style binaries get symbolic a, b from scanf("%d %d", &a, &b)
+            for sym_name in ('scanf', '_scanf', '__isoc99_scanf', '__isoc23_scanf', '__scanf_chk'):
+                try:
+                    if self.project.loader.find_symbol(sym_name):
+                        self.project.hook_symbol(sym_name, ScanfSymbolicHook())
+                        print(f"Hooked {sym_name} for symbolic inputs")
+                        break
+                except (IndexError, AttributeError, TypeError):
+                    continue
     
     def create_symbolic_state(self):
         """Create initial state with symbolic variables."""
-        initial_state = self.project.factory.entry_state()
+        # On macOS/ARM64, unconstrained x30 (link register) causes "over 256 solutions; skipping"
+        # and 0 paths. Use zero-fill for unconstrained regs/mem so exit states are not skipped.
+        if self.s000_addr is None:
+            initial_state = self.project.factory.entry_state(
+                add_options={
+                    angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY,
+                    angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS,
+                }
+            )
+        else:
+            initial_state = self.project.factory.entry_state()
         
-                           
+        global symbolic_var_counter, symbolic_variables
         if self.s000_addr:
-                             
             count_var = claripy.BVS('count_param', 32)
-                                    
             initial_state.solver.add(count_var >= 0)
-            initial_state.solver.add(count_var <= 10)           
-            
-            global symbolic_var_counter, symbolic_variables
+            initial_state.solver.add(count_var <= 10)
             symbolic_variables['count_param'] = count_var
             symbolic_var_counter += 1
-            
             print(f"Created symbolic variable: count_param (range 0-10)")
-        for i in range(3):
-            array_var = claripy.BVS(f'array_b_{i}', 32)
-            initial_state.solver.add(array_var >= 0)
-            initial_state.solver.add(array_var <= 200)
-            symbolic_variables[f'array_b_{i}'] = array_var
-            symbolic_var_counter += 1
-            print(f"Created symbolic variable: array_b_{i} (range 0-200)")
+            for i in range(3):
+                array_var = claripy.BVS(f'array_b_{i}', 32)
+                initial_state.solver.add(array_var >= 0)
+                initial_state.solver.add(array_var <= 200)
+                symbolic_variables[f'array_b_{i}'] = array_var
+                symbolic_var_counter += 1
+                print(f"Created symbolic variable: array_b_{i} (range 0-200)")
+        # When s000_addr is None (ardiff etc.), symbolic vars are added by ScanfSymbolicHook
         
         return initial_state
     
     def run_symbolic_execution(self):
         """Run symbolic execution."""
         print(f"Starting symbolic execution: {self.binary_path}")
-        global symbolic_var_counter, symbolic_variables
+        global symbolic_var_counter, symbolic_variables, _scanf_symbolic_vars
         symbolic_var_counter = 0
         symbolic_variables = {}
+        _scanf_symbolic_vars = {}
         self.setup_project()
         if self.project is None:
             print("Project initialization failed")

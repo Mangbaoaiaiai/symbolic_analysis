@@ -14,6 +14,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -36,6 +37,52 @@ def cosine_similarity(a: list[float], b: list[float]) -> float:
         return 0.0
     # Clamp to [0, 1] for non-negative features
     return max(0.0, min(1.0, dot / (na * nb)))
+
+
+def _write_report(
+    report_path: Path,
+    target: str,
+    ranking: list[dict],
+    vectors: dict[str, list[float]],
+    feature_names: list[str],
+) -> None:
+    """Write a text report: ranking table + 11-dim feature comparison for target vs top-1."""
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    target_vec = vectors.get(target)
+    top_id = ranking[0]["path_id"]
+    top_sim = ranking[0]["similarity"]
+    top_vec = vectors.get(top_id) or []
+
+    lines = [
+        "=" * 80,
+        "Path similarity report (normalized feature vectors, cosine similarity)",
+        "=" * 80,
+        "",
+        f"Target path: {target}",
+        f"Candidate paths: {len(ranking)} (sorted by similarity descending)",
+        "",
+        "Ranking (target vs candidates):",
+        "-" * 60,
+        "Rank\tPath\tSimilarity",
+    ]
+    for i, r in enumerate(ranking, 1):
+        lines.append(f"{i}\t{r['path_id']}\t{r['similarity']}")
+    lines.extend([
+        "-" * 60,
+        "",
+        f"Top match: {top_id}  (cosine similarity = {top_sim})",
+        "",
+        "11-dim feature comparison (normalized [0,1]): target vs top match",
+        "-" * 60,
+        f"{'Feature':<28}\t{target}\t{top_id}",
+        "-" * 60,
+    ])
+    for j, name in enumerate(feature_names):
+        if j < len(target_vec) and j < len(top_vec):
+            lines.append(f"{name:<28}\t{target_vec[j]:.4f}\t{top_vec[j]:.4f}")
+    lines.append("-" * 60)
+    report_path.write_text("\n".join(lines), encoding="utf-8")
+    print(f"Wrote report to {report_path}")
 
 
 def load_vectors(path: Path) -> tuple[dict[str, list[float]], dict | None, list[str]]:
@@ -101,6 +148,18 @@ def main() -> None:
         default="json",
         help="Output format: json or human-readable table (for --target only).",
     )
+    parser.add_argument(
+        "--filter",
+        type=str,
+        default=None,
+        help="When using --target: only rank paths whose path_id matches this regex (e.g. s000_O1).",
+    )
+    parser.add_argument(
+        "--report-out",
+        type=Path,
+        default=None,
+        help="When using --target: write a text report (ranking + top-1 feature comparison) to this file.",
+    )
     args = parser.parse_args()
 
     if (args.target is None) == (not args.all_pairs):
@@ -110,7 +169,7 @@ def main() -> None:
         print(f"Error: vectors file not found: {args.vectors}", file=sys.stderr)
         sys.exit(1)
 
-    vectors, min_max, _ = load_vectors(args.vectors)
+    vectors, min_max, feature_names = load_vectors(args.vectors)
     if not vectors:
         print("No vectors in file.", file=sys.stderr)
         sys.exit(1)
@@ -121,8 +180,11 @@ def main() -> None:
             sys.exit(1)
         target_vec = vectors[args.target]
         ranking = []
+        filter_re = re.compile(args.filter) if args.filter else None
         for pid, vec in vectors.items():
             if pid == args.target:
+                continue
+            if filter_re and not filter_re.search(pid):
                 continue
             sim = cosine_similarity(target_vec, vec)
             ranking.append({"path_id": pid, "similarity": round(sim, 4)})
@@ -148,6 +210,15 @@ def main() -> None:
         else:
             args.out.write_text(json.dumps(out_data, indent=2, ensure_ascii=False), encoding="utf-8")
             print(f"Wrote ranking of {len(ranking)} paths (target={args.target}) to {args.out}")
+
+        if args.report_out and ranking:
+            _write_report(
+                args.report_out,
+                args.target,
+                ranking,
+                vectors,
+                feature_names,
+            )
 
     else:
         # All-pairs

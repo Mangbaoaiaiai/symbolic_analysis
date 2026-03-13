@@ -1,0 +1,110 @@
+Enhanced program equivalence analysis report
+============================================================
+
+📋 Overall conclusion:
+------------------------------
+Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+------------------------------
+Analysis start: 2026-03-14 02:57:57
+Analysis end: 2026-03-14 02:57:58
+Total: 1.595 s
+  - Symbolic execution: 8.706 s
+  - File load: 0.002 s
+  - Path comparison: 1.593 s
+    * SMT constraint check: 1.587 s (6 calls)
+    * Array state compare: 0.000 s (10 calls)
+Avg SMT solve: 0.264 s
+Avg array compare: 0.000 s
+
+📊 Stats:
+------------------------------
+Fully equivalent pairs: 5
+Suspicious (constraint): 1
+Suspicious (output): 0
+Not equivalent pairs: 0
+Analysis errors: 0
+Program 1 unmatched paths: 0
+Program 2 unmatched paths: 0
+
+✅ Fully equivalent pairs:
+------------------------------
+1. Path 1 <-> Path 1
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_1.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_1.txt
+   Comparison time: 0.018 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.018 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+2. Path 2 <-> Path 2
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_2.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_2.txt
+   Comparison time: 0.168 s
+   Similarity score: 0.8906
+   Similarity rank in candidates: #2
+   Timing:
+     - Constraint: 0.168 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+3. Path 3 <-> Path 3
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_3.txt
+   Comparison time: 0.009 s
+   Similarity score: 0.9299
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+4. Path 4 <-> Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_4.txt
+   Comparison time: 0.009 s
+   Similarity score: 0.9299
+   Similarity rank in candidates: #2
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+5. Path 5 <-> Path 5
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_5.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_5.txt
+   Comparison time: 0.101 s
+   Similarity score: 0.9232
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.101 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+⚠️  Suspicious (constraint) pairs:
+------------------------------
+1. Path 2 vs Path 5
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_oldV_path_2.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq/symbolic_newV_path_5.txt
+   Similarity score: 0.8980
+   Similarity rank in candidates: #1
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 1.282 s
+

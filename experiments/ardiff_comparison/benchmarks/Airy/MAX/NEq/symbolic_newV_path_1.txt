@@ -1,0 +1,22 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffefefc_2_32 () (_ BitVec 32))
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(assert
+ (bvsle mem_7ffffffeff00_1_32 mem_7ffffffefefc_2_32))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 1, 'types': ['other'], 'array_related_count': 0}
+; 内存哈希: 6470785151189221980
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 03:27:20
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.042 秒
+; 路径探索时间: 0.301 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 1/1
+; 程序输出:
+Result: -2147483648

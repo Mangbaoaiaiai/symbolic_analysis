@@ -1,0 +1,56 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(declare-fun unconstrained_ret_log_2_64 () (_ BitVec 64))
+(assert
+ (bvslt (_ bv0 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv0 32) mem_7ffffffeff00_1_32))
+(assert
+ (let ((?x44 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffeff00_1_32)))
+ (let ((?x160 ((_ extract 62 0) unconstrained_ret_log_2_64)))
+ (let ((?x158 ((_ extract 63 63) unconstrained_ret_log_2_64)))
+ (let ((?x159 (bvnot ?x158)))
+ (let ((?x153 (concat ?x159 ?x160)))
+ (let ((?x157 ((_ to_fp 11 53) ?x153)))
+ (let (($x152 (fp.eq ?x157 ?x44)))
+ (let ((?x150 (ite $x152 (_ bv64 32) (_ bv69 32))))
+ (let (($x156 (fp.gt ?x157 ?x44)))
+ (let ((?x147 (ite $x156 (_ bv0 32) ?x150)))
+ (let (($x155 (fp.lt ?x157 ?x44)))
+ (let ((?x149 (ite $x155 (_ bv1 32) ?x147)))
+ (let ((?x235 ((_ extract 7 0) ?x149)))
+ (let ((?x238 (bvand ?x235 (_ bv1 8))))
+ (= (_ bv0 8) ?x238))))))))))))))))
+(assert
+ (let ((?x27527 (bvmul mem_7ffffffeff00_1_32 (_ bv0 32))))
+ (bvsge mem_7ffffffeff00_1_32 ?x27527)))
+(assert
+ (let ((?x16676 (bvashr mem_7ffffffeff00_1_32 (_ bv31 32))))
+ (let ((?x27520 (concat ?x16676 mem_7ffffffeff00_1_32)))
+ (let ((?x14978 (bvsdiv ?x27520 (_ bv2 64))))
+ (let ((?x14974 ((_ extract 31 0) ?x14978)))
+ (let ((?x14786 (bvmul mem_7ffffffeff00_1_32 ?x14974)))
+ (let ((?x14846 (bvashr ?x14786 (_ bv31 32))))
+ (let ((?x14811 (concat ?x14846 ?x14786)))
+ (let ((?x15015 (bvsdiv ?x14811 (_ bv2 64))))
+ (let ((?x15016 ((_ extract 31 0) ?x15015)))
+ (let ((?x14968 (bvadd mem_7ffffffeff00_1_32 ?x15016)))
+ (let ((?x14973 (bvmul ?x14968 (_ bv0 32))))
+ (bvslt ?x15016 ?x14973)))))))))))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 5, 'types': ['other', 'other', 'equality', 'other', 'other'], 'array_related_count': 0}
+; 内存哈希: 967485122092207067
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 02:57:59
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.043 秒
+; 路径探索时间: 3.644 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 3/3
+; 程序输出:
+Result: 656899489

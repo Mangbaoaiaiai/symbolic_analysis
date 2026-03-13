@@ -1,0 +1,34 @@
+符号执行时间报告
+==================================================
+
+分析程序: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/dart/test/NEq/symbolic_newV
+输出前缀: symbolic_newV
+超时设置: 120 秒
+数组符号化: 启用
+
+时间统计:
+------------------------------
+开始时间: 2026-03-14 02:57:43
+结束时间: 2026-03-14 02:57:44
+项目设置时间: 0.044 秒 (4.8%)
+路径探索时间: 0.794 秒 (86.7%)
+状态分析时间: 0.078 秒 (8.5%)
+总计时间: 0.915 秒
+
+分析结果:
+------------------------------
+发现路径数: 6
+探索效率: 6.00 路径/秒
+平均路径分析时间: 0.013 秒/路径
+
+数组符号化信息:
+------------------------------
+
+生成的文件:
+------------------------------
+symbolic_newV_path_1.txt
+symbolic_newV_path_2.txt
+symbolic_newV_path_3.txt
+symbolic_newV_path_4.txt
+symbolic_newV_path_5.txt
+symbolic_newV_path_6.txt

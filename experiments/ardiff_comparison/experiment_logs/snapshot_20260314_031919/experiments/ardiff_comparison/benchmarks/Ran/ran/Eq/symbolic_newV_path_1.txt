@@ -1,0 +1,9 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: []
+; Memory hash: 1087397012132907078

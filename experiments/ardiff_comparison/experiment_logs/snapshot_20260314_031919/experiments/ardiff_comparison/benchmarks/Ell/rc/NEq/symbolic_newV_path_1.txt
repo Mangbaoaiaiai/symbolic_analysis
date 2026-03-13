@@ -1,0 +1,43 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(declare-fun mem_7ffffffefefc_2_32 () (_ BitVec 32))
+(assert
+ (let ((?x15 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffeff00_1_32)))
+ (let ((?x16 (fp.to_ieee_bv ?x15)))
+ (let ((?x28 ((_ extract 62 0) ?x16)))
+ (let ((?x38 (concat (_ bv0 1) ?x28)))
+ (let ((?x39 ((_ to_fp 11 53) ?x38)))
+ (let ((?x13 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffefefc_2_32)))
+ (let ((?x40 (fp.add roundNearestTiesToEven ?x13 ?x39)))
+ (let (($x29 (fp.eq (_ +zero 11 53) ?x40)))
+ (let ((?x26 (ite $x29 (_ bv64 32) (_ bv69 32))))
+ (let (($x24 (fp.gt (_ +zero 11 53) ?x40)))
+ (let ((?x27 (ite $x24 (_ bv0 32) ?x26)))
+ (let (($x32 (fp.lt (_ +zero 11 53) ?x40)))
+ (let ((?x34 (ite $x32 (_ bv1 32) ?x27)))
+ (let ((?x35 ((_ zero_extend 32) ?x34)))
+ (let ((?x43 (bvand ?x35 (_ bv69 64))))
+ (let ((?x88 (bvlshr ?x43 (_ bv6 64))))
+ (let ((?x92 ((_ extract 7 0) ?x88)))
+ (let ((?x109 ((_ extract 7 0) ?x34)))
+ (let ((?x78 (bvand ?x109 (_ bv69 8))))
+ (let ((?x90 (bvor ?x78 ?x92)))
+ (let ((?x107 (bvand ?x90 (_ bv1 8))))
+ (and (distinct (_ bv1 8) ?x107) true)))))))))))))))))))))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 1, 'types': ['inequality'], 'array_related_count': 0}
+; 内存哈希: -4671167265035928948
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 02:52:32
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.044 秒
+; 路径探索时间: 14.019 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 1/1
+; 程序输出:
+Result: -10000

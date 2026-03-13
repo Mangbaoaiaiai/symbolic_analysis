@@ -1,0 +1,149 @@
+Enhanced program equivalence analysis report
+============================================================
+
+📋 Overall conclusion:
+------------------------------
+Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+------------------------------
+Analysis start: 2026-03-14 03:33:27
+Analysis end: 2026-03-14 03:33:27
+Total: 0.104 s
+  - Symbolic execution: 11.141 s
+  - File load: 0.002 s
+  - Path comparison: 0.101 s
+    * SMT constraint check: 0.093 s (9 calls)
+    * Array state compare: 0.000 s (18 calls)
+Avg SMT solve: 0.010 s
+Avg array compare: 0.000 s
+
+📊 Stats:
+------------------------------
+Fully equivalent pairs: 9
+Suspicious (constraint): 0
+Suspicious (output): 0
+Not equivalent pairs: 0
+Analysis errors: 0
+Program 1 unmatched paths: 0
+Program 2 unmatched paths: 0
+
+✅ Fully equivalent pairs:
+------------------------------
+1. Path 1 <-> Path 1
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_1.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_1.txt
+   Comparison time: 0.018 s
+   Similarity score: 0.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.018 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+2. Path 2 <-> Path 2
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_2.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_2.txt
+   Comparison time: 0.010 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.010 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+3. Path 3 <-> Path 3
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_3.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #2
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+4. Path 4 <-> Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_4.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #3
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+5. Path 5 <-> Path 5
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_5.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_5.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #4
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+6. Path 6 <-> Path 6
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_6.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_6.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #5
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+7. Path 7 <-> Path 7
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_7.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_7.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #6
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+8. Path 8 <-> Path 8
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_8.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_8.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #7
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+9. Path 9 <-> Path 9
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_oldV_path_9.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq/symbolic_newV_path_9.txt
+   Comparison time: 0.009 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #8
+   Timing:
+     - Constraint: 0.009 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+

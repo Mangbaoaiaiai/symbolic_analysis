@@ -1,0 +1,58 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(declare-fun unconstrained_ret_log_2_64 () (_ BitVec 64))
+(assert
+ (bvslt (_ bv0 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv0 32) mem_7ffffffeff00_1_32))
+(assert
+ (let ((?x44 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffeff00_1_32)))
+ (let ((?x160 ((_ extract 62 0) unconstrained_ret_log_2_64)))
+ (let ((?x158 ((_ extract 63 63) unconstrained_ret_log_2_64)))
+ (let ((?x159 (bvnot ?x158)))
+ (let ((?x153 (concat ?x159 ?x160)))
+ (let ((?x157 ((_ to_fp 11 53) ?x153)))
+ (let (($x152 (fp.eq ?x157 ?x44)))
+ (let ((?x150 (ite $x152 (_ bv64 32) (_ bv69 32))))
+ (let (($x156 (fp.gt ?x157 ?x44)))
+ (let ((?x147 (ite $x156 (_ bv0 32) ?x150)))
+ (let (($x155 (fp.lt ?x157 ?x44)))
+ (let ((?x149 (ite $x155 (_ bv1 32) ?x147)))
+ (let ((?x235 ((_ extract 7 0) ?x149)))
+ (let ((?x238 (bvand ?x235 (_ bv1 8))))
+ (= (_ bv0 8) ?x238))))))))))))))))
+(assert
+ (= (_ bv10 32) mem_7ffffffeff00_1_32))
+(assert
+ (let ((?x50953 (bvmul mem_7ffffffeff00_1_32 (_ bv0 32))))
+ (bvsge mem_7ffffffeff00_1_32 ?x50953)))
+(assert
+ (let ((?x50938 (bvashr mem_7ffffffeff00_1_32 (_ bv31 32))))
+ (let ((?x50950 (concat ?x50938 mem_7ffffffeff00_1_32)))
+ (let ((?x47650 (bvsdiv ?x50950 (_ bv2 64))))
+ (let ((?x47649 ((_ extract 31 0) ?x47650)))
+ (let ((?x14871 (bvmul mem_7ffffffeff00_1_32 ?x47649)))
+ (let ((?x14868 (bvashr ?x14871 (_ bv31 32))))
+ (let ((?x14810 (concat ?x14868 ?x14871)))
+ (let ((?x14915 (bvsdiv ?x14810 (_ bv2 64))))
+ (let ((?x14914 ((_ extract 31 0) ?x14915)))
+ (let ((?x14919 (bvadd mem_7ffffffeff00_1_32 ?x14914)))
+ (let ((?x14921 (bvmul ?x14919 (_ bv0 32))))
+ (bvsge ?x14914 ?x14921)))))))))))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 6, 'types': ['other', 'other', 'equality', 'equality', 'other', 'other'], 'array_related_count': 0}
+; 内存哈希: -7432718578070557666
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 03:34:09
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.043 秒
+; 路径探索时间: 7.373 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 5/5
+; 程序输出:
+Result: 35

@@ -1,0 +1,921 @@
+---
+pid: 4319
+cwd: /root/symbolic_analysis
+last_command: python3 scripts/ardiff_comparison/run_benchmark_analysis.py --case-timeout 180
+last_exit_code: 1
+---
+  路径探索: 0.361 秒
+  状态分析: 0.031 秒
+  总计时间: 0.435 秒
+  探索效率: 2.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq/symbolic_newV_timing_report.txt
+分析完成！共发现 2 条路径
+
+
+第二步: 对各 benchmark case 进行语义等价性分析
+
+=== 等价性分析: . ===
+
+============================================================
+正在执行: 语义等价性分析: .
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq/symbolic_oldV_path" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq/symbolic_newV_path" --output "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq/enhanced_equivalence_report.txt" --timeout 120000 --se-time 0.873
+============================================================
+执行时间: 0.10 秒
+✓ 执行成功
+输出:
+🚀 Starting enhanced program equivalence analysis...
+============================================================
+Combined judgment flow:
+  1️⃣  Constraint semantic equivalence (Z3)
+  2️⃣  Program output equivalence
+  3️⃣  Array initial state consistency
+  4️⃣  Array final state consistency
+============================================================
+Starting program equivalence analysis: 2026-03-14 02:58:16
+Program 1 paths: 2
+Program 2 paths: 2
+Loading program 1 path info...
+Loading program 2 path info...
+File load done, time: 0.001 s
+Paths loaded: 2 vs 2
+
+Starting enhanced equivalence verification (4 pairs max):
+Similarity-guided matching: enabled
+  Compare path 1 vs 1
+    Similarity rank #1, score=0.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.019s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.019s
+  Compare 2-2 (2/4, 50.0%) - ETA: 0.0s
+    Similarity rank #2, score=0.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+
+📊 Results:
+  Fully equivalent pairs: 2
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Program 1 unmatched paths: 0
+  Program 2 unmatched paths: 0
+  Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+  Symbolic execution: 0.873 s
+  File load: 0.001 s
+  Path comparison: 0.031 s
+    - SMT constraint check: 0.028 s (2 calls)
+    - Array state compare: 0.000 s (4 calls)
+  Total analysis: 0.032 s
+📄 Report saved to: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq/enhanced_equivalence_report.txt
+
+============================================================
+🎯 Final results:
+  Program equivalence: ✅ Equivalent
+  Fully equivalent pairs: 2
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Total pairs analyzed: 2
+
+⏱️  Performance:
+  Total: 0.032 s
+  Symbolic execution: 0.873 s
+  SMT solve: 0.028 s (2 calls)
+  Array compare: 0.000 s (4 calls)
+============================================================
+✅ Analysis complete. See output file for full report.
+
+
+分析完成: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq
+
+
+============================================================
+正在执行: [52/54] gam/erfcc/NEq
+命令: "/root/symbolic_analysis/experiments/ardiff_comparison/run_one_benchmark.sh" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq"
+超时设置: 180 秒
+============================================================
+执行时间: 2.88 秒
+✓ 执行成功
+输出:
+
+============================================================
+正在执行: 编译 symbolic_oldV
+命令: gcc -o symbolic_oldV symbolic_oldV.c -lm
+============================================================
+执行时间: 0.05 秒
+✓ 执行成功
+
+============================================================
+正在执行: 编译 symbolic_newV
+命令: gcc -o symbolic_newV symbolic_newV.c -lm
+============================================================
+执行时间: 0.05 秒
+✓ 执行成功
+
+============================================================
+正在执行: 符号执行 oldV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV" --timeout 120
+============================================================
+执行时间: 1.32 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV
+开始时间: 2026-03-14 02:58:17
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.044 秒
+开始探索路径...
+scanf格式字符串: %d
+需要符号化参数数量: 1
+路径探索完成，耗时: 0.370 秒
+符号执行完成：
+  终止路径数: 2
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 2
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV_path_2.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 0
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:17
+  结束时间: 2026-03-14 02:58:17
+  项目设置: 0.044 秒
+  路径探索: 0.370 秒
+  状态分析: 0.025 秒
+  总计时间: 0.439 秒
+  探索效率: 2.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV_timing_report.txt
+分析完成！共发现 2 条路径
+
+
+============================================================
+正在执行: 符号执行 newV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV" --timeout 120
+============================================================
+执行时间: 1.34 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV
+开始时间: 2026-03-14 02:58:18
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.043 秒
+开始探索路径...
+scanf格式字符串: %d
+需要符号化参数数量: 1
+路径探索完成，耗时: 0.381 秒
+符号执行完成：
+  终止路径数: 2
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 0
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV_path_2.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 2
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:18
+  结束时间: 2026-03-14 02:58:18
+  项目设置: 0.043 秒
+  路径探索: 0.381 秒
+  状态分析: 0.026 秒
+  总计时间: 0.450 秒
+  探索效率: 2.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV_timing_report.txt
+分析完成！共发现 2 条路径
+
+
+第二步: 对各 benchmark case 进行语义等价性分析
+
+=== 等价性分析: . ===
+
+============================================================
+正在执行: 语义等价性分析: .
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_oldV_path" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/symbolic_newV_path" --output "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/enhanced_equivalence_report.txt" --timeout 120000 --se-time 0.889
+============================================================
+执行时间: 0.10 秒
+✓ 执行成功
+输出:
+🚀 Starting enhanced program equivalence analysis...
+============================================================
+Combined judgment flow:
+  1️⃣  Constraint semantic equivalence (Z3)
+  2️⃣  Program output equivalence
+  3️⃣  Array initial state consistency
+  4️⃣  Array final state consistency
+============================================================
+Starting program equivalence analysis: 2026-03-14 02:58:19
+Program 1 paths: 2
+Program 2 paths: 2
+Loading program 1 path info...
+Loading program 2 path info...
+File load done, time: 0.001 s
+Paths loaded: 2 vs 2
+
+Starting enhanced equivalence verification (4 pairs max):
+Similarity-guided matching: enabled
+  Compare path 1 vs 1
+    Similarity rank #1, score=0.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.020s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.020s
+  Compare 2-2 (2/4, 50.0%) - ETA: 0.0s
+    Similarity rank #2, score=0.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+
+📊 Results:
+  Fully equivalent pairs: 2
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Program 1 unmatched paths: 0
+  Program 2 unmatched paths: 0
+  Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+  Symbolic execution: 0.889 s
+  File load: 0.001 s
+  Path comparison: 0.032 s
+    - SMT constraint check: 0.029 s (2 calls)
+    - Array state compare: 0.000 s (4 calls)
+  Total analysis: 0.033 s
+📄 Report saved to: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq/enhanced_equivalence_report.txt
+
+============================================================
+🎯 Final results:
+  Program equivalence: ✅ Equivalent
+  Fully equivalent pairs: 2
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Total pairs analyzed: 2
+
+⏱️  Performance:
+  Total: 0.033 s
+  Symbolic execution: 0.889 s
+  SMT solve: 0.029 s (2 calls)
+  Array compare: 0.000 s (4 calls)
+============================================================
+✅ Analysis complete. See output file for full report.
+
+
+分析完成: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq
+
+
+============================================================
+正在执行: [53/54] power/test/Eq
+命令: "/root/symbolic_analysis/experiments/ardiff_comparison/run_one_benchmark.sh" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq"
+超时设置: 180 秒
+============================================================
+执行时间: 3.41 秒
+✓ 执行成功
+输出:
+
+============================================================
+正在执行: 编译 symbolic_oldV
+命令: gcc -o symbolic_oldV symbolic_oldV.c -lm
+============================================================
+执行时间: 0.04 秒
+✓ 执行成功
+
+============================================================
+正在执行: 编译 symbolic_newV
+命令: gcc -o symbolic_newV symbolic_newV.c -lm
+============================================================
+执行时间: 0.04 秒
+✓ 执行成功
+
+============================================================
+正在执行: 符号执行 oldV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV" --timeout 120
+============================================================
+执行时间: 1.60 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV
+开始时间: 2026-03-14 02:58:19
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.043 秒
+开始探索路径...
+scanf格式字符串: %d %d
+需要符号化参数数量: 2
+路径探索完成，耗时: 0.611 秒
+符号执行完成：
+  终止路径数: 5
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 0
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path_2.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 14
+
+分析路径 3...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path_3.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 4
+
+分析路径 4...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path_4.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 3
+
+分析路径 5...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path_5.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 13
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:19
+  结束时间: 2026-03-14 02:58:20
+  项目设置: 0.043 秒
+  路径探索: 0.611 秒
+  状态分析: 0.066 秒
+  总计时间: 0.720 秒
+  探索效率: 5.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_timing_report.txt
+分析完成！共发现 5 条路径
+
+
+============================================================
+正在执行: 符号执行 newV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV" --timeout 120
+============================================================
+执行时间: 1.58 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV
+开始时间: 2026-03-14 02:58:21
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.043 秒
+开始探索路径...
+scanf格式字符串: %d %d
+需要符号化参数数量: 2
+路径探索完成，耗时: 0.603 秒
+符号执行完成：
+  终止路径数: 5
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 0
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path_2.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 14
+
+分析路径 3...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path_3.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 4
+
+分析路径 4...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path_4.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 3
+
+分析路径 5...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path_5.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 13
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:21
+  结束时间: 2026-03-14 02:58:22
+  项目设置: 0.043 秒
+  路径探索: 0.603 秒
+  状态分析: 0.065 秒
+  总计时间: 0.712 秒
+  探索效率: 5.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_timing_report.txt
+分析完成！共发现 5 条路径
+
+
+第二步: 对各 benchmark case 进行语义等价性分析
+
+=== 等价性分析: . ===
+
+============================================================
+正在执行: 语义等价性分析: .
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_oldV_path" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/symbolic_newV_path" --output "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/enhanced_equivalence_report.txt" --timeout 120000 --se-time 1.432
+============================================================
+执行时间: 0.13 秒
+✓ 执行成功
+输出:
+🚀 Starting enhanced program equivalence analysis...
+============================================================
+Combined judgment flow:
+  1️⃣  Constraint semantic equivalence (Z3)
+  2️⃣  Program output equivalence
+  3️⃣  Array initial state consistency
+  4️⃣  Array final state consistency
+============================================================
+Starting program equivalence analysis: 2026-03-14 02:58:22
+Program 1 paths: 5
+Program 2 paths: 5
+Loading program 1 path info...
+Loading program 2 path info...
+File load done, time: 0.001 s
+Paths loaded: 5 vs 5
+
+Starting enhanced equivalence verification (25 pairs max):
+Similarity-guided matching: enabled
+  Compare path 1 vs 1
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.020s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.020s
+  Compare 2-2 (2/25, 8.0%) - ETA: 0.5s
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+  Compare 3-3 (3/25, 12.0%) - ETA: 0.3s
+    Similarity rank #2, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+  Compare 4-4 (4/25, 16.0%) - ETA: 0.3s
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+  Compare 5-5 (5/25, 20.0%) - ETA: 0.2s
+    Similarity rank #2, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+
+📊 Results:
+  Fully equivalent pairs: 5
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Program 1 unmatched paths: 0
+  Program 2 unmatched paths: 0
+  Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+  Symbolic execution: 1.432 s
+  File load: 0.001 s
+  Path comparison: 0.059 s
+    - SMT constraint check: 0.056 s (5 calls)
+    - Array state compare: 0.000 s (10 calls)
+  Total analysis: 0.061 s
+📄 Report saved to: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq/enhanced_equivalence_report.txt
+
+============================================================
+🎯 Final results:
+  Program equivalence: ✅ Equivalent
+  Fully equivalent pairs: 5
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Total pairs analyzed: 5
+
+⏱️  Performance:
+  Total: 0.061 s
+  Symbolic execution: 1.432 s
+  SMT solve: 0.056 s (5 calls)
+  Array compare: 0.000 s (10 calls)
+============================================================
+✅ Analysis complete. See output file for full report.
+
+
+分析完成: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq
+
+
+============================================================
+正在执行: [54/54] power/test/NEq
+命令: "/root/symbolic_analysis/experiments/ardiff_comparison/run_one_benchmark.sh" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq"
+超时设置: 180 秒
+============================================================
+执行时间: 3.50 秒
+✓ 执行成功
+输出:
+
+============================================================
+正在执行: 编译 symbolic_oldV
+命令: gcc -o symbolic_oldV symbolic_oldV.c -lm
+============================================================
+执行时间: 0.04 秒
+✓ 执行成功
+
+============================================================
+正在执行: 编译 symbolic_newV
+命令: gcc -o symbolic_newV symbolic_newV.c -lm
+============================================================
+执行时间: 0.04 秒
+✓ 执行成功
+
+============================================================
+正在执行: 符号执行 oldV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV" --timeout 120
+============================================================
+执行时间: 1.63 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV
+开始时间: 2026-03-14 02:58:23
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.042 秒
+开始探索路径...
+scanf格式字符串: %d %d
+需要符号化参数数量: 2
+路径探索完成，耗时: 0.623 秒
+符号执行完成：
+  终止路径数: 5
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 0
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path_2.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 14
+
+分析路径 3...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path_3.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 4
+
+分析路径 4...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path_4.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 3
+
+分析路径 5...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path_5.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 13
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:23
+  结束时间: 2026-03-14 02:58:24
+  项目设置: 0.042 秒
+  路径探索: 0.623 秒
+  状态分析: 0.069 秒
+  总计时间: 0.733 秒
+  探索效率: 5.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_timing_report.txt
+分析完成！共发现 5 条路径
+
+
+============================================================
+正在执行: 符号执行 newV
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/se_script.py" --binary "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV" --timeout 120
+============================================================
+执行时间: 1.64 秒
+✓ 执行成功
+输出:
+开始分析单个文件: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV
+开始符号执行: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV
+开始时间: 2026-03-14 02:58:24
+已hook符号: __isoc99_scanf
+数组符号化已启用
+正在符号化关键数组...
+开始符号化全局数组...
+警告: 未找到数组符号 'a'
+警告: 未找到数组符号 'b'
+警告: 未找到数组符号 'c'
+警告: 未找到数组符号 'd'
+警告: 未找到数组符号 'e'
+已符号化 0 个数组
+项目设置完成，耗时: 0.043 秒
+开始探索路径...
+scanf格式字符串: %d %d
+需要符号化参数数量: 2
+路径探索完成，耗时: 0.645 秒
+符号执行完成：
+  终止路径数: 5
+  活跃路径数: 0
+  错误路径数: 0
+开始分析路径状态...
+
+分析路径 1...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path_1.txt
+  输入变量值: {}
+  约束数量: 1 (数组相关: 0)
+  程序输出: Result: 10
+
+分析路径 2...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path_2.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 24
+
+分析路径 3...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path_3.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 14
+
+分析路径 4...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path_4.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 13
+
+分析路径 5...
+  已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path_5.txt
+  输入变量值: {}
+  约束数量: 3 (数组相关: 0)
+  程序输出: Result: 28
+
+⏱️  符号执行时间统计:
+  开始时间: 2026-03-14 02:58:24
+  结束时间: 2026-03-14 02:58:25
+  项目设置: 0.043 秒
+  路径探索: 0.645 秒
+  状态分析: 0.065 秒
+  总计时间: 0.754 秒
+  探索效率: 5.00 路径/秒
+📄 时间报告已保存到: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_timing_report.txt
+分析完成！共发现 5 条路径
+
+
+第二步: 对各 benchmark case 进行语义等价性分析
+
+=== 等价性分析: . ===
+
+============================================================
+正在执行: 语义等价性分析: .
+命令: /usr/bin/python3 "/root/symbolic_analysis/scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_oldV_path" "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/symbolic_newV_path" --output "/root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/enhanced_equivalence_report.txt" --timeout 120000 --se-time 1.487
+============================================================
+执行时间: 0.13 秒
+✓ 执行成功
+输出:
+🚀 Starting enhanced program equivalence analysis...
+============================================================
+Combined judgment flow:
+  1️⃣  Constraint semantic equivalence (Z3)
+  2️⃣  Program output equivalence
+  3️⃣  Array initial state consistency
+  4️⃣  Array final state consistency
+============================================================
+Starting program equivalence analysis: 2026-03-14 02:58:25
+Program 1 paths: 5
+Program 2 paths: 5
+Loading program 1 path info...
+Loading program 2 path info...
+File load done, time: 0.001 s
+Paths loaded: 5 vs 5
+
+Starting enhanced equivalence verification (25 pairs max):
+Similarity-guided matching: enabled
+  Compare path 1 vs 1
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.020s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.020s
+  Compare 2-2 (2/25, 8.0%) - ETA: 0.5s
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.010s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.010s
+  Compare 3-3 (3/25, 12.0%) - ETA: 0.3s
+    Similarity rank #2, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+  Compare 4-4 (4/25, 16.0%) - ETA: 0.3s
+    Similarity rank #1, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+  Compare 5-5 (5/25, 20.0%) - ETA: 0.2s
+    Similarity rank #2, score=1.0000
+    Step 1: Check constraint equivalence...
+      ✓ Constraints equivalent (time: 0.009s)
+    Step 2: Check program output equivalence...
+      ✓ Program output same: '' (time: 0.000s)
+    Step 3: Check array initial state...
+      ✓ Array initial state same (time: 0.000s)
+    Step 4: Check array final state...
+      ✓ Array final state same (time: 0.000s)
+    ✅ Fully equivalent! constraints✓ output✓ time: 0.009s
+
+📊 Results:
+  Fully equivalent pairs: 5
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Program 1 unmatched paths: 0
+  Program 2 unmatched paths: 0
+  Program equivalence: ✅ Equivalent
+
+⏱️  Timing:
+  Symbolic execution: 1.487 s
+  File load: 0.001 s
+  Path comparison: 0.061 s
+    - SMT constraint check: 0.057 s (5 calls)
+    - Array state compare: 0.000 s (10 calls)
+  Total analysis: 0.063 s
+📄 Report saved to: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq/enhanced_equivalence_report.txt
+
+============================================================
+🎯 Final results:
+  Program equivalence: ✅ Equivalent
+  Fully equivalent pairs: 5
+  Suspicious (constraint): 0
+  Suspicious (output): 0
+  Not equivalent pairs: 0
+  Total pairs analyzed: 5
+
+⏱️  Performance:
+  Total: 0.063 s
+  Symbolic execution: 1.487 s
+  SMT solve: 0.057 s (5 calls)
+  Array compare: 0.000 s (10 calls)
+============================================================
+✅ Analysis complete. See output file for full report.
+
+
+分析完成: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq
+
+
+============================================================
+批量分析完成
+  成功: 53
+  失败: 1
+============================================================
+root@iZuf60r2nz32ml5o8q0qz8Z:~/symbolic_analysis#

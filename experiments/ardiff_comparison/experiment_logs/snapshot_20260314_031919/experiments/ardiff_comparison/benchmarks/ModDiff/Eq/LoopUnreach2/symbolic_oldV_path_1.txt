@@ -1,0 +1,24 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffefefc_2_32 () (_ BitVec 32))
+(assert
+ (let ((?x10 ((_ zero_extend 32) mem_7ffffffefefc_2_32)))
+ (let ((?x13 (bvlshr ?x10 (_ bv31 64))))
+ (let ((?x22 ((_ extract 0 0) ?x13)))
+ (= (_ bv0 1) ?x22)))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 1, 'types': ['equality'], 'array_related_count': 0}
+; 内存哈希: 5322892348084590177
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 02:53:18
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.043 秒
+; 路径探索时间: 0.378 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 1/1
+; 程序输出:
+Result: 0

@@ -1,0 +1,73 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffefefc_2_32 () (_ BitVec 32))
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(assert
+ (let ((?x10 ((_ zero_extend 32) mem_7ffffffefefc_2_32)))
+ (let ((?x13 (bvlshr ?x10 (_ bv31 64))))
+ (let ((?x22 ((_ extract 0 0) ?x13)))
+ (= (_ bv0 1) ?x22)))))
+(assert
+ (and (distinct (_ bv0 32) mem_7ffffffeff00_1_32) true))
+(assert
+ (let ((?x62 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffeff00_1_32)))
+ (let ((?x63 (fp.to_ieee_bv ?x62)))
+ (let ((?x75 ((_ extract 62 0) ?x63)))
+ (let ((?x83 (concat (_ bv0 1) ?x75)))
+ (let ((?x84 ((_ to_fp 11 53) ?x83)))
+ (let ((?x60 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffefefc_2_32)))
+ (let ((?x85 (fp.add roundNearestTiesToEven ?x60 ?x84)))
+ (let (($x77 (fp.eq (_ +zero 11 53) ?x85)))
+ (let ((?x74 (ite $x77 (_ bv64 32) (_ bv69 32))))
+ (let (($x76 (fp.gt (_ +zero 11 53) ?x85)))
+ (let ((?x80 (ite $x76 (_ bv0 32) ?x74)))
+ (let (($x79 (fp.lt (_ +zero 11 53) ?x85)))
+ (let ((?x81 (ite $x79 (_ bv1 32) ?x80)))
+ (let ((?x82 ((_ zero_extend 32) ?x81)))
+ (let ((?x89 (bvand ?x82 (_ bv69 64))))
+ (let ((?x110 (bvlshr ?x89 (_ bv6 64))))
+ (let ((?x111 ((_ extract 7 0) ?x110)))
+ (let ((?x103 ((_ extract 7 0) ?x81)))
+ (let ((?x101 (bvand ?x103 (_ bv69 8))))
+ (let ((?x112 (bvor ?x101 ?x111)))
+ (let ((?x156 (bvand ?x112 (_ bv1 8))))
+ (= (_ bv1 8) ?x156)))))))))))))))))))))))
+(assert
+ (let ((?x60 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffefefc_2_32)))
+ (let ((?x62 ((_ to_fp 11 53) roundNearestTiesToEven mem_7ffffffeff00_1_32)))
+ (let ((?x63 (fp.to_ieee_bv ?x62)))
+ (let ((?x75 ((_ extract 62 0) ?x63)))
+ (let ((?x83 (concat (_ bv0 1) ?x75)))
+ (let ((?x84 ((_ to_fp 11 53) ?x83)))
+ (let ((?x2450 (fp.add roundNearestTiesToEven ?x84 ?x60)))
+ (let (($x2460 (fp.eq ?x2450 (fp #b0 #b10000011101 #xfffffffc00000))))
+ (let ((?x2461 (ite $x2460 (_ bv64 32) (_ bv69 32))))
+ (let (($x2219 (fp.gt ?x2450 (fp #b0 #b10000011101 #xfffffffc00000))))
+ (let ((?x2235 (ite $x2219 (_ bv0 32) ?x2461)))
+ (let (($x2213 (fp.lt ?x2450 (fp #b0 #b10000011101 #xfffffffc00000))))
+ (let ((?x2226 (ite $x2213 (_ bv1 32) ?x2235)))
+ (let ((?x2449 ((_ zero_extend 32) ?x2226)))
+ (let ((?x2214 (bvand ?x2449 (_ bv69 64))))
+ (let ((?x2600 (bvlshr ?x2214 (_ bv6 64))))
+ (let ((?x2618 ((_ extract 7 0) ?x2600)))
+ (let ((?x2538 ((_ extract 7 0) ?x2226)))
+ (let ((?x2300 (bvand ?x2538 (_ bv69 8))))
+ (let ((?x2207 (bvor ?x2300 ?x2618)))
+ (let ((?x2203 (bvand ?x2207 (_ bv1 8))))
+ (and (distinct (_ bv1 8) ?x2203) true)))))))))))))))))))))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 4, 'types': ['equality', 'inequality', 'equality', 'inequality'], 'array_related_count': 0}
+; 内存哈希: -6483844684184168268
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 02:52:10
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.043 秒
+; 路径探索时间: 10.358 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 3/3
+; 程序输出:
+Result: -10000

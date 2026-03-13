@@ -1,0 +1,91 @@
+Enhanced program equivalence analysis report
+============================================================
+
+📋 Overall conclusion:
+------------------------------
+Program equivalence: ❌ Not equivalent
+
+⏱️  Timing:
+------------------------------
+Analysis start: 2026-03-14 03:29:48
+Analysis end: 2026-03-14 03:29:49
+Total: 0.063 s
+  - Symbolic execution: 1.190 s
+  - File load: 0.001 s
+  - Path comparison: 0.062 s
+    * SMT constraint check: 0.059 s (4 calls)
+    * Array state compare: 0.000 s (4 calls)
+Avg SMT solve: 0.015 s
+Avg array compare: 0.000 s
+
+📊 Stats:
+------------------------------
+Fully equivalent pairs: 2
+Suspicious (constraint): 2
+Suspicious (output): 0
+Not equivalent pairs: 0
+Analysis errors: 0
+Program 1 unmatched paths: 1
+Program 2 unmatched paths: 2
+
+✅ Fully equivalent pairs:
+------------------------------
+1. Path 1 <-> Path 1
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_oldV_path_1.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_newV_path_1.txt
+   Comparison time: 0.019 s
+   Similarity score: 0.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.019 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+2. Path 2 <-> Path 2
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_oldV_path_2.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_newV_path_2.txt
+   Comparison time: 0.010 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.010 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+⚠️  Suspicious (constraint) pairs:
+------------------------------
+1. Path 3 vs Path 3
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_newV_path_3.txt
+   Similarity score: 0.9419
+   Similarity rank in candidates: #1
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.015 s
+
+2. Path 3 vs Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5/symbolic_newV_path_4.txt
+   Similarity score: 0.9372
+   Similarity rank in candidates: #2
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.015 s
+
+❌ Program 1 unmatched paths:
+------------------------------
+  Path 3
+
+❌ Program 2 unmatched paths:
+------------------------------
+  Path 3
+  Path 4
+

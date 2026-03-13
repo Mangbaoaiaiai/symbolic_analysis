@@ -1,0 +1,32 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(assert
+ (let ((?x10 (bvmul (_ bv123459876 32) mem_7ffffffeff00_1_32)))
+ (let ((?x12 (bvashr ?x10 (_ bv31 32))))
+ (let ((?x13 (concat ?x12 ?x10)))
+ (let ((?x15 (bvsdiv ?x13 (_ bv127773 64))))
+ (let ((?x16 ((_ extract 31 0) ?x15)))
+ (let ((?x32 (bvmul (_ bv2147483649 32) ?x16)))
+ (let ((?x36 (bvmul (_ bv520931964 32) mem_7ffffffeff00_1_32)))
+ (let ((?x34 (bvadd ?x36 ?x32)))
+ (let ((?x41 ((_ zero_extend 32) ?x34)))
+ (let ((?x42 (bvlshr ?x41 (_ bv31 64))))
+ (let ((?x55 ((_ extract 0 0) ?x42)))
+ (= (_ bv0 1) ?x55)))))))))))))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 1, 'types': ['equality'], 'array_related_count': 0}
+; 内存哈希: -7942046093905814858
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 03:33:13
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.042 秒
+; 路径探索时间: 0.415 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 2/2
+; 程序输出:
+Result: 16807

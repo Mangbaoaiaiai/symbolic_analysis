@@ -1,0 +1,37 @@
+符号执行时间报告
+==================================================
+
+分析程序: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/NEq/symbolic_oldV
+输出前缀: symbolic_oldV
+超时设置: 120 秒
+数组符号化: 启用
+
+时间统计:
+------------------------------
+开始时间: 2026-03-14 03:33:28
+结束时间: 2026-03-14 03:33:34
+项目设置时间: 0.045 秒 (0.7%)
+路径探索时间: 5.809 秒 (96.9%)
+状态分析时间: 0.141 秒 (2.4%)
+总计时间: 5.994 秒
+
+分析结果:
+------------------------------
+发现路径数: 9
+探索效率: 1.55 路径/秒
+平均路径分析时间: 0.016 秒/路径
+
+数组符号化信息:
+------------------------------
+
+生成的文件:
+------------------------------
+symbolic_oldV_path_1.txt
+symbolic_oldV_path_2.txt
+symbolic_oldV_path_3.txt
+symbolic_oldV_path_4.txt
+symbolic_oldV_path_5.txt
+symbolic_oldV_path_6.txt
+symbolic_oldV_path_7.txt
+symbolic_oldV_path_8.txt
+symbolic_oldV_path_9.txt

@@ -1,0 +1,45 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun mem_7ffffffeff00_1_32 () (_ BitVec 32))
+(assert
+ (bvslt (_ bv8 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsge (_ bv11 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv1 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv2 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv3 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv4 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv5 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv6 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv7 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv8 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv9 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsle (_ bv10 32) mem_7ffffffeff00_1_32))
+(assert
+ (bvsgt (_ bv11 32) mem_7ffffffeff00_1_32))
+(check-sat)
+
+; 路径签名信息:
+; 输入变量值: {}
+; 约束信息: {'count': 13, 'types': ['other', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other', 'other'], 'array_related_count': 0}
+; 内存哈希: 2278883499601738083
+; 
+; 时间信息:
+; 符号执行开始时间: 2026-03-14 02:53:30
+; 总探索时间: 0.000 秒
+; 项目设置时间: 0.042 秒
+; 路径探索时间: 0.723 秒
+; 状态分析时间: 0.000 秒
+; 路径索引: 4/4
+; 程序输出:
+Result: 100

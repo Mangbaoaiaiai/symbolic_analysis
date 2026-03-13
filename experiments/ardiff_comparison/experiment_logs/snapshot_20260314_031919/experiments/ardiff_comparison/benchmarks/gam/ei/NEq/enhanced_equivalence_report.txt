@@ -1,0 +1,172 @@
+Enhanced program equivalence analysis report
+============================================================
+
+📋 Overall conclusion:
+------------------------------
+Program equivalence: ❌ Not equivalent
+
+⏱️  Timing:
+------------------------------
+Analysis start: 2026-03-14 02:58:12
+Analysis end: 2026-03-14 02:58:13
+Total: 1.295 s
+  - Symbolic execution: 11.274 s
+  - File load: 0.002 s
+  - Path comparison: 1.293 s
+    * SMT constraint check: 1.285 s (11 calls)
+    * Array state compare: 0.000 s (6 calls)
+Avg SMT solve: 0.117 s
+Avg array compare: 0.000 s
+
+📊 Stats:
+------------------------------
+Fully equivalent pairs: 3
+Suspicious (constraint): 8
+Suspicious (output): 0
+Not equivalent pairs: 0
+Analysis errors: 0
+Program 1 unmatched paths: 2
+Program 2 unmatched paths: 3
+
+✅ Fully equivalent pairs:
+------------------------------
+1. Path 1 <-> Path 1
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_1.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_1.txt
+   Comparison time: 0.019 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.019 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+2. Path 2 <-> Path 2
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_2.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_2.txt
+   Comparison time: 0.010 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.010 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+3. Path 5 <-> Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_5.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_4.txt
+   Comparison time: 0.010 s
+   Similarity score: 1.0000
+   Similarity rank in candidates: #1
+   Timing:
+     - Constraint: 0.010 s
+     - Array initial: 0.000 s
+     - Array final: 0.000 s
+   Program output: '' = ''
+   Variable mapping: {}
+
+⚠️  Suspicious (constraint) pairs:
+------------------------------
+1. Path 3 vs Path 5
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_5.txt
+   Similarity score: 0.9990
+   Similarity rank in candidates: #1
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.037 s
+
+2. Path 3 vs Path 3
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_3.txt
+   Similarity score: 0.8239
+   Similarity rank in candidates: #3
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.541 s
+
+3. Path 3 vs Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_4.txt
+   Similarity score: 0.8181
+   Similarity rank in candidates: #4
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.174 s
+
+4. Path 3 vs Path 6
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_3.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_6.txt
+   Similarity score: 0.8127
+   Similarity rank in candidates: #5
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.133 s
+
+5. Path 4 vs Path 5
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_5.txt
+   Similarity score: 0.9990
+   Similarity rank in candidates: #1
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.037 s
+
+6. Path 4 vs Path 3
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_3.txt
+   Similarity score: 0.8239
+   Similarity rank in candidates: #3
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.098 s
+
+7. Path 4 vs Path 4
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_4.txt
+   Similarity score: 0.8181
+   Similarity rank in candidates: #4
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.111 s
+
+8. Path 4 vs Path 6
+   File1: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_oldV_path_4.txt
+   File2: /root/symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq/symbolic_newV_path_6.txt
+   Similarity score: 0.8127
+   Similarity rank in candidates: #5
+   Equivalence check:
+     - Constraint equivalent: ❌
+     - Output same: ✅
+   Program output: '' = ''
+   Comparison time: 0.113 s
+
+❌ Program 1 unmatched paths:
+------------------------------
+  Path 3
+  Path 4
+
+❌ Program 2 unmatched paths:
+------------------------------
+  Path 3
+  Path 5
+  Path 6
+

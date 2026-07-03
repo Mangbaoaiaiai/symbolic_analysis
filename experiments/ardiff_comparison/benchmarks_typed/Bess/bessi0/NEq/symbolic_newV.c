@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+#ifndef M_E
+#define M_E 2.71828182845904523536
+#endif
+
+double snippet(double x) {
+    double ax = 0;
+            double ans = 0;
+            double y = 0;
+            ax=fabs(x);
+            if (ax < 3.75) {
+                y=x/3.75;
+                y*=y;
+                ans=1.0+y+(3.5156229+y*(3.0899424+y*(1.2067492+y*(0.2659732+y*(0.360768e-1+y*0.45813e-2)))));
+            }
+            else {
+                y=3.75/ax;
+                ans=fabs(x)*(0.39894228+y*(0.1328592e-1 +y*(0.225319e-2+y*(-0.157565e-2+y*(0.916281e-2 +y*(-0.2057706e-1+y*(0.2635537e-1+y*(-0.1647633e-1 +y*0.392377e-2))))))));
+            }
+            return ans+3;//change
+}
+
+int main() {
+    /* symbolic inputs are provided through scanf hooks when main is analyzed */
+    double x;
+    scanf("%lf", &x);
+    double result = snippet(x);
+    printf("Result: %f\n", result);
+    return 0;
+}

@@ -6,7 +6,7 @@ for use in cosine-similarity-based ordering (no match/unmatch threshold).
 """
 
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 # SMT-LIB operators we count
 COMPARISON_OPS = {"bvuge", "bvule", "bvslt", "bvsge", "bvsgt", "bvsle", "bvult", "bvugt"}
@@ -208,7 +208,7 @@ FEATURE_RANGES: Dict[str, Tuple[float, float]] = {
 
 def normalize_features(
     raw: List[float],
-    min_max: Dict[str, Tuple[float, float]] | None = None,
+    min_max: Optional[Dict[str, Tuple[float, float]]] = None,
 ) -> List[float]:
     """
     Normalize raw 11-dim vector to [0, 1] per feature.

@@ -18,6 +18,7 @@ import datetime
 import json
 from itertools import combinations
 from collections import defaultdict
+from symbolic_analysis.tracing import trace_smt_check
 
 class ArrayStateComparator:
     """Helper for comparing encoded array states extracted from path files."""
@@ -202,7 +203,7 @@ class EnhancedConstraintChecker:
                 print(f"      ✓ Initial array states match (time: {array_initial_time:.3f}s)")
                 
                                                     
-            print("    Step 3: checking final array states...")
+                print("    Step 3: checking final array states...")
                 array_final_start = time.time()
                 final_same, final_details = self.array_comparator.compare_array_states(
                     path1_info['array_final'], path2_info['array_final']
@@ -261,7 +262,13 @@ class EnhancedConstraintChecker:
             )
             
             solver.add(equivalence_check)
-            result = solver.check()
+            result = trace_smt_check(
+                solver,
+                "symbolic_xor_path_equivalence",
+                formula="(F1 && !F2) || (!F1 && F2)",
+                constraint_count_1=len(constraints1),
+                constraint_count_2=len(constraints2),
+            )
             
             solve_time = time.time() - start_time
             

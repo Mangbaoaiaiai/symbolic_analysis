@@ -24,6 +24,7 @@ from symbolic_analysis.analysis.path_constraint_features import (
     extract_features,
     normalize_features,
 )
+from symbolic_analysis.tracing import time_block
 
 FEATURE_NAMES = [
     "assert_count",
@@ -107,15 +108,21 @@ def main() -> None:
         files = collect_path_files(args.paths_dir)
 
     records = []
-    for path_id, path in files:
-        try:
-            content = path.read_text(encoding="utf-8", errors="replace")
-        except Exception as e:
-            print(f"Warning: skip {path}: {e}", file=sys.stderr)
-            continue
-        raw, _ = extract_features(content)
-        rec = {"path_id": path_id, "raw": raw}
-        records.append(rec)
+    with time_block(
+        "align",
+        "fmcad_feature_vector_generation",
+        path_count=len(files),
+    ) as trace:
+        for path_id, path in files:
+            try:
+                content = path.read_text(encoding="utf-8", errors="replace")
+            except Exception as e:
+                print(f"Warning: skip {path}: {e}", file=sys.stderr)
+                continue
+            raw, _ = extract_features(content)
+            rec = {"path_id": path_id, "raw": raw}
+            records.append(rec)
+        trace["vectors_generated"] = len(records)
 
     if not records:
         print("No path files processed.", file=sys.stderr)

@@ -1,70 +1,164 @@
-## Overview
+# Symbolicana
 
-Symbolic-analysis framework for the TSVC benchmark suite and ARDiff-style comparison. Core library lives under `src/symbolic_analysis/`; scripts under `scripts/` (and `scripts/ardiff_comparison/` for ARDiff-only).
+Symbolicana is a standalone symbolic-analysis toolkit for binary path
+generation, path-pair ranking, and path equivalence verification.
 
----
+The main pipeline is:
 
-## Key Scripts
+1. Generate SMT path constraints from a binary with angr.
+2. Rank candidate old/new paths with 11-dimensional constraint features plus
+   optional BinDiff-style trace overlap reranking.
+3. Verify ranked path candidates with Z3.
 
-| Script | Purpose |
-|--------|--------|
-| `scripts/quick_start_demo.py` | Smoke test: dependencies, path generation, symbolic analysis, mini TSVC run. |
-| `scripts/se_script_improved.py` | Standalone symbolic-execution driver for TSVC-style programs. |
-| `scripts/simple_angr_test.py` | Quick check that angr is installed and usable. |
-| `scripts/run_benchmark_analysis.py` | Run a batch of TSVC benchmark analyses. |
-| `scripts/create_all_benchmarks.py` | Generate / materialize all TSVC benchmarks. |
-| `src/symbolic_analysis/integration/tsvc_symbolic_integration.py` | Full TSVC pipeline: extract, compile (O1/O2/O3), generate paths, run equivalence analysis, write results. |
-| `src/symbolic_analysis/equivalence/semantic_equivalence_analyzer.py` | Compare two sets of path files for equivalence (three-step: constraints + array initial/final state). |
-| `scripts/ardiff_comparison/analyze_airy_max_eq.py` | ARDiff comparison: analyze Airy MAX equivalence. |
-| `scripts/ardiff_comparison/enhanced_equivalence_analyzer.py` | ARDiff: enhanced equivalence analysis. |
-| `scripts/ardiff_comparison/verify_java_equivalence.py` | ARDiff: verify Java program equivalence. |
-| `scripts/ardiff_comparison/semantic_equivalence_analyzer_enhanced.py` | ARDiff: enhanced semantic equivalence. |
-| `scripts/ardiff_comparison/convert_and_compile.sh` | ARDiff: convert and compile benchmark programs. |
+## Install
 
----
+Use Python 3.10-3.13. Python 3.12 is recommended for angr compatibility.
 
-## How to Run
+```bash
+cd symbolic_analysis
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -U pip
+pip install -e .
+```
 
-- **Working directory:** always the project root (the `symbolic_analysis/` directory).
-- **Imports:** scripts that use `src/symbolic_analysis` need it on `PYTHONPATH`. From the project root, run:
+If you only want the dependency list:
 
-  ```bash
-  export PYTHONPATH=src
-  ```
+```bash
+pip install -r requirements.txt
+```
 
-  or prefix each command with `PYTHONPATH=src`.
+Check the runtime environment:
 
-**Suggested order:**
+```bash
+symbolicana check-deps
+```
 
-1. **Sanity check (optional)**  
-   ```bash
-   cd symbolic_analysis
-   PYTHONPATH=src python3 scripts/quick_start_demo.py
-   ```
+If your environment is offline and cannot install build tools, run directly
+from the source checkout:
 
-2. **Full TSVC pipeline**  
-   ```bash
-   PYTHONPATH=src python3 src/symbolic_analysis/integration/tsvc_symbolic_integration.py
-   ```  
-   Writes to `data/tsvc/tsvc_analysis_results/` and a comparison report.
+```bash
+cd symbolic_analysis
+PYTHONPATH=src python -m symbolic_analysis.cli check-deps
+```
 
-3. **Standalone symbolic execution**  
-   ```bash
-   PYTHONPATH=src python3 scripts/se_script_improved.py
-   ```
+## Command-Line Interface
 
-4. **Path equivalence (two path prefixes)**  
-   ```bash
-   PYTHONPATH=src python3 src/symbolic_analysis/equivalence/semantic_equivalence_analyzer.py \
-     <prefix1> <prefix2> --output report.txt
-   ```  
-   Example: `paths_prog1/path_` and `paths_prog2/path_`.
+After `pip install -e .`, the `symbolicana` command is available.
+Without installation, replace `symbolicana` with:
 
-5. **ARDiff scripts**  
-   Run from project root with `PYTHONPATH=src`; ARDiff benchmarks live under `experiments/ardiff_comparison/benchmarks/`, e.g.:
+```bash
+PYTHONPATH=src python -m symbolic_analysis.cli
+```
 
-   ```bash
-   PYTHONPATH=src python3 scripts/ardiff_comparison/analyze_airy_max_eq.py
-   ```
+### 1. Symbolic Execution
 
-**Requirements:** Python 3, Z3, angr (for full functionality).
+Generate path files for one binary:
+
+```bash
+symbolicana symbolic-exec \
+  --binary /path/to/binary \
+  --output-prefix outputs/oldV \
+  --timeout 120
+```
+
+For ARDiff-style `snippet` functions, pass the function signature so floating
+point and integer arguments are placed in the correct ABI registers:
+
+```bash
+symbolicana symbolic-exec \
+  --binary /path/to/symbolic_oldV \
+  --output-prefix outputs/symbolic_oldV \
+  --signature 'double(double,int)' \
+  --timeout 120
+```
+
+This writes files named like:
+
+```text
+outputs/symbolic_oldV_path_1.txt
+outputs/symbolic_oldV_path_2.txt
+```
+
+### 2. Feature Vectors
+
+Generate the 11-dimensional path-constraint feature vectors:
+
+```bash
+symbolicana vectors \
+  --paths-dir outputs \
+  --normalize \
+  --include-min-max \
+  --out outputs/path_vectors.json
+```
+
+### 3. Path Ranking
+
+Rank old paths against new paths:
+
+```bash
+symbolicana rank \
+  --old-paths-dir outputs \
+  --new-paths-dir outputs \
+  --old-prefix symbolic_oldV \
+  --new-prefix symbolic_newV \
+  --out outputs/ranking.json
+```
+
+Optional graph evidence can be supplied as a JSON basic-block matching map:
+
+```bash
+symbolicana rank \
+  --old-paths-dir outputs \
+  --new-paths-dir outputs \
+  --old-prefix symbolic_oldV \
+  --new-prefix symbolic_newV \
+  --matching-bb-map bindiff_basic_block_map.json \
+  --out outputs/ranking.json
+```
+
+### 4. Ranked Equivalence Verification
+
+Verify ranked path candidates:
+
+```bash
+symbolicana verify \
+  --paths-dir outputs \
+  --ranking outputs/ranking.json \
+  --out outputs/verification_report.json \
+  --program-ground-truth true
+```
+
+Run the all-vs-all baseline:
+
+```bash
+symbolicana verify \
+  --paths-dir outputs \
+  --naive \
+  --out outputs/naive_report.json
+```
+
+## Python Package Layout
+
+```text
+src/symbolic_analysis/
+  analysis/              Feature extraction and hybrid path matching
+  equivalence/           Z3-based equivalence utilities
+  symbolic_execution/    Symbolic-execution helpers
+  tracing.py             JSONL timing / SMT-call tracing
+  cli.py                 `symbolicana` command
+
+scripts/
+  se_script_improved.py              angr path generation driver
+  verify_ranked_path_equivalence.py  ranked equivalence verifier
+  *_path_similarity*.py              legacy ranking scripts
+```
+
+## Notes
+
+- `results.json` and `results.csv` store timing values in seconds.
+- Markdown summaries display timing in seconds.
+- The current floating-point return equivalence mode compares numeric equality,
+  treats `+0.0` and `-0.0` as equal, and treats NaN payload/sign differences as
+  one abstract NaN result. To keep full benchmark runs practical, individual
+  return-value SMT checks are capped at 5 seconds.

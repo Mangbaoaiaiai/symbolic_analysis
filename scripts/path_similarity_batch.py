@@ -17,6 +17,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Optional
 
 # Allow importing from src
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
@@ -24,6 +25,7 @@ from symbolic_analysis.analysis.path_constraint_features import (
     FEATURE_RANGES,
     normalize_features,
 )
+from symbolic_analysis.tracing import time_block
 
 
 def cosine_similarity(a: list[float], b: list[float]) -> float:
@@ -85,7 +87,7 @@ def _write_report(
     print(f"Wrote report to {report_path}")
 
 
-def load_vectors(path: Path) -> tuple[dict[str, list[float]], dict | None, list[str]]:
+def load_vectors(path: Path) -> tuple[dict[str, list[float]], Optional[dict], list[str]]:
     """
     Load vectors JSON. Returns (path_id -> vector, min_max or None, feature_names).
     Prefer normalized_vectors if present; else use vectors and optionally normalize with min_max.
@@ -181,16 +183,24 @@ def main() -> None:
         target_vec = vectors[args.target]
         ranking = []
         filter_re = re.compile(args.filter) if args.filter else None
-        for pid, vec in vectors.items():
-            if pid == args.target:
-                continue
-            if filter_re and not filter_re.search(pid):
-                continue
-            sim = cosine_similarity(target_vec, vec)
-            ranking.append({"path_id": pid, "similarity": round(sim, 4)})
-        ranking.sort(key=lambda x: -x["similarity"])
-        if args.top is not None:
-            ranking = ranking[: args.top]
+        with time_block(
+            "align",
+            "fmcad_cosine_similarity_ranking",
+            mode="target",
+            target=args.target,
+            vector_count=len(vectors),
+        ) as trace:
+            for pid, vec in vectors.items():
+                if pid == args.target:
+                    continue
+                if filter_re and not filter_re.search(pid):
+                    continue
+                sim = cosine_similarity(target_vec, vec)
+                ranking.append({"path_id": pid, "similarity": round(sim, 4)})
+            ranking.sort(key=lambda x: -x["similarity"])
+            if args.top is not None:
+                ranking = ranking[: args.top]
+            trace["candidate_count"] = len(ranking)
 
         out_data = {
             "target": args.target,
@@ -224,14 +234,21 @@ def main() -> None:
         # All-pairs
         ids = sorted(vectors.keys())
         pairs = []
-        for i in range(len(ids)):
-            for j in range(i + 1, len(ids)):
-                a, b = ids[i], ids[j]
-                sim = cosine_similarity(vectors[a], vectors[b])
-                pairs.append({"path_a": a, "path_b": b, "similarity": round(sim, 4)})
-        pairs.sort(key=lambda x: -x["similarity"])
-        if args.top is not None:
-            pairs = pairs[: args.top]
+        with time_block(
+            "align",
+            "fmcad_cosine_similarity_ranking",
+            mode="all_pairs",
+            vector_count=len(ids),
+        ) as trace:
+            for i in range(len(ids)):
+                for j in range(i + 1, len(ids)):
+                    a, b = ids[i], ids[j]
+                    sim = cosine_similarity(vectors[a], vectors[b])
+                    pairs.append({"path_a": a, "path_b": b, "similarity": round(sim, 4)})
+            pairs.sort(key=lambda x: -x["similarity"])
+            if args.top is not None:
+                pairs = pairs[: args.top]
+            trace["candidate_count"] = len(pairs)
         out_data = {
             "mode": "all_pairs",
             "pairs": pairs,

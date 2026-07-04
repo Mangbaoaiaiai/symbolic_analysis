@@ -1,0 +1,39 @@
+Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult10/bin/symbolic_oldV --output-prefix symbolic_oldV --timeout 120 --signature int(int)
+
+ERROR    | 2026-07-01 20:38:59,022 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-01 20:38:59,194 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-01 20:38:59,195 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-01 20:38:59,195 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-01 20:38:59,195 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-01 20:38:59,196 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult10/bin/symbolic_oldV
+Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult10/bin/symbolic_oldV
+Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult10/bin/symbolic_oldV
+Found snippet at: 0x100003e78
+Created symbolic snippet arguments: arg_0:int
+Exploring paths...
+Symbolic execution finished:
+  Deadended: 0
+  Active: 0
+  Errored: 3
+  Handling errored states: 3
+
+Analyzing path 1...
+  Saved to: symbolic_oldV_path_1.txt
+  Symbolic variable values: {'arg_0': 8}
+  Constraint count: 1
+
+Analyzing path 2...
+  Saved to: symbolic_oldV_path_2.txt
+  Symbolic variable values: {'arg_0': 1073741824}
+  Constraint count: 2
+
+Analyzing path 3...
+  Saved to: symbolic_oldV_path_3.txt
+  Symbolic variable values: {'arg_0': 9}
+  Constraint count: 2
+Done. Found 3 paths
+
+
+elapsed=0.766010
+returncode=0

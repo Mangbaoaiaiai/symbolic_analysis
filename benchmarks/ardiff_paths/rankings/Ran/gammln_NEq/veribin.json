@@ -1,0 +1,23 @@
+{
+  "pair_id": "Ran/gammln_NEq",
+  "method": "veribin_path_constraint_string_similarity",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 1.533652917000035,
+    "t_preprocess": 1.533004,
+    "t_align_rank": 0.0006489170000349986,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

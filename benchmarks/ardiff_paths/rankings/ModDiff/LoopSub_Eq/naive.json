@@ -1,0 +1,23 @@
+{
+  "pair_id": "ModDiff/LoopSub_Eq",
+  "method": "naive_candidate_order",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 1.0625000072650437e-05,
+    "t_preprocess": 0.0,
+    "t_align_rank": 1.0625000072650437e-05,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "pair_id": "ModDiff/LoopMult5_Eq",
+  "method": "naive_candidate_order",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_4",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 8.58300001027601e-06,
+    "t_preprocess": 0.0,
+    "t_align_rank": 8.58300001027601e-06,
+    "old_path_count": 4,
+    "new_path_count": 3,
+    "candidate_pairs": 12
+  }
+}

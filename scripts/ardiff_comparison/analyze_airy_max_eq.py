@@ -6,6 +6,10 @@ Uses the solver to verify whether path constraints of two programs are equivalen
 
 import z3
 import os
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 def load_smt_constraints(file_path):
     """Load SMT constraint file."""
@@ -23,7 +27,7 @@ def analyze_program_equivalence():
     """Analyze equivalence of the two programs."""
     print("🔍 Analyzing Airy MAX Eq program equivalence")
     print("=" * 50)
-    base_dir = "/root/ardiff/symbolic_analysis/benchmarks/Airy/MAX/Eq"
+    base_dir = REPO_ROOT / "experiments" / "ardiff_comparison" / "benchmarks" / "Airy" / "MAX" / "Eq"
     newV_path1 = os.path.join(base_dir, "symbolic_newV_path_1.txt")
     newV_path2 = os.path.join(base_dir, "symbolic_newV_path_2.txt")
     oldV_path1 = os.path.join(base_dir, "symbolic_oldV_path_1.txt")

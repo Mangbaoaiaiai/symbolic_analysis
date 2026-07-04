@@ -1,0 +1,1 @@
+Wrote 6 path vectors to /Users/zzk/Desktop/symbolicana/evaluation_results_ardiff/raw/gam/ei_NEq/fmcad/path_vectors.json

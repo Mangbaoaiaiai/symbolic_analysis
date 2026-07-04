@@ -1,0 +1,750 @@
+{
+  "pairs": [
+    {
+      "pair_id": "Airy/MAX_Eq",
+      "subset": "Airy",
+      "program": "MAX_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Airy/MAX_NEq",
+      "subset": "Airy",
+      "program": "MAX_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Airy/Sign_Eq",
+      "subset": "Airy",
+      "program": "Sign_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Airy/Sign_NEq",
+      "subset": "Airy",
+      "program": "Sign_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/SIGN_Eq",
+      "subset": "Bess",
+      "program": "SIGN_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/SIGN_NEq",
+      "subset": "Bess",
+      "program": "SIGN_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/SQR_Eq",
+      "subset": "Bess",
+      "program": "SQR_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Bess/SQR_NEq",
+      "subset": "Bess",
+      "program": "SQR_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi0_Eq",
+      "subset": "Bess",
+      "program": "bessi0_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi0_NEq",
+      "subset": "Bess",
+      "program": "bessi0_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi1_Eq",
+      "subset": "Bess",
+      "program": "bessi1_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi1_NEq",
+      "subset": "Bess",
+      "program": "bessi1_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/probks_Eq",
+      "subset": "Bess",
+      "program": "probks_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/probks_NEq",
+      "subset": "Bess",
+      "program": "probks_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Ell/plgndr_Eq",
+      "subset": "Ell",
+      "program": "plgndr_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Ell/plgndr_NEq",
+      "subset": "Ell",
+      "program": "plgndr_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Ell/rc_Eq",
+      "subset": "Ell",
+      "program": "rc_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "Ell/rc_NEq",
+      "subset": "Ell",
+      "program": "rc_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/Add_Eq",
+      "subset": "ModDiff",
+      "program": "Add_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/Comp_Eq",
+      "subset": "ModDiff",
+      "program": "Comp_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/Const_Eq",
+      "subset": "ModDiff",
+      "program": "Const_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult10_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult10_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult15_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult15_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult2_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult2_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult20_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult20_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult5_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult5_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopSub_Eq",
+      "subset": "ModDiff",
+      "program": "LoopSub_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach10_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach10_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach15_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach15_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach2_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach2_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach20_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach20_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach5_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach5_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/Sub_Eq",
+      "subset": "ModDiff",
+      "program": "Sub_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/UnchLoop_Eq",
+      "subset": "ModDiff",
+      "program": "UnchLoop_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult10_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult10_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult15_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult15_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult2_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult2_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult20_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult20_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopMult5_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult5_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopSub_NEq",
+      "subset": "ModDiff",
+      "program": "LoopSub_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach10_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach10_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach15_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach15_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach2_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach2_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach20_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach20_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach5_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach5_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "ModDiff/UnchLoop_NEq",
+      "subset": "ModDiff",
+      "program": "UnchLoop_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Ran/gammln_Eq",
+      "subset": "Ran",
+      "program": "gammln_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Ran/gammln_NEq",
+      "subset": "Ran",
+      "program": "gammln_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "Ran/ranzero_Eq",
+      "subset": "Ran",
+      "program": "ranzero_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Ran/ranzero_NEq",
+      "subset": "Ran",
+      "program": "ranzero_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "caldat/julday_Eq",
+      "subset": "caldat",
+      "program": "julday_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "caldat/julday_NEq",
+      "subset": "caldat",
+      "program": "julday_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      }
+    },
+    {
+      "pair_id": "dart/test_Eq",
+      "subset": "dart",
+      "program": "test_Eq",
+      "ground_truth": true,
+      "original_path_count": 6,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "dart/test_NEq",
+      "subset": "dart",
+      "program": "test_NEq",
+      "ground_truth": false,
+      "original_path_count": 6,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5",
+        "symbolic_oldV_path_6": "symbolic_newV_path_6"
+      }
+    },
+    {
+      "pair_id": "gam/ei_Eq",
+      "subset": "gam",
+      "program": "ei_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "gam/ei_NEq",
+      "subset": "gam",
+      "program": "ei_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      }
+    },
+    {
+      "pair_id": "gam/erfcc_Eq",
+      "subset": "gam",
+      "program": "erfcc_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "gam/erfcc_NEq",
+      "subset": "gam",
+      "program": "erfcc_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "power/test_Eq",
+      "subset": "power",
+      "program": "test_Eq",
+      "ground_truth": true,
+      "original_path_count": 5,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5"
+      }
+    },
+    {
+      "pair_id": "power/test_NEq",
+      "subset": "power",
+      "program": "test_NEq",
+      "ground_truth": false,
+      "original_path_count": 5,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5"
+      }
+    }
+  ]
+}

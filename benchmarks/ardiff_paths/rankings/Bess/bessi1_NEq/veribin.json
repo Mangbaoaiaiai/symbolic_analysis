@@ -1,0 +1,53 @@
+{
+  "pair_id": "Bess/bessi1_NEq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.25
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 58.991568041,
+    "t_preprocess": 58.991042,
+    "t_align_rank": 0.0005260410000005322,
+    "old_path_count": 3,
+    "new_path_count": 2,
+    "candidate_pairs": 6
+  }
+}

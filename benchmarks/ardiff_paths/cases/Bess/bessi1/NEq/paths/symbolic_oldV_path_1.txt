@@ -1,0 +1,46 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun arg_a_0_32 () (_ BitVec 32))
+(assert
+ (let ((?x13 (concat arg_a_0_32 (_ bv0 32))))
+ (let ((?x15 (bvashr ?x13 (_ bv32 64))))
+ (let ((?x18 ((_ to_fp 11 53) roundTowardZero ?x15)))
+ (let ((?x19 (fp.abs ?x18)))
+ (let ((?x21 ((_ fp.to_sbv 32) roundTowardZero ?x19)))
+ (let ((?x22 (concat ?x21 (_ bv0 32))))
+ (let ((?x23 (bvashr ?x22 (_ bv32 64))))
+ (let ((?x25 ((_ to_fp 11 53) roundTowardZero ?x23)))
+ (let (($x31 (fp.eq ?x25 (fp #b0 #b10000000000 #xe000000000000))))
+ (let ((?x34 (ite $x31 (_ bv64 32) (_ bv69 32))))
+ (let (($x30 (fp.gt ?x25 (fp #b0 #b10000000000 #xe000000000000))))
+ (let ((?x35 (ite $x30 (_ bv0 32) ?x34)))
+ (let (($x28 (fp.lt ?x25 (fp #b0 #b10000000000 #xe000000000000))))
+ (let ((?x36 (ite $x28 (_ bv1 32) ?x35)))
+ (let ((?x37 ((_ zero_extend 32) ?x36)))
+ (let ((?x43 (bvand ?x37 (_ bv1 64))))
+ (let ((?x39 (bvlshr ?x37 (_ bv5 64))))
+ (let ((?x41 (bvand ?x39 (_ bv3 64))))
+ (let ((?x44 (bvor ?x41 ?x43)))
+ (let ((?x52 (bvlshr ?x44 (_ bv1 64))))
+ (let ((?x54 (bvand (bvand ?x44 ?x52) (_ bv1 64))))
+ (let ((?x45 (bvxor ?x44 (_ bv1 64))))
+ (let ((?x47 (bvshl ?x45 (_ bv62 64))))
+ (let ((?x48 (bvsub ?x47 (_ bv1 64))))
+ (let ((?x50 (bvlshr ?x48 (_ bv61 64))))
+ (let ((?x51 (bvadd ?x50 (_ bv1 64))))
+ (let ((?x55 (bvsub ?x51 ?x54)))
+ (let ((?x57 (bvshl ?x55 (_ bv28 64))))
+ (let ((?x204 (bvlshr ?x57 (_ bv31 64))))
+ (let ((?x205 ((_ extract 0 0) ?x204)))
+ (let (($x83 (and (distinct (_ bv0 1) ?x205) true)))
+ (let ((?x155 (ite $x83 (_ bv0 8) (_ bv1 8))))
+ (let ((?x72 (bvand ?x155 (_ bv1 8))))
+ (and (distinct (_ bv0 8) ?x72) true)))))))))))))))))))))))))))))))))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_a': 4294967171, 'arg_b': 0}
+; Constraint info: {'count': 1, 'types': ['inequality']}
+; Execution trace: [4294982536, 4294982880, 4294983420, 4296015872]
+; Memory hash: -6359932943154418261
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 1, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 10, "writes": [{"data": 0, "offset": -16, "size": "64"}, {"data": 0, "offset": -8, "size": "64"}, {"data": "<BV32 arg_a_0_32>", "offset": -24, "size": "32"}, {"data": 0, "offset": -28, "size": "32"}, {"data": 0, "offset": -32, "size": "32"}, {"data": 0, "offset": -36, "size": "32"}, {"data": "<BV32 fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32)>", "offset": -28, "size": "32"}, {"data": "<BV32 fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32)>", "offset": -36, "size": "32"}, {"data": "<BV32 fpToSBV(RM.RM_TowardsZero, fpAdd(RM.RM_TowardsZero, FPV(0.02282967, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(-0.02895312, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpSub(RM.RM_TowardsZero, FPV(0.01787654, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), FPV(0.00420059, DOUBLE))))))), 32)>", "offset": -32, "size": "32"}, {"data": "<BV32 fpToSBV(RM.RM_TowardsZero, fpAdd(RM.RM_TowardsZero, FPV(0.39894228, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(-0.03988024, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(-0.00362018, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(0.00163801, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(-0.01031555, DOUBLE), fpToFP(RM.RM_NearestTiesEven, fpToSBV(RM.RM_TowardsZero, fpAdd(RM.RM_TowardsZero, FPV(0.02282967, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(-0.02895312, DOUBLE), fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), fpAdd(RM.RM_TowardsZero, FPV(0.01787654, DOUBLE), fpNeg(fpMul(RM.RM_TowardsZero, fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE), FPV(0.00420059, DOUBLE)))))))), 32) * fpToSBV(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(3.75, DOUBLE), fpToFP(RM.RM_TowardsZero, (fpToSBV(RM.RM_TowardsZero, fpAbs(fpToFP(RM.RM_TowardsZero, (arg_a_0_32 .. 0x0) >> 0x20, DOUBLE)), 32) .. 0x0) >> 0x20, DOUBLE)), 32), DOUBLE)))))))))), 32)>", "offset": -32, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 unconstrained_ret__exp_3_64[31:0]>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_a_0_32 () (_ BitVec 32))\n(declare-fun unconstrained_ret__exp_3_64 () (_ BitVec 64))\n(declare-fun __return_value_4_32 () (_ BitVec 32))\n(assert\n (let ((?x13 (concat arg_a_0_32 (_ bv0 32))))\n (let ((?x15 (bvashr ?x13 (_ bv32 64))))\n (let ((?x18 ((_ to_fp 11 53) roundTowardZero ?x15)))\n (let ((?x19 (fp.abs ?x18)))\n (let ((?x21 ((_ fp.to_sbv 32) roundTowardZero ?x19)))\n (let ((?x22 (concat ?x21 (_ bv0 32))))\n (let ((?x23 (bvashr ?x22 (_ bv32 64))))\n (let ((?x25 ((_ to_fp 11 53) roundTowardZero ?x23)))\n (let (($x31 (fp.eq ?x25 (fp #b0 #b10000000000 #xe000000000000))))\n (let ((?x34 (ite $x31 (_ bv64 32) (_ bv69 32))))\n (let (($x30 (fp.gt ?x25 (fp #b0 #b10000000000 #xe000000000000))))\n (let ((?x35 (ite $x30 (_ bv0 32) ?x34)))\n (let (($x28 (fp.lt ?x25 (fp #b0 #b10000000000 #xe000000000000))))\n (let ((?x36 (ite $x28 (_ bv1 32) ?x35)))\n (let ((?x37 ((_ zero_extend 32) ?x36)))\n (let ((?x43 (bvand ?x37 (_ bv1 64))))\n (let ((?x39 (bvlshr ?x37 (_ bv5 64))))\n (let ((?x41 (bvand ?x39 (_ bv3 64))))\n (let ((?x44 (bvor ?x41 ?x43)))\n (let ((?x52 (bvlshr ?x44 (_ bv1 64))))\n (let ((?x54 (bvand (bvand ?x44 ?x52) (_ bv1 64))))\n (let ((?x45 (bvxor ?x44 (_ bv1 64))))\n (let ((?x47 (bvshl ?x45 (_ bv62 64))))\n (let ((?x48 (bvsub ?x47 (_ bv1 64))))\n (let ((?x50 (bvlshr ?x48 (_ bv61 64))))\n (let ((?x51 (bvadd ?x50 (_ bv1 64))))\n (let ((?x55 (bvsub ?x51 ?x54)))\n (let ((?x57 (bvshl ?x55 (_ bv28 64))))\n (let ((?x204 (bvlshr ?x57 (_ bv31 64))))\n (let ((?x205 ((_ extract 0 0) ?x204)))\n (let (($x83 (and (distinct (_ bv0 1) ?x205) true)))\n (let ((?x155 (ite $x83 (_ bv0 8) (_ bv1 8))))\n (let ((?x72 (bvand ?x155 (_ bv1 8))))\n (and (distinct (_ bv0 8) ?x72) true)))))))))))))))))))))))))))))))))))\n(assert\n (let ((?x102872 ((_ extract 31 0) unconstrained_ret__exp_3_64)))\n (= __return_value_4_32 ?x102872)))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

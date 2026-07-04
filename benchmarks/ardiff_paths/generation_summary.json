@@ -1,0 +1,54 @@
+{
+  "cases_discovered": 72,
+  "cases_generated": 60,
+  "failures": [
+    {
+      "case": "Bess/bessj0/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj0/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj1/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj1/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Ran/ran/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Ran/ran/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/betacf/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/betacf/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/expint/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/expint/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/gcf/Eq",
+      "error": "missing generated path files for oldV or newV"
+    },
+    {
+      "case": "gam/gcf/NEq",
+      "error": "missing generated path files for oldV or newV"
+    }
+  ]
+}

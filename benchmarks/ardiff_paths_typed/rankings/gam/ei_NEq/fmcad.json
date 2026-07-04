@@ -1,0 +1,286 @@
+{
+  "method": "hybrid_feature_cosine_bindiff_graph",
+  "config": {
+    "high_threshold": 0.8,
+    "margin_threshold": 0.05,
+    "graph_min_score": 0.01,
+    "graph_weight": 1.0,
+    "feature_weight": 0.0
+  },
+  "graph_available": true,
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "decision": "graph_rerank",
+      "feature_top1": 0.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.25,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.25
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.00017699999999998273,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 1.0,
+          "feature_similarity": 0.999567,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.8,
+          "feature_similarity": 0.999628,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.8,
+          "feature_similarity": 0.999823,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.6,
+          "feature_similarity": 0.999567,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.00037200000000003897,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 1.0,
+          "feature_similarity": 0.998984,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.8,
+          "feature_similarity": 0.999628,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.8,
+          "feature_similarity": 0.998414,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.6,
+          "feature_similarity": 0.998414,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_4",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0,
+          "feature_similarity": 0.999567,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.8,
+          "feature_similarity": 0.998414,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.8,
+          "feature_similarity": 0.999933,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.6,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_5",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 6.700000000003925e-05,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 1.0,
+          "feature_similarity": 0.998984,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.8,
+          "feature_similarity": 0.999823,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.8,
+          "feature_similarity": 0.999933,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.6,
+          "feature_similarity": 0.999933,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_6",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.6,
+          "feature_similarity": 0.999567,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.6,
+          "feature_similarity": 0.998414,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.6,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.6,
+          "feature_similarity": 0.999933,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.142857
+        }
+      ]
+    }
+  ],
+  "pair_id": "gam/ei_NEq",
+  "timing": {
+    "t_align": 0.023279041000023426,
+    "t_preprocess": 0.0,
+    "t_align_rank": 0.023279041000023426,
+    "old_path_count": 6,
+    "new_path_count": 6,
+    "candidate_pairs": 36
+  }
+}

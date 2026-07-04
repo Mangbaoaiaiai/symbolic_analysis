@@ -1,0 +1,26 @@
+{
+  "pairs": [
+    {
+      "pair_id": "Airy/MAX_Eq",
+      "subset": "Airy",
+      "program": "MAX_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Airy/MAX/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Airy/MAX/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Airy/MAX/Eq/paths",
+      "naive_ranking_path": "rankings/Airy/MAX_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Airy/MAX_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Airy/MAX_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks_typed/Airy/MAX/Eq",
+      "old_binary": "cases/Airy/MAX/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Airy/MAX/Eq/bin/symbolic_newV"
+    }
+  ],
+  "failures": []
+}

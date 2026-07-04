@@ -1,0 +1,139 @@
+{
+  "pair_id": "caldat/julday_Eq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.666667
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.545455
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.25
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.25
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.181818
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.833333
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.666667
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.545455
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.222222
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_4",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.769231
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.545455
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.2
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_5",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.833333
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.769231
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.545455
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.181818
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 2.02895329199995,
+    "t_preprocess": 2.028175,
+    "t_align_rank": 0.0007782919999499427,
+    "old_path_count": 5,
+    "new_path_count": 5,
+    "candidate_pairs": 25
+  }
+}

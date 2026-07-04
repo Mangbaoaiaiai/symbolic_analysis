@@ -1,0 +1,188 @@
+{
+  "pair_id": "dart/test_NEq",
+  "method": "naive_candidate_order",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_4",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_5",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_6",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 1.295800007028447e-05,
+    "t_preprocess": 0.0,
+    "t_align_rank": 1.295800007028447e-05,
+    "old_path_count": 6,
+    "new_path_count": 6,
+    "candidate_pairs": 36
+  }
+}

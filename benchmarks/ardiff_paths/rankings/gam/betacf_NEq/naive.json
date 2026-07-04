@@ -1,0 +1,15 @@
+{
+  "pair_id": "gam/betacf_NEq",
+  "method": "naive_candidate_order",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ]
+}

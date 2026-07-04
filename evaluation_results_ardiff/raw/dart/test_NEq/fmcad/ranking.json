@@ -1,0 +1,335 @@
+{
+  "mode": "all_pairs",
+  "pairs": [
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_newV_path_2",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_newV_path_4",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_newV_path_6",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_1",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_3",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_5",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 1.0
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_newV_path_5",
+      "similarity": 0.9672
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_newV_path_6",
+      "similarity": 0.9672
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_newV_path_5",
+      "similarity": 0.9672
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_newV_path_6",
+      "similarity": 0.9672
+    },
+    {
+      "path_a": "symbolic_oldV_path_3",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.9576
+    },
+    {
+      "path_a": "symbolic_oldV_path_3",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.9576
+    },
+    {
+      "path_a": "symbolic_oldV_path_4",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.9576
+    },
+    {
+      "path_a": "symbolic_oldV_path_4",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.9576
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.866
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.866
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.866
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.866
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.8306
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.8306
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.8306
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.8306
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.8293
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.8293
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.8293
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.8293
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.7954
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.7954
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.7954
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.7954
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.7071
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.7071
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.7071
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.7071
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_newV_path_5",
+      "similarity": 0.3938
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_newV_path_6",
+      "similarity": 0.3938
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_newV_path_5",
+      "similarity": 0.3938
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_newV_path_6",
+      "similarity": 0.3938
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_newV_path_3",
+      "similarity": 0.3536
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_newV_path_4",
+      "similarity": 0.3536
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_newV_path_3",
+      "similarity": 0.3536
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_newV_path_4",
+      "similarity": 0.3536
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_1",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_2",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_3",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_4",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_5",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_1",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_newV_path_6",
+      "path_b": "symbolic_oldV_path_2",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_1",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_1",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_1",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_1",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_2",
+      "path_b": "symbolic_oldV_path_3",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_2",
+      "path_b": "symbolic_oldV_path_4",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_2",
+      "path_b": "symbolic_oldV_path_5",
+      "similarity": 0.0
+    },
+    {
+      "path_a": "symbolic_oldV_path_2",
+      "path_b": "symbolic_oldV_path_6",
+      "similarity": 0.0
+    }
+  ]
+}

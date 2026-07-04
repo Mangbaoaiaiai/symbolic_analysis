@@ -1,0 +1,40 @@
+{
+  "pair_id": "gam/erfcc_NEq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.461538
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.571429
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.461538
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 1.527299249999898,
+    "t_preprocess": 1.527,
+    "t_align_rank": 0.0002992499998981657,
+    "old_path_count": 2,
+    "new_path_count": 2,
+    "candidate_pairs": 4
+  }
+}

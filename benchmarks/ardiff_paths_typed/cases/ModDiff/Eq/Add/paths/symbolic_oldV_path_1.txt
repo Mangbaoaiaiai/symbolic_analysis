@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 0, 'arg_1': 0}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: [4294983376]
+; Memory hash: -8767801330564732876
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 3, "writes": [{"data": "<BV32 arg_0_0_32>", "offset": -4, "size": "32"}, {"data": "<BV32 arg_1_1_32>", "offset": -8, "size": "32"}, {"data": "<BV32 arg_0_0_32 + arg_1_1_32>", "offset": -12, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(fpToFP(RM.RM_TowardsZero, (arg_0_0_32 + arg_1_1_32 .. 0x0) >> 0x20, DOUBLE))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_1_1_32 () (_ BitVec 32))\n(declare-fun arg_0_0_32 () (_ BitVec 32))\n(declare-fun __return_value_3_64 () (_ BitVec 64))\n(assert\n (let ((?x12 (bvadd arg_0_0_32 arg_1_1_32)))\n (let ((?x16 (concat ?x12 (_ bv0 32))))\n (let ((?x18 (bvashr ?x16 (_ bv32 64))))\n (let ((?x21 ((_ to_fp 11 53) roundTowardZero ?x18)))\n (let ((?x22 (fp.to_ieee_bv ?x21)))\n (= __return_value_3_64 ?x22)))))))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

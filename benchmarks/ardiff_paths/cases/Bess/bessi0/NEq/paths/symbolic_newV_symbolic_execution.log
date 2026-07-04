@@ -1,0 +1,34 @@
+Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessi0/NEq/bin/symbolic_newV --output-prefix symbolic_newV --timeout 120
+
+ERROR    | 2026-07-01 05:40:33,189 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-01 05:40:33,352 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-01 05:40:33,352 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-01 05:40:33,352 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-01 05:40:33,352 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-01 05:40:33,353 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessi0/NEq/bin/symbolic_newV
+Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessi0/NEq/bin/symbolic_newV
+Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessi0/NEq/bin/symbolic_newV
+Found snippet at: 0x100003c1c
+Created symbolic snippet arguments: arg_a, arg_b
+Exploring paths...
+Symbolic execution finished:
+  Deadended: 0
+  Active: 0
+  Errored: 2
+  Handling errored states: 2
+
+Analyzing path 1...
+  Saved to: symbolic_newV_path_1.txt
+  Symbolic variable values: {'arg_a': 4294967171, 'arg_b': 0}
+  Constraint count: 1
+
+Analyzing path 2...
+  Saved to: symbolic_newV_path_2.txt
+  Symbolic variable values: {'arg_a': 2, 'arg_b': 0}
+  Constraint count: 1
+Done. Found 2 paths
+
+
+elapsed=1.040514
+returncode=0

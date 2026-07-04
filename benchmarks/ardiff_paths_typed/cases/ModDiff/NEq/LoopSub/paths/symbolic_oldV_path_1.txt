@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 0}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: [4294983376, 4294983392, 4294983396, 4294983412, 4294983376, 4294983392, 4294983396, 4294983412, 4294983376, 4294983428]
+; Memory hash: -7868072433858383961
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 7, "writes": [{"data": "<BV32 arg_0_0_32>", "offset": -4, "size": "32"}, {"data": 900, "offset": -8, "size": "32"}, {"data": 0, "offset": -12, "size": "32"}, {"data": 895, "offset": -8, "size": "32"}, {"data": 1, "offset": -12, "size": "32"}, {"data": 890, "offset": -8, "size": "32"}, {"data": 2, "offset": -12, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 0x37a>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun __return_value_2_32 () (_ BitVec 32))\n(assert\n (= (_ bv890 32) __return_value_2_32))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

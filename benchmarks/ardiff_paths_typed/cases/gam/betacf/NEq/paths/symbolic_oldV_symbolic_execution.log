@@ -1,0 +1,12 @@
+Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/gam/betacf/NEq/bin/symbolic_oldV --output-prefix symbolic_oldV --timeout 120 --signature double(double,double,double)
+
+ERROR    | 2026-07-01 20:47:53,069 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-01 20:47:53,239 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-01 20:47:53,240 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-01 20:47:53,240 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-01 20:47:53,240 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-01 20:47:53,241 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+
+
+elapsed=150.083211
+returncode=timeout

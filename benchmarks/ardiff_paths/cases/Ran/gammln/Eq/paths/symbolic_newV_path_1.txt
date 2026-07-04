@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_a': 0, 'arg_b': 0}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: []
+; Memory hash: -8415823156300231925
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 0, "writes": []}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 arg_a_0_32>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_a_0_32 () (_ BitVec 32))\n(declare-fun __return_value_3_32 () (_ BitVec 32))\n(assert\n (= __return_value_3_32 arg_a_0_32))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

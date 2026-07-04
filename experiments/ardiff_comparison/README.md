@@ -58,7 +58,7 @@ Short form (case path under `ardiff_comparison/benchmarks/`):
 Or with an absolute path:
 
 ```bash
-./experiments/ardiff_comparison/run_one_benchmark.sh /path/to/symbolic_analysis/experiments/ardiff_comparison/benchmarks/Airy/MAX/Eq
+./experiments/ardiff_comparison/run_one_benchmark.sh ./experiments/ardiff_comparison/benchmarks/Airy/MAX/Eq
 ```
 
 ## Directory layout
@@ -72,4 +72,4 @@ Or with an absolute path:
 
 - **gcc** to compile the C files.
 - **Python 3** with **angr** and **z3** (and project on `PYTHONPATH` or run scripts by path as above).
-- Scripts are under `symbolic_analysis/scripts/` and `symbolic_analysis/scripts/ardiff_comparison/`.
+- Scripts are under `scripts/` and `scripts/ardiff_comparison/` from this project root.

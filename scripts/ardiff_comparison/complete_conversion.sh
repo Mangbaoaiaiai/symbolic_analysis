@@ -4,7 +4,11 @@
 
 echo "Completing remaining conversions..."
 
-find benchmarks -name "*.java" | grep -E "(oldV|newV)" | while read java_file; do
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+BENCHMARKS_DIR="$REPO_ROOT/experiments/ardiff_comparison/benchmarks"
+
+find "$BENCHMARKS_DIR" -name "*.java" | grep -E "(oldV|newV)" | while read java_file; do
     dir=$(dirname "$java_file")
     base=$(basename "$java_file" .java)
     echo "Processing: $dir/$base.java"
@@ -74,5 +78,5 @@ EOF
 done
 
 echo "Conversion done!"
-echo "Total C files: $(find benchmarks -name "*.c" | wc -l)"
-echo "Total executables: $(find benchmarks -name "oldV" -o -name "newV" | wc -l)" 
+echo "Total C files: $(find "$BENCHMARKS_DIR" -name "*.c" | wc -l)"
+echo "Total executables: $(find "$BENCHMARKS_DIR" -name "oldV" -o -name "newV" | wc -l)" 

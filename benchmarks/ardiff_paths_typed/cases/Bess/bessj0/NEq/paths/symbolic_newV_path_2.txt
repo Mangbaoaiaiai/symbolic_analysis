@@ -1,0 +1,39 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))
+(assert
+ (let ((?x7 (fp.abs FP_arg_0_0_64)))
+ (let (($x14 (fp.eq ?x7 (fp #b0 #b10000000101 #x4000000000000))))
+ (let ((?x17 (ite $x14 (_ bv64 32) (_ bv69 32))))
+ (let (($x12 (fp.gt ?x7 (fp #b0 #b10000000101 #x4000000000000))))
+ (let ((?x18 (ite $x12 (_ bv0 32) ?x17)))
+ (let (($x10 (fp.lt ?x7 (fp #b0 #b10000000101 #x4000000000000))))
+ (let ((?x19 (ite $x10 (_ bv1 32) ?x18)))
+ (let ((?x20 ((_ zero_extend 32) ?x19)))
+ (let ((?x26 (bvand ?x20 (_ bv1 64))))
+ (let ((?x22 (bvlshr ?x20 (_ bv5 64))))
+ (let ((?x24 (bvand ?x22 (_ bv3 64))))
+ (let ((?x27 (bvor ?x24 ?x26)))
+ (let ((?x35 (bvlshr ?x27 (_ bv1 64))))
+ (let ((?x37 (bvand (bvand ?x27 ?x35) (_ bv1 64))))
+ (let ((?x28 (bvxor ?x27 (_ bv1 64))))
+ (let ((?x30 (bvshl ?x28 (_ bv62 64))))
+ (let ((?x31 (bvsub ?x30 (_ bv1 64))))
+ (let ((?x33 (bvlshr ?x31 (_ bv61 64))))
+ (let ((?x34 (bvadd ?x33 (_ bv1 64))))
+ (let ((?x38 (bvsub ?x34 ?x37)))
+ (let ((?x40 (bvshl ?x38 (_ bv28 64))))
+ (let ((?x151 (bvlshr ?x40 (_ bv31 64))))
+ (let ((?x155 ((_ extract 0 0) ?x151)))
+ (let (($x156 (and (distinct (_ bv0 1) ?x155) true)))
+ (let ((?x44 (ite $x156 (_ bv0 8) (_ bv1 8))))
+ (let ((?x121 (bvand ?x44 (_ bv1 8))))
+ (and (distinct (_ bv0 8) ?x121) true))))))))))))))))))))))))))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 4638707616191610880}
+; Constraint info: {'count': 1, 'types': ['inequality']}
+; Execution trace: [4294982696, 4294983000, 4294983364, 4296015872, 4294983216, 4294983248]
+; Memory hash: 5349758655721446644
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 1, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 19, "writes": [{"data": 0, "offset": -16, "size": "64"}, {"data": 0, "offset": -8, "size": "64"}, {"data": "<FP64 FPS(FP_arg_0_0_64, DOUBLE)>", "offset": -24, "size": "64"}, {"data": 0, "offset": -32, "size": "64"}, {"data": 0, "offset": -40, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": 0, "offset": -56, "size": "64"}, {"data": 0, "offset": -64, "size": "64"}, {"data": 0, "offset": -72, "size": "64"}, {"data": 0, "offset": -80, "size": "64"}, {"data": "<FP64 fpAbs(FPS(FP_arg_0_0_64, DOUBLE))>", "offset": -32, "size": "64"}, {"data": "<FP64 fpDiv(RM.RM_TowardsZero, FPV(8.0, DOUBLE), fpAbs(FPS(FP_arg_0_0_64, DOUBLE)))>", "offset": -40, "size": "64"}, {"data": 0, "offset": -56, "size": "64"}, {"data": "<FP64 fpSub(RM.RM_TowardsZero, fpAbs(FPS(FP_arg_0_0_64, DOUBLE)), FPV(0.785398164, DOUBLE))>", "offset": -48, "size": "64"}, {"data": 4607182418800017408, "offset": -72, "size": "64"}, {"data": 13803532857861747202, "offset": -80, "size": "64"}, {"data": 4607182418800017408, "offset": -96, "size": "64"}, {"data": "<FP64 fpDiv(RM.RM_TowardsZero, FPV(8.0, DOUBLE), fpAbs(FPS(FP_arg_0_0_64, DOUBLE)))>", "offset": -88, "size": "64"}, {"data": "<FP64 fpSub(RM.RM_TowardsZero, FPV(1.0, DOUBLE), fpMul(RM.RM_TowardsZero, fpMul(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(8.0, DOUBLE), fpAbs(FPS(FP_arg_0_0_64, DOUBLE))), fpAdd(RM.RM_TowardsZero, fpAbs(FPS(FP_arg_0_0_64, DOUBLE)), FPV(-0.785398164, DOUBLE))), FPV(-0.01562499995, DOUBLE)))>", "offset": -64, "size": "64"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(fpAdd(RM.RM_TowardsZero, FPV(1.0, DOUBLE), fpNeg(fpMul(RM.RM_TowardsZero, fpMul(RM.RM_TowardsZero, fpDiv(RM.RM_TowardsZero, FPV(8.0, DOUBLE), fpAbs(FPS(FP_arg_0_0_64, DOUBLE))), fpAdd(RM.RM_TowardsZero, fpAbs(FPS(FP_arg_0_0_64, DOUBLE)), FPV(-0.785398164, DOUBLE))), FPV(-0.01562499995, DOUBLE)))))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun __return_value_4_64 () (_ BitVec 64))\n(assert\n (let ((?x7 (fp.abs FP_arg_0_0_64)))\n (let (($x14 (fp.eq ?x7 (fp #b0 #b10000000101 #x4000000000000))))\n (let ((?x17 (ite $x14 (_ bv64 32) (_ bv69 32))))\n (let (($x12 (fp.gt ?x7 (fp #b0 #b10000000101 #x4000000000000))))\n (let ((?x18 (ite $x12 (_ bv0 32) ?x17)))\n (let (($x10 (fp.lt ?x7 (fp #b0 #b10000000101 #x4000000000000))))\n (let ((?x19 (ite $x10 (_ bv1 32) ?x18)))\n (let ((?x20 ((_ zero_extend 32) ?x19)))\n (let ((?x26 (bvand ?x20 (_ bv1 64))))\n (let ((?x22 (bvlshr ?x20 (_ bv5 64))))\n (let ((?x24 (bvand ?x22 (_ bv3 64))))\n (let ((?x27 (bvor ?x24 ?x26)))\n (let ((?x35 (bvlshr ?x27 (_ bv1 64))))\n (let ((?x37 (bvand (bvand ?x27 ?x35) (_ bv1 64))))\n (let ((?x28 (bvxor ?x27 (_ bv1 64))))\n (let ((?x30 (bvshl ?x28 (_ bv62 64))))\n (let ((?x31 (bvsub ?x30 (_ bv1 64))))\n (let ((?x33 (bvlshr ?x31 (_ bv61 64))))\n (let ((?x34 (bvadd ?x33 (_ bv1 64))))\n (let ((?x38 (bvsub ?x34 ?x37)))\n (let ((?x40 (bvshl ?x38 (_ bv28 64))))\n (let ((?x151 (bvlshr ?x40 (_ bv31 64))))\n (let ((?x155 ((_ extract 0 0) ?x151)))\n (let (($x156 (and (distinct (_ bv0 1) ?x155) true)))\n (let ((?x44 (ite $x156 (_ bv0 8) (_ bv1 8))))\n (let ((?x121 (bvand ?x44 (_ bv1 8))))\n (and (distinct (_ bv0 8) ?x121) true))))))))))))))))))))))))))))\n(assert\n (let ((?x7 (fp.abs FP_arg_0_0_64)))\n (let ((?x344 (fp.add roundTowardZero ?x7 (fp #b1 #b01111111110 #x921fb5496fd7f))))\n (let ((?x407 (fp.div roundTowardZero (fp #b0 #b10000000010 #x0000000000000) ?x7)))\n (let ((?x480 (fp.mul roundTowardZero ?x407 ?x344)))\n (let ((?x482 (fp.mul roundTowardZero ?x480 (fp #b1 #b01111111000 #xffffffe483202))))\n (let ((?x485 (fp.neg ?x482)))\n (let ((?x486 (fp.add roundTowardZero (fp #b0 #b01111111111 #x0000000000000) ?x485)))\n (let ((?x487 (fp.to_ieee_bv ?x486)))\n (= __return_value_4_64 ?x487))))))))))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

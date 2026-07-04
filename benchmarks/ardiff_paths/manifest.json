@@ -1,0 +1,1340 @@
+{
+  "pairs": [
+    {
+      "pair_id": "Airy/MAX_Eq",
+      "subset": "Airy",
+      "program": "MAX_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Airy/MAX/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Airy/MAX/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Airy/MAX/Eq/paths",
+      "naive_ranking_path": "rankings/Airy/MAX_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Airy/MAX_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Airy/MAX_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Airy/MAX/Eq",
+      "old_binary": "cases/Airy/MAX/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Airy/MAX/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Airy/MAX_NEq",
+      "subset": "Airy",
+      "program": "MAX_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Airy/MAX/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Airy/MAX/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Airy/MAX/NEq/paths",
+      "naive_ranking_path": "rankings/Airy/MAX_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Airy/MAX_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Airy/MAX_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Airy/MAX/NEq",
+      "old_binary": "cases/Airy/MAX/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Airy/MAX/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Airy/Sign_Eq",
+      "subset": "Airy",
+      "program": "Sign_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      },
+      "left": "cases/Airy/Sign/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Airy/Sign/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Airy/Sign/Eq/paths",
+      "naive_ranking_path": "rankings/Airy/Sign_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Airy/Sign_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Airy/Sign_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Airy/Sign/Eq",
+      "old_binary": "cases/Airy/Sign/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Airy/Sign/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Airy/Sign_NEq",
+      "subset": "Airy",
+      "program": "Sign_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      },
+      "left": "cases/Airy/Sign/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Airy/Sign/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Airy/Sign/NEq/paths",
+      "naive_ranking_path": "rankings/Airy/Sign_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Airy/Sign_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Airy/Sign_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Airy/Sign/NEq",
+      "old_binary": "cases/Airy/Sign/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Airy/Sign/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/SIGN_Eq",
+      "subset": "Bess",
+      "program": "SIGN_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      },
+      "left": "cases/Bess/SIGN/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/SIGN/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/SIGN/Eq/paths",
+      "naive_ranking_path": "rankings/Bess/SIGN_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/SIGN_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/SIGN_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/SIGN/Eq",
+      "old_binary": "cases/Bess/SIGN/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/SIGN/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/SIGN_NEq",
+      "subset": "Bess",
+      "program": "SIGN_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      },
+      "left": "cases/Bess/SIGN/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/SIGN/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/SIGN/NEq/paths",
+      "naive_ranking_path": "rankings/Bess/SIGN_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/SIGN_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/SIGN_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/SIGN/NEq",
+      "old_binary": "cases/Bess/SIGN/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/SIGN/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/SQR_Eq",
+      "subset": "Bess",
+      "program": "SQR_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Bess/SQR/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/SQR/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/SQR/Eq/paths",
+      "naive_ranking_path": "rankings/Bess/SQR_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/SQR_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/SQR_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/SQR/Eq",
+      "old_binary": "cases/Bess/SQR/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/SQR/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/SQR_NEq",
+      "subset": "Bess",
+      "program": "SQR_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Bess/SQR/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/SQR/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/SQR/NEq/paths",
+      "naive_ranking_path": "rankings/Bess/SQR_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/SQR_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/SQR_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/SQR/NEq",
+      "old_binary": "cases/Bess/SQR/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/SQR/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/bessi0_Eq",
+      "subset": "Bess",
+      "program": "bessi0_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Bess/bessi0/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/bessi0/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/bessi0/Eq/paths",
+      "naive_ranking_path": "rankings/Bess/bessi0_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/bessi0_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/bessi0_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/bessi0/Eq",
+      "old_binary": "cases/Bess/bessi0/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/bessi0/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/bessi0_NEq",
+      "subset": "Bess",
+      "program": "bessi0_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Bess/bessi0/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/bessi0/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/bessi0/NEq/paths",
+      "naive_ranking_path": "rankings/Bess/bessi0_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/bessi0_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/bessi0_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/bessi0/NEq",
+      "old_binary": "cases/Bess/bessi0/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/bessi0/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/bessi1_Eq",
+      "subset": "Bess",
+      "program": "bessi1_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/Bess/bessi1/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/bessi1/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/bessi1/Eq/paths",
+      "naive_ranking_path": "rankings/Bess/bessi1_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/bessi1_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/bessi1_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/bessi1/Eq",
+      "old_binary": "cases/Bess/bessi1/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/bessi1/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/bessi1_NEq",
+      "subset": "Bess",
+      "program": "bessi1_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Bess/bessi1/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/bessi1/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/bessi1/NEq/paths",
+      "naive_ranking_path": "rankings/Bess/bessi1_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/bessi1_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/bessi1_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/bessi1/NEq",
+      "old_binary": "cases/Bess/bessi1/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/bessi1/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/probks_Eq",
+      "subset": "Bess",
+      "program": "probks_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Bess/probks/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/probks/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/probks/Eq/paths",
+      "naive_ranking_path": "rankings/Bess/probks_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/probks_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/probks_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/probks/Eq",
+      "old_binary": "cases/Bess/probks/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/probks/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Bess/probks_NEq",
+      "subset": "Bess",
+      "program": "probks_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Bess/probks/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Bess/probks/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Bess/probks/NEq/paths",
+      "naive_ranking_path": "rankings/Bess/probks_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Bess/probks_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Bess/probks_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Bess/probks/NEq",
+      "old_binary": "cases/Bess/probks/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Bess/probks/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ell/plgndr_Eq",
+      "subset": "Ell",
+      "program": "plgndr_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Ell/plgndr/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ell/plgndr/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ell/plgndr/Eq/paths",
+      "naive_ranking_path": "rankings/Ell/plgndr_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Ell/plgndr_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ell/plgndr_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ell/plgndr/Eq",
+      "old_binary": "cases/Ell/plgndr/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Ell/plgndr/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ell/plgndr_NEq",
+      "subset": "Ell",
+      "program": "plgndr_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Ell/plgndr/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ell/plgndr/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ell/plgndr/NEq/paths",
+      "naive_ranking_path": "rankings/Ell/plgndr_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Ell/plgndr_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ell/plgndr_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ell/plgndr/NEq",
+      "old_binary": "cases/Ell/plgndr/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Ell/plgndr/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ell/rc_Eq",
+      "subset": "Ell",
+      "program": "rc_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/Ell/rc/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ell/rc/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ell/rc/Eq/paths",
+      "naive_ranking_path": "rankings/Ell/rc_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Ell/rc_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ell/rc_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ell/rc/Eq",
+      "old_binary": "cases/Ell/rc/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Ell/rc/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ell/rc_NEq",
+      "subset": "Ell",
+      "program": "rc_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/Ell/rc/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ell/rc/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ell/rc/NEq/paths",
+      "naive_ranking_path": "rankings/Ell/rc_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Ell/rc_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ell/rc_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ell/rc/NEq",
+      "old_binary": "cases/Ell/rc/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Ell/rc/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/Add_Eq",
+      "subset": "ModDiff",
+      "program": "Add_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/Add/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/Add/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/Add/paths",
+      "naive_ranking_path": "rankings/ModDiff/Add_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/Add_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/Add_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/Add",
+      "old_binary": "cases/ModDiff/Eq/Add/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/Add/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/Comp_Eq",
+      "subset": "ModDiff",
+      "program": "Comp_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/Comp/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/Comp/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/Comp/paths",
+      "naive_ranking_path": "rankings/ModDiff/Comp_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/Comp_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/Comp_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/Comp",
+      "old_binary": "cases/ModDiff/Eq/Comp/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/Comp/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/Const_Eq",
+      "subset": "ModDiff",
+      "program": "Const_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/Const/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/Const/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/Const/paths",
+      "naive_ranking_path": "rankings/ModDiff/Const_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/Const_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/Const_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/Const",
+      "old_binary": "cases/ModDiff/Eq/Const/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/Const/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult10_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult10_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopMult10/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopMult10/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopMult10/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult10_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult10_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult10_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopMult10",
+      "old_binary": "cases/ModDiff/Eq/LoopMult10/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopMult10/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult15_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult15_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopMult15/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopMult15/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopMult15/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult15_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult15_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult15_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopMult15",
+      "old_binary": "cases/ModDiff/Eq/LoopMult15/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopMult15/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult2_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult2_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/ModDiff/Eq/LoopMult2/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopMult2/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopMult2/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult2_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult2_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult2_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopMult2",
+      "old_binary": "cases/ModDiff/Eq/LoopMult2/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopMult2/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult20_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult20_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopMult20/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopMult20/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopMult20/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult20_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult20_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult20_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopMult20",
+      "old_binary": "cases/ModDiff/Eq/LoopMult20/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopMult20/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult5_Eq",
+      "subset": "ModDiff",
+      "program": "LoopMult5_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopMult5/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopMult5/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopMult5/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult5_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult5_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult5_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopMult5",
+      "old_binary": "cases/ModDiff/Eq/LoopMult5/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopMult5/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopSub_Eq",
+      "subset": "ModDiff",
+      "program": "LoopSub_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/LoopSub/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopSub/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopSub/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopSub_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopSub_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopSub_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopSub",
+      "old_binary": "cases/ModDiff/Eq/LoopSub/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopSub/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach10_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach10_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopUnreach10/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopUnreach10/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopUnreach10/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach10_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach10_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach10_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopUnreach10",
+      "old_binary": "cases/ModDiff/Eq/LoopUnreach10/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopUnreach10/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach15_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach15_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopUnreach15/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopUnreach15/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopUnreach15/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach15_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach15_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach15_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopUnreach15",
+      "old_binary": "cases/ModDiff/Eq/LoopUnreach15/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopUnreach15/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach2_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach2_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopUnreach2/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopUnreach2/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopUnreach2/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach2_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach2_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach2_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopUnreach2",
+      "old_binary": "cases/ModDiff/Eq/LoopUnreach2/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopUnreach2/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach20_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach20_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopUnreach20/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopUnreach20/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopUnreach20/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach20_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach20_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach20_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopUnreach20",
+      "old_binary": "cases/ModDiff/Eq/LoopUnreach20/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopUnreach20/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach5_Eq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach5_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/Eq/LoopUnreach5/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/LoopUnreach5/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/LoopUnreach5/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach5_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach5_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach5_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/LoopUnreach5",
+      "old_binary": "cases/ModDiff/Eq/LoopUnreach5/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/LoopUnreach5/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/Sub_Eq",
+      "subset": "ModDiff",
+      "program": "Sub_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/Sub/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/Sub/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/Sub/paths",
+      "naive_ranking_path": "rankings/ModDiff/Sub_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/Sub_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/Sub_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/Sub",
+      "old_binary": "cases/ModDiff/Eq/Sub/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/Sub/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/UnchLoop_Eq",
+      "subset": "ModDiff",
+      "program": "UnchLoop_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/Eq/UnchLoop/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/Eq/UnchLoop/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/Eq/UnchLoop/paths",
+      "naive_ranking_path": "rankings/ModDiff/UnchLoop_Eq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/UnchLoop_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/UnchLoop_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/Eq/UnchLoop",
+      "old_binary": "cases/ModDiff/Eq/UnchLoop/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/Eq/UnchLoop/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult10_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult10_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopMult10/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopMult10/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopMult10/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult10_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult10_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult10_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult10",
+      "old_binary": "cases/ModDiff/NEq/LoopMult10/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopMult10/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult15_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult15_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopMult15/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopMult15/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopMult15/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult15_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult15_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult15_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult15",
+      "old_binary": "cases/ModDiff/NEq/LoopMult15/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopMult15/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult2_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult2_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/ModDiff/NEq/LoopMult2/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopMult2/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopMult2/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult2_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult2_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult2_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult2",
+      "old_binary": "cases/ModDiff/NEq/LoopMult2/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopMult2/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult20_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult20_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopMult20/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopMult20/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopMult20/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult20_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult20_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult20_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult20",
+      "old_binary": "cases/ModDiff/NEq/LoopMult20/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopMult20/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopMult5_NEq",
+      "subset": "ModDiff",
+      "program": "LoopMult5_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopMult5/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopMult5/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopMult5/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopMult5_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopMult5_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopMult5_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopMult5",
+      "old_binary": "cases/ModDiff/NEq/LoopMult5/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopMult5/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopSub_NEq",
+      "subset": "ModDiff",
+      "program": "LoopSub_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/NEq/LoopSub/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopSub/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopSub/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopSub_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopSub_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopSub_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopSub",
+      "old_binary": "cases/ModDiff/NEq/LoopSub/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopSub/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach10_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach10_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopUnreach10/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopUnreach10/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopUnreach10/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach10_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach10_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach10_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopUnreach10",
+      "old_binary": "cases/ModDiff/NEq/LoopUnreach10/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopUnreach10/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach15_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach15_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopUnreach15/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopUnreach15/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopUnreach15/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach15_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach15_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach15_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopUnreach15",
+      "old_binary": "cases/ModDiff/NEq/LoopUnreach15/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopUnreach15/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach2_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach2_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopUnreach2/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopUnreach2/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopUnreach2/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach2_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach2_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach2_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopUnreach2",
+      "old_binary": "cases/ModDiff/NEq/LoopUnreach2/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopUnreach2/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach20_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach20_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopUnreach20/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopUnreach20/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopUnreach20/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach20_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach20_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach20_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopUnreach20",
+      "old_binary": "cases/ModDiff/NEq/LoopUnreach20/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopUnreach20/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/LoopUnreach5_NEq",
+      "subset": "ModDiff",
+      "program": "LoopUnreach5_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/ModDiff/NEq/LoopUnreach5/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/LoopUnreach5/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/LoopUnreach5/paths",
+      "naive_ranking_path": "rankings/ModDiff/LoopUnreach5_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/LoopUnreach5_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/LoopUnreach5_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/LoopUnreach5",
+      "old_binary": "cases/ModDiff/NEq/LoopUnreach5/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/LoopUnreach5/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "ModDiff/UnchLoop_NEq",
+      "subset": "ModDiff",
+      "program": "UnchLoop_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/ModDiff/NEq/UnchLoop/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/ModDiff/NEq/UnchLoop/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/ModDiff/NEq/UnchLoop/paths",
+      "naive_ranking_path": "rankings/ModDiff/UnchLoop_NEq/naive.json",
+      "veribin_ranking_path": "rankings/ModDiff/UnchLoop_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/ModDiff/UnchLoop_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/ModDiff/NEq/UnchLoop",
+      "old_binary": "cases/ModDiff/NEq/UnchLoop/bin/symbolic_oldV",
+      "new_binary": "cases/ModDiff/NEq/UnchLoop/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ran/gammln_Eq",
+      "subset": "Ran",
+      "program": "gammln_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Ran/gammln/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ran/gammln/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ran/gammln/Eq/paths",
+      "naive_ranking_path": "rankings/Ran/gammln_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Ran/gammln_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ran/gammln_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ran/gammln/Eq",
+      "old_binary": "cases/Ran/gammln/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Ran/gammln/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ran/gammln_NEq",
+      "subset": "Ran",
+      "program": "gammln_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/Ran/gammln/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ran/gammln/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ran/gammln/NEq/paths",
+      "naive_ranking_path": "rankings/Ran/gammln_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Ran/gammln_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ran/gammln_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ran/gammln/NEq",
+      "old_binary": "cases/Ran/gammln/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Ran/gammln/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ran/ranzero_Eq",
+      "subset": "Ran",
+      "program": "ranzero_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Ran/ranzero/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ran/ranzero/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ran/ranzero/Eq/paths",
+      "naive_ranking_path": "rankings/Ran/ranzero_Eq/naive.json",
+      "veribin_ranking_path": "rankings/Ran/ranzero_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ran/ranzero_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ran/ranzero/Eq",
+      "old_binary": "cases/Ran/ranzero/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/Ran/ranzero/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "Ran/ranzero_NEq",
+      "subset": "Ran",
+      "program": "ranzero_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/Ran/ranzero/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/Ran/ranzero/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/Ran/ranzero/NEq/paths",
+      "naive_ranking_path": "rankings/Ran/ranzero_NEq/naive.json",
+      "veribin_ranking_path": "rankings/Ran/ranzero_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/Ran/ranzero_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/Ran/ranzero/NEq",
+      "old_binary": "cases/Ran/ranzero/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/Ran/ranzero/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "caldat/julday_Eq",
+      "subset": "caldat",
+      "program": "julday_Eq",
+      "ground_truth": true,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/caldat/julday/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/caldat/julday/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/caldat/julday/Eq/paths",
+      "naive_ranking_path": "rankings/caldat/julday_Eq/naive.json",
+      "veribin_ranking_path": "rankings/caldat/julday_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/caldat/julday_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/Eq",
+      "old_binary": "cases/caldat/julday/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/caldat/julday/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "caldat/julday_NEq",
+      "subset": "caldat",
+      "program": "julday_NEq",
+      "ground_truth": false,
+      "original_path_count": 1,
+      "patched_path_count": 1,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+      },
+      "left": "cases/caldat/julday/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/caldat/julday/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/caldat/julday/NEq/paths",
+      "naive_ranking_path": "rankings/caldat/julday_NEq/naive.json",
+      "veribin_ranking_path": "rankings/caldat/julday_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/caldat/julday_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/caldat/julday/NEq",
+      "old_binary": "cases/caldat/julday/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/caldat/julday/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "dart/test_Eq",
+      "subset": "dart",
+      "program": "test_Eq",
+      "ground_truth": true,
+      "original_path_count": 6,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/dart/test/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/dart/test/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/dart/test/Eq/paths",
+      "naive_ranking_path": "rankings/dart/test_Eq/naive.json",
+      "veribin_ranking_path": "rankings/dart/test_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/dart/test_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/dart/test/Eq",
+      "old_binary": "cases/dart/test/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/dart/test/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "dart/test_NEq",
+      "subset": "dart",
+      "program": "test_NEq",
+      "ground_truth": false,
+      "original_path_count": 6,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5",
+        "symbolic_oldV_path_6": "symbolic_newV_path_6"
+      },
+      "left": "cases/dart/test/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/dart/test/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/dart/test/NEq/paths",
+      "naive_ranking_path": "rankings/dart/test_NEq/naive.json",
+      "veribin_ranking_path": "rankings/dart/test_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/dart/test_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/dart/test/NEq",
+      "old_binary": "cases/dart/test/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/dart/test/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "gam/ei_Eq",
+      "subset": "gam",
+      "program": "ei_Eq",
+      "ground_truth": true,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/gam/ei/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/gam/ei/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/gam/ei/Eq/paths",
+      "naive_ranking_path": "rankings/gam/ei_Eq/naive.json",
+      "veribin_ranking_path": "rankings/gam/ei_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/gam/ei_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/Eq",
+      "old_binary": "cases/gam/ei/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/gam/ei/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "gam/ei_NEq",
+      "subset": "gam",
+      "program": "ei_NEq",
+      "ground_truth": false,
+      "original_path_count": 3,
+      "patched_path_count": 3,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
+      },
+      "left": "cases/gam/ei/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/gam/ei/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/gam/ei/NEq/paths",
+      "naive_ranking_path": "rankings/gam/ei_NEq/naive.json",
+      "veribin_ranking_path": "rankings/gam/ei_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/gam/ei_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/ei/NEq",
+      "old_binary": "cases/gam/ei/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/gam/ei/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "gam/erfcc_Eq",
+      "subset": "gam",
+      "program": "erfcc_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/gam/erfcc/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/gam/erfcc/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/gam/erfcc/Eq/paths",
+      "naive_ranking_path": "rankings/gam/erfcc_Eq/naive.json",
+      "veribin_ranking_path": "rankings/gam/erfcc_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/gam/erfcc_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/Eq",
+      "old_binary": "cases/gam/erfcc/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/gam/erfcc/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "gam/erfcc_NEq",
+      "subset": "gam",
+      "program": "erfcc_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      },
+      "left": "cases/gam/erfcc/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/gam/erfcc/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/gam/erfcc/NEq/paths",
+      "naive_ranking_path": "rankings/gam/erfcc_NEq/naive.json",
+      "veribin_ranking_path": "rankings/gam/erfcc_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/gam/erfcc_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/gam/erfcc/NEq",
+      "old_binary": "cases/gam/erfcc/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/gam/erfcc/NEq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "power/test_Eq",
+      "subset": "power",
+      "program": "test_Eq",
+      "ground_truth": true,
+      "original_path_count": 5,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5"
+      },
+      "left": "cases/power/test/Eq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/power/test/Eq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/power/test/Eq/paths",
+      "naive_ranking_path": "rankings/power/test_Eq/naive.json",
+      "veribin_ranking_path": "rankings/power/test_Eq/veribin.json",
+      "fmcad_ranking_path": "rankings/power/test_Eq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/Eq",
+      "old_binary": "cases/power/test/Eq/bin/symbolic_oldV",
+      "new_binary": "cases/power/test/Eq/bin/symbolic_newV"
+    },
+    {
+      "pair_id": "power/test_NEq",
+      "subset": "power",
+      "program": "test_NEq",
+      "ground_truth": false,
+      "original_path_count": 5,
+      "patched_path_count": 5,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5"
+      },
+      "left": "cases/power/test/NEq/paths/symbolic_oldV_path_1.txt",
+      "right": "cases/power/test/NEq/paths/symbolic_newV_path_1.txt",
+      "paths_dir": "cases/power/test/NEq/paths",
+      "naive_ranking_path": "rankings/power/test_NEq/naive.json",
+      "veribin_ranking_path": "rankings/power/test_NEq/veribin.json",
+      "fmcad_ranking_path": "rankings/power/test_NEq/fmcad.json",
+      "source_case": "../../symbolic_analysis/experiments/ardiff_comparison/benchmarks/power/test/NEq",
+      "old_binary": "cases/power/test/NEq/bin/symbolic_oldV",
+      "new_binary": "cases/power/test/NEq/bin/symbolic_newV"
+    }
+  ],
+  "failures": [
+    {
+      "case": "Bess/bessj0/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj0/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj0/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj1/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Bess/bessj1/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Bess/bessj1/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Ran/ran/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "Ran/ran/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/Ran/ran/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/betacf/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/betacf/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/betacf/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/expint/Eq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/Eq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/Eq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/expint/NEq",
+      "error": "symbolic execution timed out for /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/NEq/bin/symbolic_oldV; see /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/gam/expint/NEq/paths/symbolic_oldV_symbolic_execution.log"
+    },
+    {
+      "case": "gam/gcf/Eq",
+      "error": "missing generated path files for oldV or newV"
+    },
+    {
+      "case": "gam/gcf/NEq",
+      "error": "missing generated path files for oldV or newV"
+    }
+  ]
+}

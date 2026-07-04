@@ -1,0 +1,28 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun arg_a_0_32 () (_ BitVec 32))
+(declare-fun arg_b_1_32 () (_ BitVec 32))
+(assert
+ (let ((?x13 (bvmul (bvmul arg_a_0_32 arg_a_0_32) arg_a_0_32)))
+ (let (($x17 (bvsgt (_ bv0 32) ?x13)))
+ (let ((?x34 (ite $x17 (_ bv0 8) (_ bv1 8))))
+ (let ((?x32 (bvand ?x34 (_ bv1 8))))
+ (= (_ bv0 8) ?x32))))))
+(assert
+ (let (($x84 (bvslt (_ bv0 32) arg_a_0_32)))
+ (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))
+ (let ((?x91 (bvand ?x88 (_ bv1 8))))
+ (= (_ bv0 8) ?x91)))))
+(assert
+ (let (($x18441 (= (_ bv10 32) arg_b_1_32)))
+ (let ((?x18152 (ite $x18441 (_ bv0 8) (_ bv1 8))))
+ (let ((?x17979 (bvand ?x18152 (_ bv1 8))))
+ (= (_ bv0 8) ?x17979)))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_a': 1248432717, 'arg_b': 10}
+; Constraint info: {'count': 3, 'types': ['equality', 'equality', 'equality']}
+; Execution trace: [4294983244, 4294983288, 4294983292, 4294983308, 4294983312, 4294983328, 4294983332, 4294983412]
+; Memory hash: -7726233155422112940
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 3, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 3, "writes": [{"data": "<BV32 arg_a_0_32>", "offset": -8, "size": "32"}, {"data": "<BV32 arg_b_1_32>", "offset": -12, "size": "32"}, {"data": 1000, "offset": -4, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 0x3e8>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_a_0_32 () (_ BitVec 32))\n(declare-fun arg_b_1_32 () (_ BitVec 32))\n(declare-fun __return_value_8_32 () (_ BitVec 32))\n(assert\n (let ((?x13 (bvmul (bvmul arg_a_0_32 arg_a_0_32) arg_a_0_32)))\n (let (($x17 (bvsgt (_ bv0 32) ?x13)))\n (let ((?x34 (ite $x17 (_ bv0 8) (_ bv1 8))))\n (let ((?x32 (bvand ?x34 (_ bv1 8))))\n (= (_ bv0 8) ?x32))))))\n(assert\n (let (($x84 (bvslt (_ bv0 32) arg_a_0_32)))\n (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))\n (let ((?x91 (bvand ?x88 (_ bv1 8))))\n (= (_ bv0 8) ?x91)))))\n(assert\n (let (($x18441 (= (_ bv10 32) arg_b_1_32)))\n (let ((?x18152 (ite $x18441 (_ bv0 8) (_ bv1 8))))\n (let ((?x17979 (bvand ?x18152 (_ bv1 8))))\n (= (_ bv0 8) ?x17979)))))\n(assert\n (= (_ bv1000 32) __return_value_8_32))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

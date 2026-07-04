@@ -1,0 +1,126 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun arg_0_0_32 () (_ BitVec 32))
+(assert
+ (let (($x10 (bvsle (_ bv18 32) arg_0_0_32)))
+ (let ((?x25 (ite $x10 (_ bv0 8) (_ bv1 8))))
+ (let ((?x23 (bvand ?x25 (_ bv1 8))))
+ (= (_ bv0 8) ?x23)))))
+(assert
+ (let (($x84 (bvsgt (_ bv22 32) arg_0_0_32)))
+ (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))
+ (let ((?x91 (bvand ?x88 (_ bv1 8))))
+ (= (_ bv0 8) ?x91)))))
+(assert
+ (let (($x77 (bvsle (_ bv1 32) arg_0_0_32)))
+ (let ((?x247 (ite $x77 (_ bv0 8) (_ bv1 8))))
+ (let ((?x278 (bvand ?x247 (_ bv1 8))))
+ (= (_ bv0 8) ?x278)))))
+(assert
+ (let (($x241 (bvsle (_ bv2 32) arg_0_0_32)))
+ (let ((?x294 (ite $x241 (_ bv0 8) (_ bv1 8))))
+ (let ((?x350 (bvand ?x294 (_ bv1 8))))
+ (= (_ bv0 8) ?x350)))))
+(assert
+ (let (($x326 (bvsle (_ bv3 32) arg_0_0_32)))
+ (let ((?x381 (ite $x326 (_ bv0 8) (_ bv1 8))))
+ (let ((?x414 (bvand ?x381 (_ bv1 8))))
+ (= (_ bv0 8) ?x414)))))
+(assert
+ (let (($x407 (bvsle (_ bv4 32) arg_0_0_32)))
+ (let ((?x448 (ite $x407 (_ bv0 8) (_ bv1 8))))
+ (let ((?x482 (bvand ?x448 (_ bv1 8))))
+ (= (_ bv0 8) ?x482)))))
+(assert
+ (let (($x471 (bvsle (_ bv5 32) arg_0_0_32)))
+ (let ((?x478 (ite $x471 (_ bv0 8) (_ bv1 8))))
+ (let ((?x547 (bvand ?x478 (_ bv1 8))))
+ (= (_ bv0 8) ?x547)))))
+(assert
+ (let (($x470 (bvsle (_ bv6 32) arg_0_0_32)))
+ (let ((?x447 (ite $x470 (_ bv0 8) (_ bv1 8))))
+ (let ((?x613 (bvand ?x447 (_ bv1 8))))
+ (= (_ bv0 8) ?x613)))))
+(assert
+ (let (($x588 (bvsle (_ bv7 32) arg_0_0_32)))
+ (let ((?x594 (ite $x588 (_ bv0 8) (_ bv1 8))))
+ (let ((?x677 (bvand ?x594 (_ bv1 8))))
+ (= (_ bv0 8) ?x677)))))
+(assert
+ (let (($x609 (bvsle (_ bv8 32) arg_0_0_32)))
+ (let ((?x580 (ite $x609 (_ bv0 8) (_ bv1 8))))
+ (let ((?x745 (bvand ?x580 (_ bv1 8))))
+ (= (_ bv0 8) ?x745)))))
+(assert
+ (let (($x243 (bvsle (_ bv9 32) arg_0_0_32)))
+ (let ((?x776 (ite $x243 (_ bv0 8) (_ bv1 8))))
+ (let ((?x808 (bvand ?x776 (_ bv1 8))))
+ (= (_ bv0 8) ?x808)))))
+(assert
+ (let (($x783 (bvsle (_ bv10 32) arg_0_0_32)))
+ (let ((?x316 (ite $x783 (_ bv0 8) (_ bv1 8))))
+ (let ((?x875 (bvand ?x316 (_ bv1 8))))
+ (= (_ bv0 8) ?x875)))))
+(assert
+ (let (($x861 (bvsle (_ bv11 32) arg_0_0_32)))
+ (let ((?x346 (ite $x861 (_ bv0 8) (_ bv1 8))))
+ (let ((?x940 (bvand ?x346 (_ bv1 8))))
+ (= (_ bv0 8) ?x940)))))
+(assert
+ (let (($x913 (bvsle (_ bv12 32) arg_0_0_32)))
+ (let ((?x514 (ite $x913 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1005 (bvand ?x514 (_ bv1 8))))
+ (= (_ bv0 8) ?x1005)))))
+(assert
+ (let (($x978 (bvsle (_ bv13 32) arg_0_0_32)))
+ (let ((?x530 (ite $x978 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1070 (bvand ?x530 (_ bv1 8))))
+ (= (_ bv0 8) ?x1070)))))
+(assert
+ (let (($x1043 (bvsle (_ bv14 32) arg_0_0_32)))
+ (let ((?x644 (ite $x1043 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1137 (bvand ?x644 (_ bv1 8))))
+ (= (_ bv0 8) ?x1137)))))
+(assert
+ (let (($x1114 (bvsle (_ bv15 32) arg_0_0_32)))
+ (let ((?x660 (ite $x1114 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1204 (bvand ?x660 (_ bv1 8))))
+ (= (_ bv0 8) ?x1204)))))
+(assert
+ (let (($x1200 (bvsle (_ bv16 32) arg_0_0_32)))
+ (let ((?x725 (ite $x1200 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1271 (bvand ?x725 (_ bv1 8))))
+ (= (_ bv0 8) ?x1271)))))
+(assert
+ (let (($x1216 (bvsle (_ bv17 32) arg_0_0_32)))
+ (let ((?x790 (ite $x1216 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1331 (bvand ?x790 (_ bv1 8))))
+ (= (_ bv0 8) ?x1331)))))
+(assert
+ (let (($x468 (bvsle (_ bv19 32) arg_0_0_32)))
+ (let ((?x918 (ite $x468 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1391 (bvand ?x918 (_ bv1 8))))
+ (= (_ bv0 8) ?x1391)))))
+(assert
+ (let (($x1404 (bvsle (_ bv20 32) arg_0_0_32)))
+ (let ((?x664 (ite $x1404 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1310 (bvand ?x664 (_ bv1 8))))
+ (= (_ bv0 8) ?x1310)))))
+(assert
+ (let (($x1366 (bvsle (_ bv21 32) arg_0_0_32)))
+ (let ((?x382 (ite $x1366 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1531 (bvand ?x382 (_ bv1 8))))
+ (= (_ bv0 8) ?x1531)))))
+(assert
+ (let (($x87 (bvsle (_ bv22 32) arg_0_0_32)))
+ (let ((?x454 (ite $x87 (_ bv0 8) (_ bv1 8))))
+ (let ((?x1458 (bvand ?x454 (_ bv1 8))))
+ (and (distinct (_ bv0 8) ?x1458) true)))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 21}
+; Constraint info: {'count': 23, 'types': ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'equality', 'inequality']}
+; Execution trace: [4294983372, 4294983376, 4294983392, 4294983352, 4294983372, 4294983376, 4294983392, 4294983352, 4294983408, 4294983428]
+; Memory hash: -683088004872081228
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 23, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 46, "writes": [{"data": "<BV32 arg_0_0_32>", "offset": -8, "size": "32"}, {"data": 0, "offset": -12, "size": "32"}, {"data": 1, "offset": -16, "size": "32"}, {"data": 20, "offset": -12, "size": "32"}, {"data": 2, "offset": -16, "size": "32"}, {"data": 40, "offset": -12, "size": "32"}, {"data": 3, "offset": -16, "size": "32"}, {"data": 60, "offset": -12, "size": "32"}, {"data": 4, "offset": -16, "size": "32"}, {"data": 80, "offset": -12, "size": "32"}, {"data": 5, "offset": -16, "size": "32"}, {"data": 100, "offset": -12, "size": "32"}, {"data": 6, "offset": -16, "size": "32"}, {"data": 120, "offset": -12, "size": "32"}, {"data": 7, "offset": -16, "size": "32"}, {"data": 140, "offset": -12, "size": "32"}, {"data": 8, "offset": -16, "size": "32"}, {"data": 160, "offset": -12, "size": "32"}, {"data": 9, "offset": -16, "size": "32"}, {"data": 180, "offset": -12, "size": "32"}, {"data": 10, "offset": -16, "size": "32"}, {"data": 200, "offset": -12, "size": "32"}, {"data": 11, "offset": -16, "size": "32"}, {"data": 220, "offset": -12, "size": "32"}, {"data": 12, "offset": -16, "size": "32"}, {"data": 240, "offset": -12, "size": "32"}, {"data": 13, "offset": -16, "size": "32"}, {"data": 260, "offset": -12, "size": "32"}, {"data": 14, "offset": -16, "size": "32"}, {"data": 280, "offset": -12, "size": "32"}, {"data": 15, "offset": -16, "size": "32"}, {"data": 300, "offset": -12, "size": "32"}, {"data": 16, "offset": -16, "size": "32"}, {"data": 320, "offset": -12, "size": "32"}, {"data": 17, "offset": -16, "size": "32"}, {"data": 340, "offset": -12, "size": "32"}, {"data": 18, "offset": -16, "size": "32"}, {"data": 360, "offset": -12, "size": "32"}, {"data": 19, "offset": -16, "size": "32"}, {"data": 380, "offset": -12, "size": "32"}, {"data": 20, "offset": -16, "size": "32"}, {"data": 400, "offset": -12, "size": "32"}, {"data": 21, "offset": -16, "size": "32"}, {"data": 420, "offset": -12, "size": "32"}, {"data": 22, "offset": -16, "size": "32"}, {"data": 420, "offset": -4, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 0x1a4>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_0_0_32 () (_ BitVec 32))\n(declare-fun __return_value_7_32 () (_ BitVec 32))\n(assert\n (let (($x10 (bvsle (_ bv18 32) arg_0_0_32)))\n (let ((?x25 (ite $x10 (_ bv0 8) (_ bv1 8))))\n (let ((?x23 (bvand ?x25 (_ bv1 8))))\n (= (_ bv0 8) ?x23)))))\n(assert\n (let (($x84 (bvsgt (_ bv22 32) arg_0_0_32)))\n (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))\n (let ((?x91 (bvand ?x88 (_ bv1 8))))\n (= (_ bv0 8) ?x91)))))\n(assert\n (let (($x77 (bvsle (_ bv1 32) arg_0_0_32)))\n (let ((?x247 (ite $x77 (_ bv0 8) (_ bv1 8))))\n (let ((?x278 (bvand ?x247 (_ bv1 8))))\n (= (_ bv0 8) ?x278)))))\n(assert\n (let (($x241 (bvsle (_ bv2 32) arg_0_0_32)))\n (let ((?x294 (ite $x241 (_ bv0 8) (_ bv1 8))))\n (let ((?x350 (bvand ?x294 (_ bv1 8))))\n (= (_ bv0 8) ?x350)))))\n(assert\n (let (($x326 (bvsle (_ bv3 32) arg_0_0_32)))\n (let ((?x381 (ite $x326 (_ bv0 8) (_ bv1 8))))\n (let ((?x414 (bvand ?x381 (_ bv1 8))))\n (= (_ bv0 8) ?x414)))))\n(assert\n (let (($x407 (bvsle (_ bv4 32) arg_0_0_32)))\n (let ((?x448 (ite $x407 (_ bv0 8) (_ bv1 8))))\n (let ((?x482 (bvand ?x448 (_ bv1 8))))\n (= (_ bv0 8) ?x482)))))\n(assert\n (let (($x471 (bvsle (_ bv5 32) arg_0_0_32)))\n (let ((?x478 (ite $x471 (_ bv0 8) (_ bv1 8))))\n (let ((?x547 (bvand ?x478 (_ bv1 8))))\n (= (_ bv0 8) ?x547)))))\n(assert\n (let (($x470 (bvsle (_ bv6 32) arg_0_0_32)))\n (let ((?x447 (ite $x470 (_ bv0 8) (_ bv1 8))))\n (let ((?x613 (bvand ?x447 (_ bv1 8))))\n (= (_ bv0 8) ?x613)))))\n(assert\n (let (($x588 (bvsle (_ bv7 32) arg_0_0_32)))\n (let ((?x594 (ite $x588 (_ bv0 8) (_ bv1 8))))\n (let ((?x677 (bvand ?x594 (_ bv1 8))))\n (= (_ bv0 8) ?x677)))))\n(assert\n (let (($x609 (bvsle (_ bv8 32) arg_0_0_32)))\n (let ((?x580 (ite $x609 (_ bv0 8) (_ bv1 8))))\n (let ((?x745 (bvand ?x580 (_ bv1 8))))\n (= (_ bv0 8) ?x745)))))\n(assert\n (let (($x243 (bvsle (_ bv9 32) arg_0_0_32)))\n (let ((?x776 (ite $x243 (_ bv0 8) (_ bv1 8))))\n (let ((?x808 (bvand ?x776 (_ bv1 8))))\n (= (_ bv0 8) ?x808)))))\n(assert\n (let (($x783 (bvsle (_ bv10 32) arg_0_0_32)))\n (let ((?x316 (ite $x783 (_ bv0 8) (_ bv1 8))))\n (let ((?x875 (bvand ?x316 (_ bv1 8))))\n (= (_ bv0 8) ?x875)))))\n(assert\n (let (($x861 (bvsle (_ bv11 32) arg_0_0_32)))\n (let ((?x346 (ite $x861 (_ bv0 8) (_ bv1 8))))\n (let ((?x940 (bvand ?x346 (_ bv1 8))))\n (= (_ bv0 8) ?x940)))))\n(assert\n (let (($x913 (bvsle (_ bv12 32) arg_0_0_32)))\n (let ((?x514 (ite $x913 (_ bv0 8) (_ bv1 8))))\n (let ((?x1005 (bvand ?x514 (_ bv1 8))))\n (= (_ bv0 8) ?x1005)))))\n(assert\n (let (($x978 (bvsle (_ bv13 32) arg_0_0_32)))\n (let ((?x530 (ite $x978 (_ bv0 8) (_ bv1 8))))\n (let ((?x1070 (bvand ?x530 (_ bv1 8))))\n (= (_ bv0 8) ?x1070)))))\n(assert\n (let (($x1043 (bvsle (_ bv14 32) arg_0_0_32)))\n (let ((?x644 (ite $x1043 (_ bv0 8) (_ bv1 8))))\n (let ((?x1137 (bvand ?x644 (_ bv1 8))))\n (= (_ bv0 8) ?x1137)))))\n(assert\n (let (($x1114 (bvsle (_ bv15 32) arg_0_0_32)))\n (let ((?x660 (ite $x1114 (_ bv0 8) (_ bv1 8))))\n (let ((?x1204 (bvand ?x660 (_ bv1 8))))\n (= (_ bv0 8) ?x1204)))))\n(assert\n (let (($x1200 (bvsle (_ bv16 32) arg_0_0_32)))\n (let ((?x725 (ite $x1200 (_ bv0 8) (_ bv1 8))))\n (let ((?x1271 (bvand ?x725 (_ bv1 8))))\n (= (_ bv0 8) ?x1271)))))\n(assert\n (let (($x1216 (bvsle (_ bv17 32) arg_0_0_32)))\n (let ((?x790 (ite $x1216 (_ bv0 8) (_ bv1 8))))\n (let ((?x1331 (bvand ?x790 (_ bv1 8))))\n (= (_ bv0 8) ?x1331)))))\n(assert\n (let (($x468 (bvsle (_ bv19 32) arg_0_0_32)))\n (let ((?x918 (ite $x468 (_ bv0 8) (_ bv1 8))))\n (let ((?x1391 (bvand ?x918 (_ bv1 8))))\n (= (_ bv0 8) ?x1391)))))\n(assert\n (let (($x1404 (bvsle (_ bv20 32) arg_0_0_32)))\n (let ((?x664 (ite $x1404 (_ bv0 8) (_ bv1 8))))\n (let ((?x1310 (bvand ?x664 (_ bv1 8))))\n (= (_ bv0 8) ?x1310)))))\n(assert\n (let (($x1366 (bvsle (_ bv21 32) arg_0_0_32)))\n (let ((?x382 (ite $x1366 (_ bv0 8) (_ bv1 8))))\n (let ((?x1531 (bvand ?x382 (_ bv1 8))))\n (= (_ bv0 8) ?x1531)))))\n(assert\n (let (($x87 (bvsle (_ bv22 32) arg_0_0_32)))\n (let ((?x454 (ite $x87 (_ bv0 8) (_ bv1 8))))\n (let ((?x1458 (bvand ?x454 (_ bv1 8))))\n (and (distinct (_ bv0 8) ?x1458) true)))))\n(assert\n (= (_ bv420 32) __return_value_7_32))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

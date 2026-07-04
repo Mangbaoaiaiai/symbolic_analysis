@@ -1,12 +1,15 @@
                       
 """
-Enhanced path equivalence analyzer with a three-step verification pipeline:
-1. Semantic equivalence of logical constraints
-2. Consistency of initial array states
-3. Consistency of final array states
+Legacy enhanced path equivalence analyzer.
 
-The analyzer combines constraint equivalence and array-state comparisons
-to reason about full path equivalence between two programs.
+The maintained verification semantics for this project are implemented in
+scripts/verify_ranked_path_equivalence.py and use the current three-layer
+definition:
+1. input-space equivalence,
+2. function return-value equivalence on compatible input regions,
+3. heap/global state equivalence.
+
+This module is kept for compatibility with earlier array-state experiments.
 """
 
 import re

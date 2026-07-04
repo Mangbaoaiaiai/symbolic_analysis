@@ -39,6 +39,7 @@ improved_paths_*/
 # 操作系统文件
 .DS_Store
 Thumbs.db
+*.dSYM/
 
 # 第三方项目
 pldi19-equivalence-checker/ 

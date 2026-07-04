@@ -1,0 +1,65 @@
+{
+  "pair_id": "gam/ei_Eq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 5.974908999999952,
+    "t_preprocess": 5.973539000000001,
+    "t_align_rank": 0.0013699999999516876,
+    "old_path_count": 3,
+    "new_path_count": 3,
+    "candidate_pairs": 9
+  }
+}

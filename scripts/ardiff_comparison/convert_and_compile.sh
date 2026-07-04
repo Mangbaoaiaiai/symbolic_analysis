@@ -4,8 +4,10 @@
 
 set -e
 
-BENCHMARKS_DIR="/root/ardiff/symbolic_analysis/benchmarks"
-REPORT_FILE="/root/ardiff/symbolic_analysis/conversion_report.txt"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+BENCHMARKS_DIR="$REPO_ROOT/experiments/ardiff_comparison/benchmarks"
+REPORT_FILE="$REPO_ROOT/conversion_report.txt"
 
 echo "Starting batch Java-to-C conversion and compile..." > "$REPORT_FILE"
 echo "Time: $(date)" >> "$REPORT_FILE"

@@ -1,0 +1,54 @@
+Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/dart/test/NEq/bin/symbolic_oldV --output-prefix symbolic_oldV --timeout 120
+
+ERROR    | 2026-07-01 06:00:57,930 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-01 06:00:58,102 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-01 06:00:58,102 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-01 06:00:58,102 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-01 06:00:58,103 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-01 06:00:58,103 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/dart/test/NEq/bin/symbolic_oldV
+Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/dart/test/NEq/bin/symbolic_oldV
+Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths/cases/dart/test/NEq/bin/symbolic_oldV
+Found snippet at: 0x100003e4c
+Created symbolic snippet arguments: arg_a, arg_b
+Exploring paths...
+Symbolic execution finished:
+  Deadended: 0
+  Active: 0
+  Errored: 6
+  Handling errored states: 6
+
+Analyzing path 1...
+  Saved to: symbolic_oldV_path_1.txt
+  Symbolic variable values: {'arg_a': 2717138137, 'arg_b': 0}
+  Constraint count: 2
+
+Analyzing path 2...
+  Saved to: symbolic_oldV_path_2.txt
+  Symbolic variable values: {'arg_a': 3444992265, 'arg_b': 0}
+  Constraint count: 2
+
+Analyzing path 3...
+  Saved to: symbolic_oldV_path_3.txt
+  Symbolic variable values: {'arg_a': 2095147494, 'arg_b': 4294967275}
+  Constraint count: 3
+
+Analyzing path 4...
+  Saved to: symbolic_oldV_path_4.txt
+  Symbolic variable values: {'arg_a': 2095147494, 'arg_b': 20}
+  Constraint count: 3
+
+Analyzing path 5...
+  Saved to: symbolic_oldV_path_5.txt
+  Symbolic variable values: {'arg_a': 409806501, 'arg_b': 4294967285}
+  Constraint count: 3
+
+Analyzing path 6...
+  Saved to: symbolic_oldV_path_6.txt
+  Symbolic variable values: {'arg_a': 409806501, 'arg_b': 10}
+  Constraint count: 3
+Done. Found 6 paths
+
+
+elapsed=1.029650
+returncode=0

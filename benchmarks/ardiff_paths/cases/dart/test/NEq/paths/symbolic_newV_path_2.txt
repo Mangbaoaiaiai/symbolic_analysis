@@ -1,0 +1,22 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun arg_a_0_32 () (_ BitVec 32))
+(assert
+ (let ((?x13 (bvmul (bvmul arg_a_0_32 arg_a_0_32) arg_a_0_32)))
+ (let (($x17 (bvsgt (_ bv0 32) ?x13)))
+ (let ((?x34 (ite $x17 (_ bv0 8) (_ bv1 8))))
+ (let ((?x32 (bvand ?x34 (_ bv1 8))))
+ (= (_ bv0 8) ?x32))))))
+(assert
+ (let (($x84 (bvslt (_ bv0 32) arg_a_0_32)))
+ (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))
+ (let ((?x91 (bvand ?x88 (_ bv1 8))))
+ (and (distinct (_ bv0 8) ?x91) true)))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_a': 2991084859, 'arg_b': 0}
+; Constraint info: {'count': 2, 'types': ['equality', 'inequality']}
+; Execution trace: [4294983244, 4294983288, 4294983292, 4294983344, 4294983404, 4294983412]
+; Memory hash: 1728490896233825725
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 2, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 3, "writes": [{"data": "<BV32 arg_a_0_32>", "offset": -8, "size": "32"}, {"data": "<BV32 arg_b_1_32>", "offset": -12, "size": "32"}, {"data": 0, "offset": -4, "size": "32"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 32, "repr": "<BV32 0x0>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun arg_a_0_32 () (_ BitVec 32))\n(declare-fun __return_value_4_32 () (_ BitVec 32))\n(assert\n (let ((?x13 (bvmul (bvmul arg_a_0_32 arg_a_0_32) arg_a_0_32)))\n (let (($x17 (bvsgt (_ bv0 32) ?x13)))\n (let ((?x34 (ite $x17 (_ bv0 8) (_ bv1 8))))\n (let ((?x32 (bvand ?x34 (_ bv1 8))))\n (= (_ bv0 8) ?x32))))))\n(assert\n (let (($x84 (bvslt (_ bv0 32) arg_a_0_32)))\n (let ((?x88 (ite $x84 (_ bv0 8) (_ bv1 8))))\n (let ((?x91 (bvand ?x88 (_ bv1 8))))\n (and (distinct (_ bv0 8) ?x91) true)))))\n(assert\n (= (_ bv0 32) __return_value_4_32))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

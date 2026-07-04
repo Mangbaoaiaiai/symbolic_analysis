@@ -1,0 +1,89 @@
+{
+  "pair_id": "ModDiff/LoopMult10_NEq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.75
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.222222
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.75
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.181818
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.181818
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.181818
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.833333
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.833333
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.833333
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.181818
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 1.783111124999945,
+    "t_preprocess": 1.7825320000000002,
+    "t_align_rank": 0.0005791249999447246,
+    "old_path_count": 3,
+    "new_path_count": 5,
+    "candidate_pairs": 15
+  }
+}

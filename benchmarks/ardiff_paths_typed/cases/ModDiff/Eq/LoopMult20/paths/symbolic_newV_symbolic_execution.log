@@ -1,0 +1,54 @@
+Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult20/bin/symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature int(int)
+
+ERROR    | 2026-07-01 20:39:11,365 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-01 20:39:11,532 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-01 20:39:11,532 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-01 20:39:11,532 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-01 20:39:11,532 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-01 20:39:11,533 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult20/bin/symbolic_newV
+Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult20/bin/symbolic_newV
+Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/ModDiff/Eq/LoopMult20/bin/symbolic_newV
+Found snippet at: 0x100003e78
+Created symbolic snippet arguments: arg_0:int
+Exploring paths...
+Symbolic execution finished:
+  Deadended: 0
+  Active: 0
+  Errored: 6
+  Handling errored states: 6
+
+Analyzing path 1...
+  Saved to: symbolic_newV_path_1.txt
+  Symbolic variable values: {'arg_0': 17}
+  Constraint count: 1
+
+Analyzing path 2...
+  Saved to: symbolic_newV_path_2.txt
+  Symbolic variable values: {'arg_0': 1073741824}
+  Constraint count: 2
+
+Analyzing path 3...
+  Saved to: symbolic_newV_path_3.txt
+  Symbolic variable values: {'arg_0': 18}
+  Constraint count: 20
+
+Analyzing path 4...
+  Saved to: symbolic_newV_path_4.txt
+  Symbolic variable values: {'arg_0': 19}
+  Constraint count: 21
+
+Analyzing path 5...
+  Saved to: symbolic_newV_path_5.txt
+  Symbolic variable values: {'arg_0': 20}
+  Constraint count: 22
+
+Analyzing path 6...
+  Saved to: symbolic_newV_path_6.txt
+  Symbolic variable values: {'arg_0': 21}
+  Constraint count: 23
+Done. Found 6 paths
+
+
+elapsed=1.268913
+returncode=0

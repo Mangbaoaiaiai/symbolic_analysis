@@ -1,0 +1,31 @@
+{
+  "pair_id": "A/s173_O1_vs_O1",
+  "queries": [
+    {
+      "query": "s173_O1_path_1",
+      "ranking": [
+        {
+          "path_id": "s173_O1_path_1",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "s173_O1_path_2",
+          "similarity": 0.403174
+        }
+      ]
+    },
+    {
+      "query": "s173_O1_path_2",
+      "ranking": [
+        {
+          "path_id": "s173_O1_path_2",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "s173_O1_path_1",
+          "similarity": 0.403174
+        }
+      ]
+    }
+  ]
+}

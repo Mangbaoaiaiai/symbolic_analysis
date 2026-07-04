@@ -1,0 +1,15 @@
+{
+  "pair_id": "Bess/bessj0_NEq",
+  "method": "veribin_path_constraint_string_similarity",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0
+        }
+      ]
+    }
+  ]
+}

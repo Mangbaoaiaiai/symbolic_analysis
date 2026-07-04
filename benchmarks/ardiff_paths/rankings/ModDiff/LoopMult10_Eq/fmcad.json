@@ -1,0 +1,126 @@
+{
+  "method": "hybrid_feature_cosine_bindiff_graph",
+  "config": {
+    "high_threshold": 0.8,
+    "margin_threshold": 0.05,
+    "graph_min_score": 0.01,
+    "graph_weight": 1.0,
+    "feature_weight": 0.0
+  },
+  "graph_available": true,
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "decision": "graph_rerank",
+      "feature_top1": 0.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.75,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.75
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.222222,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.222222,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.222222
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.222222,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.222222
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "decision": "feature_confident",
+      "feature_top1": 1.0,
+      "feature_margin": 0.18126799999999998,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0,
+          "feature_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.818732,
+          "feature_similarity": 0.818732
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.790724,
+          "feature_similarity": 0.790724
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.763386,
+          "feature_similarity": 0.763386
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "decision": "feature_confident",
+      "feature_top1": 1.0,
+      "feature_margin": 0.18126799999999998,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0,
+          "feature_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.818732,
+          "feature_similarity": 0.818732
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.790724,
+          "feature_similarity": 0.790724
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.763386,
+          "feature_similarity": 0.763386
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "pair_id": "ModDiff/LoopMult10_Eq",
+  "timing": {
+    "t_align": 0.004482583000026352,
+    "t_preprocess": 0.0,
+    "t_align_rank": 0.004482583000026352,
+    "old_path_count": 3,
+    "new_path_count": 5,
+    "candidate_pairs": 15
+  }
+}

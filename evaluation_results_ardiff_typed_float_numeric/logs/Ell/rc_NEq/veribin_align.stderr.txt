@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 777, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 762, in main
+    result = verify_ranked_queue(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 678, in verify_ranked_queue
+    forward = verify_directional_cover(old_paths, new_paths, ranking, timeout_ms, truth_pairs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 448, in verify_directional_cover
+    equivalent, elapsed, calls, semantic_details = verify_semantic_path_relation(
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 163, in verify_semantic_path_relation
+    return_eq, return_time, return_calls = verify_return_equivalence_on_overlap(
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 227, in verify_return_equivalence_on_overlap
+    return verify_return_smt_equivalence(left_return, right_return, timeout_ms)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 252, in verify_return_smt_equivalence
+    left_formula = formula_from_smt_text(left_smt, ctx)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/verify_ranked_path_equivalence.py", line 33, in formula_from_smt_text
+    formulas = parse_smt2_string(content, ctx=ctx)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/lib/python3.12/site-packages/z3/z3.py", line 9379, in parse_smt2_string
+    return AstVector(Z3_parse_smtlib2_string(ctx.ref(), s, ssz, snames, ssorts, dsz, dnames, ddecls), ctx)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/lib/python3.12/site-packages/z3/z3core.py", line 3565, in Z3_parse_smtlib2_string
+    _elems.Check(a0)
+  File "/Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/lib/python3.12/site-packages/z3/z3core.py", line 1554, in Check
+    raise self.Exception(self.get_error_message(ctx, err))
+z3.z3types.Z3Exception: b'(error "line 34 column 23: unknown constant FP_arg_1_1_64")\n'

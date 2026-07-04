@@ -1,0 +1,3 @@
+{"event": "align_start", "name": "fmcad_feature_vector_generation", "path_count": 6, "run_id": "gam/ei_NEq:fmcad_align:fmcad_vectors", "ts": 1782836705.707865}
+{"elapsed": 0.0050675830000000005, "end_ts": 1782836705.712936, "event": "align_end", "name": "fmcad_feature_vector_generation", "path_count": 6, "run_id": "gam/ei_NEq:fmcad_align:fmcad_vectors", "start_ts": 1782836705.707864, "ts": 1782836705.712938, "vectors_generated": 6}
+{"counters": {}, "event": "summary", "run_id": "gam/ei_NEq:fmcad_align:fmcad_vectors", "totals": {"align_seconds": 0.0050675830000000005}, "ts": 1782836705.713435}

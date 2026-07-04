@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 9221120237041090560}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: []
+; Memory hash: 5583914131568268637
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 0, "writes": []}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun __return_value_2_64 () (_ BitVec 64))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (= __return_value_2_64 ?x6)))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

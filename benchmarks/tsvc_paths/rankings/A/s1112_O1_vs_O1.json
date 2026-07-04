@@ -1,0 +1,31 @@
+{
+  "pair_id": "A/s1112_O1_vs_O1",
+  "queries": [
+    {
+      "query": "s1112_O1_path_1",
+      "ranking": [
+        {
+          "path_id": "s1112_O1_path_1",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "s1112_O1_path_2",
+          "similarity": 1.0
+        }
+      ]
+    },
+    {
+      "query": "s1112_O1_path_2",
+      "ranking": [
+        {
+          "path_id": "s1112_O1_path_1",
+          "similarity": 1.0
+        },
+        {
+          "path_id": "s1112_O1_path_2",
+          "similarity": 1.0
+        }
+      ]
+    }
+  ]
+}

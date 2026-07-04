@@ -1,0 +1,125 @@
+{
+  "method": "hybrid_feature_cosine_bindiff_graph",
+  "prediction": false,
+  "alignment_success": false,
+  "input_space_equal": true,
+  "old_input_subset_new": true,
+  "new_input_subset_old": true,
+  "old_path_count": 2,
+  "new_path_count": 2,
+  "candidate_pairs": 4,
+  "aligned_pairs": 0,
+  "smt_calls": 14,
+  "t_align": 0.001702500000078544,
+  "t_smt": 5.720849123317748,
+  "t_total": 5.722551623317827,
+  "unknowns": 0,
+  "semantic_definition": [
+    "input_space_equivalence",
+    "function_return_value_equivalence",
+    "heap_and_global_state_equivalence"
+  ],
+  "semantic_modes": {
+    "input_return_heap_global_overlap": 8
+  },
+  "matches": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "match": [],
+      "rank": [],
+      "matched": false,
+      "input_space_equal_with_match": false,
+      "intersection_verified": false,
+      "source_subset_targets": false,
+      "targets_subset_source": null,
+      "intersections": [
+        {
+          "target": "symbolic_newV_path_1",
+          "rank": 1,
+          "semantic_equivalent_on_overlap": false,
+          "details": {
+            "input_overlap": "sat",
+            "return_value_equivalent": false,
+            "memory_state_equivalent": null,
+            "global_state_equivalent": null,
+            "semantic_mode": "input_return_heap_global_overlap"
+          }
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_2",
+      "match": [],
+      "rank": [],
+      "matched": false,
+      "input_space_equal_with_match": false,
+      "intersection_verified": false,
+      "source_subset_targets": false,
+      "targets_subset_source": null,
+      "intersections": [
+        {
+          "target": "symbolic_newV_path_2",
+          "rank": 2,
+          "semantic_equivalent_on_overlap": false,
+          "details": {
+            "input_overlap": "sat",
+            "return_value_equivalent": false,
+            "memory_state_equivalent": null,
+            "global_state_equivalent": null,
+            "semantic_mode": "input_return_heap_global_overlap"
+          }
+        }
+      ]
+    }
+  ],
+  "reverse_matches": [
+    {
+      "query": "symbolic_newV_path_1",
+      "match": [],
+      "rank": [],
+      "matched": false,
+      "input_space_equal_with_match": false,
+      "intersection_verified": false,
+      "source_subset_targets": false,
+      "targets_subset_source": null,
+      "intersections": [
+        {
+          "target": "symbolic_oldV_path_1",
+          "rank": 1,
+          "semantic_equivalent_on_overlap": false,
+          "details": {
+            "input_overlap": "sat",
+            "return_value_equivalent": false,
+            "memory_state_equivalent": null,
+            "global_state_equivalent": null,
+            "semantic_mode": "input_return_heap_global_overlap"
+          }
+        }
+      ]
+    },
+    {
+      "query": "symbolic_newV_path_2",
+      "match": [],
+      "rank": [],
+      "matched": false,
+      "input_space_equal_with_match": false,
+      "intersection_verified": false,
+      "source_subset_targets": false,
+      "targets_subset_source": null,
+      "intersections": [
+        {
+          "target": "symbolic_oldV_path_2",
+          "rank": 2,
+          "semantic_equivalent_on_overlap": false,
+          "details": {
+            "input_overlap": "sat",
+            "return_value_equivalent": false,
+            "memory_state_equivalent": null,
+            "global_state_equivalent": null,
+            "semantic_mode": "input_return_heap_global_overlap"
+          }
+        }
+      ]
+    }
+  ]
+}

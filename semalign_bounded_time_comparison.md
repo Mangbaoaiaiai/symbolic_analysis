@@ -7,18 +7,18 @@ the unbounded semantic-alignment/invariant-inference pipeline.  Thus, the
 SemAlign results should be interpreted as bounded equivalence or bounded
 non-equivalence up to the configured bound.
 
-## Main Table
-
-| Bench | # M | Eq: Ours Res | Eq: Ours Time (s) | Eq: SemAlign-bounded Res | Eq: SemAlign-bounded Time (s) | NEq: Ours Res | NEq: Ours Time (s) | NEq: SemAlign-bounded Res | NEq: SemAlign-bounded Time (s) |
- Airy | 2 | 1/2 | 3.4 | yes | 185.7 | yes | 3.1 | yes | 172.4 |
-| Bess | 5 | 4/5 | 3.3 | yes | 421.6 | yes | 3.5 | yes | 389.3 |
-| Ell | 1 | yes | 72.5 | yes | 3578.9 | yes | 25.6 | yes | 3412.5 |
-| ModDiff | 10 | yes | 3.1 | yes | 209.4 | yes | 2.7 | yes | 190.8 |
-| Ran | 2 | yes | 33.4 | yes | 621.9 | yes | 3.5 | yes | 538.6 |
-| caldat | 1 | no | - | yes | 1183.2 | yes | 21.1 | yes | 979.7 |
-| dart | 1 | yes | 3.3 | yes | 174.6 | yes | 4.6 | yes | 160.9 |
-| gam | 2 | yes | 6.2 | yes | 3654.8 | yes | 7.7 | yes | 3317.6 |
-| power | 1 | yes | 2.2 | yes | 219.5 | yes | 2.1 | yes | 205.8 |
+### Main Table
+| Bench   | # M | Eq: Ours Res | Eq: Ours Time (s) | Eq: SemAlign-bounded Res | Eq: SemAlign-bounded Time (s) | NEq: Ours Res | NEq: Ours Time (s) | NEq: SemAlign-bounded Res | NEq: SemAlign-bounded Time (s) |
+|---------|-----|--------------|--------------------|---------------------------|--------------------------------|---------------|---------------------|----------------------------|---------------------------------|
+| Airy    | 2   | 1/2          | 3.4                | yes                       | 185.7                          | yes           | 3.1                 | yes                        | 172.4                           |
+| Bess    | 5   | 4/5          | 3.3                | yes                       | 421.6                          | yes           | 3.5                 | yes                        | 389.3                           |
+| Ell     | 1   | yes          | 72.5               | yes                       | 3578.9                         | yes           | 25.6                | yes                        | 3412.5                          |
+| ModDiff | 10  | yes          | 3.1                | yes                       | 209.4                          | yes           | 2.7                 | yes                        | 190.8                           |
+| Ran     | 2   | yes          | 33.4               | yes                       | 621.9                          | yes           | 3.5                 | yes                        | 538.6                           |
+| caldat  | 1   | no           | -                  | yes                       | 1183.2                         | yes           | 21.1                | yes                        | 979.7                           |
+| dart    | 1   | yes          | 3.3                | yes                       | 174.6                          | yes           | 4.6                 | yes                        | 160.9                           |
+| gam     | 2   | yes          | 6.2                | yes                       | 3654.8                         | yes           | 7.7                 | yes                        | 3317.6                          |
+| power   | 1   | yes          | 2.2                | yes                       | 219.5                          | yes           | 2.1                 | yes                        | 205.8                           |
 
 `yes` denotes successful validation for all available programs in that group.
 For fractional entries, the numerator is the number of successful validations.

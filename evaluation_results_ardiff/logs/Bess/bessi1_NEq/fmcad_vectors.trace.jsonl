@@ -1,3 +1,0 @@
-{"event": "align_start", "name": "fmcad_feature_vector_generation", "path_count": 5, "run_id": "Bess/bessi1_NEq:fmcad_align:fmcad_vectors", "ts": 1782836702.005756}
-{"elapsed": 0.004142375, "end_ts": 1782836702.009899, "event": "align_end", "name": "fmcad_feature_vector_generation", "path_count": 5, "run_id": "Bess/bessi1_NEq:fmcad_align:fmcad_vectors", "start_ts": 1782836702.005754, "ts": 1782836702.0099, "vectors_generated": 5}
-{"counters": {}, "event": "summary", "run_id": "Bess/bessi1_NEq:fmcad_align:fmcad_vectors", "totals": {"align_seconds": 0.004142375}, "ts": 1782836702.010315}

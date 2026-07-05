@@ -25,9 +25,9 @@
   ],
   "pair_id": "Ran/gammln_Eq",
   "timing": {
-    "t_align": 0.000985124999999698,
+    "t_align": 0.000575199956074357,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.000985124999999698,
+    "t_align_rank": 0.000575199956074357,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

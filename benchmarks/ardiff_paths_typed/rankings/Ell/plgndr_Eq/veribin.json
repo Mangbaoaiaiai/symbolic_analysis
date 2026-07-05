@@ -1,0 +1,23 @@
+{
+  "pair_id": "Ell/plgndr_Eq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 3.5237104999999804,
+    "t_preprocess": 3.512378,
+    "t_align_rank": 0.011332499999980428,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

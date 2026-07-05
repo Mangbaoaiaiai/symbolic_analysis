@@ -1,0 +1,23 @@
+{
+  "pair_id": "Ran/ran_Eq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 6.038554800000361,
+    "t_preprocess": 6.017056999999999,
+    "t_align_rank": 0.021497800000361167,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

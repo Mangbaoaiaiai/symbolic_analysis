@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "dart/test_Eq:fmcad_align:fmcad_align", "ts": 1782836705.487921, "vector_count": 9}
-{"candidate_count": 36, "elapsed": 0.00026550000000000185, "end_ts": 1782836705.4881868, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "dart/test_Eq:fmcad_align:fmcad_align", "start_ts": 1782836705.487919, "ts": 1782836705.4881878, "vector_count": 9}
-{"counters": {}, "event": "summary", "run_id": "dart/test_Eq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.00026550000000000185}, "ts": 1782836705.488539}

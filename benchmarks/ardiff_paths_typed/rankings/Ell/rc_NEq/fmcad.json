@@ -204,9 +204,9 @@
   ],
   "pair_id": "Ell/rc_NEq",
   "timing": {
-    "t_align": 0.012691333000020677,
+    "t_align": 0.012807499966584146,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.012691333000020677,
+    "t_align_rank": 0.012807499966584146,
     "old_path_count": 6,
     "new_path_count": 4,
     "candidate_pairs": 24

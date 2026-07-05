@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 0, 'arg_1': 0, 'arg_2': 9221120237041090560}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: [5368714416, 5368714504, 5368714512, 5368714552, 5368714729, 5368714737, 5368714933]
+; Memory hash: 7993539742492513910
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 12, "writes": [{"data": 0, "offset": -8, "size": "64"}, {"data": 0, "offset": 8, "size": "32"}, {"data": 0, "offset": 16, "size": "32"}, {"data": 0, "offset": 24, "size": "64"}, {"data": 0, "offset": -12, "size": "32"}, {"data": 0, "offset": -16, "size": "32"}, {"data": 4607182418800017408, "offset": -24, "size": "64"}, {"data": 0, "offset": -32, "size": "64"}, {"data": 0, "offset": -40, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": 0, "offset": -56, "size": "64"}, {"data": 4607182418800017408, "offset": -40, "size": "64"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 0x4000000000000000>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun __return_value_4_64 () (_ BitVec 64))\n(assert\n (= (_ bv4611686018427387904 64) __return_value_4_64))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

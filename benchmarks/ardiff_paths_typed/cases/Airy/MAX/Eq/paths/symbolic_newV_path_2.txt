@@ -1,39 +1,28 @@
 ; benchmark generated from python API
 (set-info :status unknown)
-(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))
 (declare-fun FP_arg_1_1_64 () (_ FloatingPoint 11 53))
+(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))
 (assert
- (let (($x13 (fp.eq FP_arg_1_1_64 FP_arg_0_0_64)))
- (let ((?x16 (ite $x13 (_ bv64 32) (_ bv69 32))))
- (let (($x11 (fp.gt FP_arg_1_1_64 FP_arg_0_0_64)))
- (let ((?x17 (ite $x11 (_ bv0 32) ?x16)))
- (let (($x9 (fp.lt FP_arg_1_1_64 FP_arg_0_0_64)))
- (let ((?x18 (ite $x9 (_ bv1 32) ?x17)))
- (let ((?x19 ((_ zero_extend 32) ?x18)))
- (let ((?x25 (bvand ?x19 (_ bv1 64))))
- (let ((?x21 (bvlshr ?x19 (_ bv5 64))))
- (let ((?x23 (bvand ?x21 (_ bv3 64))))
- (let ((?x26 (bvor ?x23 ?x25)))
- (let ((?x34 (bvlshr ?x26 (_ bv1 64))))
- (let ((?x36 (bvand (bvand ?x26 ?x34) (_ bv1 64))))
- (let ((?x27 (bvxor ?x26 (_ bv1 64))))
- (let ((?x29 (bvshl ?x27 (_ bv62 64))))
- (let ((?x30 (bvsub ?x29 (_ bv1 64))))
- (let ((?x32 (bvlshr ?x30 (_ bv61 64))))
- (let ((?x33 (bvadd ?x32 (_ bv1 64))))
- (let ((?x37 (bvsub ?x33 ?x36)))
- (let ((?x39 (bvshl ?x37 (_ bv28 64))))
- (let ((?x59 (bvlshr ?x39 (_ bv31 64))))
- (let ((?x60 ((_ extract 0 0) ?x59)))
- (let (($x53 (and (distinct (_ bv0 1) ?x60) true)))
- (let ((?x174 (ite $x53 (_ bv0 8) (_ bv1 8))))
- (let ((?x103 (bvand ?x174 (_ bv1 8))))
- (= (_ bv0 8) ?x103)))))))))))))))))))))))))))
+ (let (($x18 (fp.eq FP_arg_0_0_64 FP_arg_1_1_64)))
+ (let ((?x21 (ite $x18 (_ bv64 32) (_ bv69 32))))
+ (let (($x16 (fp.gt FP_arg_0_0_64 FP_arg_1_1_64)))
+ (let ((?x22 (ite $x16 (_ bv0 32) ?x21)))
+ (let (($x14 (fp.lt FP_arg_0_0_64 FP_arg_1_1_64)))
+ (let ((?x23 (ite $x14 (_ bv1 32) ?x22)))
+ (let ((?x24 ((_ zero_extend 32) ?x23)))
+ (let ((?x26 (bvand ?x24 (_ bv69 64))))
+ (let ((?x48 (bvlshr ?x26 (_ bv6 64))))
+ (let ((?x47 ((_ extract 7 0) ?x48)))
+ (let ((?x115 ((_ extract 7 0) ?x23)))
+ (let ((?x44 (bvand ?x115 (_ bv69 8))))
+ (let ((?x45 (bvor ?x44 ?x47)))
+ (let ((?x88 (bvand ?x45 (_ bv1 8))))
+ (and (distinct (_ bv1 8) ?x88) true))))))))))))))))
 (check-sat)
 
 ; Path signature:
-; Symbolic variable values: {'arg_0': 6812749898843062885, 'arg_1': 16033949438156212723}
-; Constraint info: {'count': 1, 'types': ['equality']}
-; Execution trace: [4294983356, 4294983388, 4294983392, 4294983416]
-; Memory hash: -8217447215973948317
-; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 1, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 3, "writes": [{"data": "<FP64 FPS(FP_arg_0_0_64, DOUBLE)>", "offset": -16, "size": "64"}, {"data": "<FP64 FPS(FP_arg_1_1_64, DOUBLE)>", "offset": -24, "size": "64"}, {"data": "<FP64 FPS(FP_arg_0_0_64, DOUBLE)>", "offset": -8, "size": "64"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun FP_arg_1_1_64 () (_ FloatingPoint 11 53))\n(declare-fun __return_value_4_64 () (_ BitVec 64))\n(assert\n (let (($x13 (fp.eq FP_arg_1_1_64 FP_arg_0_0_64)))\n (let ((?x16 (ite $x13 (_ bv64 32) (_ bv69 32))))\n (let (($x11 (fp.gt FP_arg_1_1_64 FP_arg_0_0_64)))\n (let ((?x17 (ite $x11 (_ bv0 32) ?x16)))\n (let (($x9 (fp.lt FP_arg_1_1_64 FP_arg_0_0_64)))\n (let ((?x18 (ite $x9 (_ bv1 32) ?x17)))\n (let ((?x19 ((_ zero_extend 32) ?x18)))\n (let ((?x25 (bvand ?x19 (_ bv1 64))))\n (let ((?x21 (bvlshr ?x19 (_ bv5 64))))\n (let ((?x23 (bvand ?x21 (_ bv3 64))))\n (let ((?x26 (bvor ?x23 ?x25)))\n (let ((?x34 (bvlshr ?x26 (_ bv1 64))))\n (let ((?x36 (bvand (bvand ?x26 ?x34) (_ bv1 64))))\n (let ((?x27 (bvxor ?x26 (_ bv1 64))))\n (let ((?x29 (bvshl ?x27 (_ bv62 64))))\n (let ((?x30 (bvsub ?x29 (_ bv1 64))))\n (let ((?x32 (bvlshr ?x30 (_ bv61 64))))\n (let ((?x33 (bvadd ?x32 (_ bv1 64))))\n (let ((?x37 (bvsub ?x33 ?x36)))\n (let ((?x39 (bvshl ?x37 (_ bv28 64))))\n (let ((?x59 (bvlshr ?x39 (_ bv31 64))))\n (let ((?x60 ((_ extract 0 0) ?x59)))\n (let (($x53 (and (distinct (_ bv0 1) ?x60) true)))\n (let ((?x174 (ite $x53 (_ bv0 8) (_ bv1 8))))\n (let ((?x103 (bvand ?x174 (_ bv1 8))))\n (= (_ bv0 8) ?x103)))))))))))))))))))))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (= __return_value_4_64 ?x6)))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}
+; Symbolic variable values: {'arg_0': 5750955619712510366, 'arg_1': 3472275787759063660}
+; Constraint info: {'count': 1, 'types': ['signed_comparison']}
+; Execution trace: [5368714416, 5368714442, 5368714454]
+; Memory hash: 6929674575145644328
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 1, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 3, "writes": [{"data": 0, "offset": -8, "size": "64"}, {"data": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "offset": 8, "size": "64"}, {"data": "<BV64 fpToIEEEBV(FPS(FP_arg_1_1_64, DOUBLE))>", "offset": 16, "size": "64"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_1_1_64 () (_ FloatingPoint 11 53))\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun __return_value_4_64 () (_ BitVec 64))\n(assert\n (let (($x18 (fp.eq FP_arg_0_0_64 FP_arg_1_1_64)))\n (let ((?x21 (ite $x18 (_ bv64 32) (_ bv69 32))))\n (let (($x16 (fp.gt FP_arg_0_0_64 FP_arg_1_1_64)))\n (let ((?x22 (ite $x16 (_ bv0 32) ?x21)))\n (let (($x14 (fp.lt FP_arg_0_0_64 FP_arg_1_1_64)))\n (let ((?x23 (ite $x14 (_ bv1 32) ?x22)))\n (let ((?x24 ((_ zero_extend 32) ?x23)))\n (let ((?x26 (bvand ?x24 (_ bv69 64))))\n (let ((?x48 (bvlshr ?x26 (_ bv6 64))))\n (let ((?x47 ((_ extract 7 0) ?x48)))\n (let ((?x115 ((_ extract 7 0) ?x23)))\n (let ((?x44 (bvand ?x115 (_ bv69 8))))\n (let ((?x45 (bvor ?x44 ?x47)))\n (let ((?x88 (bvand ?x45 (_ bv1 8))))\n (and (distinct (_ bv1 8) ?x88) true))))))))))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (= __return_value_4_64 ?x6)))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

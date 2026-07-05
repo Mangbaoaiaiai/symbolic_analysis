@@ -52,9 +52,9 @@
   ],
   "pair_id": "gam/erfcc_Eq",
   "timing": {
-    "t_align": 0.003181583000014143,
+    "t_align": 0.002325400011613965,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.003181583000014143,
+    "t_align_rank": 0.002325400011613965,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

@@ -26,9 +26,9 @@
   ],
   "pair_id": "ModDiff/Sub_Eq",
   "timing": {
-    "t_align": 0.0007740830000102505,
+    "t_align": 0.0006954999989829957,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0007740830000102505,
+    "t_align_rank": 0.0006954999989829957,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

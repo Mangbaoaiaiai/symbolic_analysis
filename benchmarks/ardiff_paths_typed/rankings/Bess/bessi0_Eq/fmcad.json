@@ -17,15 +17,15 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.333333,
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.333333
+          "graph_similarity": 0.5
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.285714,
+          "similarity": 0.4,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.285714
+          "graph_similarity": 0.4
         }
       ]
     },
@@ -36,25 +36,25 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.5,
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.4,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.5
+          "graph_similarity": 0.4
         },
         {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.285714,
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.333333,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.285714
+          "graph_similarity": 0.333333
         }
       ]
     }
   ],
   "pair_id": "Bess/bessi0_Eq",
   "timing": {
-    "t_align": 0.0044173749999991685,
+    "t_align": 0.00233719999960158,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0044173749999991685,
+    "t_align_rank": 0.00233719999960158,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

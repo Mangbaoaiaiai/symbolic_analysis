@@ -1,0 +1,23 @@
+{
+  "pair_id": "gam/expint_Eq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.75
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 4.0281484999999995,
+    "t_preprocess": 4.014392,
+    "t_align_rank": 0.013756499999999505,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

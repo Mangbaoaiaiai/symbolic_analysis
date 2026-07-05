@@ -23,33 +23,33 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.75,
+          "similarity": 0.8,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.75
+          "graph_similarity": 0.8
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.222222,
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.222222,
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.222222,
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_6",
-          "similarity": 0.222222,
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.0
         }
       ]
     },
@@ -57,7 +57,7 @@
       "query": "symbolic_oldV_path_2",
       "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.21427799999999997,
+      "feature_margin": 0.30864499999999995,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
@@ -65,24 +65,24 @@
           "feature_similarity": 1.0
         },
         {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.691355,
+          "feature_similarity": 0.691355
+        },
+        {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.785722,
-          "feature_similarity": 0.785722
+          "similarity": 0.687538,
+          "feature_similarity": 0.687538
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.769721,
-          "feature_similarity": 0.769721
+          "similarity": 0.683592,
+          "feature_similarity": 0.683592
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.753962,
-          "feature_similarity": 0.753962
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.738485,
-          "feature_similarity": 0.738485
+          "similarity": 0.679434,
+          "feature_similarity": 0.679434
         },
         {
           "path_id": "symbolic_newV_path_1",
@@ -93,48 +93,54 @@
     },
     {
       "query": "symbolic_oldV_path_3",
-      "decision": "feature_confident",
-      "feature_top1": 1.0,
-      "feature_margin": 0.21427799999999997,
+      "decision": "graph_rerank",
+      "feature_top1": 0.876323,
+      "feature_margin": 0.009523999999999977,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 1.0,
-          "feature_similarity": 1.0
-        },
-        {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.785722,
-          "feature_similarity": 0.785722
+          "similarity": 1.0,
+          "feature_similarity": 0.876323,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.769721,
-          "feature_similarity": 0.769721
+          "similarity": 1.0,
+          "feature_similarity": 0.866799,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.753962,
-          "feature_similarity": 0.753962
+          "similarity": 1.0,
+          "feature_similarity": 0.857136,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_6",
-          "similarity": 0.738485,
-          "feature_similarity": 0.738485
+          "similarity": 1.0,
+          "feature_similarity": 0.847692,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_1",
           "similarity": 0.0,
-          "feature_similarity": 0.0
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.0,
+          "feature_similarity": 0.505668,
+          "graph_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "ModDiff/LoopMult20_Eq",
   "timing": {
-    "t_align": 0.014804167000022517,
+    "t_align": 0.0037468999998964136,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.014804167000022517,
+    "t_align_rank": 0.0037468999998964136,
     "old_path_count": 3,
     "new_path_count": 6,
     "candidate_pairs": 18

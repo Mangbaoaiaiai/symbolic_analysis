@@ -17,46 +17,130 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.75,
+          "similarity": 0.333333,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.75
+          "graph_similarity": 0.333333
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.461538,
+          "similarity": 0.166667,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.461538
+          "graph_similarity": 0.166667
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_2",
       "decision": "graph_rerank",
-      "feature_top1": 0.0,
+      "feature_top1": 1.0,
       "feature_margin": 0.0,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.777778,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.777778
+          "similarity": 0.888889,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.888889
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.526316,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.526316
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.461538,
+          "similarity": 0.166667,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.461538
+          "graph_similarity": 0.166667
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.0,
+          "feature_similarity": 0.285781,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_3",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.7,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.526316,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.526316
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.1,
+          "feature_similarity": 0.285781,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_4",
+      "decision": "feature_confident",
+      "feature_top1": 1.0,
+      "feature_margin": 0.7142189999999999,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 1.0,
+          "feature_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.285781,
+          "feature_similarity": 0.285781
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.285781,
+          "feature_similarity": 0.285781
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "Bess/probks_Eq",
   "timing": {
-    "t_align": 0.00505979200000084,
+    "t_align": 0.00631840000005468,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.00505979200000084,
-    "old_path_count": 2,
-    "new_path_count": 2,
-    "candidate_pairs": 4
+    "t_align_rank": 0.00631840000005468,
+    "old_path_count": 4,
+    "new_path_count": 4,
+    "candidate_pairs": 16
   }
 }

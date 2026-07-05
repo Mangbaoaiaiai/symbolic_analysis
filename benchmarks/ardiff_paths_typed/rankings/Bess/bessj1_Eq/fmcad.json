@@ -50,9 +50,9 @@
   ],
   "pair_id": "Bess/bessj1_Eq",
   "timing": {
-    "t_align": 0.003909124999999847,
+    "t_align": 0.0024458999978378415,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.003909124999999847,
+    "t_align_rank": 0.0024458999978378415,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

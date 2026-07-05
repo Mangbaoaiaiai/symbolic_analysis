@@ -7,11 +7,11 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 1.0
+          "similarity": 0.5
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.571429
+          "similarity": 0.4
         }
       ]
     },
@@ -20,19 +20,19 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 1.0
+          "similarity": 0.666667
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.571429
+          "similarity": 0.4
         }
       ]
     }
   ],
   "timing": {
-    "t_align": 1.563772291,
-    "t_preprocess": 1.563048,
-    "t_align_rank": 0.0007242910000000435,
+    "t_align": 3.5346635999996594,
+    "t_preprocess": 3.5116,
+    "t_align_rank": 0.023063599999659345,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

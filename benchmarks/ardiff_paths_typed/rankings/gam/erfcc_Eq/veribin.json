@@ -30,9 +30,9 @@
     }
   ],
   "timing": {
-    "t_align": 1.5296694169999714,
-    "t_preprocess": 1.529288,
-    "t_align_rank": 0.00038141699997140677,
+    "t_align": 3.5228476000486912,
+    "t_preprocess": 3.521771,
+    "t_align_rank": 0.0010766000486910343,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

@@ -26,9 +26,9 @@
   ],
   "pair_id": "ModDiff/Add_Eq",
   "timing": {
-    "t_align": 0.0007773749999842039,
+    "t_align": 0.0006587999996554572,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0007773749999842039,
+    "t_align_rank": 0.0006587999996554572,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

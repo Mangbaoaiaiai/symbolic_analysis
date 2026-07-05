@@ -1,0 +1,98 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))
+(declare-fun unconstrained_ret__errno_3_64 () (_ BitVec 64))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let (($x1298 (fp.lt ?x15 (fp #b0 #b10000001000 #x62e42fefa39ef))))
+ (not $x1298)))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x275 ((_ extract 62 52) ?x6)))
+ (let (($x2298 (= (_ bv2047 11) ?x275)))
+ (not $x2298)))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (fp.lt (fp #b0 #b10000001000 #x62e42fefa39ef) ?x15))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x275 ((_ extract 62 52) ?x6)))
+ (let ((?x459 ((_ extract 30 20) ?x6)))
+ (let ((?x466 (bvor ?x459 ?x275)))
+ (let (($x2341 (= (_ bv0 11) ?x466)))
+ (let (($x2395 (not $x2341)))
+ (let ((?x759 ((_ extract 19 0) ?x6)))
+ (let ((?x323 ((_ extract 51 32) ?x6)))
+ (let ((?x469 (bvor ?x323 ?x759)))
+ (let (($x2353 (= (_ bv0 20) ?x469)))
+ (let (($x2112 (not $x2353)))
+ (let ((?x460 ((_ extract 31 31) ?x6)))
+ (let (($x2081 (= (_ bv0 1) ?x460)))
+ (let (($x2423 (not $x2081)))
+ (or $x2423 $x2112 $x2395))))))))))))))))
+(assert
+ (bvule unconstrained_ret__errno_3_64 (_ bv18446744073709551615 64)))
+(assert
+ (= (_ bv18446744073709551615 64) unconstrained_ret__errno_3_64))
+(assert
+ (let ((?x293 (concat (concat (_ bv0 1) ((_ extract 62 52) (fp.to_ieee_bv FP_arg_0_0_64))) (_ bv0 20))))
+ (and (distinct (_ bv0 32) ?x293) true)))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x417 ((_ extract 62 32) ?x6)))
+ (let ((?x1522 (concat (_ bv0 1) ?x417)))
+ (let ((?x1520 ((_ zero_extend 32) ?x1522)))
+ (let ((?x2445 (bvlshr ?x1520 (_ bv31 64))))
+ (let ((?x2447 ((_ extract 0 0) ?x2445)))
+ (= (_ bv0 1) ?x2447))))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let (($x2252 (fp.eq ?x15 (fp #b0 #b01111111111 #x0000000000000))))
+ (let ((?x2194 (ite $x2252 (_ bv64 32) (_ bv69 32))))
+ (let (($x1240 (fp.gt ?x15 (fp #b0 #b01111111111 #x0000000000000))))
+ (let ((?x2777 (ite $x1240 (_ bv0 32) ?x2194)))
+ (let (($x2333 (fp.lt ?x15 (fp #b0 #b01111111111 #x0000000000000))))
+ (let ((?x2365 (ite $x2333 (_ bv1 32) ?x2777)))
+ (let ((?x2355 ((_ zero_extend 32) ?x2365)))
+ (let ((?x2210 (bvand ?x2355 (_ bv69 64))))
+ (let ((?x1364 (bvlshr ?x2210 (_ bv2 64))))
+ (let ((?x2892 ((_ extract 7 0) ?x1364)))
+ (let ((?x2923 (bvand ?x2892 (_ bv1 8))))
+ (= (_ bv0 8) ?x2923)))))))))))))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let (($x2444 (fp.lt (fp #b0 #b01111111111 #x0000000000000) ?x15)))
+ (let (($x2252 (fp.eq ?x15 (fp #b0 #b01111111111 #x0000000000000))))
+ (let (($x2169 (or $x2252 $x2444)))
+ (let (($x2767 (not $x2169)))
+ (let (($x2333 (fp.lt ?x15 (fp #b0 #b01111111111 #x0000000000000))))
+ (let (($x2783 (or $x2333 $x2767)))
+ (let ((?x2635 (ite $x2783 (_ bv1 1) (_ bv0 1))))
+ (let (($x2343 (or $x2252 $x2333 $x2444)))
+ (let ((?x2576 (ite $x2343 (_ bv0 1) (_ bv1 1))))
+ (let ((?x2880 (concat (concat (concat (_ bv0 57) (ite (or $x2333 $x2444) (_ bv0 1) (_ bv1 1))) (_ bv0 3)) ?x2576)))
+ (let ((?x2183 (concat (concat ?x2880 (_ bv0 1)) ?x2635)))
+ (let ((?x3194 (bvand ?x2183 (_ bv2261 64))))
+ (let ((?x2967 (bvlshr ?x3194 (_ bv6 64))))
+ (let ((?x3192 ((_ extract 0 0) ?x2967)))
+ (= (_ bv0 1) ?x3192))))))))))))))))))))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 4652832231381416432}
+; Constraint info: {'count': 10, 'types': ['signed_comparison', 'signed_comparison', 'signed_comparison', 'signed_comparison', 'other', 'equality', 'signed_comparison', 'signed_comparison', 'signed_comparison', 'signed_comparison']}
+; Execution trace: [5368717168, 5368717225, 5368778312, 5368714896, 5368778528, 5368778577, 5368778581, 5368778589, 5368778593, 5368778603]
+; Memory hash: -9215270163856597471
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 10, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 16, "writes": [{"data": 0, "offset": -8, "size": "64"}, {"data": 0, "offset": -16, "size": "64"}, {"data": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "offset": 8, "size": "64"}, {"data": 0, "offset": -40, "size": "64"}, {"data": 0, "offset": -32, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": "<BV64 0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0]>", "offset": -40, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)))>", "offset": -48, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, FPV(0.02282967, DOUBLE), fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, FPV(0.01787654, DOUBLE), fpNeg(fpMul(RM.RM_NearestTiesEven, fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)), FPV(0.00420059, DOUBLE)))), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.02895312, DOUBLE)), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)))))>", "offset": -32, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, FPV(0.39894228, DOUBLE), fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, FPV(0.00163801, DOUBLE), fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)), fpAdd(RM.RM_NearestTiesEven, FPV(0.02282967, DOUBLE), fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, fpAdd(RM.RM_NearestTiesEven, FPV(0.01787654, DOUBLE), fpNeg(fpMul(RM.RM_NearestTiesEven, fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)), FPV(0.00420059, DOUBLE)))), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.02895312, DOUBLE)), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))))), FPV(-0.01031555, DOUBLE)), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)))), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.00362018, DOUBLE)), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.03988024, DOUBLE)), fpDiv(RM.RM_NearestTiesEven, FPV(3.75, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)))))>", "offset": -32, "size": "64"}, {"data": 5368714896, "offset": -96, "size": "64"}, {"data": "<BV64 0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0]>", "offset": -88, "size": "64"}, {"data": 5368778267, "offset": -176, "size": "64"}, {"data": 9218868437227405312, "offset": -136, "size": "64"}, {"data": 5368778312, "offset": -176, "size": "64"}, {"data": 5368714915, "offset": -96, "size": "64"}]}, "memory_state": {"available": true, "write_count": 1, "writes": [{"addr": "<BV64 unconstrained_ret__errno_3_64>", "data": 34, "size": "32"}]}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0]>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun unconstrained_ret__errno_3_64 () (_ BitVec 64))\n(declare-fun __return_value_9_64 () (_ BitVec 64))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let (($x1298 (fp.lt ?x15 (fp #b0 #b10000001000 #x62e42fefa39ef))))\n (not $x1298)))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x275 ((_ extract 62 52) ?x6)))\n (let (($x2298 (= (_ bv2047 11) ?x275)))\n (not $x2298)))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (fp.lt (fp #b0 #b10000001000 #x62e42fefa39ef) ?x15))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x275 ((_ extract 62 52) ?x6)))\n (let ((?x459 ((_ extract 30 20) ?x6)))\n (let ((?x466 (bvor ?x459 ?x275)))\n (let (($x2341 (= (_ bv0 11) ?x466)))\n (let (($x2395 (not $x2341)))\n (let ((?x759 ((_ extract 19 0) ?x6)))\n (let ((?x323 ((_ extract 51 32) ?x6)))\n (let ((?x469 (bvor ?x323 ?x759)))\n (let (($x2353 (= (_ bv0 20) ?x469)))\n (let (($x2112 (not $x2353)))\n (let ((?x460 ((_ extract 31 31) ?x6)))\n (let (($x2081 (= (_ bv0 1) ?x460)))\n (let (($x2423 (not $x2081)))\n (or $x2423 $x2112 $x2395))))))))))))))))\n(assert\n (bvule unconstrained_ret__errno_3_64 (_ bv18446744073709551615 64)))\n(assert\n (= (_ bv18446744073709551615 64) unconstrained_ret__errno_3_64))\n(assert\n (let ((?x293 (concat (concat (_ bv0 1) ((_ extract 62 52) (fp.to_ieee_bv FP_arg_0_0_64))) (_ bv0 20))))\n (and (distinct (_ bv0 32) ?x293) true)))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x417 ((_ extract 62 32) ?x6)))\n (let ((?x1522 (concat (_ bv0 1) ?x417)))\n (let ((?x1520 ((_ zero_extend 32) ?x1522)))\n (let ((?x2445 (bvlshr ?x1520 (_ bv31 64))))\n (let ((?x2447 ((_ extract 0 0) ?x2445)))\n (= (_ bv0 1) ?x2447))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let (($x2252 (fp.eq ?x15 (fp #b0 #b01111111111 #x0000000000000))))\n (let ((?x2194 (ite $x2252 (_ bv64 32) (_ bv69 32))))\n (let (($x1240 (fp.gt ?x15 (fp #b0 #b01111111111 #x0000000000000))))\n (let ((?x2777 (ite $x1240 (_ bv0 32) ?x2194)))\n (let (($x2333 (fp.lt ?x15 (fp #b0 #b01111111111 #x0000000000000))))\n (let ((?x2365 (ite $x2333 (_ bv1 32) ?x2777)))\n (let ((?x2355 ((_ zero_extend 32) ?x2365)))\n (let ((?x2210 (bvand ?x2355 (_ bv69 64))))\n (let ((?x1364 (bvlshr ?x2210 (_ bv2 64))))\n (let ((?x2892 ((_ extract 7 0) ?x1364)))\n (let ((?x2923 (bvand ?x2892 (_ bv1 8))))\n (= (_ bv0 8) ?x2923)))))))))))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let (($x2444 (fp.lt (fp #b0 #b01111111111 #x0000000000000) ?x15)))\n (let (($x2252 (fp.eq ?x15 (fp #b0 #b01111111111 #x0000000000000))))\n (let (($x2169 (or $x2252 $x2444)))\n (let (($x2767 (not $x2169)))\n (let (($x2333 (fp.lt ?x15 (fp #b0 #b01111111111 #x0000000000000))))\n (let (($x2783 (or $x2333 $x2767)))\n (let ((?x2635 (ite $x2783 (_ bv1 1) (_ bv0 1))))\n (let (($x2343 (or $x2252 $x2333 $x2444)))\n (let ((?x2576 (ite $x2343 (_ bv0 1) (_ bv1 1))))\n (let ((?x2880 (concat (concat (concat (_ bv0 57) (ite (or $x2333 $x2444) (_ bv0 1) (_ bv1 1))) (_ bv0 3)) ?x2576)))\n (let ((?x2183 (concat (concat ?x2880 (_ bv0 1)) ?x2635)))\n (let ((?x3194 (bvand ?x2183 (_ bv2261 64))))\n (let ((?x2967 (bvlshr ?x3194 (_ bv6 64))))\n (let ((?x3192 ((_ extract 0 0) ?x2967)))\n (= (_ bv0 1) ?x3192))))))))))))))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (= __return_value_9_64 ?x13)))))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

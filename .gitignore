@@ -1,45 +1,53 @@
-# Python缓存文件
+# Python caches and build metadata
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 .Python
 *.so
+*.egg-info/
 
-# 环境变量
+# Virtual environments and local configuration
 .env
-.venv
+.venv/
 .venv312/
 env/
 venv/
 
-# 临时文件
+# Temporary files
 *.tmp
 *.temp
 *~
 
-# 分析结果和路径文件 (保留核心结果，排除中间文件)
+# Generated benchmark and analysis outputs
 paths_*/
 benchmark_temp_*/
 real_paths_*/
 improved_paths_*/
+run_logs/
+evaluation_results*/
+experiments/ardiff_comparison/experiment_logs/
 
-# 大型输出文件 (但保留演示和比较报告)
-# 保留关键报告文件：
-# - tsvc_analysis_demo_report.txt  
-# - tsvc_vs_pldi19_comparison.txt
-# - *_analysis_summary.txt
+# Generated benchmark binaries
+experiments/ardiff_comparison/benchmarks/**/symbolic_oldV
+experiments/ardiff_comparison/benchmarks/**/symbolic_newV
+experiments/ardiff_comparison/benchmarks/**/oldV
+experiments/ardiff_comparison/benchmarks/**/newV
+experiments/ardiff_comparison/benchmarks_typed/**/symbolic_oldV
+experiments/ardiff_comparison/benchmarks_typed/**/symbolic_newV
+experiments/ardiff_comparison/benchmarks_typed/**/oldV
+experiments/ardiff_comparison/benchmarks_typed/**/newV
 
-# IDE文件
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# 操作系统文件
+# Operating system files
 .DS_Store
 Thumbs.db
 *.dSYM/
 
-# 第三方项目
-pldi19-equivalence-checker/ 
+# External third-party projects
+pldi19-equivalence-checker/

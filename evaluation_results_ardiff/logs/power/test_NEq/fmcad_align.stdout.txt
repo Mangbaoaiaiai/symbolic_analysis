@@ -1,1 +1,0 @@
-Wrote 45 pairs (all-pairs similarity) to /Users/zzk/Desktop/symbolicana/evaluation_results_ardiff/raw/power/test_NEq/fmcad/ranking.json

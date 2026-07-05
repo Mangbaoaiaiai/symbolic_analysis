@@ -185,25 +185,70 @@ class BenchmarkSymbolicExecution:
         return initial_state
 
     def install_call_arguments(self, state, arg_values):
+        """Install snippet arguments using the target architecture's ABI."""
         int_reg_index = 0
         fp_reg_index = 0
-        for arg_type, sym in arg_values:
+        for position, (arg_type, sym) in enumerate(arg_values):
             if arg_type == "double":
-                reg_name = f"d{fp_reg_index}"
+                reg_name = self.argument_register_name(state, arg_type, fp_reg_index, position)
                 fp_reg_index += 1
                 if reg_name in state.arch.registers:
-                    setattr(state.regs, reg_name, sym.raw_to_bv())
+                    self.set_register_value(state, reg_name, sym.raw_to_bv())
                 continue
             if arg_type == "float":
-                reg_name = f"s{fp_reg_index}"
+                reg_name = self.argument_register_name(state, arg_type, fp_reg_index, position)
                 fp_reg_index += 1
                 if reg_name in state.arch.registers:
-                    setattr(state.regs, reg_name, sym.raw_to_bv())
+                    self.set_register_value(state, reg_name, sym.raw_to_bv())
                 continue
-            reg_name = f"x{int_reg_index}" if f"x{int_reg_index}" in state.arch.registers else f"r{int_reg_index}"
+            reg_name = self.argument_register_name(state, arg_type, int_reg_index, position)
             int_reg_index += 1
             if reg_name in state.arch.registers:
-                setattr(state.regs, reg_name, claripy.ZeroExt(max(0, state.arch.bits - 32), sym))
+                self.set_register_value(state, reg_name, sym)
+
+    def argument_register_name(self, state, arg_type, index, position=None):
+        is_amd64 = "amd64" in str(getattr(state.arch, "name", "")).lower()
+        try:
+            binary_os = str(getattr(self.project.loader.main_object, "os", "") or "").lower()
+        except Exception:
+            binary_os = ""
+        is_windows_amd64 = is_amd64 and ("windows" in binary_os or self.binary_path.lower().endswith(".exe"))
+        ordinal = index if position is None else position
+        if arg_type == "double":
+            if is_windows_amd64:
+                candidates = [f"xmm{ordinal}"]
+            else:
+                candidates = [f"d{index}", f"xmm{index}", f"q{index}", f"v{index}"]
+        elif arg_type == "float":
+            if is_windows_amd64:
+                candidates = [f"xmm{ordinal}"]
+            else:
+                candidates = [f"s{index}", f"xmm{index}", f"v{index}"]
+        else:
+            win64 = ["ecx", "edx", "r8d", "r9d"]
+            sysv_amd64 = ["edi", "esi", "edx", "ecx", "r8d", "r9d"]
+            i386 = ["eax", "edx", "ecx"]
+            candidates = []
+            if is_windows_amd64 and ordinal < len(win64):
+                candidates.append(win64[ordinal])
+            if index < len(sysv_amd64):
+                candidates.append(sysv_amd64[index])
+            if index < len(i386):
+                candidates.append(i386[index])
+            candidates.extend([f"w{index}", f"x{index}", f"r{index}"])
+        for reg_name in candidates:
+            if reg_name in state.arch.registers:
+                return reg_name
+        return candidates[0] if candidates else ""
+
+    def set_register_value(self, state, reg_name, value):
+        reg_bits = state.arch.registers[reg_name][1] * 8
+        value_bits = int(value.size())
+        if reg_bits > value_bits:
+            value = claripy.ZeroExt(reg_bits - value_bits, value)
+        elif reg_bits < value_bits:
+            value = value[value_bits - reg_bits - 1 : 0]
+        setattr(state.regs, reg_name, value)
     
     def run_symbolic_execution(self):
         """Run symbolic execution."""
@@ -289,9 +334,20 @@ class BenchmarkSymbolicExecution:
         
         for constraint in state.solver.constraints:
             constraint_str = str(constraint)
-            if 'ULE' in constraint_str or 'ULT' in constraint_str:
+            constraint_kind = constraint_str.lower()
+            if (
+                'ule' in constraint_kind or 'ult' in constraint_kind
+                or '<=u' in constraint_kind or '<u' in constraint_kind
+                or '>=u' in constraint_kind or '>u' in constraint_kind
+            ):
                 constraint_info['types'].append('unsigned_comparison')
-            elif 'SLE' in constraint_str or 'SLT' in constraint_str:
+            elif (
+                'sle' in constraint_kind or 'slt' in constraint_kind
+                or 'sge' in constraint_kind or 'sgt' in constraint_kind
+                or '<=s' in constraint_kind or '<s' in constraint_kind
+                or '>=s' in constraint_kind or '>s' in constraint_kind
+                or 'fp' in constraint_kind
+            ):
                 constraint_info['types'].append('signed_comparison')
             elif '==' in constraint_str:
                 constraint_info['types'].append('equality')
@@ -381,11 +437,15 @@ class BenchmarkSymbolicExecution:
     def get_return_expr(self, state):
         ret_type = (self.snippet_signature or {}).get("return")
         if ret_type in ("double", "float"):
-            for reg_name in ("d0", "s0", "q0", "v0"):
+            for reg_name in ("d0", "s0", "xmm0", "q0", "v0"):
                 if reg_name not in state.arch.registers:
                     continue
                 try:
-                    return getattr(state.regs, reg_name)
+                    expr = getattr(state.regs, reg_name)
+                    target_bits = 64 if ret_type == "double" else 32
+                    if int(expr.size()) > target_bits:
+                        return expr[target_bits - 1 : 0]
+                    return expr
                 except Exception:
                     continue
         # ARDiff benchmark snippets are generated as int snippet(...). Prefer

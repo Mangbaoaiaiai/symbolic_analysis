@@ -1,3 +1,0 @@
-{"event": "align_start", "name": "fmcad_feature_vector_generation", "path_count": 6, "run_id": "ModDiff/LoopUnreach15_Eq:fmcad_align:fmcad_vectors", "ts": 1782836703.451222}
-{"elapsed": 0.002402625000000002, "end_ts": 1782836703.4536262, "event": "align_end", "name": "fmcad_feature_vector_generation", "path_count": 6, "run_id": "ModDiff/LoopUnreach15_Eq:fmcad_align:fmcad_vectors", "start_ts": 1782836703.45122, "ts": 1782836703.4536269, "vectors_generated": 6}
-{"counters": {}, "event": "summary", "run_id": "ModDiff/LoopUnreach15_Eq:fmcad_align:fmcad_vectors", "totals": {"align_seconds": 0.002402625000000002}, "ts": 1782836703.4540632}

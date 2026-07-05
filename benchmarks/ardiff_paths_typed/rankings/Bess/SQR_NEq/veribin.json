@@ -7,15 +7,15 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0
+          "similarity": 1.0
         }
       ]
     }
   ],
   "timing": {
-    "t_align": 1.5634015000000012,
-    "t_preprocess": 1.5627870000000001,
-    "t_align_rank": 0.0006145000000010725,
+    "t_align": 3.5237006999999876,
+    "t_preprocess": 3.512263,
+    "t_align_rank": 0.011437699999987672,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

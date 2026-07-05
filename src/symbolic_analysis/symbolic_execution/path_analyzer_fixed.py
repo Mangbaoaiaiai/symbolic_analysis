@@ -1,4 +1,4 @@
-                      
+﻿                      
 """
 Variable-name fast path matching.
 
@@ -17,7 +17,7 @@ def extract_path_signature_from_file(file_path):
             content = f.read()
 
         # Prefer English labels; fall back to legacy Chinese for old files
-        var_match = re.search(r'; Variable values?: (.+)', content) or re.search(r'; 变量值: (.+)', content)
+        var_match = re.search(r'; Variable values?: (.+)', content) or re.search(r'; \u53d8\u91cf\u503c: (.+)', content)
         if var_match:
             var_str = var_match.group(1)
             try:
@@ -28,7 +28,7 @@ def extract_path_signature_from_file(file_path):
             variable_values = {}
         
                 
-        constraint_match = re.search(r'; Constraint info: (.+)', content) or re.search(r'; 约束信息: (.+)', content)
+        constraint_match = re.search(r'; Constraint info: (.+)', content) or re.search(r'; \u7ea6\u675f\u4fe1\u606f: (.+)', content)
         if constraint_match:
             constraint_str = constraint_match.group(1)
             try:
@@ -39,7 +39,7 @@ def extract_path_signature_from_file(file_path):
             constraint_info = {'count': 0, 'types': []}
         
                 
-        hash_match = re.search(r'; Memory hash: (.+)', content) or re.search(r'; 内存哈希: (.+)', content)
+        hash_match = re.search(r'; Memory hash: (.+)', content) or re.search(r'; \u5185\u5b58\u54c8\u5e0c: (.+)', content)
         if hash_match:
             try:
                 memory_hash = int(hash_match.group(1))
@@ -49,7 +49,7 @@ def extract_path_signature_from_file(file_path):
             memory_hash = 0
         
                 
-        output_pattern = r'; Program output:\s*(.+?)(?:\n|$)|; 程序输出:\s*(.+?)(?:\n|$)'
+        output_pattern = r'; Program output:\s*(.+?)(?:\n|$)|; \u7a0b\u5e8f\u8f93\u51fa:\s*(.+?)(?:\n|$)'
         output_match = re.search(output_pattern, content, re.DOTALL)
         if output_match:
             program_output = (output_match.group(1) or output_match.group(2) or "").strip()
@@ -212,7 +212,7 @@ def analyze_and_compare_fixed(prefix1, prefix2, output_file="fixed_comparison.tx
     print(f"Valid paths: {len(paths1)} vs {len(paths2)}")
     
     if len(paths1) == 0 or len(paths2) == 0:
-        print("❌ No valid paths to compare")
+        print("No valid paths to compare")
         return
     
           

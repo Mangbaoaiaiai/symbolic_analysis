@@ -1,1 +1,0 @@
-Wrote 9 path vectors to /Users/zzk/Desktop/symbolicana/evaluation_results_ardiff/raw/dart/test_Eq/fmcad/path_vectors.json

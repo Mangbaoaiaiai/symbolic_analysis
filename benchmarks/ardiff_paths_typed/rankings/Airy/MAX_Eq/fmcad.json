@@ -23,9 +23,9 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.571429,
+          "similarity": 0.4,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.571429
+          "graph_similarity": 0.4
         }
       ]
     },
@@ -43,18 +43,18 @@
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.571429,
+          "similarity": 0.4,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.571429
+          "graph_similarity": 0.4
         }
       ]
     }
   ],
   "pair_id": "Airy/MAX_Eq",
   "timing": {
-    "t_align": 0.008303041000000011,
+    "t_align": 0.0028295000001890003,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.008303041000000011,
+    "t_align_rank": 0.0028295000001890003,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

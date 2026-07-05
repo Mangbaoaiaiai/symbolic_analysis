@@ -1,34 +1,50 @@
-Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/Bess/bessi1/NEq/bin/symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature double(double)
+Command: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\.venv\Scripts\python.exe C:\Users\10198\Desktop\symbolicana\symbolic_analysis\scripts\se_script_improved.py --binary C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\Bess\bessi1\NEq\bin\symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature double(double)
 
-ERROR    | 2026-07-01 20:33:36,449 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
-WARNING  | 2026-07-01 20:33:36,611 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
-WARNING  | 2026-07-01 20:33:36,611 | cle.backends.macho.macho | LC_UUID is not handled yet
-WARNING  | 2026-07-01 20:33:36,611 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
-WARNING  | 2026-07-01 20:33:36,612 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
-WARNING  | 2026-07-01 20:33:36,612 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
-Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/Bess/bessi1/NEq/bin/symbolic_newV
-Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/Bess/bessi1/NEq/bin/symbolic_newV
-Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/Bess/bessi1/NEq/bin/symbolic_newV
-Found snippet at: 0x100003c74
+ERROR    | 2026-07-05 07:57:56,277 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dll", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-05 07:57:56,946 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\Bess\bessi1\NEq\bin\symbolic_newV
+Starting symbolic execution: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\Bess\bessi1\NEq\bin\symbolic_newV
+Loading binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\Bess\bessi1\NEq\bin\symbolic_newV
+Found snippet at: 0x1400014b0
 Created symbolic snippet arguments: arg_0:double
 Exploring paths...
 Symbolic execution finished:
   Deadended: 0
   Active: 0
-  Errored: 2
-  Handling errored states: 2
+  Errored: 6
+  Handling errored states: 6
 
 Analyzing path 1...
   Saved to: symbolic_newV_path_1.txt
-  Symbolic variable values: {'arg_0': 9221120237041090560}
-  Constraint count: 1
+  Symbolic variable values: {'arg_0': 8444249301319681}
+  Constraint count: 3
 
 Analyzing path 2...
   Saved to: symbolic_newV_path_2.txt
-  Symbolic variable values: {'arg_0': 13229323905400833}
-  Constraint count: 3
-Done. Found 2 paths
+  Symbolic variable values: {'arg_0': 4649454530587146735}
+  Constraint count: 5
+
+Analyzing path 3...
+  Saved to: symbolic_newV_path_3.txt
+  Symbolic variable values: {'arg_0': 4652832231381416432}
+  Constraint count: 10
+
+Analyzing path 4...
+  Saved to: symbolic_newV_path_4.txt
+  Symbolic variable values: {'arg_0': 9218868437227405312}
+  Constraint count: 5
+
+Analyzing path 5...
+  Saved to: symbolic_newV_path_5.txt
+  Symbolic variable values: {'arg_0': 18442240474082181120}
+  Constraint count: 6
+
+Analyzing path 6...
+  Saved to: symbolic_newV_path_6.txt
+  Symbolic variable values: {'arg_0': 9221120237041090560}
+  Constraint count: 7
+Done. Found 6 paths
 
 
-elapsed=0.781974
+elapsed=3.012067
 returncode=0

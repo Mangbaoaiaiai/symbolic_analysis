@@ -16,28 +16,28 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.6,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.6
-        },
-        {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.5,
+          "similarity": 0.333333,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.5
+          "graph_similarity": 0.333333
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.444444,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.444444
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.285714,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.285714
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.4,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.285714
         }
       ]
     },
@@ -48,28 +48,28 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.4,
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.25,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.25
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.363636,
+          "similarity": 0.25,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.363636
+          "graph_similarity": 0.25
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.363636,
+          "similarity": 0.25,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.363636
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.222222,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.25
         }
       ]
     },
@@ -80,28 +80,28 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.545455,
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.545455
+          "graph_similarity": 0.5
         },
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.4,
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.5
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.222222,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.285714
         },
         {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.181818,
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.25,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.181818
+          "graph_similarity": 0.25
         }
       ]
     },
@@ -112,10 +112,10 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.545455,
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.545455
+          "graph_similarity": 0.5
         },
         {
           "path_id": "symbolic_newV_path_4",
@@ -125,24 +125,24 @@
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.2,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.2
+          "graph_similarity": 0.285714
         },
         {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.166667,
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.25,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.166667
+          "graph_similarity": 0.25
         }
       ]
     }
   ],
   "pair_id": "Airy/Sign_NEq",
   "timing": {
-    "t_align": 0.007954791000000405,
+    "t_align": 0.004025299999739218,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.007954791000000405,
+    "t_align_rank": 0.004025299999739218,
     "old_path_count": 4,
     "new_path_count": 4,
     "candidate_pairs": 16

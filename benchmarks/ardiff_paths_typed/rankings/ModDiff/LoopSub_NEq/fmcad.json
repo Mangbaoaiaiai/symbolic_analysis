@@ -26,9 +26,9 @@
   ],
   "pair_id": "ModDiff/LoopSub_NEq",
   "timing": {
-    "t_align": 0.0007020840000109274,
+    "t_align": 0.0006232999985513743,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0007020840000109274,
+    "t_align_rank": 0.0006232999985513743,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

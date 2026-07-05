@@ -1,49 +1,165 @@
-Command: /Users/zzk/Desktop/symbolicana/symbolic_analysis/.venv312/bin/python /Users/zzk/Desktop/symbolicana/symbolic_analysis/scripts/se_script_improved.py --binary /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/caldat/julday/NEq/bin/symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature double(double,double,double)
+Command: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\.venv\Scripts\python.exe C:\Users\10198\Desktop\symbolicana\symbolic_analysis\scripts\se_script_improved.py --binary C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\caldat\julday\NEq\bin\symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature double(double,double,double)
 
-ERROR    | 2026-07-01 20:45:17,573 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dylib", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
-WARNING  | 2026-07-01 20:45:17,741 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
-WARNING  | 2026-07-01 20:45:17,741 | cle.backends.macho.macho | LC_UUID is not handled yet
-WARNING  | 2026-07-01 20:45:17,741 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
-WARNING  | 2026-07-01 20:45:17,742 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
-WARNING  | 2026-07-01 20:45:17,742 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
-Analyzing single binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/caldat/julday/NEq/bin/symbolic_newV
-Starting symbolic execution: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/caldat/julday/NEq/bin/symbolic_newV
-Loading binary: /Users/zzk/Desktop/symbolicana/benchmarks/ardiff_paths_typed/cases/caldat/julday/NEq/bin/symbolic_newV
-Found snippet at: 0x100003d2c
+ERROR    | 2026-07-05 06:45:42,694 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dll", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-05 06:45:43,347 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\caldat\julday\NEq\bin\symbolic_newV
+Starting symbolic execution: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\caldat\julday\NEq\bin\symbolic_newV
+Loading binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\caldat\julday\NEq\bin\symbolic_newV
+Found snippet at: 0x1400014b0
 Created symbolic snippet arguments: arg_0:double, arg_1:double, arg_2:double
 Exploring paths...
 Symbolic execution finished:
   Deadended: 0
   Active: 0
-  Errored: 5
-  Handling errored states: 5
+  Errored: 29
+  Handling errored states: 29
 
 Analyzing path 1...
   Saved to: symbolic_newV_path_1.txt
-  Symbolic variable values: {'arg_0': 0, 'arg_1': 9221120237041090560, 'arg_2': 9221120237041090560}
-  Constraint count: 3
+  Symbolic variable values: {'arg_0': 9221120237041090560, 'arg_1': 9221120237041090560, 'arg_2': 0}
+  Constraint count: 2
 
 Analyzing path 2...
   Saved to: symbolic_newV_path_2.txt
-  Symbolic variable values: {'arg_0': 9221120237041090560, 'arg_1': 9221120237041090560, 'arg_2': 0}
-  Constraint count: 1
+  Symbolic variable values: {'arg_0': 13846880004304011264, 'arg_1': 9371990824558002176, 'arg_2': 9221120237041090560}
+  Constraint count: 6
 
 Analyzing path 3...
   Saved to: symbolic_newV_path_3.txt
-  Symbolic variable values: {'arg_0': 7637269471373301732, 'arg_1': 9221120237041090560, 'arg_2': 9221120237041090560}
-  Constraint count: 3
+  Symbolic variable values: {'arg_0': 9223372036854775808, 'arg_1': 9221120237041090560, 'arg_2': 9221120237041090560}
+  Constraint count: 9
 
 Analyzing path 4...
   Saved to: symbolic_newV_path_4.txt
-  Symbolic variable values: {'arg_0': 0, 'arg_1': 9221120237041090560, 'arg_2': 9230127436295831552}
-  Constraint count: 3
+  Symbolic variable values: {'arg_0': 13846880004304011264, 'arg_1': 4809826809845681861, 'arg_2': 4734784408248527659}
+  Constraint count: 7
 
 Analyzing path 5...
   Saved to: symbolic_newV_path_5.txt
-  Symbolic variable values: {'arg_0': 4612824786551384186, 'arg_1': 9221120237041090560, 'arg_2': 9230127436295831552}
-  Constraint count: 3
-Done. Found 5 paths
+  Symbolic variable values: {'arg_0': 13846880004304011264, 'arg_1': 0, 'arg_2': 1}
+  Constraint count: 7
+
+Analyzing path 6...
+  Saved to: symbolic_newV_path_6.txt
+  Symbolic variable values: {'arg_0': 13846880004304011264, 'arg_1': 8137427380909321357, 'arg_2': 13877087327847749173}
+  Constraint count: 7
+
+Analyzing path 7...
+  Saved to: symbolic_newV_path_7.txt
+  Symbolic variable values: {'arg_0': 13846880004304011264, 'arg_1': 15983280490020864000, 'arg_2': 15939992435806612139}
+  Constraint count: 7
+
+Analyzing path 8...
+  Saved to: symbolic_newV_path_8.txt
+  Symbolic variable values: {'arg_0': 4697254402757492866, 'arg_1': 9221120237041090560, 'arg_2': 9221120237041090560}
+  Constraint count: 9
+
+Analyzing path 9...
+  Saved to: symbolic_newV_path_9.txt
+  Symbolic variable values: {'arg_0': 9223372036854775808, 'arg_1': 9221120237041090560, 'arg_2': 4503599627370497}
+  Constraint count: 10
+
+Analyzing path 10...
+  Saved to: symbolic_newV_path_10.txt
+  Symbolic variable values: {'arg_0': 9223372036854775808, 'arg_1': 9221120237041090560, 'arg_2': 9227875636482148352}
+  Constraint count: 10
+
+Analyzing path 11...
+  Saved to: symbolic_newV_path_11.txt
+  Symbolic variable values: {'arg_0': 4615063821227130880, 'arg_1': 9221120237041090560, 'arg_2': 4503599627370497}
+  Constraint count: 10
+
+Analyzing path 12...
+  Saved to: symbolic_newV_path_12.txt
+  Symbolic variable values: {'arg_0': 4614547680690612907, 'arg_1': 9221120237041090560, 'arg_2': 9227875636482148352}
+  Constraint count: 10
+
+Analyzing path 13...
+  Saved to: symbolic_newV_path_13.txt
+  Symbolic variable values: {'arg_0': 9205463191461560320, 'arg_1': 0, 'arg_2': 9221120237041090560}
+  Constraint count: 9
+
+Analyzing path 14...
+  Saved to: symbolic_newV_path_14.txt
+  Symbolic variable values: {'arg_0': 9196650679065710865, 'arg_1': 0, 'arg_2': 4503599627370497}
+  Constraint count: 10
+
+Analyzing path 15...
+  Saved to: symbolic_newV_path_15.txt
+  Symbolic variable values: {'arg_0': 9208660279217916041, 'arg_1': 5183080221082907032, 'arg_2': 18317640884391597397}
+  Constraint count: 10
+
+Analyzing path 16...
+  Saved to: symbolic_newV_path_16.txt
+  Symbolic variable values: {'arg_0': 9201135513694633984, 'arg_1': 137604628480, 'arg_2': 18412216476566377813}
+  Constraint count: 10
+
+Analyzing path 17...
+  Saved to: symbolic_newV_path_17.txt
+  Symbolic variable values: {'arg_0': 9221120237041090560, 'arg_1': 9417026820831707136, 'arg_2': 9221120237041090560}
+  Constraint count: 9
+
+Analyzing path 18...
+  Saved to: symbolic_newV_path_18.txt
+  Symbolic variable values: {'arg_0': 18300977181330048286, 'arg_1': 14015202040376983552, 'arg_2': 9221120237041090560}
+  Constraint count: 10
+
+Analyzing path 19...
+  Saved to: symbolic_newV_path_19.txt
+  Symbolic variable values: {'arg_0': 18442240474082181120, 'arg_1': 0, 'arg_2': 9221120237041090560}
+  Constraint count: 10
+
+Analyzing path 20...
+  Saved to: symbolic_newV_path_20.txt
+  Symbolic variable values: {'arg_0': 9221120237041090560, 'arg_1': 9007199254740991, 'arg_2': 703693887116800}
+  Constraint count: 8
+
+Analyzing path 21...
+  Saved to: symbolic_newV_path_21.txt
+  Symbolic variable values: {'arg_0': 13943144446247918258, 'arg_1': 13960918920267803746, 'arg_2': 4707762810490352529}
+  Constraint count: 9
+
+Analyzing path 22...
+  Saved to: symbolic_newV_path_22.txt
+  Symbolic variable values: {'arg_0': 13846880705055443088, 'arg_1': 0, 'arg_2': 1}
+  Constraint count: 9
+
+Analyzing path 23...
+  Saved to: symbolic_newV_path_23.txt
+  Symbolic variable values: {'arg_0': 9221120237041090560, 'arg_1': 0, 'arg_2': 9227875636482148352}
+  Constraint count: 7
+
+Analyzing path 24...
+  Saved to: symbolic_newV_path_24.txt
+  Symbolic variable values: {'arg_0': 13918565346864497233, 'arg_1': 9218868437227405312, 'arg_2': 18438096804640988140}
+  Constraint count: 8
+
+Analyzing path 25...
+  Saved to: symbolic_newV_path_25.txt
+  Symbolic variable values: {'arg_0': 13847868241948442640, 'arg_1': 0, 'arg_2': 9227875636482148352}
+  Constraint count: 8
+
+Analyzing path 26...
+  Saved to: symbolic_newV_path_26.txt
+  Symbolic variable values: {'arg_0': 18442240474082181120, 'arg_1': 10986953503435390976, 'arg_2': 9209360568528384095}
+  Constraint count: 9
+
+Analyzing path 27...
+  Saved to: symbolic_newV_path_27.txt
+  Symbolic variable values: {'arg_0': 18442240474082181120, 'arg_1': 0, 'arg_2': 4503599627370497}
+  Constraint count: 9
+
+Analyzing path 28...
+  Saved to: symbolic_newV_path_28.txt
+  Symbolic variable values: {'arg_0': 18424226075572699136, 'arg_1': 9221120237041090560, 'arg_2': 18442240474082181120}
+  Constraint count: 8
+
+Analyzing path 29...
+  Saved to: symbolic_newV_path_29.txt
+  Symbolic variable values: {'arg_0': 18442240474082181120, 'arg_1': 0, 'arg_2': 14134405908851604755}
+  Constraint count: 8
+Done. Found 29 paths
 
 
-elapsed=1.021382
+elapsed=134.923328
 returncode=0

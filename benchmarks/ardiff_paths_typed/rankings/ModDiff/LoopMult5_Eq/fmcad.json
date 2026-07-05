@@ -23,102 +23,93 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.75,
+          "similarity": 0.8,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.75
+          "graph_similarity": 0.8
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.222222,
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "graph_similarity": 0.0
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_2",
-      "decision": "graph_rerank",
+      "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.0,
+      "feature_margin": 0.27003600000000005,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
           "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.75,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.75
+          "feature_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.181818,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.181818
+          "similarity": 0.729964,
+          "feature_similarity": 0.729964
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_3",
-      "decision": "graph_rerank",
-      "feature_top1": 0.843661,
-      "feature_margin": 0.0,
+      "decision": "feature_confident",
+      "feature_top1": 0.941896,
+      "feature_margin": 0.24853599999999998,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.833333,
-          "feature_similarity": 0.843661,
-          "graph_similarity": 0.833333
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.222222,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "similarity": 0.941896,
+          "feature_similarity": 0.941896
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.181818,
-          "feature_similarity": 0.843661,
-          "graph_similarity": 0.181818
+          "similarity": 0.69336,
+          "feature_similarity": 0.69336
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_4",
-      "decision": "graph_rerank",
-      "feature_top1": 0.8,
-      "feature_margin": 0.0,
+      "decision": "feature_confident",
+      "feature_top1": 0.937201,
+      "feature_margin": 0.1938899999999999,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.833333,
-          "feature_similarity": 0.8,
-          "graph_similarity": 0.833333
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.222222,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "similarity": 0.937201,
+          "feature_similarity": 0.937201
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.181818,
-          "feature_similarity": 0.8,
-          "graph_similarity": 0.181818
+          "similarity": 0.743311,
+          "feature_similarity": 0.743311
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "ModDiff/LoopMult5_Eq",
   "timing": {
-    "t_align": 0.0025842499999839674,
+    "t_align": 0.002847499999916181,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0025842499999839674,
+    "t_align_rank": 0.002847499999916181,
     "old_path_count": 4,
     "new_path_count": 3,
     "candidate_pairs": 12

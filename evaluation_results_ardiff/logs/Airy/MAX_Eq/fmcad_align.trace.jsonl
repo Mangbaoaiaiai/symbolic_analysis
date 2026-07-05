@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Airy/MAX_Eq:fmcad_align:fmcad_align", "ts": 1782836701.118196, "vector_count": 4}
-{"candidate_count": 6, "elapsed": 0.00018604200000000085, "end_ts": 1782836701.118382, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Airy/MAX_Eq:fmcad_align:fmcad_align", "start_ts": 1782836701.118193, "ts": 1782836701.1183841, "vector_count": 4}
-{"counters": {}, "event": "summary", "run_id": "Airy/MAX_Eq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.00018604200000000085}, "ts": 1782836701.11861}

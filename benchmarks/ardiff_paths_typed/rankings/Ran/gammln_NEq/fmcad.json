@@ -25,9 +25,9 @@
   ],
   "pair_id": "Ran/gammln_NEq",
   "timing": {
-    "t_align": 0.0008649579999655543,
+    "t_align": 0.000645300024189055,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0008649579999655543,
+    "t_align_rank": 0.000645300024189055,
     "old_path_count": 1,
     "new_path_count": 1,
     "candidate_pairs": 1

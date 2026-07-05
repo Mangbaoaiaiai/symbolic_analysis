@@ -91,9 +91,9 @@
     }
   ],
   "timing": {
-    "t_align": 3.9832999959799054e-05,
+    "t_align": 5.300000339047983e-06,
     "t_preprocess": 0.0,
-    "t_align_rank": 3.9832999959799054e-05,
+    "t_align_rank": 5.300000339047983e-06,
     "old_path_count": 3,
     "new_path_count": 6,
     "candidate_pairs": 18

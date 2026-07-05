@@ -23,21 +23,21 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.666667,
+          "similarity": 0.571429,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.666667
+          "graph_similarity": 0.571429
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.444444,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.444444
+          "graph_similarity": 0.285714
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.4,
+          "similarity": 0.285714,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.285714
         }
       ]
     },
@@ -55,21 +55,21 @@
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.666667,
+          "similarity": 0.571429,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.666667
+          "graph_similarity": 0.571429
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.4,
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.5
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.363636,
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.363636
+          "graph_similarity": 0.5
         }
       ]
     },
@@ -87,21 +87,21 @@
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.727273,
+          "similarity": 0.75,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.727273
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.444444,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.444444
+          "graph_similarity": 0.75
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.4,
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.285714
         }
       ]
     },
@@ -119,30 +119,30 @@
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.727273,
+          "similarity": 0.75,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.727273
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.4,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.4
+          "graph_similarity": 0.75
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.363636,
+          "similarity": 0.5,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.363636
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.285714
         }
       ]
     }
   ],
   "pair_id": "Bess/SIGN_Eq",
   "timing": {
-    "t_align": 0.008077041000001728,
+    "t_align": 0.0038002000001142733,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.008077041000001728,
+    "t_align_rank": 0.0038002000001142733,
     "old_path_count": 4,
     "new_path_count": 4,
     "candidate_pairs": 16

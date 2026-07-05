@@ -7,23 +7,23 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.5
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.166667
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.166667
+          "similarity": 0.444444
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.166667
+          "similarity": 0.444444
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.166667
+          "similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.25
         }
       ]
     },
@@ -32,23 +32,23 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.7
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.5
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.2
+          "similarity": 0.461538
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.2
+          "similarity": 0.461538
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.307692
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.166667
+          "similarity": 0.25
         }
       ]
     },
@@ -57,23 +57,23 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.2
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.2
+          "similarity": 0.714286
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.461538
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.166667
+          "similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.428571
         }
       ]
     },
@@ -82,23 +82,23 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.7
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.5
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.2
+          "similarity": 0.714286
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.2
+          "similarity": 0.571429
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.166667
+          "similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.307692
         }
       ]
     },
@@ -107,31 +107,31 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.2
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.2
+          "similarity": 0.571429
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.461538
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.166667
+          "similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.428571
         }
       ]
     }
   ],
   "timing": {
-    "t_align": 1.5628811250000887,
-    "t_preprocess": 1.562314,
-    "t_align_rank": 0.0005671250000887085,
+    "t_align": 4.3541270999987045,
+    "t_preprocess": 4.264155000000001,
+    "t_align_rank": 0.08997209999870392,
     "old_path_count": 5,
     "new_path_count": 5,
     "candidate_pairs": 25

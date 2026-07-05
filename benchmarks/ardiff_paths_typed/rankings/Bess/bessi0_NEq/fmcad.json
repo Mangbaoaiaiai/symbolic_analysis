@@ -11,46 +11,50 @@
   "queries": [
     {
       "query": "symbolic_oldV_path_1",
-      "decision": "graph_failed_feature_fallback",
+      "decision": "graph_rerank",
       "feature_top1": 0.0,
       "feature_margin": 0.0,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
-          "feature_similarity": 0.0
+          "similarity": 1.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.0,
-          "feature_similarity": 0.0
+          "similarity": 0.4,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.4
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_2",
-      "decision": "graph_failed_feature_fallback",
+      "decision": "graph_rerank",
       "feature_top1": 0.0,
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
-          "feature_similarity": 0.0
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 1.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 1.0
         },
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.0,
-          "feature_similarity": 0.0
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.4,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.4
         }
       ]
     }
   ],
   "pair_id": "Bess/bessi0_NEq",
   "timing": {
-    "t_align": 0.004099000000000075,
+    "t_align": 0.0018996999997398234,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.004099000000000075,
+    "t_align_rank": 0.0018996999997398234,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

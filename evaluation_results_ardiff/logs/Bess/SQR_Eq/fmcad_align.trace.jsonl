@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Bess/SQR_Eq:fmcad_align:fmcad_align", "ts": 1782836701.6223118, "vector_count": 2}
-{"candidate_count": 1, "elapsed": 0.0001496659999999997, "end_ts": 1782836701.622462, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Bess/SQR_Eq:fmcad_align:fmcad_align", "start_ts": 1782836701.62231, "ts": 1782836701.622463, "vector_count": 2}
-{"counters": {}, "event": "summary", "run_id": "Bess/SQR_Eq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.0001496659999999997}, "ts": 1782836701.6226718}

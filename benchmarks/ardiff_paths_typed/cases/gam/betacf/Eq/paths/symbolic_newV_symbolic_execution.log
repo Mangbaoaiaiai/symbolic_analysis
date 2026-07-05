@@ -1,0 +1,29 @@
+Command: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\.venv\Scripts\python.exe C:\Users\10198\Desktop\symbolicana\symbolic_analysis\scripts\se_script_improved.py --binary C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\gam\betacf\Eq\bin\symbolic_newV --output-prefix symbolic_newV --timeout 120 --signature int(int,int,int)
+
+ERROR    | 2026-07-05 05:26:07,840 | angr.state_plugins.unicorn_engine | failed loading "unicornlib.dll", unicorn support disabled ('NoneType' object has no attribute 'unicorn_py3')
+WARNING  | 2026-07-05 05:26:08,432 | cle.backends.macho.macho | LC_LOAD_DYLINKER is not handled yet
+WARNING  | 2026-07-05 05:26:08,432 | cle.backends.macho.macho | LC_UUID is not handled yet
+WARNING  | 2026-07-05 05:26:08,432 | cle.backends.macho.macho | LC_SOURCE_VERSION is not handled yet
+WARNING  | 2026-07-05 05:26:08,432 | cle.backends.macho.macho | LC_CODE_SIGNATURE is not handled yet
+WARNING  | 2026-07-05 05:26:08,433 | angr.calling_conventions | Guessing call prototype. Please specify prototype.
+Analyzing single binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\gam\betacf\Eq\bin\symbolic_newV
+Starting symbolic execution: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\gam\betacf\Eq\bin\symbolic_newV
+Loading binary: C:\Users\10198\Desktop\symbolicana\symbolic_analysis\benchmarks\ardiff_paths_typed\cases\gam\betacf\Eq\bin\symbolic_newV
+Found snippet at: 0x100003ad0
+Created symbolic snippet arguments: arg_0:int, arg_1:int, arg_2:int
+Exploring paths...
+Symbolic execution finished:
+  Deadended: 0
+  Active: 0
+  Errored: 1
+  Handling errored states: 1
+
+Analyzing path 1...
+  Saved to: symbolic_newV_path_1.txt
+  Symbolic variable values: {'arg_0': 0, 'arg_1': 0, 'arg_2': 0}
+  Constraint count: 0
+Done. Found 1 paths
+
+
+elapsed=1.760276
+returncode=0

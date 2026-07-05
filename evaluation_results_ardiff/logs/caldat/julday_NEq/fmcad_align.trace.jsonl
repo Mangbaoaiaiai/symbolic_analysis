@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "caldat/julday_NEq:fmcad_align:fmcad_align", "ts": 1782836705.4046988, "vector_count": 2}
-{"candidate_count": 1, "elapsed": 0.0001549999999999989, "end_ts": 1782836705.404855, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "caldat/julday_NEq:fmcad_align:fmcad_align", "start_ts": 1782836705.4046972, "ts": 1782836705.4048572, "vector_count": 2}
-{"counters": {}, "event": "summary", "run_id": "caldat/julday_NEq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.0001549999999999989}, "ts": 1782836705.405081}

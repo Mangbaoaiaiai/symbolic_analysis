@@ -1,10 +1,10 @@
-                      
+﻿                      
 """
 Enhanced program equivalence analyzer: constraint + output combined judgment.
-1. Path constraints equivalent and program output same → equivalent
-2. Path constraints not equivalent but output same → suspicious (constraint)
-3. Path constraints equivalent but output not same → suspicious (output)
-4. Path constraints not equivalent and output not same → not equivalent
+1. Path constraints equivalent and program output same -> equivalent
+2. Path constraints not equivalent but output same -> suspicious (constraint)
+3. Path constraints equivalent but output not same -> suspicious (output)
+4. Path constraints not equivalent and output not same -> not equivalent
 """
 
 import re
@@ -54,7 +54,7 @@ class ArrayStateComparator:
         lines = content.split('\n')
         for line in lines:
             line = line.strip()
-            if line.startswith('; 数组初始值:') or line.startswith('; Initial array') or line.startswith('; Array initial'):
+            if line.startswith('; \u6570\u7ec4\u521d\u59cb\u503c:') or line.startswith('; Initial array') or line.startswith('; Array initial'):
                 try:
                     array_str = line.split(':', 1)[1].strip()
                     array_initial = eval(array_str)                                
@@ -62,7 +62,7 @@ class ArrayStateComparator:
                     pass
                     
                      
-            elif line.startswith('; 数组最终值:') or line.startswith('; Final array') or line.startswith('; Array final'):
+            elif line.startswith('; \u6570\u7ec4\u6700\u7ec8\u503c:') or line.startswith('; Final array') or line.startswith('; Array final'):
                 try:
                     array_str = line.split(':', 1)[1].strip()
                     array_final = eval(array_str)                                
@@ -143,7 +143,7 @@ class EnhancedConstraintChecker:
                 
         program_output = ""
         for line in content.split('\n'):
-            if line.strip().startswith('; 程序输出:') or line.strip().startswith('; Program output:'):
+            if line.strip().startswith('; \u7a0b\u5e8f\u8f93\u51fa:') or line.strip().startswith('; Program output:'):
                 try:
                     output_line = line.split(':', 1)[1].strip()
                     if output_line:
@@ -222,9 +222,9 @@ class EnhancedConstraintChecker:
         
         if constraint_result == "equivalent":
             result['constraint_equivalent'] = True
-            print(f"      ✓ Constraints equivalent (time: {constraint_time:.3f}s)")
+            print(f"      OKConstraints equivalent (time: {constraint_time:.3f}s)")
         else:
-            print(f"      ❌ Constraints not equivalent: {constraint_result} (time: {constraint_time:.3f}s)")
+            print(f"      FAILConstraints not equivalent: {constraint_result} (time: {constraint_time:.3f}s)")
         print("    Step 2: Check program output equivalence...")
         output_start = time.time()
         output1 = path1_info['program_output'].strip()
@@ -241,9 +241,9 @@ class EnhancedConstraintChecker:
         }
         
         if output_equivalent:
-            print(f"      ✓ Program output same: '{output1}' (time: {output_time:.3f}s)")
+            print(f"      OKProgram output same: '{output1}' (time: {output_time:.3f}s)")
         else:
-            print(f"      ❌ Program output different: '{output1}' vs '{output2}' (time: {output_time:.3f}s)")
+            print(f"      FAILProgram output different: '{output1}' vs '{output2}' (time: {output_time:.3f}s)")
         if result['constraint_equivalent']:
             print("    Step 3: Check array initial state...")
             array_initial_start = time.time()
@@ -256,7 +256,7 @@ class EnhancedConstraintChecker:
             
             if initial_same:
                 result['array_initial_same'] = True
-                print(f"      ✓ Array initial state same (time: {array_initial_time:.3f}s)")
+                print(f"      OKArray initial state same (time: {array_initial_time:.3f}s)")
                 print("    Step 4: Check array final state...")
                 array_final_start = time.time()
                 final_same, final_details = self.array_comparator.compare_array_states(
@@ -268,11 +268,11 @@ class EnhancedConstraintChecker:
                 
                 if final_same:
                     result['array_final_same'] = True
-                    print(f"      ✓ Array final state same (time: {array_final_time:.3f}s)")
+                    print(f"      OKArray final state same (time: {array_final_time:.3f}s)")
                 else:
-                    print(f"      ❌ Array final state different: {final_details}")
+                    print(f"      FAILArray final state different: {final_details}")
             else:
-                print(f"      ❌ Array initial state different: {initial_details}")
+                print(f"      FAILArray initial state different: {initial_details}")
         
                  
         result['overall_equivalent'] = (result['constraint_equivalent'] and 
@@ -407,7 +407,7 @@ class EnhancedPathAnalyzer:
                 path_info['file'] = file_path
                 paths1.append(path_info)
             except Exception as e:
-                print(f"  ❌ Error processing file {file_path}: {e}")
+                print(f"  FAILError processing file {file_path}: {e}")
         
         print("Loading program 2 path info...")
         for file_path in files2:
@@ -416,7 +416,7 @@ class EnhancedPathAnalyzer:
                 path_info['file'] = file_path
                 paths2.append(path_info)
             except Exception as e:
-                print(f"  ❌ Error processing file {file_path}: {e}")
+                print(f"  FAILError processing file {file_path}: {e}")
         
         load_time = time.time() - load_start
         print(f"File load done, time: {load_time:.3f} s")
@@ -448,7 +448,7 @@ class EnhancedPathAnalyzer:
         }
         
                 
-        print(f"\n⏱️  Timing:")
+        print(f"\nTiming  Timing:")
         print(f"  Symbolic execution: {self.symbolic_execution_time:.3f} s")
         print(f"  File load: {load_time:.3f} s")
         print(f"  Path comparison: {comparison_time:.3f} s")
@@ -605,40 +605,40 @@ class EnhancedPathAnalyzer:
                     if j in results['unmatched_paths2']:
                         results['unmatched_paths2'].remove(j)
 
-                    print(f"    ✅ Fully equivalent! constraints✓ output✓ time: {pair_time:.3f}s")
+                    print(f"    OKFully equivalent! constraintsOKoutputOKtime: {pair_time:.3f}s")
                     path1_matched = True
                     break
 
                 elif (not equivalence_result['constraint_equivalent'] and
                       equivalence_result['output_equivalent']):
                     results['suspicious_constraint_pairs'].append(pair_info)
-                    print(f"    ⚠️  Suspicious (constraint)! constraints❌ output✓ time: {pair_time:.3f}s")
+                    print(f"    WARNING  Suspicious (constraint)! constraintsFAILoutputOKtime: {pair_time:.3f}s")
 
                 elif (equivalence_result['constraint_equivalent'] and
                       not equivalence_result['output_equivalent']):
                     results['suspicious_output_pairs'].append(pair_info)
-                    print(f"    ⚠️  Suspicious (output)! constraints✓ output❌ time: {pair_time:.3f}s")
+                    print(f"    WARNING  Suspicious (output)! constraintsOKoutputFAILtime: {pair_time:.3f}s")
 
                 else:
                     results['non_equivalent_pairs'].append(pair_info)
-                    print(f"    ❌ Not equivalent! constraints❌ output❌ time: {pair_time:.3f}s")
+                    print(f"    FAILNot equivalent! constraintsFAILoutputFAILtime: {pair_time:.3f}s")
 
             if not path1_matched:
-                print(f"    ❌ Path {i+1} has no equivalent path")
+                print(f"    FAILPath {i+1} has no equivalent path")
 
         results['program_equivalent'] = (
             len(results['unmatched_paths1']) == 0 and
             len(results['unmatched_paths2']) == 0
         )
 
-        print(f"\n📊 Results:")
+        print(f"\nResults Results:")
         print(f"  Fully equivalent pairs: {len(results['equivalent_pairs'])}")
         print(f"  Suspicious (constraint): {len(results['suspicious_constraint_pairs'])}")
         print(f"  Suspicious (output): {len(results['suspicious_output_pairs'])}")
         print(f"  Not equivalent pairs: {len(results['non_equivalent_pairs'])}")
         print(f"  Program 1 unmatched paths: {len(results['unmatched_paths1'])}")
         print(f"  Program 2 unmatched paths: {len(results['unmatched_paths2'])}")
-        print(f"  Program equivalence: {'✅ Equivalent' if results['program_equivalent'] else '❌ Not equivalent'}")
+        print(f"  Program equivalence: {'OKEquivalent' if results['program_equivalent'] else 'FAILNot equivalent'}")
 
         return results
     
@@ -649,15 +649,15 @@ class EnhancedPathAnalyzer:
             f.write("=" * 60 + "\n\n")
             
                   
-            f.write("📋 Overall conclusion:\n")
+            f.write("Overall Overall conclusion:\n")
             f.write("-" * 30 + "\n")
-            equivalence_status = "✅ Equivalent" if results['program_equivalent'] else "❌ Not equivalent"
+            equivalence_status = "OKEquivalent" if results['program_equivalent'] else "FAILNot equivalent"
             f.write(f"Program equivalence: {equivalence_status}\n\n")
             
                   
             if 'timing_info' in results:
                 timing = results['timing_info']
-                f.write("⏱️  Timing:\n")
+                f.write("Timing  Timing:\n")
                 f.write("-" * 30 + "\n")
                 f.write(f"Analysis start: {timing['start_time']}\n")
                 f.write(f"Analysis end: {timing['end_time']}\n")
@@ -671,7 +671,7 @@ class EnhancedPathAnalyzer:
                 f.write(f"Avg array compare: {timing['array_avg_time']:.3f} s\n\n")
             
                   
-            f.write("📊 Stats:\n")
+            f.write("Results Stats:\n")
             f.write("-" * 30 + "\n")
             f.write(f"Fully equivalent pairs: {len(results['equivalent_pairs'])}\n")
             f.write(f"Suspicious (constraint): {len(results['suspicious_constraint_pairs'])}\n")
@@ -683,7 +683,7 @@ class EnhancedPathAnalyzer:
             
                        
             if results['equivalent_pairs']:
-                f.write("✅ Fully equivalent pairs:\n")
+                f.write("OKFully equivalent pairs:\n")
                 f.write("-" * 30 + "\n")
                 for idx, pair in enumerate(results['equivalent_pairs'], 1):
                     f.write(f"{idx}. Path {pair['path1_index']+1} <-> Path {pair['path2_index']+1}\n")
@@ -703,7 +703,7 @@ class EnhancedPathAnalyzer:
             
                          
             if results['suspicious_constraint_pairs']:
-                f.write("⚠️  Suspicious (constraint) pairs:\n")
+                f.write("WARNING  Suspicious (constraint) pairs:\n")
                 f.write("-" * 30 + "\n")
                 for idx, pair in enumerate(results['suspicious_constraint_pairs'], 1):
                     f.write(f"{idx}. Path {pair['path1_index']+1} vs Path {pair['path2_index']+1}\n")
@@ -714,14 +714,16 @@ class EnhancedPathAnalyzer:
                         f.write(f"   Similarity rank in candidates: #{pair['similarity_rank']}\n")
                     equiv_result = pair['equivalence_result']
                     f.write(f"   Equivalence check:\n")
-                    f.write(f"     - Constraint equivalent: {'✅' if equiv_result['constraint_equivalent'] else '❌'}\n")
-                    f.write(f"     - Output same: {'✅' if equiv_result['output_equivalent'] else '❌'}\n")
+                    constraint_status = "OK" if equiv_result['constraint_equivalent'] else "FAIL"
+                    output_status = "OK" if equiv_result['output_equivalent'] else "FAIL"
+                    f.write(f"     - Constraint equivalent: {constraint_status}\n")
+                    f.write(f"     - Output same: {output_status}\n")
                     f.write(f"   Program output: '{equiv_result['path1_output']}' = '{equiv_result['path2_output']}'\n")
                     f.write(f"   Comparison time: {pair['comparison_time']:.3f} s\n\n")
             
                          
             if results['suspicious_output_pairs']:
-                f.write("⚠️  Suspicious (output) pairs:\n")
+                f.write("WARNING  Suspicious (output) pairs:\n")
                 f.write("-" * 30 + "\n")
                 for idx, pair in enumerate(results['suspicious_output_pairs'], 1):
                     f.write(f"{idx}. Path {pair['path1_index']+1} vs Path {pair['path2_index']+1}\n")
@@ -732,43 +734,45 @@ class EnhancedPathAnalyzer:
                         f.write(f"   Similarity rank in candidates: #{pair['similarity_rank']}\n")
                     equiv_result = pair['equivalence_result']
                     f.write(f"   Equivalence check:\n")
-                    f.write(f"     - Constraint equivalent: {'✅' if equiv_result['constraint_equivalent'] else '❌'}\n")
-                    f.write(f"     - Output same: {'✅' if equiv_result['output_equivalent'] else '❌'}\n")
-                    f.write(f"   Program output: '{equiv_result['path1_output']}' ≠ '{equiv_result['path2_output']}'\n")
+                    constraint_status = "OK" if equiv_result['constraint_equivalent'] else "FAIL"
+                    output_status = "OK" if equiv_result['output_equivalent'] else "FAIL"
+                    f.write(f"     - Constraint equivalent: {constraint_status}\n")
+                    f.write(f"     - Output same: {output_status}\n")
+                    f.write(f"   Program output: '{equiv_result['path1_output']}' !='{equiv_result['path2_output']}'\n")
                     f.write(f"   Comparison time: {pair['comparison_time']:.3f} s\n\n")
             
                       
             if results['non_equivalent_pairs']:
-                f.write("❌ Not equivalent pairs:\n")
+                f.write("FAILNot equivalent pairs:\n")
                 f.write("-" * 30 + "\n")
                 for idx, pair in enumerate(results['non_equivalent_pairs'], 1):
                     f.write(f"{idx}. Path {pair['path1_index']+1} vs Path {pair['path2_index']+1}\n")
                     f.write(f"   File1: {pair['path1_file']}\n")
                     f.write(f"   File2: {pair['path2_file']}\n")
                     f.write(f"   Similarity score: {pair.get('similarity_score', 0.0):.4f}\n")
-                    if pair.get('similarity_rank') is not None:
-                        f.write(f"   Similarity rank in candidates: #{pair['similarity_rank']}\n")
                     equiv_result = pair['equivalence_result']
                     f.write(f"   Equivalence check:\n")
-                    f.write(f"     - Constraint equivalent: {'✅' if equiv_result['constraint_equivalent'] else '❌'}\n")
-                    f.write(f"     - Output same: {'✅' if equiv_result['output_equivalent'] else '❌'}\n")
-                    f.write(f"   Program output: '{equiv_result['path1_output']}' ≠ '{equiv_result['path2_output']}'\n")
+                    constraint_status = "OK" if equiv_result['constraint_equivalent'] else "FAIL"
+                    output_status = "OK" if equiv_result['output_equivalent'] else "FAIL"
+                    f.write(f"     - Constraint equivalent: {constraint_status}\n")
+                    f.write(f"     - Output same: {output_status}\n")
+                    f.write(f"   Program output: '{equiv_result['path1_output']}' !='{equiv_result['path2_output']}'\n")
                     f.write(f"   Comparison time: {pair['comparison_time']:.3f} s\n\n")
             
                    
             if results['unmatched_paths1']:
-                f.write("❌ Program 1 unmatched paths:\n")
+                f.write("FAILProgram 1 unmatched paths:\n")
                 f.write("-" * 30 + "\n")
                 for idx in results['unmatched_paths1']:
                     f.write(f"  Path {idx+1}\n")
                 f.write("\n")
             if results['unmatched_paths2']:
-                f.write("❌ Program 2 unmatched paths:\n")
+                f.write("FAILProgram 2 unmatched paths:\n")
                 f.write("-" * 30 + "\n")
                 for idx in results['unmatched_paths2']:
                     f.write(f"  Path {idx+1}\n")
                 f.write("\n")
-        print(f"📄 Report saved to: {output_file}")
+        print(f"Report Report saved to: {output_file}")
 
 def main():
     """Main entry."""
@@ -783,19 +787,19 @@ def main():
     analyzer = EnhancedPathAnalyzer()
     analyzer.checker.timeout = args.timeout
     analyzer.set_symbolic_execution_time(args.se_time)
-    print("🚀 Starting enhanced program equivalence analysis...")
+    print("Starting Starting enhanced program equivalence analysis...")
     print("=" * 60)
     print("Combined judgment flow:")
-    print("  1️⃣  Constraint semantic equivalence (Z3)")
-    print("  2️⃣  Program output equivalence")
-    print("  3️⃣  Array initial state consistency")
-    print("  4️⃣  Array final state consistency")
+    print("  1.  Constraint semantic equivalence (Z3)")
+    print("  2.  Program output equivalence")
+    print("  3.  Array initial state consistency")
+    print("  4.  Array final state consistency")
     print("=" * 60)
     results = analyzer.analyze_program_equivalence(args.prefix1, args.prefix2)
     analyzer.generate_comprehensive_report(results, args.output)
     print("\n" + "=" * 60)
-    print("🎯 Final results:")
-    print(f"  Program equivalence: {'✅ Equivalent' if results['program_equivalent'] else '❌ Not equivalent'}")
+    print("Final Final results:")
+    print(f"  Program equivalence: {'OKEquivalent' if results['program_equivalent'] else 'FAILNot equivalent'}")
     print(f"  Fully equivalent pairs: {len(results['equivalent_pairs'])}")
     print(f"  Suspicious (constraint): {len(results['suspicious_constraint_pairs'])}")
     print(f"  Suspicious (output): {len(results['suspicious_output_pairs'])}")
@@ -803,13 +807,14 @@ def main():
     print(f"  Total pairs analyzed: {len(results['equivalent_pairs']) + len(results['suspicious_constraint_pairs']) + len(results['suspicious_output_pairs']) + len(results['non_equivalent_pairs'])}")
     if 'timing_info' in results:
         timing = results['timing_info']
-        print(f"\n⏱️  Performance:")
+        print(f"\nTiming  Performance:")
         print(f"  Total: {timing['total_time']:.3f} s")
         print(f"  Symbolic execution: {timing['symbolic_execution_time']:.3f} s")
         print(f"  SMT solve: {timing['constraint_total_time']:.3f} s ({timing['constraint_call_count']} calls)")
         print(f"  Array compare: {timing['array_total_time']:.3f} s ({timing['array_call_count']} calls)")
     print("=" * 60)
-    print("✅ Analysis complete. See output file for full report.")
+    print("OKAnalysis complete. See output file for full report.")
 
 if __name__ == "__main__":
     main()
+

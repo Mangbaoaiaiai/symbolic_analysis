@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "ModDiff/LoopUnreach20_Eq:fmcad_align:fmcad_align", "ts": 1782836703.64782, "vector_count": 6}
-{"candidate_count": 15, "elapsed": 0.000189458, "end_ts": 1782836703.64801, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "ModDiff/LoopUnreach20_Eq:fmcad_align:fmcad_align", "start_ts": 1782836703.647818, "ts": 1782836703.648011, "vector_count": 6}
-{"counters": {}, "event": "summary", "run_id": "ModDiff/LoopUnreach20_Eq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.000189458}, "ts": 1782836703.648244}

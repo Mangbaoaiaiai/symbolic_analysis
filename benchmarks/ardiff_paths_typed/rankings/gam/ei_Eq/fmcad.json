@@ -17,270 +17,44 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.25,
+          "similarity": 0.333333,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.25
+          "graph_similarity": 0.333333
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.142857,
+          "similarity": 0.222222,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
+          "graph_similarity": 0.222222
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_2",
-      "decision": "graph_rerank",
+      "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.00017699999999998273,
+      "feature_margin": 1.0,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
           "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 1.0,
-          "feature_similarity": 0.999567,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.8,
-          "feature_similarity": 0.999628,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.8,
-          "feature_similarity": 0.999823,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.6,
-          "feature_similarity": 0.999567,
-          "graph_similarity": 0.6
+          "feature_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        }
-      ]
-    },
-    {
-      "query": "symbolic_oldV_path_3",
-      "decision": "graph_rerank",
-      "feature_top1": 1.0,
-      "feature_margin": 0.00037200000000003897,
-      "ranking": [
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 1.0,
-          "feature_similarity": 0.998984,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.8,
-          "feature_similarity": 0.999628,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.8,
-          "feature_similarity": 0.998414,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.6,
-          "feature_similarity": 0.998414,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        }
-      ]
-    },
-    {
-      "query": "symbolic_oldV_path_4",
-      "decision": "graph_rerank",
-      "feature_top1": 1.0,
-      "feature_margin": 0.0,
-      "ranking": [
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 1.0,
-          "feature_similarity": 0.999567,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.8,
-          "feature_similarity": 0.998414,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.8,
-          "feature_similarity": 0.999933,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.6,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        }
-      ]
-    },
-    {
-      "query": "symbolic_oldV_path_5",
-      "decision": "graph_rerank",
-      "feature_top1": 1.0,
-      "feature_margin": 6.700000000003925e-05,
-      "ranking": [
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 1.0,
-          "feature_similarity": 0.998984,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.8,
-          "feature_similarity": 0.999823,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.8,
-          "feature_similarity": 0.999933,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 0.6,
-          "feature_similarity": 0.999933,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
-        }
-      ]
-    },
-    {
-      "query": "symbolic_oldV_path_6",
-      "decision": "graph_rerank",
-      "feature_top1": 1.0,
-      "feature_margin": 0.0,
-      "ranking": [
-        {
-          "path_id": "symbolic_newV_path_6",
-          "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.6,
-          "feature_similarity": 0.999567,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.6,
-          "feature_similarity": 0.998414,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.6,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.6,
-          "feature_similarity": 0.999933,
-          "graph_similarity": 0.6
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.142857,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.142857
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "gam/ei_Eq",
   "timing": {
-    "t_align": 0.04038404199991419,
+    "t_align": 0.001970600000277045,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.04038404199991419,
-    "old_path_count": 6,
-    "new_path_count": 6,
-    "candidate_pairs": 36
+    "t_align_rank": 0.001970600000277045,
+    "old_path_count": 2,
+    "new_path_count": 2,
+    "candidate_pairs": 4
   }
 }

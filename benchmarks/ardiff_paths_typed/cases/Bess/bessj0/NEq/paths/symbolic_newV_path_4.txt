@@ -1,0 +1,46 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))
+(declare-fun unconstrained_ret__errno_2_64 () (_ BitVec 64))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let ((?x358 (fp.add roundNearestTiesToEven ?x15 (fp #b1 #b01111111110 #x921fb5496fd7f))))
+ (let ((?x329 (fp.to_ieee_bv ?x358)))
+ (let ((?x384 ((_ extract 31 0) ?x329)))
+ (let ((?x402 ((_ extract 51 32) ?x329)))
+ (let ((?x421 (concat (_ bv0 12) ?x402)))
+ (let ((?x422 (bvor ?x421 ?x384)))
+ (= (_ bv0 32) ?x422))))))))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let ((?x358 (fp.add roundNearestTiesToEven ?x15 (fp #b1 #b01111111110 #x921fb5496fd7f))))
+ (let ((?x329 (fp.to_ieee_bv ?x358)))
+ (let ((?x403 ((_ extract 62 52) ?x329)))
+ (= (_ bv2047 11) ?x403)))))))))
+(assert
+ (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))
+ (let ((?x25 ((_ extract 62 0) ?x6)))
+ (let ((?x13 (concat (_ bv0 1) ?x25)))
+ (let ((?x15 ((_ to_fp 11 53) ?x13)))
+ (let (($x30 (fp.lt ?x15 (fp #b0 #b10000000101 #x4000000000000))))
+ (let (($x27686 (not $x30)))
+ (let (($x23 (fp.lt (fp #b0 #b10000000101 #x4000000000000) ?x15)))
+ (or $x23 $x27686)))))))))
+(assert
+ (bvule unconstrained_ret__errno_2_64 (_ bv18446744073709551615 64)))
+(assert
+ (= (_ bv18446744073709551615 64) unconstrained_ret__errno_2_64))
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 9218868437227405312}
+; Constraint info: {'count': 5, 'types': ['signed_comparison', 'signed_comparison', 'signed_comparison', 'other', 'equality']}
+; Execution trace: [5368778224, 5368778296, 5368779928, 5369757904, 5368778301, 5368717264, 5368717321, 5368778346, 5368715028, 0]
+; Memory hash: -7828809664472442440
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 5, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 21, "writes": [{"data": 0, "offset": -8, "size": "64"}, {"data": "<BV64 fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))>", "offset": 8, "size": "64"}, {"data": 0, "offset": -24, "size": "64"}, {"data": 0, "offset": -32, "size": "64"}, {"data": 0, "offset": -40, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": 0, "offset": -16, "size": "64"}, {"data": 0, "offset": -56, "size": "64"}, {"data": 0, "offset": -64, "size": "64"}, {"data": "<BV64 0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0]>", "offset": -24, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpDiv(RM.RM_NearestTiesEven, FPV(8.0, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE)))>", "offset": -32, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE), FPV(-0.785398164, DOUBLE)))>", "offset": -40, "size": "64"}, {"data": 4607182418800017408, "offset": -56, "size": "64"}, {"data": 13803532857861747202, "offset": -64, "size": "64"}, {"data": 5368715028, "offset": -112, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE), FPV(-0.785398164, DOUBLE)))>", "offset": -104, "size": "64"}, {"data": 5368778301, "offset": -224, "size": "64"}, {"data": 9221120237041090560, "offset": -184, "size": "64"}, {"data": 5368778346, "offset": -224, "size": "64"}, {"data": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, FPV(1.0, DOUBLE), fpNeg(fpMul(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, FPV(nan, DOUBLE), fpDiv(RM.RM_NearestTiesEven, FPV(8.0, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.01562499995, DOUBLE)))))>", "offset": -16, "size": "64"}]}, "memory_state": {"available": true, "write_count": 1, "writes": [{"addr": "<BV64 unconstrained_ret__errno_2_64>", "data": 33, "size": "32"}]}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 fpToIEEEBV(fpAdd(RM.RM_NearestTiesEven, FPV(1.0, DOUBLE), fpNeg(fpMul(RM.RM_NearestTiesEven, fpMul(RM.RM_NearestTiesEven, FPV(nan, DOUBLE), fpDiv(RM.RM_NearestTiesEven, FPV(8.0, DOUBLE), fpToFP(0 .. fpToIEEEBV(FPS(FP_arg_0_0_64, DOUBLE))[62:0], DOUBLE))), FPV(-0.01562499995, DOUBLE)))))>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun FP_arg_0_0_64 () (_ FloatingPoint 11 53))\n(declare-fun unconstrained_ret__errno_2_64 () (_ BitVec 64))\n(declare-fun __return_value_7_64 () (_ BitVec 64))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let ((?x358 (fp.add roundNearestTiesToEven ?x15 (fp #b1 #b01111111110 #x921fb5496fd7f))))\n (let ((?x329 (fp.to_ieee_bv ?x358)))\n (let ((?x384 ((_ extract 31 0) ?x329)))\n (let ((?x402 ((_ extract 51 32) ?x329)))\n (let ((?x421 (concat (_ bv0 12) ?x402)))\n (let ((?x422 (bvor ?x421 ?x384)))\n (= (_ bv0 32) ?x422))))))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let ((?x358 (fp.add roundNearestTiesToEven ?x15 (fp #b1 #b01111111110 #x921fb5496fd7f))))\n (let ((?x329 (fp.to_ieee_bv ?x358)))\n (let ((?x403 ((_ extract 62 52) ?x329)))\n (= (_ bv2047 11) ?x403)))))))))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let (($x30 (fp.lt ?x15 (fp #b0 #b10000000101 #x4000000000000))))\n (let (($x27686 (not $x30)))\n (let (($x23 (fp.lt (fp #b0 #b10000000101 #x4000000000000) ?x15)))\n (or $x23 $x27686)))))))))\n(assert\n (bvule unconstrained_ret__errno_2_64 (_ bv18446744073709551615 64)))\n(assert\n (= (_ bv18446744073709551615 64) unconstrained_ret__errno_2_64))\n(assert\n (let ((?x6 (fp.to_ieee_bv FP_arg_0_0_64)))\n (let ((?x25 ((_ extract 62 0) ?x6)))\n (let ((?x13 (concat (_ bv0 1) ?x25)))\n (let ((?x15 ((_ to_fp 11 53) ?x13)))\n (let ((?x357 (fp.div roundNearestTiesToEven (fp #b0 #b10000000010 #x0000000000000) ?x15)))\n (let ((?x27574 (fp.mul roundNearestTiesToEven (_ NaN 11 53) ?x357)))\n (let ((?x27363 (fp.mul roundNearestTiesToEven ?x27574 (fp #b1 #b01111111000 #xffffffe483202))))\n (let ((?x27325 (fp.neg ?x27363)))\n (let ((?x27575 (fp.add roundNearestTiesToEven (fp #b0 #b01111111111 #x0000000000000) ?x27325)))\n (let ((?x27339 (fp.to_ieee_bv ?x27575)))\n (= __return_value_7_64 ?x27339))))))))))))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

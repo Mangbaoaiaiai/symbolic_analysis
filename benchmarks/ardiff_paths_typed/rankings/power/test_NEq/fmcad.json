@@ -50,33 +50,33 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.2,
+          "similarity": 1.0,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.2
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.2,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.2
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.1,
+          "similarity": 0.461538,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.1
+          "graph_similarity": 0.461538
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.1,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.1
+          "similarity": 0.461538,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.461538
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.307692,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.307692
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
+          "similarity": 0.25,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.0
+          "graph_similarity": 0.25
         }
       ]
     },
@@ -88,33 +88,33 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.2,
+          "similarity": 1.0,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.2
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.2,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.2
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.1,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.1
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.1,
+          "similarity": 0.714286,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.714286
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.461538,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.1
+          "graph_similarity": 0.461538
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
+          "similarity": 0.444444,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.0
+          "graph_similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.428571,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.428571
         }
       ]
     },
@@ -125,34 +125,34 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.2,
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 1.0,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.2
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.1,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.1
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.1,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.1
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.0
+          "similarity": 0.714286,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.714286
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.0,
+          "similarity": 0.571429,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.0
+          "graph_similarity": 0.571429
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.444444,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.307692,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.307692
         }
       ]
     },
@@ -163,43 +163,43 @@
       "feature_margin": 0.0,
       "ranking": [
         {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.2,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.2
-        },
-        {
-          "path_id": "symbolic_newV_path_2",
-          "similarity": 0.1,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.1
-        },
-        {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.1,
+          "similarity": 1.0,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.1
-        },
-        {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.0,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.0
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.0,
+          "similarity": 0.571429,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.0
+          "graph_similarity": 0.571429
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.461538,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.461538
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.444444,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.444444
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.428571,
+          "feature_similarity": 0.976187,
+          "graph_similarity": 0.428571
         }
       ]
     }
   ],
   "pair_id": "power/test_NEq",
   "timing": {
-    "t_align": 0.002960583999993105,
+    "t_align": 0.00324219999856723,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.002960583999993105,
+    "t_align_rank": 0.00324219999856723,
     "old_path_count": 5,
     "new_path_count": 5,
     "candidate_pairs": 25

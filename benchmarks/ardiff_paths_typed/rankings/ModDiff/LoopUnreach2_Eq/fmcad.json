@@ -11,24 +11,27 @@
   "queries": [
     {
       "query": "symbolic_oldV_path_1",
-      "decision": "feature_confident",
-      "feature_top1": 1.0,
-      "feature_margin": 0.7749820000000001,
+      "decision": "graph_rerank",
+      "feature_top1": 0.0,
+      "feature_margin": 0.0,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
           "similarity": 1.0,
-          "feature_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.225018,
-          "feature_similarity": 0.225018
+          "feature_similarity": 0.0,
+          "graph_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.0,
-          "feature_similarity": 0.0
+          "similarity": 0.8,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.571429,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.571429
         }
       ]
     },
@@ -36,7 +39,7 @@
       "query": "symbolic_oldV_path_2",
       "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.20770999999999995,
+      "feature_margin": 0.32918000000000003,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
@@ -45,8 +48,8 @@
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.79229,
-          "feature_similarity": 0.79229
+          "similarity": 0.67082,
+          "feature_similarity": 0.67082
         },
         {
           "path_id": "symbolic_newV_path_1",
@@ -59,7 +62,7 @@
       "query": "symbolic_oldV_path_3",
       "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.20770999999999995,
+      "feature_margin": 0.32918000000000003,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
@@ -68,22 +71,22 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.79229,
-          "feature_similarity": 0.79229
+          "similarity": 0.67082,
+          "feature_similarity": 0.67082
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.225018,
-          "feature_similarity": 0.225018
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "ModDiff/LoopUnreach2_Eq",
   "timing": {
-    "t_align": 0.002287249999994856,
+    "t_align": 0.0023564000002807006,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.002287249999994856,
+    "t_align_rank": 0.0023564000002807006,
     "old_path_count": 3,
     "new_path_count": 3,
     "candidate_pairs": 9

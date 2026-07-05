@@ -1,0 +1,23 @@
+{
+  "pair_id": "gam/betacf_NEq",
+  "method": "veribin_basic_block_trace_overlap",
+  "queries": [
+    {
+      "query": "symbolic_oldV_path_1",
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 1.0
+        }
+      ]
+    }
+  ],
+  "timing": {
+    "t_align": 3.5424925000262037,
+    "t_preprocess": 3.522094,
+    "t_align_rank": 0.020398500026203692,
+    "old_path_count": 1,
+    "new_path_count": 1,
+    "candidate_pairs": 1
+  }
+}

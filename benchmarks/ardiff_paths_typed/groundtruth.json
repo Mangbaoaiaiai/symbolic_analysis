@@ -53,6 +53,119 @@
       }
     },
     {
+      "pair_id": "Bess/bessi0_Eq",
+      "subset": "Bess",
+      "program": "bessi0_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi0_NEq",
+      "subset": "Bess",
+      "program": "bessi0_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi1_Eq",
+      "subset": "Bess",
+      "program": "bessi1_Eq",
+      "ground_truth": true,
+      "original_path_count": 7,
+      "patched_path_count": 7,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5",
+        "symbolic_oldV_path_6": "symbolic_newV_path_6",
+        "symbolic_oldV_path_7": "symbolic_newV_path_7"
+      }
+    },
+    {
+      "pair_id": "Bess/bessi1_NEq",
+      "subset": "Bess",
+      "program": "bessi1_NEq",
+      "ground_truth": false,
+      "original_path_count": 7,
+      "patched_path_count": 6,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4",
+        "symbolic_oldV_path_5": "symbolic_newV_path_5",
+        "symbolic_oldV_path_6": "symbolic_newV_path_6"
+      }
+    },
+    {
+      "pair_id": "Bess/bessj0_Eq",
+      "subset": "Bess",
+      "program": "bessj0_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/bessj0_NEq",
+      "subset": "Bess",
+      "program": "bessj0_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/probks_Eq",
+      "subset": "Bess",
+      "program": "probks_Eq",
+      "ground_truth": true,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
+      "pair_id": "Bess/probks_NEq",
+      "subset": "Bess",
+      "program": "probks_NEq",
+      "ground_truth": false,
+      "original_path_count": 4,
+      "patched_path_count": 4,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3",
+        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+      }
+    },
+    {
       "pair_id": "Bess/SIGN_Eq",
       "subset": "Bess",
       "program": "SIGN_Eq",
@@ -103,35 +216,11 @@
       }
     },
     {
-      "pair_id": "Bess/bessi0_Eq",
-      "subset": "Bess",
-      "program": "bessi0_Eq",
+      "pair_id": "dart/test_Eq",
+      "subset": "dart",
+      "program": "test_Eq",
       "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessi0_NEq",
-      "subset": "Bess",
-      "program": "bessi0_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessi1_Eq",
-      "subset": "Bess",
-      "program": "bessi1_Eq",
-      "ground_truth": true,
-      "original_path_count": 3,
+      "original_path_count": 6,
       "patched_path_count": 3,
       "ground_truth_pairs": {
         "symbolic_oldV_path_1": "symbolic_newV_path_1",
@@ -140,94 +229,10 @@
       }
     },
     {
-      "pair_id": "Bess/bessi1_NEq",
-      "subset": "Bess",
-      "program": "bessi1_NEq",
+      "pair_id": "dart/test_NEq",
+      "subset": "dart",
+      "program": "test_NEq",
       "ground_truth": false,
-      "original_path_count": 3,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessj0_Eq",
-      "subset": "Bess",
-      "program": "bessj0_Eq",
-      "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessj0_NEq",
-      "subset": "Bess",
-      "program": "bessj0_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessj1_Eq",
-      "subset": "Bess",
-      "program": "bessj1_Eq",
-      "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/bessj1_NEq",
-      "subset": "Bess",
-      "program": "bessj1_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/probks_Eq",
-      "subset": "Bess",
-      "program": "probks_Eq",
-      "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Bess/probks_NEq",
-      "subset": "Bess",
-      "program": "probks_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Ell/rc_Eq",
-      "subset": "Ell",
-      "program": "rc_Eq",
-      "ground_truth": true,
       "original_path_count": 6,
       "patched_path_count": 6,
       "ground_truth_pairs": {
@@ -240,17 +245,27 @@
       }
     },
     {
-      "pair_id": "Ell/rc_NEq",
-      "subset": "Ell",
-      "program": "rc_NEq",
-      "ground_truth": false,
-      "original_path_count": 6,
-      "patched_path_count": 4,
+      "pair_id": "gam/ei_Eq",
+      "subset": "gam",
+      "program": "ei_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
       "ground_truth_pairs": {
         "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4"
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "gam/ei_NEq",
+      "subset": "gam",
+      "program": "ei_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
       }
     },
     {
@@ -317,11 +332,12 @@
       "subset": "ModDiff",
       "program": "LoopMult2_Eq",
       "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
+      "original_path_count": 3,
+      "patched_path_count": 3,
       "ground_truth_pairs": {
         "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
       }
     },
     {
@@ -442,10 +458,12 @@
       "subset": "ModDiff",
       "program": "UnchLoop_Eq",
       "ground_truth": true,
-      "original_path_count": 1,
-      "patched_path_count": 1,
+      "original_path_count": 3,
+      "patched_path_count": 3,
       "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1"
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
       }
     },
     {
@@ -479,11 +497,12 @@
       "subset": "ModDiff",
       "program": "LoopMult2_NEq",
       "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
+      "original_path_count": 3,
+      "patched_path_count": 3,
       "ground_truth_pairs": {
         "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+        "symbolic_oldV_path_2": "symbolic_newV_path_2",
+        "symbolic_oldV_path_3": "symbolic_newV_path_3"
       }
     },
     {
@@ -593,171 +612,12 @@
       "subset": "ModDiff",
       "program": "UnchLoop_NEq",
       "ground_truth": false,
-      "original_path_count": 1,
-      "patched_path_count": 1,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1"
-      }
-    },
-    {
-      "pair_id": "Ran/gammln_Eq",
-      "subset": "Ran",
-      "program": "gammln_Eq",
-      "ground_truth": true,
-      "original_path_count": 1,
-      "patched_path_count": 1,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1"
-      }
-    },
-    {
-      "pair_id": "Ran/gammln_NEq",
-      "subset": "Ran",
-      "program": "gammln_NEq",
-      "ground_truth": false,
-      "original_path_count": 1,
-      "patched_path_count": 1,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1"
-      }
-    },
-    {
-      "pair_id": "Ran/ranzero_Eq",
-      "subset": "Ran",
-      "program": "ranzero_Eq",
-      "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "Ran/ranzero_NEq",
-      "subset": "Ran",
-      "program": "ranzero_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "caldat/julday_Eq",
-      "subset": "caldat",
-      "program": "julday_Eq",
-      "ground_truth": true,
-      "original_path_count": 5,
-      "patched_path_count": 5,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4",
-        "symbolic_oldV_path_5": "symbolic_newV_path_5"
-      }
-    },
-    {
-      "pair_id": "caldat/julday_NEq",
-      "subset": "caldat",
-      "program": "julday_NEq",
-      "ground_truth": false,
-      "original_path_count": 5,
-      "patched_path_count": 5,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4",
-        "symbolic_oldV_path_5": "symbolic_newV_path_5"
-      }
-    },
-    {
-      "pair_id": "dart/test_Eq",
-      "subset": "dart",
-      "program": "test_Eq",
-      "ground_truth": true,
-      "original_path_count": 6,
+      "original_path_count": 3,
       "patched_path_count": 3,
       "ground_truth_pairs": {
         "symbolic_oldV_path_1": "symbolic_newV_path_1",
         "symbolic_oldV_path_2": "symbolic_newV_path_2",
         "symbolic_oldV_path_3": "symbolic_newV_path_3"
-      }
-    },
-    {
-      "pair_id": "dart/test_NEq",
-      "subset": "dart",
-      "program": "test_NEq",
-      "ground_truth": false,
-      "original_path_count": 6,
-      "patched_path_count": 6,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4",
-        "symbolic_oldV_path_5": "symbolic_newV_path_5",
-        "symbolic_oldV_path_6": "symbolic_newV_path_6"
-      }
-    },
-    {
-      "pair_id": "gam/ei_Eq",
-      "subset": "gam",
-      "program": "ei_Eq",
-      "ground_truth": true,
-      "original_path_count": 6,
-      "patched_path_count": 6,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4",
-        "symbolic_oldV_path_5": "symbolic_newV_path_5",
-        "symbolic_oldV_path_6": "symbolic_newV_path_6"
-      }
-    },
-    {
-      "pair_id": "gam/ei_NEq",
-      "subset": "gam",
-      "program": "ei_NEq",
-      "ground_truth": false,
-      "original_path_count": 6,
-      "patched_path_count": 6,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2",
-        "symbolic_oldV_path_3": "symbolic_newV_path_3",
-        "symbolic_oldV_path_4": "symbolic_newV_path_4",
-        "symbolic_oldV_path_5": "symbolic_newV_path_5",
-        "symbolic_oldV_path_6": "symbolic_newV_path_6"
-      }
-    },
-    {
-      "pair_id": "gam/erfcc_Eq",
-      "subset": "gam",
-      "program": "erfcc_Eq",
-      "ground_truth": true,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
-      }
-    },
-    {
-      "pair_id": "gam/erfcc_NEq",
-      "subset": "gam",
-      "program": "erfcc_NEq",
-      "ground_truth": false,
-      "original_path_count": 2,
-      "patched_path_count": 2,
-      "ground_truth_pairs": {
-        "symbolic_oldV_path_1": "symbolic_newV_path_1",
-        "symbolic_oldV_path_2": "symbolic_newV_path_2"
       }
     },
     {
@@ -788,6 +648,30 @@
         "symbolic_oldV_path_3": "symbolic_newV_path_3",
         "symbolic_oldV_path_4": "symbolic_newV_path_4",
         "symbolic_oldV_path_5": "symbolic_newV_path_5"
+      }
+    },
+    {
+      "pair_id": "Ran/ranzero_Eq",
+      "subset": "Ran",
+      "program": "ranzero_Eq",
+      "ground_truth": true,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
+      }
+    },
+    {
+      "pair_id": "Ran/ranzero_NEq",
+      "subset": "Ran",
+      "program": "ranzero_NEq",
+      "ground_truth": false,
+      "original_path_count": 2,
+      "patched_path_count": 2,
+      "ground_truth_pairs": {
+        "symbolic_oldV_path_1": "symbolic_newV_path_1",
+        "symbolic_oldV_path_2": "symbolic_newV_path_2"
       }
     }
   ]

@@ -52,9 +52,9 @@
   ],
   "pair_id": "gam/erfcc_NEq",
   "timing": {
-    "t_align": 0.002733874999876207,
+    "t_align": 0.00279000005684793,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.002733874999876207,
+    "t_align_rank": 0.00279000005684793,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

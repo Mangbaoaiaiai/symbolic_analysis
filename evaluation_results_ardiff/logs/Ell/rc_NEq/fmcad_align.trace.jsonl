@@ -1,3 +1,0 @@
-{"event": "align_start", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Ell/rc_NEq:fmcad_align:fmcad_align", "ts": 1782836702.5629811, "vector_count": 7}
-{"candidate_count": 21, "elapsed": 0.00021525000000000016, "end_ts": 1782836702.563197, "event": "align_end", "mode": "all_pairs", "name": "fmcad_cosine_similarity_ranking", "run_id": "Ell/rc_NEq:fmcad_align:fmcad_align", "start_ts": 1782836702.562979, "ts": 1782836702.5631979, "vector_count": 7}
-{"counters": {}, "event": "summary", "run_id": "Ell/rc_NEq:fmcad_align:fmcad_align", "totals": {"align_seconds": 0.00021525000000000016}, "ts": 1782836702.5634618}

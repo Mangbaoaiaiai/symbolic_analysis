@@ -11,7 +11,7 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.571429
+          "similarity": 0.4
         }
       ]
     },
@@ -24,15 +24,15 @@
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.571429
+          "similarity": 0.4
         }
       ]
     }
   ],
   "timing": {
-    "t_align": 1.556925959,
-    "t_preprocess": 1.556015,
-    "t_align_rank": 0.0009109590000000445,
+    "t_align": 3.787980599999814,
+    "t_preprocess": 3.762907,
+    "t_align_rank": 0.025073599999814178,
     "old_path_count": 2,
     "new_path_count": 2,
     "candidate_pairs": 4

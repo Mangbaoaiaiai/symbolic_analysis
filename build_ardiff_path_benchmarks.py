@@ -15,6 +15,7 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -67,6 +68,16 @@ def main() -> int:
     parser.add_argument("--skip-evaluation", action="store_true")
     parser.add_argument("--python", default=os.environ.get("PYTHON", "python3"))
     args = parser.parse_args()
+
+    explicit_benchmarks = any(
+        arg == "--benchmarks" or arg.startswith("--benchmarks=") for arg in sys.argv[1:]
+    )
+    if (
+        not explicit_benchmarks
+        and "typed" in str(args.out_dir).lower()
+        and args.benchmarks == Path("experiments/ardiff_comparison/benchmarks")
+    ):
+        args.benchmarks = Path("experiments/ardiff_comparison/benchmarks_typed")
 
     benchmarks = (ROOT / args.benchmarks).resolve()
     out_dir = (ROOT / args.out_dir).resolve()
@@ -293,13 +304,42 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
 
 
 def ensure_binary(src: Path, out_bin: Path) -> Path:
-    if out_bin.is_file():
+    if out_bin.is_file() and is_windows_pe(out_bin):
         return out_bin
-    cmd = ["gcc", "-O0", "-g", "-o", str(out_bin), str(src), "-lm"]
-    completed = subprocess.run(cmd, text=True, capture_output=True, check=False)
+    gcc = find_gcc()
+    cmd = [gcc, "-O0", "-g", "-o", str(out_bin), str(src), "-lm"]
+    env = os.environ.copy()
+    gcc_dir = str(Path(gcc).parent) if Path(gcc).is_file() else ""
+    if gcc_dir:
+        env["PATH"] = gcc_dir + os.pathsep + env.get("PATH", "")
+    completed = subprocess.run(cmd, text=True, capture_output=True, check=False, env=env)
     if completed.returncode != 0:
-        raise RuntimeError(f"gcc failed for {src}: {completed.stderr.strip()}")
+        raise RuntimeError(f"{gcc} failed for {src}: {completed.stderr.strip()}")
+    exe_out = out_bin.with_name(out_bin.name + ".exe")
+    if exe_out.is_file() and not is_windows_pe(out_bin):
+        shutil.move(str(exe_out), str(out_bin))
     return out_bin
+
+
+def find_gcc() -> str:
+    for candidate in (
+        os.environ.get("CC"),
+        shutil.which("gcc"),
+        r"C:\msys64\mingw64\bin\gcc.exe",
+        r"C:\msys64\ucrt64\bin\gcc.exe",
+        r"C:\msys64\clang64\bin\gcc.exe",
+    ):
+        if candidate and Path(candidate).is_file():
+            return str(candidate)
+    return "gcc"
+
+
+def is_windows_pe(path: Path) -> bool:
+    try:
+        with path.open("rb") as f:
+            return f.read(2) == b"MZ"
+    except OSError:
+        return False
 
 
 def maybe_run_symbolic_exec(

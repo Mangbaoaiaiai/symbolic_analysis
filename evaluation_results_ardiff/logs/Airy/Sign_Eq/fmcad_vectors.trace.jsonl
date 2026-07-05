@@ -1,3 +1,0 @@
-{"event": "align_start", "name": "fmcad_feature_vector_generation", "path_count": 8, "run_id": "Airy/Sign_Eq:fmcad_align:fmcad_vectors", "ts": 1782836701.249433}
-{"elapsed": 0.0029724999999999994, "end_ts": 1782836701.252409, "event": "align_end", "name": "fmcad_feature_vector_generation", "path_count": 8, "run_id": "Airy/Sign_Eq:fmcad_align:fmcad_vectors", "start_ts": 1782836701.249432, "ts": 1782836701.252411, "vectors_generated": 8}
-{"counters": {}, "event": "summary", "run_id": "Airy/Sign_Eq:fmcad_align:fmcad_vectors", "totals": {"align_seconds": 0.0029724999999999994}, "ts": 1782836701.2529511}

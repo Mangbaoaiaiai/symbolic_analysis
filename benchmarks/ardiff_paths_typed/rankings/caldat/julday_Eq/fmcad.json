@@ -11,77 +11,336 @@
   "queries": [
     {
       "query": "symbolic_oldV_path_1",
-      "decision": "graph_rerank",
+      "decision": "feature_confident",
       "feature_top1": 1.0,
-      "feature_margin": 0.0,
+      "feature_margin": 0.27900899999999995,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_1",
           "similarity": 1.0,
-          "feature_similarity": 1.0,
-          "graph_similarity": 1.0
-        },
-        {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.8,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.8
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.666667,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.666667
-        },
-        {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.545455,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.545455
+          "feature_similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.25,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.25
+          "similarity": 0.720991,
+          "feature_similarity": 0.720991
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.709179,
+          "feature_similarity": 0.709179
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.709179,
+          "feature_similarity": 0.709179
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.709179,
+          "feature_similarity": 0.709179
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.709179,
+          "feature_similarity": 0.709179
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.64397,
+          "feature_similarity": 0.64397
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.629923,
+          "feature_similarity": 0.629923
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.629923,
+          "feature_similarity": 0.629923
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.629923,
+          "feature_similarity": 0.629923
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.622694,
+          "feature_similarity": 0.622694
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.622694,
+          "feature_similarity": 0.622694
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.610315,
+          "feature_similarity": 0.610315
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.610315,
+          "feature_similarity": 0.610315
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.610315,
+          "feature_similarity": 0.610315
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.610315,
+          "feature_similarity": 0.610315
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.113485,
+          "feature_similarity": 0.113485
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.112871,
+          "feature_similarity": 0.112871
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.112871,
+          "feature_similarity": 0.112871
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.110779,
+          "feature_similarity": 0.110779
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.109744,
+          "feature_similarity": 0.109744
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.109744,
+          "feature_similarity": 0.109744
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.107817,
+          "feature_similarity": 0.107817
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.106439,
+          "feature_similarity": 0.106439
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.0
         }
       ]
     },
     {
       "query": "symbolic_oldV_path_2",
       "decision": "graph_rerank",
-      "feature_top1": 0.0,
-      "feature_margin": 0.0,
+      "feature_top1": 1.0,
+      "feature_margin": 0.003958000000000017,
       "ranking": [
         {
           "path_id": "symbolic_newV_path_2",
           "similarity": 1.0,
-          "feature_similarity": 0.0,
+          "feature_similarity": 1.0,
           "graph_similarity": 1.0
         },
         {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.25,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.25
-        },
-        {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.222222,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
-        },
-        {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.2,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.2
+          "similarity": 0.947368,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.947368
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.181818,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.181818
+          "similarity": 0.842105,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.842105
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.842105,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.842105
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.736842,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.736842
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.526316,
+          "feature_similarity": 0.973586,
+          "graph_similarity": 0.526316
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.421053,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.421053,
+          "feature_similarity": 0.97856,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.421053,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.421053,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.315789,
+          "feature_similarity": 0.973586,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.315789,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.315789,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.315789,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.210526,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.210526,
+          "feature_similarity": 0.301357,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.210526,
+          "feature_similarity": 0.182123,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.210526,
+          "feature_similarity": 0.325294,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.210526,
+          "feature_similarity": 0.294598,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.210526,
+          "feature_similarity": 0.172947,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.210526,
+          "feature_similarity": 0.28639,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.210526,
+          "feature_similarity": 0.162656,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.210526,
+          "feature_similarity": 0.320497,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.210526,
+          "feature_similarity": 0.314311,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.153846,
+          "feature_similarity": 0.720991,
+          "graph_similarity": 0.153846
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.105263,
+          "feature_similarity": 0.172947,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.105263,
+          "feature_similarity": 0.162656,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.105263,
+          "feature_similarity": 0.320497,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.105263,
+          "feature_similarity": 0.314311,
+          "graph_similarity": 0.105263
         }
       ]
     },
@@ -98,28 +357,172 @@
           "graph_similarity": 1.0
         },
         {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.833333,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.833333
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.9,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.9
         },
         {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.666667,
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.8,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.666667
+          "graph_similarity": 0.8
         },
         {
-          "path_id": "symbolic_newV_path_4",
-          "similarity": 0.545455,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.545455
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.7,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.7
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.222222,
-          "feature_similarity": 0.0,
-          "graph_similarity": 0.222222
+          "similarity": 0.526316,
+          "feature_similarity": 0.973586,
+          "graph_similarity": 0.526316
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.5,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.5,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.4,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.4,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.3,
+          "feature_similarity": 0.987357,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.622694,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.34023,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.246546,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.372664,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.328133,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.314183,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
         }
       ]
     },
@@ -136,28 +539,172 @@
           "graph_similarity": 1.0
         },
         {
-          "path_id": "symbolic_newV_path_1",
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.947368,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.947368
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
           "similarity": 0.8,
           "feature_similarity": 1.0,
           "graph_similarity": 0.8
         },
         {
-          "path_id": "symbolic_newV_path_5",
-          "similarity": 0.769231,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.769231
-        },
-        {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.545455,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.545455
+          "similarity": 0.5,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.5
         },
         {
-          "path_id": "symbolic_newV_path_2",
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.4,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.3,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.709179,
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
           "similarity": 0.2,
-          "feature_similarity": 0.0,
+          "feature_similarity": 0.97824,
           "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.2,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.2,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.2,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.2,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.2,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
         }
       ]
     },
@@ -174,39 +721,4551 @@
           "graph_similarity": 1.0
         },
         {
-          "path_id": "symbolic_newV_path_3",
-          "similarity": 0.833333,
-          "feature_similarity": 1.0,
-          "graph_similarity": 0.833333
-        },
-        {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.769231,
+          "similarity": 0.9,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.769231
+          "graph_similarity": 0.9
         },
         {
-          "path_id": "symbolic_newV_path_1",
-          "similarity": 0.545455,
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.9,
           "feature_similarity": 1.0,
-          "graph_similarity": 0.545455
+          "graph_similarity": 0.9
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.181818,
+          "similarity": 0.842105,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.842105
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.5,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.3,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.3,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.709179,
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.1,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.1,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.1,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.1,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.1,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_6",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.842105,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.842105
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.4,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.4,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.709179,
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.2,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.2,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.2,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.2,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.2,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.2,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_7",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.736842,
+          "feature_similarity": 0.996042,
+          "graph_similarity": 0.736842
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.4,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.3,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.285714,
+          "feature_similarity": 0.709179,
+          "graph_similarity": 0.285714
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.2,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.1,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.1,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.1,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.1,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.1,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_8",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 1.0,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.9,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.7,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.4,
+          "feature_similarity": 0.987357,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.315789,
+          "feature_similarity": 0.973586,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.3,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.3,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.984678,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.622694,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.34023,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.246546,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.372664,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.328133,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.314183,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_9",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.9,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.7,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.421053,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.3,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.610315,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_10",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.7,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.7,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.5,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.5
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.4,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.315789,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.3,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.142857,
+          "feature_similarity": 0.610315,
+          "graph_similarity": 0.142857
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_11",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 1.0,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.8,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.7,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.4,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.315789,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.610315,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_12",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.9,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.8,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.8
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.7,
+          "feature_similarity": 0.997825,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.7,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.4,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.3,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.961375,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.2,
+          "feature_similarity": 0.97824,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.610315,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_13",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0024690000000000545,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 1.0,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 1.0,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.9,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.421053,
+          "feature_similarity": 0.97856,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.4,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.4,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.4,
+          "feature_similarity": 0.987357,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.4,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.4,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.3,
+          "feature_similarity": 0.987357,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.3,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.3,
+          "feature_similarity": 0.988976,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.3,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.3,
+          "feature_similarity": 0.985405,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.2,
+          "feature_similarity": 0.346594,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.2,
+          "feature_similarity": 0.247869,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.2,
+          "feature_similarity": 0.382315,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.2,
+          "feature_similarity": 0.333295,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.2,
+          "feature_similarity": 0.233087,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.2,
+          "feature_similarity": 0.31806,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.2,
+          "feature_similarity": 0.216663,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.2,
+          "feature_similarity": 0.37158,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.2,
+          "feature_similarity": 0.358919,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.1,
+          "feature_similarity": 0.233087,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.1,
+          "feature_similarity": 0.216663,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.1,
+          "feature_similarity": 0.37158,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.1,
+          "feature_similarity": 0.358919,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.64397,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_14",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 1.0,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.421053,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.2,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.2,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.2,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.2,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.2,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.629923,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_15",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 1.0,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.421053,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.421053
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.2,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.2,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.2,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.2,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.2,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.629923,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_16",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.9,
+          "feature_similarity": 0.997531,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.4,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.4,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.4,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.4
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.315789,
+          "feature_similarity": 0.965579,
+          "graph_similarity": 0.315789
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.3,
+          "feature_similarity": 0.985904,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.3,
+          "feature_similarity": 0.982157,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.3,
+          "feature_similarity": 0.988558,
+          "graph_similarity": 0.3
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.1,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.1,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.1,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.1,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.1,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.629923,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_17",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0017169999999999686,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 1.0,
+          "feature_similarity": 0.998283,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 1.0,
+          "feature_similarity": 0.99277,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.7,
+          "feature_similarity": 0.963822,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.7,
+          "feature_similarity": 0.995792,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.7,
+          "feature_similarity": 0.964336,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.7,
+          "feature_similarity": 0.961655,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.7,
+          "feature_similarity": 0.997798,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.7,
+          "feature_similarity": 0.996499,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.6,
+          "feature_similarity": 0.964336,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.6,
+          "feature_similarity": 0.961655,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.6,
+          "feature_similarity": 0.997798,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.6,
+          "feature_similarity": 0.996499,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.301357,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.346594,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.315812,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.353631,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.107817,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.34023,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.34023,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.347083,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_18",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.001534999999999953,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 0.959573,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 0.998465,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 0.993502,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 0.957266,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 0.951534,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 0.998465,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 0.993502,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 0.957266,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 0.951534,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.963822,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.957893,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.948097,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.182123,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.247869,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.204244,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.261775,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
           "feature_similarity": 0.0,
-          "graph_similarity": 0.181818
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.246546,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.246546,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.259657,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_19",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.001570999999999989,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 0.959573,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 0.956314,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 0.949667,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 0.998429,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 0.993335,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 0.956314,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 0.949667,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 0.998429,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 0.993335,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.995792,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.990216,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.980672,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.325294,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.382315,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.343169,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.391467,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.106439,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.372664,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.372664,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.381656,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_20",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0017169999999999686,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 1.0,
+          "feature_similarity": 0.998283,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 1.0,
+          "feature_similarity": 0.998097,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.7,
+          "feature_similarity": 0.957893,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.7,
+          "feature_similarity": 0.990216,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.7,
+          "feature_similarity": 0.961619,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.7,
+          "feature_similarity": 0.962348,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.7,
+          "feature_similarity": 0.995498,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.7,
+          "feature_similarity": 0.997682,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.6,
+          "feature_similarity": 0.961619,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.6,
+          "feature_similarity": 0.962348,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.6,
+          "feature_similarity": 0.995498,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.6,
+          "feature_similarity": 0.997682,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.294598,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.333295,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.306536,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.338555,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.110779,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.328133,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.328133,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.333259,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_21",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 0.998465,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 0.956314,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.964336,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.961619,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.955192,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.172947,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.233087,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_22",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 1.0,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 1.0,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 1.0,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.9,
+          "feature_similarity": 0.998465,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.9,
+          "feature_similarity": 0.956314,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.9,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.9,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.9,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.6,
+          "feature_similarity": 0.964336,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.6,
+          "feature_similarity": 0.961619,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.6,
+          "feature_similarity": 0.955192,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.2,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.105263,
+          "feature_similarity": 0.172947,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.1,
+          "feature_similarity": 0.192894,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.1,
+          "feature_similarity": 0.233087,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.1,
+          "feature_similarity": 0.245492,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.233066,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.244705,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_23",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.001902999999999988,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 1.0,
+          "feature_similarity": 0.99277,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 1.0,
+          "feature_similarity": 0.998097,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.7,
+          "feature_similarity": 0.948097,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.7,
+          "feature_similarity": 0.980672,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.7,
+          "feature_similarity": 0.955192,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.7,
+          "feature_similarity": 0.959507,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.7,
+          "feature_similarity": 0.989384,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.7,
+          "feature_similarity": 0.995225,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.6,
+          "feature_similarity": 0.955192,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.6,
+          "feature_similarity": 0.959507,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.6,
+          "feature_similarity": 0.989384,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.6,
+          "feature_similarity": 0.995225,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.28639,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.31806,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.295636,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.321431,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.113485,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.314183,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.314183,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.317472,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_24",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 0.993502,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 0.949667,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.961655,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.962348,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.959507,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.162656,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.216663,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_25",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 1.0,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 1.0,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 1.0,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.9,
+          "feature_similarity": 0.993502,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.9,
+          "feature_similarity": 0.949667,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.9,
+          "feature_similarity": 0.998281,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.9,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.9,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.6,
+          "feature_similarity": 0.961655,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.6,
+          "feature_similarity": 0.962348,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.6,
+          "feature_similarity": 0.959507,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.2,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.105263,
+          "feature_similarity": 0.162656,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.1,
+          "feature_similarity": 0.180237,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.1,
+          "feature_similarity": 0.216663,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.1,
+          "feature_similarity": 0.227438,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.0,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.21802,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.228062,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_26",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 0.957266,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 0.998429,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.997798,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.995498,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.989384,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.320497,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.37158,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.109744,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_27",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 1.0,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 1.0,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 1.0,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.9,
+          "feature_similarity": 0.957266,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.9,
+          "feature_similarity": 0.998429,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.9,
+          "feature_similarity": 0.957075,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.9,
+          "feature_similarity": 0.953673,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.9,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.6,
+          "feature_similarity": 0.997798,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.6,
+          "feature_similarity": 0.995498,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.6,
+          "feature_similarity": 0.989384,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.2,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.105263,
+          "feature_similarity": 0.320497,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.1,
+          "feature_similarity": 0.336042,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.1,
+          "feature_similarity": 0.37158,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.1,
+          "feature_similarity": 0.379064,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.109744,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.362994,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.370367,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_28",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 1.0,
+          "feature_similarity": 0.951534,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 1.0,
+          "feature_similarity": 0.993335,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 1.0,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 1.0,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 1.0,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 0.9,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 0.9,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 0.9,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.7,
+          "feature_similarity": 0.996499,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.7,
+          "feature_similarity": 0.997682,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.7,
+          "feature_similarity": 0.995225,
+          "graph_similarity": 0.7
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.210526,
+          "feature_similarity": 0.314311,
+          "graph_similarity": 0.210526
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.2,
+          "feature_similarity": 0.358919,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.112871,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        }
+      ]
+    },
+    {
+      "query": "symbolic_oldV_path_29",
+      "decision": "graph_rerank",
+      "feature_top1": 1.0,
+      "feature_margin": 0.0,
+      "ranking": [
+        {
+          "path_id": "symbolic_newV_path_22",
+          "similarity": 1.0,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_25",
+          "similarity": 1.0,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_27",
+          "similarity": 1.0,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_29",
+          "similarity": 1.0,
+          "feature_similarity": 1.0,
+          "graph_similarity": 1.0
+        },
+        {
+          "path_id": "symbolic_newV_path_18",
+          "similarity": 0.9,
+          "feature_similarity": 0.951534,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_19",
+          "similarity": 0.9,
+          "feature_similarity": 0.993335,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_21",
+          "similarity": 0.9,
+          "feature_similarity": 0.954596,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_24",
+          "similarity": 0.9,
+          "feature_similarity": 0.954646,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_26",
+          "similarity": 0.9,
+          "feature_similarity": 0.998233,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_28",
+          "similarity": 0.9,
+          "feature_similarity": 1.0,
+          "graph_similarity": 0.9
+        },
+        {
+          "path_id": "symbolic_newV_path_17",
+          "similarity": 0.6,
+          "feature_similarity": 0.996499,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_20",
+          "similarity": 0.6,
+          "feature_similarity": 0.997682,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_23",
+          "similarity": 0.6,
+          "feature_similarity": 0.995225,
+          "graph_similarity": 0.6
+        },
+        {
+          "path_id": "symbolic_newV_path_5",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_7",
+          "similarity": 0.2,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_16",
+          "similarity": 0.2,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.2
+        },
+        {
+          "path_id": "symbolic_newV_path_2",
+          "similarity": 0.105263,
+          "feature_similarity": 0.314311,
+          "graph_similarity": 0.105263
+        },
+        {
+          "path_id": "symbolic_newV_path_4",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_6",
+          "similarity": 0.1,
+          "feature_similarity": 0.32733,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_13",
+          "similarity": 0.1,
+          "feature_similarity": 0.358919,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_14",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_15",
+          "similarity": 0.1,
+          "feature_similarity": 0.36461,
+          "graph_similarity": 0.1
+        },
+        {
+          "path_id": "symbolic_newV_path_1",
+          "similarity": 0.0,
+          "feature_similarity": 0.112871,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_3",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_8",
+          "similarity": 0.0,
+          "feature_similarity": 0.351492,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_9",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_10",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_11",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
+        },
+        {
+          "path_id": "symbolic_newV_path_12",
+          "similarity": 0.0,
+          "feature_similarity": 0.357124,
+          "graph_similarity": 0.0
         }
       ]
     }
   ],
   "pair_id": "caldat/julday_Eq",
   "timing": {
-    "t_align": 0.014881333000062114,
+    "t_align": 0.06633690000012393,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.014881333000062114,
-    "old_path_count": 5,
-    "new_path_count": 5,
-    "candidate_pairs": 25
+    "t_align_rank": 0.06633690000012393,
+    "old_path_count": 29,
+    "new_path_count": 29,
+    "candidate_pairs": 841
   }
 }

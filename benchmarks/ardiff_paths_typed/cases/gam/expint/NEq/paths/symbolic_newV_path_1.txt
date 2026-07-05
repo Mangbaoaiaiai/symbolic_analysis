@@ -1,0 +1,10 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(check-sat)
+
+; Path signature:
+; Symbolic variable values: {'arg_0': 0, 'arg_1': 9221120237041090560}
+; Constraint info: {'count': 0, 'types': []}
+; Execution trace: [5368714416, 5368714627, 5368714633, 5368778912, 5368779008, 5368714665, 5368715544]
+; Memory hash: -5959917493669885546
+; Semantic summary JSON: {"global_state": {"available": true, "regions": {}}, "input_space": {"constraint_count": 0, "kind": "path_constraints"}, "local_state": {"available": true, "base": "snippet_initial_sp", "write_count": 22, "writes": [{"data": 0, "offset": -8, "size": "64"}, {"data": 0, "offset": 8, "size": "32"}, {"data": 0, "offset": 16, "size": "64"}, {"data": 100, "offset": -84, "size": "32"}, {"data": 4603374316052002330, "offset": -96, "size": "64"}, {"data": 4397347889687374747, "offset": -104, "size": "64"}, {"data": 4605360200555120310, "offset": -112, "size": "64"}, {"data": 0, "offset": -12, "size": "32"}, {"data": 0, "offset": -16, "size": "32"}, {"data": 0, "offset": -120, "size": "64"}, {"data": 0, "offset": -128, "size": "64"}, {"data": 0, "offset": -24, "size": "64"}, {"data": 0, "offset": -32, "size": "64"}, {"data": 0, "offset": -40, "size": "64"}, {"data": 0, "offset": -48, "size": "64"}, {"data": 0, "offset": -56, "size": "64"}, {"data": 0, "offset": -64, "size": "64"}, {"data": 0, "offset": -72, "size": "64"}, {"data": 0, "offset": -80, "size": "64"}, {"data": 0, "offset": -120, "size": "64"}, {"data": 5368714665, "offset": -176, "size": "64"}, {"data": 9218868437227405312, "offset": -80, "size": "64"}]}, "memory_state": {"available": true, "write_count": 0, "writes": []}, "return_value": {"available": true, "bits": 64, "repr": "<BV64 0x7ff0000000000000>", "smt": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun __return_value_3_64 () (_ BitVec 64))\n(assert\n (= (_ bv9218868437227405312 64) __return_value_3_64))\n(check-sat)\n", "variable": "__return_value"}, "schema": "symbolicana.path_semantics.v1"}

@@ -11,19 +11,19 @@
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.75
+          "similarity": 0.8
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.222222
+          "similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.222222
+          "similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.222222
+          "similarity": 0.0
         }
       ]
     },
@@ -36,19 +36,19 @@
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.75
+          "similarity": 0.8
         },
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.181818
+          "similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.181818
+          "similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.181818
+          "similarity": 0.0
         }
       ]
     },
@@ -57,31 +57,31 @@
       "ranking": [
         {
           "path_id": "symbolic_newV_path_3",
-          "similarity": 0.833333
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_4",
-          "similarity": 0.833333
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_5",
-          "similarity": 0.833333
+          "similarity": 1.0
         },
         {
           "path_id": "symbolic_newV_path_1",
-          "similarity": 0.222222
+          "similarity": 0.0
         },
         {
           "path_id": "symbolic_newV_path_2",
-          "similarity": 0.181818
+          "similarity": 0.0
         }
       ]
     }
   ],
   "timing": {
-    "t_align": 1.7810397080000435,
-    "t_preprocess": 1.780397,
-    "t_align_rank": 0.0006427080000435126,
+    "t_align": 4.825570100000231,
+    "t_preprocess": 4.7657419999999995,
+    "t_align_rank": 0.05982810000023164,
     "old_path_count": 3,
     "new_path_count": 5,
     "candidate_pairs": 15

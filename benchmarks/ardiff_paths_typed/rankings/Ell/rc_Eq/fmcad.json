@@ -264,9 +264,9 @@
   ],
   "pair_id": "Ell/rc_Eq",
   "timing": {
-    "t_align": 0.0156742919999715,
+    "t_align": 0.01652589999139309,
     "t_preprocess": 0.0,
-    "t_align_rank": 0.0156742919999715,
+    "t_align_rank": 0.01652589999139309,
     "old_path_count": 6,
     "new_path_count": 6,
     "candidate_pairs": 36

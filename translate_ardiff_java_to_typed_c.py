@@ -196,7 +196,9 @@ def scanf_format(c_type: str) -> str:
 
 def printf_format(c_type: str) -> str:
     if c_type in {"double", "float"}:
-        return "%f"
+        # Hex-float output round-trips every finite binary64 value, preserves
+        # signed zero, and avoids hiding sub-ULP differences during NEQ replay.
+        return "%a"
     if c_type == "long":
         return "%ld"
     return "%d"

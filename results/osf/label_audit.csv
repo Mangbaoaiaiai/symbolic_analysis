@@ -1,0 +1,5 @@
+case_id,official_label,method_verdict,classification,outcome_override,evidence
+CLEVER/is_prime1_Neq,Neq,EQ,released_C_files_identical,label_inconsistent,"Both OSF C files have SHA-256 209e2a5133437cb1261f9a381a427e4288d8b58d0e3ecfe09567e188cf6dfe51"
+CLEVER/fib_Eq,Eq,NEQ,released_C_behavior_differs,label_inconsistent,"Replay x=2: old returns 1, new returns 2"
+CLEVER/is_prime2_Eq,Eq,NEQ,released_C_behavior_differs,label_inconsistent,"Replay x=19: old returns 0, new returns 1"
+tcas/altseptest_Neq,Neq,EQ_resolved_as_NEQ,ABI_fix_and_full_bitvector_counterexample,,"Replay with Cur_Vertical_Sep=601: old returns 0, new returns 2; final verdict is NEQ"

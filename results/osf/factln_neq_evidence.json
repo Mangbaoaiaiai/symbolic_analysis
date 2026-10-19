@@ -1,0 +1,46 @@
+{
+  "case_id": "gam/factln_Neq",
+  "official_label": "NEQ",
+  "verdict": "NEQ",
+  "method": "hybrid_feature_cosine_bindiff_graph",
+  "semantic_definition": [
+    "input_space_equivalence",
+    "function_return_value_equivalence",
+    "program_output_equivalence",
+    "globally_observable_memory_state_equivalence"
+  ],
+  "source_difference": {
+    "old": "if (n < 0) printf(\"%s\\n\", \"Negative factorial in routine factln\");",
+    "new": "the same guarded printf call is commented out"
+  },
+  "compared_paths": {
+    "old_path": "symbolic_oldV_path_2",
+    "new_path": "symbolic_newV_path_1",
+    "input_overlap": "sat",
+    "return_value_equivalent": true,
+    "program_output_equivalent": false,
+    "global_state_equivalent": true
+  },
+  "counterexample": {
+    "input": -100,
+    "old_return_bits": "0x0000000000000000",
+    "new_return_bits": "0x0000000000000000"
+  },
+  "path_output": {
+    "old": [
+      {
+        "call": "puts",
+        "output": "Negative factorial in routine factln\n"
+      }
+    ],
+    "new": []
+  },
+  "native_replay": {
+    "stdin": "-100\n",
+    "confirmed": true,
+    "old_stdout": "Negative factorial in routine factln\nResult: 0x0p+0\n",
+    "new_stdout": "Result: 0x0p+0\n",
+    "old_returncode": 0,
+    "new_returncode": 0
+  }
+}

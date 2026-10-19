@@ -30,11 +30,13 @@ class PathRecord:
     content: str
     vector: list[float]
     trace: list[int]
+    memory_hash: str | None
 
 
 @dataclass(frozen=True)
 class HybridConfig:
-    high_threshold: float = 0.80
+    # Paper Section 3.4: rerank if top-1 < 0.70 or top-1/top-2 gap < 0.05.
+    high_threshold: float = 0.70
     margin_threshold: float = 0.05
     graph_min_score: float = 0.01
     graph_weight: float = 1.0
@@ -53,6 +55,7 @@ def load_path_records(paths: list[Path], min_max: Optional[dict[str, tuple[float
                 content=content,
                 vector=normalize_features(raw, min_max),
                 trace=parse_execution_trace(content),
+                memory_hash=parse_memory_hash(content),
             )
         )
     return records
@@ -158,14 +161,22 @@ def feature_rank(old: PathRecord, new_records: list[PathRecord]) -> list[dict[st
     ranking = []
     for new in new_records:
         score = cosine(old.vector, new.vector)
+        hash_match = bool(old.memory_hash and old.memory_hash == new.memory_hash)
         ranking.append(
             {
                 "path_id": new.path_id,
                 "similarity": round(score, 6),
                 "feature_similarity": round(score, 6),
+                "memory_hash_match": hash_match,
             }
         )
-    ranking.sort(key=lambda item: (-item["similarity"], natural_path_key(item["path_id"])))
+    ranking.sort(
+        key=lambda item: (
+            -int(item["memory_hash_match"]),
+            -item["similarity"],
+            natural_path_key(item["path_id"]),
+        )
+    )
     return ranking
 
 
@@ -188,6 +199,7 @@ def graph_rank_all(
     config: HybridConfig,
 ) -> list[dict[str, Any]]:
     feature_by_id = {item["path_id"]: float(item["feature_similarity"]) for item in feature_ranking}
+    hash_by_id = {item["path_id"]: bool(item.get("memory_hash_match")) for item in feature_ranking}
     ranking = []
     for new in new_records:
         graph_score = bindiff_path_similarity(old.trace, new.trace, matching_bb_map)
@@ -199,9 +211,16 @@ def graph_rank_all(
                 "similarity": round(final_score, 6),
                 "feature_similarity": round(feature_score, 6),
                 "graph_similarity": round(graph_score, 6),
+                "memory_hash_match": hash_by_id.get(new.path_id, False),
             }
         )
-    ranking.sort(key=lambda item: (-item["similarity"], natural_path_key(item["path_id"])))
+    ranking.sort(
+        key=lambda item: (
+            -int(item["memory_hash_match"]),
+            -item["similarity"],
+            natural_path_key(item["path_id"]),
+        )
+    )
     return ranking
 
 
@@ -225,11 +244,9 @@ def bindiff_path_similarity(
             elif new_trace.count(mapped_new) >= old_trace.count(old_addr):
                 score += 1
         return 2.0 * score / (len(old_trace) + len(new_trace))
-    old_set = set(old_trace)
-    new_set = set(new_trace)
-    if not old_set or not new_set:
-        return 0.0
-    return 2.0 * len(old_set & new_set) / (len(old_set) + len(new_set))
+    # Absolute addresses from independently linked binaries are not semantic
+    # evidence.  A missing map must trigger the feature-only fallback.
+    return 0.0
 
 
 def has_graph_evidence(
@@ -237,9 +254,7 @@ def has_graph_evidence(
     new_records: list[PathRecord],
     matching_bb_map: Optional[dict[int, int]],
 ) -> bool:
-    if matching_bb_map:
-        return True
-    return any(record.trace for record in old_records) and any(record.trace for record in new_records)
+    return bool(matching_bb_map)
 
 
 def parse_execution_trace(content: str) -> list[int]:
@@ -259,6 +274,14 @@ def parse_execution_trace(content: str) -> list[int]:
         except (TypeError, ValueError):
             continue
     return out
+
+
+def parse_memory_hash(content: str) -> str | None:
+    match = re.search(r";\s*Memory hash:\s*([^\r\n]+)", content)
+    if not match:
+        return None
+    value = match.group(1).strip()
+    return value if value and value != "0" else None
 
 
 def load_matching_bb_map(path: Optional[Path]) -> Optional[dict[int, int]]:

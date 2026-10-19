@@ -1,40 +1,26 @@
-ARG BASE_IMAGE=python:3.12-slim
-FROM ${BASE_IMAGE}
+FROM docker.1ms.run/python:3.12-slim-bookworm
 
-ARG PIP_INDEX_URL=
+ARG DEBIAN_FRONTEND=noninteractive
 
-ENV PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PYTHONPATH=/workspace/symbolic_analysis/src
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get -o Acquire::Retries=5 update \
+    && apt-get -o Acquire::Retries=5 install -y --no-install-recommends \
         build-essential \
-        binutils \
         gcc \
-        g++ \
-        git \
-        make \
-        libffi-dev \
-        libgmp-dev \
+        libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /workspace/symbolic_analysis
+WORKDIR /workspace/symbolicana
 
-COPY requirements.txt pyproject.toml setup.py README.md ./
+COPY requirements.txt pyproject.toml setup.py ./
 COPY src ./src
-COPY scripts ./scripts
-COPY benchmarks ./benchmarks
-COPY experiments ./experiments
-COPY build_ardiff_path_benchmarks.py run_evaluation.py translate_ardiff_java_to_typed_c.py ./
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -e . \
+    && pip install --no-cache-dir --force-reinstall z3-solver==4.12.2.0 \
+    && python -c "import angr, claripy, z3; assert z3.get_version_string() == '4.12.2'; print('angr', angr.__version__, 'claripy', claripy.__version__, 'z3', z3.get_version_string())"
 
-RUN if [ -n "$PIP_INDEX_URL" ]; then \
-        python -m pip install --upgrade pip -i "$PIP_INDEX_URL" && \
-        pip install -r requirements.txt -i "$PIP_INDEX_URL"; \
-    else \
-        python -m pip install --upgrade pip && \
-        pip install -r requirements.txt; \
-    fi \
-    && pip install -e .
+COPY . .
 
-CMD ["symbolicana", "check-deps"]
+ENV PYTHONPATH=/workspace/symbolicana/src
+ENV PYTHONUNBUFFERED=1
+
+CMD ["python", "run_experiment.py", "--help"]

@@ -167,10 +167,12 @@ class EvalConfig:
     veribin_dir: Path
     output_dir: Path
     timeout: int
+    smt_timeout_ms: int
     execute: bool
     python: str
     ground_truth_path: Optional[Path] = None
     use_ground_truth_path_matches: bool = False
+    one_to_one_only: bool = False
 
 
 class ToolRunner:
@@ -211,19 +213,25 @@ class ToolRunner:
         )
 
         start = time.perf_counter()
-        completed = subprocess.run(
-            command,
-            cwd=self.config.root,
-            env=command_env,
-            text=True,
-            capture_output=True,
-            timeout=self.config.timeout,
-            check=False,
-        )
+        # Z3 4.12.2 can crash when its stdout/stderr are anonymous pipes on
+        # this container runtime. Redirect directly to the persisted log files
+        # and read them back after the child exits. The tool's output contract
+        # remains unchanged for callers that parse stdout.
+        with stdout_path.open("w", encoding="utf-8", errors="replace") as stdout_stream:
+            with stderr_path.open("w", encoding="utf-8", errors="replace") as stderr_stream:
+                completed = subprocess.run(
+                    command,
+                    cwd=self.config.root,
+                    env=command_env,
+                    text=True,
+                    stdout=stdout_stream,
+                    stderr=stderr_stream,
+                    timeout=self.config.timeout,
+                    check=False,
+                )
         elapsed = time.perf_counter() - start
-
-        stdout_path.write_text(completed.stdout, encoding="utf-8", errors="replace")
-        stderr_path.write_text(completed.stderr, encoding="utf-8", errors="replace")
+        completed.stdout = stdout_path.read_text(encoding="utf-8", errors="replace")
+        completed.stderr = stderr_path.read_text(encoding="utf-8", errors="replace")
         return completed, elapsed, stdout_path, stderr_path, trace_path
 
 
@@ -245,6 +253,7 @@ class NaiveMatchingRunner(ToolRunner):
             "--out",
             str(report_path),
         ]
+        extend_verifier_mode_args(command, self.config)
         extend_truth_args(command, pair, self.config.use_ground_truth_path_matches)
         result.command = command
         if pair.metadata.get("naive_ranking_path"):
@@ -261,7 +270,7 @@ class NaiveMatchingRunner(ToolRunner):
 
         try:
             completed, elapsed, stdout_path, stderr_path, trace_path = self._run_command(
-                pair, command, "naive", env=symbolic_env(self.config)
+                pair, command, "naive"
             )
             result.stdout_path = stdout_path
             result.stderr_path = stderr_path
@@ -332,12 +341,13 @@ class VeriBinAlignRunner(ToolRunner):
                 "--out",
                 str(report_path),
             ]
+            extend_verifier_mode_args(command, self.config)
             extend_truth_args(command, pair, self.config.use_ground_truth_path_matches)
             result.command = command
             result.extra["report_path"] = str(report_path)
             try:
                 completed, elapsed, stdout_path, stderr_path, trace_path = self._run_command(
-                    pair, command, "veribin_align", env=symbolic_env(self.config)
+                    pair, command, "veribin_align"
                 )
                 result.stdout_path = stdout_path
                 result.stderr_path = stderr_path
@@ -394,15 +404,28 @@ class FmcadAlignRunner(ToolRunner):
         # TODO: The current symbolic_analysis scripts operate on path-constraint
         # files. If pair.left / pair.right are raw binaries, insert the symbolic
         # execution step before feature generation.
+        paths_dir = pair.metadata.get("paths_dir")
         command = [
             self.config.python,
-            str(self.config.symbolic_dir / "scripts/path_similarity_batch.py"),
-            "--vectors",
-            str(vectors_path),
-            "--all-pairs",
+            str(self.config.symbolic_dir / "scripts/hybrid_path_similarity_batch.py"),
+            "--old-paths-dir",
+            str(paths_dir or ""),
+            "--old-prefix",
+            "symbolic_oldV",
+            "--new-paths-dir",
+            str(paths_dir or ""),
+            "--new-prefix",
+            "symbolic_newV",
+            "--high-threshold",
+            "0.70",
+            "--margin-threshold",
+            "0.05",
             "--out",
             str(ranking_path),
         ]
+        matching_map = pair.metadata.get("basic_block_map_path")
+        if matching_map and Path(matching_map).is_file():
+            command.extend(["--matching-bb-map", str(matching_map)])
         result.command = command
         result.extra["fmcad_ranking_path"] = str(
             pair.metadata.get("fmcad_ranking_path", pair.metadata.get("ranking_path", ranking_path))
@@ -441,10 +464,11 @@ class FmcadAlignRunner(ToolRunner):
                 "--out",
                 str(report_path),
             ]
+            extend_verifier_mode_args(verify_command, self.config)
             extend_truth_args(verify_command, pair, self.config.use_ground_truth_path_matches)
             result.command = verify_command
             completed, elapsed, stdout_path, stderr_path, verify_trace_path = self._run_command(
-                pair, verify_command, "fmcad_verify", env=self._env()
+                pair, verify_command, "fmcad_verify"
             )
             result.stdout_path = stdout_path
             result.stderr_path = stderr_path
@@ -486,6 +510,12 @@ def symbolic_env(config: EvalConfig) -> dict[str, str]:
     src = str(config.symbolic_dir / "src")
     env["PYTHONPATH"] = f"{src}{os.pathsep}{env.get('PYTHONPATH', '')}"
     return env
+
+
+def extend_verifier_mode_args(command: list[str], config: EvalConfig) -> None:
+    command.extend(["--timeout-ms", str(config.smt_timeout_ms)])
+    if config.one_to_one_only:
+        command.append("--one-to-one-only")
 
 
 def extend_truth_args(command: list[str], pair: BinaryPair, use_path_truth: bool = False) -> None:
@@ -557,6 +587,7 @@ def load_manifest(manifest: Path) -> list[BinaryPair]:
             "naive_ranking_path",
             "veribin_ranking_path",
             "fmcad_ranking_path",
+            "basic_block_map_path",
             "ranking_paths",
             "ground_truth_pairs",
             "correct_path_pairs",
@@ -575,6 +606,7 @@ def load_manifest(manifest: Path) -> list[BinaryPair]:
             "naive_ranking_path",
             "veribin_ranking_path",
             "fmcad_ranking_path",
+            "basic_block_map_path",
         ):
             if key in metadata and metadata[key]:
                 p = Path(metadata[key])
@@ -1155,21 +1187,11 @@ def first_correct_rank(candidates: list[str], correct_targets: set[str]) -> Opti
 
 
 def infer_prediction(result: GroupResult) -> Optional[bool]:
+    # A program-level verdict must come from an explicit structured report.
+    # Natural-language log matching and alignment-count fallbacks can silently
+    # turn UNK into a determinate prediction.
     if result.prediction is not None:
         return result.prediction
-    text_parts = []
-    for path in (result.stdout_path, result.stderr_path):
-        if path and path.is_file():
-            text_parts.append(path.read_text(encoding="utf-8", errors="replace"))
-    for path in result_report_paths(result):
-        if path.is_file():
-            text_parts.append(path.read_text(encoding="utf-8", errors="replace"))
-    text = "\n".join(text_parts)
-    parsed = infer_prediction_from_text(text)
-    if parsed is not None:
-        return parsed
-    if result.status == "ok" and result.group == Group.NAIVE:
-        return result.pairing.aligned_pairs > 0
     return None
 
 
@@ -1346,7 +1368,9 @@ def aggregate_rows(rows: list[GroupResult]) -> dict[str, Any]:
     fp = sum(1 for r in rows if r.confusion == "FP")
     fn = sum(1 for r in rows if r.confusion == "FN")
     judged = tp + tn + fp + fn
-    acc = 100.0 * (tp + tn) / judged if judged else mean([r.pairing.acc_percent for r in rows])
+    # Paper accuracy is correct determinate verdicts / all evaluated cases;
+    # UNK is reported separately but does not disappear from the denominator.
+    acc = 100.0 * (tp + tn) / total if total else mean([r.pairing.acc_percent for r in rows])
     return {
         "cases": total,
         "judged": judged,
@@ -1371,7 +1395,7 @@ def confusion_acc_percent(rows: list[GroupResult]) -> Optional[float]:
     if not judged:
         return mean([r.pairing.acc_percent for r in rows])
     correct = sum(1 for r in judged if r.confusion in {"TP", "TN"})
-    return 100.0 * correct / len(judged)
+    return 100.0 * correct / len(rows) if rows else None
 
 
 def weighted_ranking_percent(rows: list[GroupResult], field_name: str = "hit_at_1") -> Optional[float]:
@@ -1647,7 +1671,18 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--symbolic-dir", type=Path, default=Path("."))
     parser.add_argument("--veribin-dir", type=Path, default=Path("../VeriBin"))
     parser.add_argument("--output-dir", type=Path, default=Path("evaluation_results"))
-    parser.add_argument("--timeout", type=int, default=3600)
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=3600,
+        help="Wall-clock cap for one external verifier process, in seconds.",
+    )
+    parser.add_argument(
+        "--smt-timeout-ms",
+        type=int,
+        default=60_000,
+        help="Timeout for each SMT query, in milliseconds (paper: 60000).",
+    )
     parser.add_argument("--python", default=os.environ.get("PYTHON", "python3"))
     parser.add_argument(
         "--ground-truth",
@@ -1661,12 +1696,35 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Actually invoke tool adapters. Default only writes dry-run plans.",
     )
     parser.add_argument(
+        "--require-manifest",
+        action="store_true",
+        help="Fail instead of falling back to directory-layout discovery.",
+    )
+    parser.add_argument(
         "--use-ground-truth-path-matches",
         action="store_true",
         help=(
             "Use path-pair ground truth to judge candidate matches after timing SMT calls. "
             "By default, ranked verification uses the three-layer semantic definition."
         ),
+    )
+    parser.add_argument(
+        "--one-to-one-only",
+        action="store_true",
+        help="Ablation: disable one-to-many covering sets in semantic verification.",
+    )
+    parser.add_argument(
+        "--groups",
+        nargs="+",
+        choices=[group.value for group in Group],
+        default=[group.value for group in Group],
+        help="Limit execution to selected method groups.",
+    )
+    parser.add_argument(
+        "--pair",
+        action="append",
+        default=[],
+        help="Only evaluate pair IDs containing one of these strings.",
     )
     return parser
 
@@ -1706,13 +1764,25 @@ def main() -> int:
         veribin_dir=(root / args.veribin_dir).resolve(),
         output_dir=(root / args.output_dir).resolve(),
         timeout=args.timeout,
+        smt_timeout_ms=args.smt_timeout_ms,
         execute=args.execute,
         python=args.python,
         ground_truth_path=(root / args.ground_truth).resolve() if args.ground_truth else None,
         use_ground_truth_path_matches=args.use_ground_truth_path_matches,
+        one_to_one_only=args.one_to_one_only,
     )
 
+    if args.require_manifest and not (config.benchmarks_dir / "manifest.json").is_file():
+        raise SystemExit(
+            f"missing benchmark manifest: {config.benchmarks_dir / 'manifest.json'}"
+        )
     pairs = discover_benchmark_pairs(config.benchmarks_dir)
+    if args.pair:
+        pairs = [
+            pair
+            for pair in pairs
+            if any(selector in pair.pair_id for selector in args.pair)
+        ]
     if not pairs:
         config.output_dir.mkdir(parents=True, exist_ok=True)
         (config.output_dir / "results.json").write_text(
@@ -1727,11 +1797,12 @@ def main() -> int:
         print("Use --execute to collect real T_align/T_smt/SMT_calls and verification outputs.")
         print("")
 
-    runners: list[ToolRunner] = [
+    all_runners: list[ToolRunner] = [
         NaiveMatchingRunner(config),
         VeriBinAlignRunner(config),
         FmcadAlignRunner(config),
     ]
+    runners = [runner for runner in all_runners if runner.group.value in args.groups]
 
     results: list[GroupResult] = []
     for pair in pairs:

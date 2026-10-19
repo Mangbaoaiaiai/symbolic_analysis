@@ -12,7 +12,16 @@ import re
 import os
 import glob
 import json
+import hashlib
 from claripy.backends.backend_z3 import claripy_solver_to_smt2
+from angr.sim_type import (
+    SimTypeChar,
+    SimTypeDouble,
+    SimTypeFunction,
+    SimTypeInt,
+    SimTypeLongLong,
+    SimTypePointer,
+)
 import logging
 
         
@@ -25,6 +34,19 @@ symbolic_variables = {}
 
 # For binaries without s000 (e.g. ardiff): hook scanf and register symbolic vars here
 _scanf_symbolic_vars = {}
+
+
+class SqrtSymbolicHook(angr.SimProcedure):
+    """IEEE-754 square root model for libm calls in numerical benchmarks."""
+
+    def run(self, value):
+        if getattr(value, "sort", None) == claripy.FSORT_DOUBLE:
+            fp_value = value
+        elif int(value.size()) == 64:
+            fp_value = value.raw_to_fp()
+        else:
+            fp_value = claripy.ZeroExt(64 - int(value.size()), value).raw_to_fp()
+        return claripy.fpSqrt(claripy.RM.RM_NearestTiesEven, fp_value)
 
 
 def parse_snippet_signature(raw):
@@ -52,17 +74,228 @@ class ScanfSymbolicHook(angr.SimProcedure):
             self.state.memory.store(ptr, sym, endness=self.state.arch.memory_endness)
         return claripy.BVV(len(args), self.state.arch.bits)
 
+
+OUTPUT_FORMAT_SPECIFIER = re.compile(
+    r"%(?:[-+ #0]*)(?:\d+|\*)?(?:\.(?:\d+|\*))?"
+    r"(?:hh|h|ll|l|j|z|t|L)?[diouxXfFeEgGaAcspn%]"
+)
+
+
+def read_concrete_c_string(state, pointer, max_bytes=4096):
+    """Read a concrete NUL-terminated string without concretizing a pointer."""
+    try:
+        address = state.solver.eval(pointer, cast_to=int)
+    except Exception:
+        return None
+    data = bytearray()
+    try:
+        for offset in range(max_bytes):
+            byte = state.memory.load(
+                address + offset,
+                size=1,
+                endness=state.arch.memory_endness,
+            )
+            if getattr(byte, "symbolic", False):
+                return None
+            value = int(state.solver.eval(byte, cast_to=int)) & 0xFF
+            if value == 0:
+                return data.decode("utf-8", errors="backslashreplace")
+            data.append(value)
+    except Exception:
+        return None
+    return None
+
+
+class RecordedOutputHook(angr.SimProcedure):
+    """Capture a stdio call as path-local output metadata.
+
+    The hook does not write to the host process.  It records the format string
+    and argument ASTs in the symbolic state so every terminating path can be
+    compared on its ordered output events.
+    """
+
+    format_position = None
+
+    def record(self, call, sink, fmt, args):
+        events = list(self.state.globals.get("symbolicana_output_events", []))
+        if isinstance(fmt, bytes):
+            format_text = fmt.decode("utf-8", errors="backslashreplace")
+        elif isinstance(fmt, str):
+            format_text = fmt
+        else:
+            format_text = read_concrete_c_string(self.state, fmt)
+        events.append(
+            {
+                "call": call,
+                "sink": sink,
+                "format": format_text,
+                "args": tuple(args),
+            }
+        )
+        self.state.globals["symbolicana_output_events"] = events
+        return claripy.BVV(0, 32)
+
+    def output_argument_types(self, fmt):
+        integer_type = SimTypeInt(signed=True)
+        long_type = SimTypeLongLong(signed=True)
+        string_type = SimTypePointer(SimTypeChar())
+        argument_types = []
+        for match in OUTPUT_FORMAT_SPECIFIER.finditer(fmt or ""):
+            specifier = match.group(0)
+            if specifier == "%%":
+                continue
+            if "*" in specifier:
+                argument_types.extend([integer_type] * specifier.count("*"))
+            conversion = specifier[-1]
+            if conversion in ("s", "p", "n"):
+                argument_types.append(string_type)
+            elif conversion in ("f", "F", "e", "E", "g", "G", "a", "A"):
+                argument_types.append(SimTypeDouble())
+            elif "ll" in specifier or conversion in ("j", "z", "t"):
+                argument_types.append(long_type)
+            elif "l" in specifier:
+                argument_types.append(long_type)
+            else:
+                argument_types.append(integer_type)
+        return argument_types
+
+    def execute(self, state, successors=None, arguments=None, ret_to=None):
+        """Extend a fixed prototype with the varargs described by ``fmt``."""
+        if self.format_position is None:
+            return super().execute(
+                state,
+                successors=successors,
+                arguments=arguments,
+                ret_to=ret_to,
+            )
+        format_ptr = None
+        if arguments is not None:
+            if len(arguments) > self.format_position:
+                format_ptr = arguments[self.format_position]
+        elif (
+            isinstance(state.callstack, angr.engines.ail.AILCallStack)
+            and state.callstack.passed_args is not None
+        ):
+            if len(state.callstack.passed_args) > self.format_position:
+                format_ptr = state.callstack.passed_args[self.format_position]
+        else:
+            cc = state.project.factory.cc()
+            session = cc.arg_session(SimTypeInt())
+            arch_prototype = self.prototype.with_arch(state.arch)
+            for index, argument_type in enumerate(arch_prototype.args):
+                value = cc.next_arg(session, argument_type).get_value(state)
+                if index == self.format_position:
+                    format_ptr = value
+                    break
+        format_text = (
+            read_concrete_c_string(state, format_ptr)
+            if format_ptr is not None
+            else None
+        )
+        original_prototype = self.prototype
+        original_num_args = self.num_args
+        prototype_args = list(original_prototype.args)
+        prototype_args.extend(self.output_argument_types(format_text))
+        self.prototype = SimTypeFunction(
+            prototype_args, SimTypeInt(signed=True)
+        ).with_arch(state.arch)
+        self.num_args = len(prototype_args)
+        try:
+            return super().execute(
+                state,
+                successors=successors,
+                arguments=arguments,
+                ret_to=ret_to,
+            )
+        finally:
+            self.prototype = original_prototype
+            self.num_args = original_num_args
+
+
+class PrintfOutputHook(RecordedOutputHook):
+    format_position = 0
+
+    def run(self, fmt_ptr, *args):
+        return self.record("printf", "stdout", fmt_ptr, args)
+
+
+class FortifiedPrintfOutputHook(RecordedOutputHook):
+    format_position = 1
+
+    def run(self, flag, fmt_ptr, *args):
+        return self.record("__printf_chk", "stdout", fmt_ptr, args)
+
+
+class FprintfOutputHook(RecordedOutputHook):
+    format_position = 1
+
+    def run(self, stream, fmt_ptr, *args):
+        return self.record("fprintf", "stdio", fmt_ptr, args)
+
+
+class FortifiedFprintfOutputHook(RecordedOutputHook):
+    format_position = 2
+
+    def run(self, stream, flag, fmt_ptr, *args):
+        return self.record("__fprintf_chk", "stdio", fmt_ptr, args)
+
+
+class PutsOutputHook(RecordedOutputHook):
+    def run(self, string_ptr):
+        return self.record("puts", "stdout", b"%s\n", (string_ptr,))
+
+
+class FputsOutputHook(RecordedOutputHook):
+    def run(self, string_ptr, stream):
+        return self.record("fputs", "stdio", b"%s", (string_ptr,))
+
+
+class PutcharOutputHook(RecordedOutputHook):
+    def run(self, character):
+        return self.record("putchar", "stdout", b"%c", (character,))
+
+
+class FputcOutputHook(RecordedOutputHook):
+    def run(self, character, stream):
+        return self.record("fputc", "stdio", b"%c", (character,))
+
+
+class FlushOutputHook(angr.SimProcedure):
+    def run(self, stream):
+        return claripy.BVV(0, 32)
+
+
 class BenchmarkSymbolicExecution:
     """Symbolic execution tailored for benchmark programs."""
     
-    def __init__(self, binary_path, output_prefix=None, timeout=120, snippet_signature=None):
+    def __init__(
+        self,
+        binary_path,
+        output_prefix=None,
+        timeout=120,
+        snippet_signature=None,
+        loop_bound=30,
+        max_paths=128,
+        int_min=None,
+        int_max=None,
+        float_min=None,
+        float_max=None,
+    ):
         self.binary_path = binary_path
         self.timeout = timeout
         self.project = None
         self.paths_info = []
         self.snippet_addr = None
         self.snippet_signature = parse_snippet_signature(snippet_signature)
+        self.loop_bound = loop_bound
+        self.max_paths = max_paths
+        self.int_min = int_min
+        self.int_max = int_max
+        self.float_min = float_min
+        self.float_max = float_max
         self.global_write_ranges = []
+        self.exploration_manifest = {}
+        self.output_hook_names = []
         
                 
         if output_prefix is None:
@@ -75,6 +308,54 @@ class BenchmarkSymbolicExecution:
         """Set up angr project."""
         self.project = angr.Project(self.binary_path, auto_load_libs=False)
         print(f"Loading binary: {self.binary_path}")
+        for name in ("sqrt", "sqrtf", "__sqrt_finite"):
+            try:
+                if self.project.loader.find_symbol(name):
+                    self.project.hook_symbol(
+                        name,
+                        SqrtSymbolicHook(prototype="double sqrt(double)"),
+                    )
+                    print(f"Hooked {name} with IEEE-754 symbolic model")
+            except (IndexError, AttributeError, TypeError):
+                continue
+        output_hooks = {
+            "printf": PrintfOutputHook(
+                prototype="int printf(const char *format, ...)"
+            ),
+            "fprintf": FprintfOutputHook(
+                prototype="int fprintf(void *stream, const char *format, ...)"
+            ),
+            "puts": PutsOutputHook(prototype="int puts(const char *string)"),
+            "fputs": FputsOutputHook(
+                prototype="int fputs(const char *string, void *stream)"
+            ),
+            "putchar": PutcharOutputHook(prototype="int putchar(int character)"),
+            "putc": FputcOutputHook(
+                prototype="int putc(int character, void *stream)"
+            ),
+            "fputc": FputcOutputHook(
+                prototype="int fputc(int character, void *stream)"
+            ),
+            "fflush": FlushOutputHook(prototype="int fflush(void *stream)"),
+            "__printf_chk": FortifiedPrintfOutputHook(
+                prototype="int __printf_chk(int flag, const char *format, ...)"
+            ),
+            "__fprintf_chk": FortifiedFprintfOutputHook(
+                prototype=(
+                    "int __fprintf_chk(void *stream, int flag, "
+                    "const char *format, ...)"
+                )
+            ),
+        }
+        for name, hook in output_hooks.items():
+            try:
+                if self.project.loader.find_symbol(name):
+                    self.project.hook_symbol(name, hook)
+                    self.output_hook_names.append(name)
+            except (IndexError, AttributeError, TypeError):
+                continue
+        if self.output_hook_names:
+            print("Hooked output functions: " + ", ".join(self.output_hook_names))
         self.global_write_ranges = self.collect_global_write_ranges()
         
                 
@@ -139,9 +420,33 @@ class BenchmarkSymbolicExecution:
                     angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS,
                     angr.options.TRACK_MEMORY_ACTIONS,
                     angr.options.TRACK_REGISTER_ACTIONS,
+                    angr.options.LAZY_SOLVES,
                 },
             )
+            if any(arg_type not in ("double", "float") for arg_type in arg_types):
+                initial_state.options.discard(angr.options.LAZY_SOLVES)
+                print("Using eager feasibility checks for integer-controlled paths")
             self.install_call_arguments(initial_state, arg_values)
+            for arg_type, sym in arg_values:
+                if arg_type in ("double", "float"):
+                    sort = claripy.FSORT_DOUBLE if arg_type == "double" else claripy.FSORT_FLOAT
+                    if self.float_min is not None:
+                        initial_state.solver.add(
+                            claripy.fpGEQ(sym, claripy.FPV(float(self.float_min), sort))
+                        )
+                    if self.float_max is not None:
+                        initial_state.solver.add(
+                            claripy.fpLEQ(sym, claripy.FPV(float(self.float_max), sort))
+                        )
+                else:
+                    if self.int_min is not None:
+                        initial_state.solver.add(
+                            claripy.SGE(sym, claripy.BVV(self.int_min, sym.size()))
+                        )
+                    if self.int_max is not None:
+                        initial_state.solver.add(
+                            claripy.SLE(sym, claripy.BVV(self.int_max, sym.size()))
+                        )
             try:
                 initial_state.globals["snippet_initial_sp"] = initial_state.solver.eval(
                     initial_state.regs.sp, cast_to=int
@@ -159,12 +464,14 @@ class BenchmarkSymbolicExecution:
                     angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS,
                     angr.options.TRACK_MEMORY_ACTIONS,
                     angr.options.TRACK_REGISTER_ACTIONS,
+                    angr.options.LAZY_SOLVES,
                 }
             )
         else:
             initial_state = self.project.factory.entry_state()
             initial_state.options.add(angr.options.TRACK_MEMORY_ACTIONS)
             initial_state.options.add(angr.options.TRACK_REGISTER_ACTIONS)
+            initial_state.options.add(angr.options.LAZY_SOLVES)
         
         if self.s000_addr:
             count_var = claripy.BVS('count_param', 32)
@@ -180,31 +487,139 @@ class BenchmarkSymbolicExecution:
                 symbolic_variables[f'array_b_{i}'] = array_var
                 symbolic_var_counter += 1
                 print(f"Created symbolic variable: array_b_{i} (range 0-200)")
-        # When s000_addr is None (ardiff etc.), symbolic vars are added by ScanfSymbolicHook
-        
+        # Paper configuration: bound global arrays to their first 16 32-bit
+        # elements.  Raw bit-vectors preserve both integer and FP bit patterns.
+        self.symbolize_global_arrays(initial_state, max_elements=16)
+        # When s000_addr is None (ardiff etc.), remaining symbolic vars are
+        # added by ScanfSymbolicHook.
+        initial_state.globals["symbolicana_output_events"] = []
+        initial_state.globals["symbolicana_output_hooks"] = list(self.output_hook_names)
         return initial_state
+
+    def symbolize_global_arrays(self, state, max_elements=16):
+        global symbolic_variables, symbolic_var_counter
+        try:
+            symbols = list(self.project.loader.main_object.symbols)
+        except Exception:
+            return
+        seen = set()
+        for symbol in symbols:
+            name = str(getattr(symbol, "name", "") or "")
+            size = int(getattr(symbol, "size", 0) or 0)
+            address = int(getattr(symbol, "rebased_addr", 0) or 0)
+            # Restrict this to user-named writable objects large enough to be
+            # arrays; toolchain/runtime symbols commonly begin with '_'.
+            if not name or name.startswith("_") or size <= 4 or not address:
+                continue
+            if not any(start <= address and address + size <= end for start, end, _ in self.global_write_ranges):
+                continue
+            key = (address, size)
+            if key in seen:
+                continue
+            seen.add(key)
+            count = min(max_elements, size // 4)
+            for index in range(count):
+                var_name = f"global_{re.sub(r'[^A-Za-z0-9_]', '_', name)}_{index}"
+                value = claripy.BVS(var_name, 32)
+                state.memory.store(
+                    address + 4 * index,
+                    value,
+                    size=4,
+                    endness=state.arch.memory_endness,
+                )
+                symbolic_variables[var_name] = value
+                symbolic_var_counter += 1
+            if count:
+                print(f"Symbolized global array {name}: {count} elements")
 
     def install_call_arguments(self, state, arg_values):
         """Install snippet arguments using the target architecture's ABI."""
+        is_amd64 = "amd64" in str(getattr(state.arch, "name", "")).lower()
+        try:
+            binary_os = str(
+                getattr(self.project.loader.main_object, "os", "") or ""
+            ).lower()
+        except Exception:
+            binary_os = ""
+        is_windows_amd64 = is_amd64 and (
+            "windows" in binary_os or self.binary_path.lower().endswith(".exe")
+        )
+        is_x86 = str(getattr(state.arch, "name", "")).lower() == "x86"
+        int_register_limit = 4 if is_windows_amd64 else 6
+        fp_register_limit = 4 if is_windows_amd64 else 8
         int_reg_index = 0
         fp_reg_index = 0
+        stack_index = 0
         for position, (arg_type, sym) in enumerate(arg_values):
-            if arg_type == "double":
-                reg_name = self.argument_register_name(state, arg_type, fp_reg_index, position)
-                fp_reg_index += 1
-                if reg_name in state.arch.registers:
-                    self.set_register_value(state, reg_name, sym.raw_to_bv())
+            if is_x86:
+                self.store_stack_argument(state, position, sym, slot_size=4)
                 continue
-            if arg_type == "float":
-                reg_name = self.argument_register_name(state, arg_type, fp_reg_index, position)
+            if arg_type in ("double", "float"):
+                if fp_reg_index < fp_register_limit:
+                    reg_name = self.argument_register_name(
+                        state, arg_type, fp_reg_index, position
+                    )
+                    if reg_name in state.arch.registers:
+                        self.set_register_value(
+                            state, reg_name, sym.raw_to_bv()
+                        )
+                else:
+                    slot_size = 8 if arg_type == "double" else 4
+                    self.store_stack_argument(
+                        state,
+                        stack_index,
+                        sym.raw_to_bv(),
+                        slot_size=slot_size,
+                        windows=is_windows_amd64,
+                    )
+                    stack_index += 1
                 fp_reg_index += 1
-                if reg_name in state.arch.registers:
-                    self.set_register_value(state, reg_name, sym.raw_to_bv())
                 continue
-            reg_name = self.argument_register_name(state, arg_type, int_reg_index, position)
+            if int_reg_index < int_register_limit:
+                reg_name = self.argument_register_name(
+                    state, arg_type, int_reg_index, position
+                )
+                if reg_name in state.arch.registers:
+                    self.set_register_value(state, reg_name, sym)
+            else:
+                self.store_stack_argument(
+                    state,
+                    stack_index,
+                    sym,
+                    slot_size=4,
+                    windows=is_windows_amd64,
+                )
+                stack_index += 1
             int_reg_index += 1
-            if reg_name in state.arch.registers:
-                self.set_register_value(state, reg_name, sym)
+
+    def store_stack_argument(
+        self,
+        state,
+        index,
+        value,
+        *,
+        slot_size,
+        windows=False,
+    ):
+        """Store an argument beyond the register-passed prefix on the stack."""
+        if str(getattr(state.arch, "name", "")).lower() == "x86":
+            offset = 4 + index * 4
+            slot_size = min(slot_size, 4)
+        elif "amd64" in str(getattr(state.arch, "name", "")).lower():
+            # SysV places the first stack argument at [rsp+8], after the
+            # return address. Win64 reserves return address plus shadow space.
+            base = 0x28 if windows else 8
+            offset = base + index * 8
+        else:
+            raise ValueError(
+                f"unsupported stack argument ABI: {state.arch.name}"
+            )
+        state.memory.store(
+            state.regs.sp + offset,
+            value,
+            size=slot_size,
+            endness=state.arch.memory_endness,
+        )
 
     def argument_register_name(self, state, arg_type, index, position=None):
         is_amd64 = "amd64" in str(getattr(state.arch, "name", "")).lower()
@@ -263,21 +678,129 @@ class BenchmarkSymbolicExecution:
             return []
         initial_state = self.create_symbolic_state()
         simgr = self.project.factory.simulation_manager(initial_state)
+        simgr.use_technique(angr.exploration_techniques.Timeout(timeout=self.timeout))
+        loop_seer_installed = False
+        loop_seer_error = None
+        try:
+            simgr.use_technique(
+                angr.exploration_techniques.LoopSeer(
+                    bound=self.loop_bound,
+                    discard_stash="loop_bound",
+                )
+            )
+            loop_seer_installed = True
+        except Exception as exc:
+            loop_seer_error = str(exc)
+            print(f"Loop bound setup failed: {exc}")
         print("Exploring paths...")
-        simgr.run(timeout=self.timeout, n=500)
+        simgr.run()
         print("Symbolic execution finished:")
         print(f"  Deadended: {len(simgr.deadended)}")
         print(f"  Active: {len(simgr.active)}")
         print(f"  Errored: {len(simgr.errored)}")
-        all_states = simgr.deadended + simgr.active
-        if simgr.errored and not all_states:
-            print(f"  Handling errored states: {len(simgr.errored)}")
-            for errored in simgr.errored:
-                all_states.append(errored.state)
+        timeout_states_raw = list(simgr.stashes.get("timeout", []))
+        loop_bound_states_raw = list(simgr.stashes.get("loop_bound", []))
+        all_states_raw = list(simgr.deadended)
+        returned_error_states = []
+        other_errors = []
+        for errored in simgr.errored:
+            state = errored.state
+            try:
+                is_return_sentinel = int(state.addr) == 0
+            except Exception:
+                is_return_sentinel = False
+            if self.snippet_addr is not None and is_return_sentinel:
+                returned_error_states.append(state)
+            else:
+                other_errors.append(errored)
+        all_states_raw.extend(returned_error_states)
+
+        # LAZY_SOLVES deliberately keeps infeasible states until a result is
+        # demanded.  Prune them before completeness/path-limit accounting;
+        # otherwise infeasible loop continuations look like real bound events.
+        all_states = self.filter_feasible_states(all_states_raw)
+        timeout_states = self.filter_feasible_states(timeout_states_raw)
+        loop_bound_states = self.filter_feasible_states(loop_bound_states_raw)
+        active_states = self.filter_feasible_states(list(simgr.active))
+        other_errors = [item for item in other_errors if self.state_is_feasible(item.state)]
+
+        incomplete_reasons = []
+        if not loop_seer_installed:
+            incomplete_reasons.append("loop_bound_setup_failed")
+        if active_states:
+            incomplete_reasons.append("active_states_remaining")
+        if timeout_states:
+            incomplete_reasons.append("timeout")
+        if loop_bound_states:
+            incomplete_reasons.append("loop_bound_reached")
+        if other_errors:
+            incomplete_reasons.append("execution_error")
+        if len(all_states) > self.max_paths:
+            incomplete_reasons.append("path_limit_exceeded")
+        self.exploration_manifest = {
+            "schema": "symbolicana.exploration.v2",
+            "binary": os.path.abspath(self.binary_path),
+            "timeout_seconds": self.timeout,
+            "loop_bound": self.loop_bound,
+            "max_paths": self.max_paths,
+            "input_ranges": {
+                "integer": (
+                    [self.int_min, self.int_max]
+                    if self.int_min is not None or self.int_max is not None
+                    else "unbounded"
+                ),
+                "floating_point": (
+                    [self.float_min, self.float_max]
+                    if self.float_min is not None or self.float_max is not None
+                    else "unbounded"
+                ),
+            },
+            "loop_seer_installed": loop_seer_installed,
+            "loop_seer_error": loop_seer_error,
+            "complete": not incomplete_reasons,
+            "incomplete_reasons": incomplete_reasons,
+            "terminating_path_count": len(all_states),
+            "deadended_count": len(simgr.deadended),
+            "returned_error_count": len(returned_error_states),
+            "active_count": len(active_states),
+            "timeout_count": len(timeout_states),
+            "loop_bound_event_count": len(loop_bound_states),
+            "errored_count": len(other_errors),
+            "raw_state_counts": {
+                "terminating": len(all_states_raw),
+                "active": len(simgr.active),
+                "timeout": len(timeout_states_raw),
+                "loop_bound": len(loop_bound_states_raw),
+            },
+        }
         
+        self.save_exploration_manifest()
+        if len(all_states) > self.max_paths:
+            print(
+                f"Path limit exceeded ({len(all_states)} > {self.max_paths}); "
+                "artifacts intentionally not serialized"
+            )
+            return []
         self.analyze_states(all_states)
         
         return self.paths_info
+
+    def state_is_feasible(self, state):
+        # Pure-floating numerical paths use LAZY_SOLVES specifically because
+        # eager FP satisfiability can exceed the analysis budget.  Preserve
+        # their path formulas (including an occasional unsat formula); overlap
+        # checks in the SMT verification stage safely discard unsat regions.
+        if angr.options.LAZY_SOLVES in state.options:
+            return True
+        try:
+            return bool(state.solver.satisfiable())
+        except Exception:
+            # Retain states when feasibility itself cannot be established; the
+            # downstream verifier must conservatively return UNK.
+            return True
+
+    def filter_feasible_states(self, states):
+        return [state for state in states if self.state_is_feasible(state)]
     
     def analyze_states(self, states):
         """Analyze all states."""
@@ -317,7 +840,11 @@ class BenchmarkSymbolicExecution:
         variable_values = {}
         for var_name, sym_var in symbolic_variables.items():
             try:
-                if state.solver.satisfiable():
+                if angr.options.LAZY_SOLVES in state.options:
+                    # Diagnostic samples are not part of the proof artifact.
+                    # Avoid forcing an expensive FP solve solely for logging.
+                    variable_values[var_name] = None
+                elif state.solver.satisfiable():
                     val = state.solver.eval(sym_var, cast_to=int)
                     variable_values[var_name] = val
                 else:
@@ -361,14 +888,20 @@ class BenchmarkSymbolicExecution:
                              
         try:
             addr_trace = list(getattr(state.history, 'bbl_addrs', []))
-            signature['execution_trace'] = addr_trace[-10:] if len(addr_trace) > 10 else addr_trace
+            # Ranking uses the complete dynamic basic-block trace.  Truncating
+            # this to a suffix makes trace overlap unstable for long paths.
+            signature['execution_trace'] = addr_trace
         except:
             signature['execution_trace'] = []
         
                    
         try:
-            memory_hash = hash(str(state.solver.constraints)[:200])
-            signature['memory_hash'] = memory_hash
+            memory_payload = {
+                "memory_state": self.extract_memory_summary(state),
+                "global_state": self.extract_global_summary(state),
+            }
+            encoded = json.dumps(memory_payload, sort_keys=True, separators=(",", ":"), default=str)
+            signature['memory_hash'] = hashlib.sha256(encoded.encode("utf-8")).hexdigest()
         except:
             signature['memory_hash'] = 0
         
@@ -393,17 +926,207 @@ class BenchmarkSymbolicExecution:
           write sets on both sides mean this layer is vacuously equal.
         """
         summary = {
-            "schema": "symbolicana.path_semantics.v1",
+            "schema": "symbolicana.path_semantics.v3",
             "input_space": {
                 "kind": "path_constraints",
                 "constraint_count": len(state.solver.constraints),
             },
             "return_value": self.extract_return_summary(state),
+            "program_output": self.extract_output_summary(state),
             "memory_state": self.extract_memory_summary(state),
             "local_state": self.extract_local_summary(state),
             "global_state": self.extract_global_summary(state),
         }
         return summary
+
+    def extract_output_summary(self, state):
+        raw_events = state.globals.get("symbolicana_output_events")
+        if not isinstance(raw_events, list):
+            return {
+                "available": False,
+                "reason": "output_tracking_not_initialized",
+                "events": [],
+                "segment_count": 0,
+                "unresolved": [],
+            }
+        events = []
+        unresolved = []
+        for event_index, raw_event in enumerate(raw_events):
+            fmt = raw_event.get("format")
+            call = str(raw_event.get("call") or "stdio")
+            if not isinstance(fmt, str):
+                unresolved.append(
+                    {
+                        "event": event_index,
+                        "call": call,
+                        "reason": "non_concrete_format_string",
+                    }
+                )
+                events.append(
+                    {
+                        "call": call,
+                        "sink": str(raw_event.get("sink") or "stdio"),
+                        "format": None,
+                        "format_available": False,
+                        "argument_count": len(raw_event.get("args") or ()),
+                        "segments": [],
+                    }
+                )
+                continue
+            segments, event_unresolved = self.output_segments_for_event(
+                state,
+                call,
+                fmt,
+                tuple(raw_event.get("args") or ()),
+                event_index,
+            )
+            unresolved.extend(event_unresolved)
+            events.append(
+                {
+                    "call": call,
+                    "sink": str(raw_event.get("sink") or "stdio"),
+                    "format": fmt,
+                    "format_available": not event_unresolved,
+                    "argument_count": len(raw_event.get("args") or ()),
+                    "segments": segments,
+                }
+            )
+        return {
+            "available": not unresolved,
+            "schema": "symbolicana.program_output.v1",
+            "hooks": list(state.globals.get("symbolicana_output_hooks", [])),
+            "events": events,
+            "event_count": len(events),
+            "segment_count": sum(len(event["segments"]) for event in events),
+            "unresolved": unresolved,
+        }
+
+    def output_segments_for_event(self, state, call, fmt, args, event_index):
+        segments = []
+        unresolved = []
+        position = 0
+        argument_index = 0
+        while position < len(fmt):
+            marker = fmt.find("%", position)
+            if marker < 0:
+                if position < len(fmt):
+                    segments.append({"kind": "text", "value": fmt[position:]})
+                break
+            if marker > position:
+                segments.append({"kind": "text", "value": fmt[position:marker]})
+            match = OUTPUT_FORMAT_SPECIFIER.match(fmt, marker)
+            if match is None:
+                unresolved.append(
+                    {
+                        "event": event_index,
+                        "call": call,
+                        "reason": "unsupported_format_specifier",
+                        "offset": marker,
+                    }
+                )
+                segments.append({"kind": "text", "value": fmt[marker:]})
+                break
+            specifier = match.group(0)
+            position = match.end()
+            if specifier == "%%":
+                segments.append({"kind": "text", "value": "%"})
+                continue
+            if "*" in specifier:
+                unresolved.append(
+                    {
+                        "event": event_index,
+                        "call": call,
+                        "reason": "dynamic_width_or_precision",
+                        "specifier": specifier,
+                    }
+                )
+                continue
+            if argument_index >= len(args):
+                unresolved.append(
+                    {
+                        "event": event_index,
+                        "call": call,
+                        "reason": "missing_format_argument",
+                        "specifier": specifier,
+                    }
+                )
+                continue
+            argument = args[argument_index]
+            argument_index += 1
+            conversion = specifier[-1]
+            if conversion == "s":
+                value = read_concrete_c_string(state, argument)
+                if value is None:
+                    unresolved.append(
+                        {
+                            "event": event_index,
+                            "call": call,
+                            "reason": "non_concrete_string_argument",
+                            "argument": argument_index - 1,
+                        }
+                    )
+                else:
+                    segments.append({"kind": "text", "value": value})
+                continue
+            if conversion == "c":
+                try:
+                    symbolic = bool(getattr(argument, "symbolic", False))
+                    if not symbolic:
+                        value = int(state.solver.eval(argument, cast_to=int))
+                        segments.append(
+                            {"kind": "text", "value": chr(value & 0xFF)}
+                        )
+                        continue
+                except Exception:
+                    pass
+            segments.append(
+                self.serialize_output_argument(
+                    state,
+                    argument,
+                    event_index,
+                    argument_index - 1,
+                    specifier,
+                )
+            )
+        return segments, unresolved
+
+    def serialize_output_argument(
+        self, state, expr, event_index, argument_index, specifier
+    ):
+        try:
+            bits = int(expr.size())
+        except Exception:
+            return {
+                "kind": "unavailable",
+                "specifier": specifier,
+                "repr": str(expr),
+            }
+        variable = f"__output_{event_index}_{argument_index}"
+        try:
+            solver = claripy.Solver()
+            summary_var = claripy.BVS(variable, bits)
+            solver.add(summary_var == expr)
+            smt = claripy_solver_to_smt2(solver)
+        except Exception:
+            smt = None
+        return {
+            "kind": "formatted_value",
+            "available": smt is not None,
+            "specifier": specifier,
+            "bits": bits,
+            "variable": variable,
+            "smt": smt,
+            "repr": str(expr),
+        }
+
+    def save_exploration_manifest(self):
+        path = f"{self.output_prefix}_exploration.json"
+        parent = os.path.dirname(os.path.abspath(path))
+        os.makedirs(parent, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as stream:
+            json.dump(self.exploration_manifest, stream, indent=2, sort_keys=True)
+            stream.write("\n")
+        print(f"Exploration manifest saved to: {path}")
 
     def extract_return_summary(self, state):
         expr = self.get_return_expr(state)
@@ -416,8 +1139,6 @@ class BenchmarkSymbolicExecution:
         ret_name = "__return_value"
         try:
             solver = claripy.Solver()
-            for constraint in state.solver.constraints:
-                solver.add(constraint)
             ret_var = claripy.BVS(ret_name, bits)
             solver.add(ret_var == expr)
             return {
@@ -476,7 +1197,7 @@ class BenchmarkSymbolicExecution:
             sections = []
         for section in sections:
             name = str(getattr(section, "name", "") or "").lower()
-            if not any(marker in name for marker in ("data", "bss", "got", "common")):
+            if not any(marker in name for marker in ("data", "bss", "common")):
                 continue
             start = int(getattr(section, "vaddr", 0) or 0)
             size = int(getattr(section, "memsize", getattr(section, "filesize", 0)) or 0)
@@ -549,11 +1270,66 @@ class BenchmarkSymbolicExecution:
         }
 
     def extract_global_summary(self, state):
-        # The current benchmark binaries mostly use stack locals. Keep this as a
-        # stable extension point for future watched global ranges.
+        """Snapshot the final symbolic value of every concretely written global cell.
+
+        Keys are section-relative so image-base relocation and consistent section
+        shifts do not affect cross-binary comparison.  Write order is deliberately
+        excluded: it remains available in ``memory_state`` only for diagnosis.
+        """
+        cells = {}
+        unresolved = []
+        try:
+            actions = list(state.history.actions)
+        except Exception:
+            actions = []
+        for action in actions:
+            if getattr(action, "type", None) != "mem" or getattr(action, "action", None) != "write":
+                continue
+            addr = self.safe_action_value(getattr(action, "addr", None), state)
+            size_bits = self.safe_action_value(getattr(action, "size", None), state)
+            if not isinstance(addr, int):
+                unresolved.append({"address": addr, "reason": "symbolic_write_address"})
+                continue
+            region = next(
+                ((start, end, name) for start, end, name in self.global_write_ranges if start <= addr < end),
+                None,
+            )
+            if region is None:
+                continue
+            if not isinstance(size_bits, int) or size_bits <= 0:
+                unresolved.append({"address": addr, "reason": "unknown_write_size"})
+                continue
+            start, end, name = region
+            size_bytes = max(1, (size_bits + 7) // 8)
+            if addr + size_bytes > end:
+                unresolved.append({"address": addr, "reason": "write_crosses_region"})
+                continue
+            canonical = f"{name}:{addr - start:#x}:{size_bytes}"
+            try:
+                expr = state.memory.load(addr, size_bytes, endness=state.arch.memory_endness)
+                cells[canonical] = self.serialize_observable_expr(state, expr, canonical)
+            except Exception as exc:
+                unresolved.append({"address": addr, "reason": f"load_failed:{exc}"})
+        return {
+            "available": not unresolved,
+            "address_model": "section_relative_written_cells",
+            "regions": cells,
+            "unresolved": unresolved,
+        }
+
+    def serialize_observable_expr(self, state, expr, canonical):
+        bits = int(expr.size())
+        safe_name = re.sub(r"[^A-Za-z0-9_]", "_", canonical)
+        variable = f"__global_{safe_name}"
+        solver = claripy.Solver()
+        summary_var = claripy.BVS(variable, bits)
+        solver.add(summary_var == expr)
         return {
             "available": True,
-            "regions": {},
+            "bits": bits,
+            "variable": variable,
+            "smt": claripy_solver_to_smt2(solver),
+            "repr": str(expr),
         }
 
     def is_observable_heap_or_global_address(self, addr, state):
@@ -664,6 +1440,12 @@ def main():
     parser.add_argument('--timeout', type=int, default=120, help='Symbolic execution timeout (seconds)')
     parser.add_argument('--output-prefix', help='Output file prefix')
     parser.add_argument('--signature', help='Snippet signature, e.g. double(double,int)')
+    parser.add_argument('--loop-bound', type=int, default=30, help='Per-loop iteration bound (default: 30)')
+    parser.add_argument('--max-paths', type=int, default=128, help='Maximum terminating paths to serialize')
+    parser.add_argument('--int-min', type=int, default=None)
+    parser.add_argument('--int-max', type=int, default=None)
+    parser.add_argument('--float-min', type=float, default=None)
+    parser.add_argument('--float-max', type=float, default=None)
     args = parser.parse_args()
     if args.benchmark:
         print(f"Starting batch analysis: {args.benchmark}")
@@ -672,7 +1454,18 @@ def main():
         analyzer.generate_summary_report()
     elif args.binary:
         print(f"Analyzing single binary: {args.binary}")
-        analyzer = BenchmarkSymbolicExecution(args.binary, args.output_prefix, args.timeout, args.signature)
+        analyzer = BenchmarkSymbolicExecution(
+            args.binary,
+            args.output_prefix,
+            args.timeout,
+            args.signature,
+            args.loop_bound,
+            args.max_paths,
+            args.int_min,
+            args.int_max,
+            args.float_min,
+            args.float_max,
+        )
         results = analyzer.run_symbolic_execution()
         print(f"Done. Found {len(results)} paths")
     else:

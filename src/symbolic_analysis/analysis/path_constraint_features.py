@@ -6,6 +6,7 @@ for use in cosine-similarity-based ordering (no match/unmatch threshold).
 """
 
 import re
+from collections import Counter
 from typing import Dict, List, Optional, Tuple
 
 # SMT-LIB operators we count
@@ -128,9 +129,14 @@ def extract_features(path_content: str) -> Tuple[List[float], Dict[str, float]]:
     # 2. Variable count
     n_vars = len(_variable_names(body))
 
-    # 3. Main bit-vector width (most frequent, or max if tie)
+    # 3. Dominant bit-vector width (most frequent; largest width breaks ties)
     widths = _bitvec_widths(body)
-    main_bv_width = max(widths) if widths else 0
+    if widths:
+        counts = Counter(widths)
+        max_count = max(counts.values())
+        main_bv_width = max(width for width, count in counts.items() if count == max_count)
+    else:
+        main_bv_width = 0
 
     # 4. Core operator type count (unique operator kinds)
     op_counts = _operator_counts(body)

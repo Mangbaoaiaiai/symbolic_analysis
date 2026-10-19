@@ -1,0 +1,9 @@
+outcome,all_272,upstream_142
+correct_eq,67,40
+correct_neq,52,36
+wrong_eq,0,0
+wrong_neq,0,0
+label_inconsistent,3,0
+unk,29,11
+failed,0,0
+not_attempted,121,55

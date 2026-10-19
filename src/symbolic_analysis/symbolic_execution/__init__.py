@@ -1,2 +1,0 @@
-"""Symbolic-execution utilities."""
-

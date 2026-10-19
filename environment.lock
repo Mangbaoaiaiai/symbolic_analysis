@@ -1,0 +1,11 @@
+container_base=docker.1ms.run/python:3.12-slim-bookworm
+python=3.12.15
+gcc=Debian 12.2.0-14+deb12u1
+gcc_package=4:12.2.0-3
+libc6-dev=2.36-9+deb12u14
+angr=9.2.192
+claripy=9.2.192
+z3=4.12.2
+architecture=x86-64 Linux
+image=symbolicana-paper:latest
+

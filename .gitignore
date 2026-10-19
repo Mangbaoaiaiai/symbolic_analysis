@@ -1,53 +1,12 @@
-# Python caches and build metadata
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-.Python
-*.so
 *.egg-info/
-
-# Virtual environments and local configuration
-.env
 .venv/
-.venv312/
-env/
-venv/
-
-# Temporary files
-*.tmp
-*.temp
-*~
-
-# Generated benchmark and analysis outputs
-paths_*/
-benchmark_temp_*/
-real_paths_*/
-improved_paths_*/
-run_logs/
-evaluation_results*/
-experiments/ardiff_comparison/experiment_logs/
-
-# Generated benchmark binaries
-experiments/ardiff_comparison/benchmarks/**/symbolic_oldV
-experiments/ardiff_comparison/benchmarks/**/symbolic_newV
-experiments/ardiff_comparison/benchmarks/**/oldV
-experiments/ardiff_comparison/benchmarks/**/newV
-experiments/ardiff_comparison/benchmarks_typed/**/symbolic_oldV
-experiments/ardiff_comparison/benchmarks_typed/**/symbolic_newV
-experiments/ardiff_comparison/benchmarks_typed/**/oldV
-experiments/ardiff_comparison/benchmarks_typed/**/newV
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Operating system files
 .DS_Store
-Thumbs.db
-*.dSYM/
-
-# External third-party projects
-pldi19-equivalence-checker/
+work/
+results/rerun/
+**/paths/
+**/bin/
+*.log
+*.png
+*.pdf

@@ -1,0 +1,4 @@
+variant,candidate_cases,path_complete,correct_determinate,wrong_determinate,unk,verifier_failed,path_failed,correct_rate_percent
+all_72,72,64,60,0,4,0,8,93.75
+exclude_gam_erfcc,70,62,58,0,4,0,8,93.54838709677419
+exclude_gam_gcf,70,62,60,0,2,0,8,96.7741935483871

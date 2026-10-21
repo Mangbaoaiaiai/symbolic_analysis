@@ -133,63 +133,51 @@ coverage-based matching returns the correct EQ result. The four path-generation
 failures (`bess/bessi_Eq`, `bess/bessj_Eq`, `bess/bessk_Eq`, and
 `bess/bessy_Eq`) are UNK in both configurations.
 
-## 3. Hybrid path-ranking ablation
+### Column definitions
 
-The no-ranking control scans all path pairs. The hybrid configuration first
-orders candidates with the 11-dimensional path-condition feature vector and
-uses basic-block trace overlap when feature confidence is low.
+| Label | Definition |
+|---|---|
+| `Case` | Official benchmark case identifier. |
+| `Family` | Benchmark family assigned by the benchmark manifest. |
+| `Cases` | Number of official entries in the family; the full OSF denominator is 272. |
+| `Configuration` | One experimental variant under comparison. |
+| `Metric` | Aggregate quantity measured by a result table. |
+| `Result` | Value produced by the current run. |
+| `Outcome` | Final verdict/audit category assigned to one case. |
+| `Reason` | Residual condition that prevented a more specific result. |
+| `File` | Path-free or path-only result artifact linked by the README. |
+| `Supported` | Entries for which a source-free harness could be generated and staged. |
+| `Complete` | Entries whose old and new executions both produced path artifacts and completed exploration. |
+| `Correct EQ` | The verdict is EQ and also matches the official EQ label. |
+| `Correct NEQ` | The verdict is NEQ and also matches the official NEQ label. |
+| `Correct determinate` | Correct EQ plus correct NEQ outcomes. |
+| `Correct / 62` | Number of correct determinate verdicts over the fixed 62-case denominator. |
+| `Correct rate` | Correct determinate verdicts divided by all 62 cases. |
+| `Wrong EQ` | Determinate EQ verdicts for cases labelled NEQ. |
+| `Wrong NEQ` | Determinate NEQ verdicts for cases labelled EQ. |
+| `Difference` | Current full configuration minus the comparison configuration. |
+| `Label inconsistent` | The released sources contradict the official label, so the row is excluded from correct/wrong counts. |
+| `UB` | Final exclusion because source-level undefined behavior or unstable formatting prevents a trustworthy verdict. |
+| `Undefined behavior excluded` | Long-form label for the `UB` outcome column. |
+| `UNK` | The method declined to decide because evidence was incomplete or no proof was reached; UNK is not a wrong verdict. |
+| `Failed` | Harness construction, symbolic execution, or another process stage failed before a verdict. |
+| `Not attempted` | No harness could be constructed, including unsupported pointer/array signatures. |
+| `Not attempted / unsupported` | Long-form label for entries with no executable harness. |
+| `Entered symbolic execution` | At least one side started symbolic execution and produced path evidence. |
+| `Both-side path artifacts` | Both binaries produced at least one path artifact, regardless of completeness. |
+| `Both-side complete exploration` | Both sides have complete exploration markers, path artifacts, and no failure marker. |
+| `Incomplete exploration` | Some path evidence exists, but at least one side does not have complete exploration. |
+| `No path artifact` | Neither side produced a usable path artifact. |
+| `Timed cases` | Cases with a recorded verifier wall-clock duration. Path- or verifier-failed cases without a duration are not imputed. |
+| `Mean verifier time / timed case` | Arithmetic mean of `evaluation_wall_seconds` over `Timed cases` only; expressed in seconds. |
+| `symbolic_timeout` | Symbolic execution exceeded its configured wall-clock limit. |
+| `sigkill_or_oom` | The executor was terminated by SIGKILL, usually because of memory exhaustion. |
+| `incomplete_symbolic_execution` | Exploration stopped with an incomplete path set. |
+| `verifier_or_semantic_unknown` | Complete paths were available, but no trustworthy semantic proof was reached. |
+| `no_complete_paths` | Symbolic execution produced no complete terminating path. |
+| `unsupported_harness` | The source signature could not be represented by the source-free harness. |
 
-| Configuration | Correct / 62 | Hit@1 | Hit@3 | MRR | Mean T_align (s) | Mean T_smt (s) |
-|---|---:|---:|---:|---:|---:|---:|
-| No ranking, all pairs | 57 | 43.15% | 65.75% | 0.5580 | 0.00 | 6.02 |
-| Hybrid path ranking | **58** | **78.77%** | **91.10%** | **0.8611** | 0.53 | **3.75** |
-| Difference | +1 | +35.62 pp | +25.34 pp | +0.3031 | +0.53 | -2.27 |
-
-Ranking metrics are computed over 146 evaluable ranking queries from the 58
-cases with path artifacts. Alignment and SMT times are means over the same 58
-cases. In the current run, the additional correct outcome is
-`ell/plgndr_Eq`.
-
-## 4. Path-matching type distribution
-
-The complete method produced 287 valid bidirectional match records. Eight
-additional candidate records were marked `unmatched` and are excluded from
-this match-type table.
-
-| Match type | Records | Ratio |
-|---|---:|---:|
-| One-to-one exact | 284 | 98.95% |
-| One-to-one source-subset-target | 2 | 0.70% |
-| One-to-many exact cover | 1 | 0.35% |
-| One-to-many source-subset-target union | 0 | 0.00% |
-| **Total** | **287** | **100.00%** |
-
-One-to-many matching therefore accounts for 1 of 287 records (0.35%) in the
-current run. Its effect on the verdict count is the `dart/test_Eq` change shown
-in the one-to-many ablation.
-
-This distribution is not evidence that all 284 exact records came from a
-single textual comparison. The current verifier has an explicit exact fast
-path that applies only when two path sets have equal size, corresponding raw
-SMT path conditions are identical in path-file order, and
-return/output/final-global-state summaries are also identical. That fast path
-accounts for 122 records in 23 cases and is a performance optimization, not a
-separate verdict rule. The remaining 162 one-to-one exact records were found by
-the general ranked matcher. Across all 284 one-to-one exact records, 130 have
-identical raw path-condition text and 154 have different raw text but passed
-SMT equivalence checks for the observable semantics.
-
-The difference from the paper's 360-record distribution is therefore partly a
-path-population difference and partly a matching-accounting difference. The
-current table covers 58 cases with complete path artifacts; the other four
-cases are UNK before matching. The current run also removes UNSAT paths before
-matching, uses the ARDiff-style fixed input domain, and credits the exact fast
-path as one-to-one instead of asking the general ranker to rediscover the same
-identity relation. The paper does not expose enough intermediate path data to
-decompose its 360 records under the current corrected pipeline, so the two
-proportions should not be interpreted as a like-for-like ablation.
-
-## 5. Complete OSF evaluation
+## 3. Complete OSF evaluation
 
 > **Provisional aggregate.** The current 272-entry table combines the previous
 > complete OSF audit with targeted results for 27 cases supported by the latest
@@ -232,26 +220,31 @@ without an array extent.
 
 Per-family OSF results:
 
-| Family | Cases | Supported | Complete | Correct EQ | Correct NEQ | Wrong EQ | Wrong NEQ | Label inconsistent | UB | UNK | Failed | Not attempted |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| CLEVER | 50 | 50 | 50 | 27 | 20 | 0 | 0 | 3 | 0 | 0 | 0 | 0 |
-| REVE | 32 | 31 | 9 | 5 | 2 | 0 | 0 | 0 | 1 | 17 | 6 | 1 |
-| airy | 12 | 12 | 12 | 4 | 6 | 0 | 0 | 1 | 0 | 1 | 0 | 0 |
-| bess | 36 | 36 | 26 | 9 | 13 | 0 | 0 | 1 | 0 | 8 | 5 | 0 |
-| caldat | 10 | 10 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 8 | 0 |
-| dart | 2 | 2 | 2 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 |
-| ej_hash | 12 | 12 | 12 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| ell | 26 | 26 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 24 | 0 |
-| frenel | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 5 | 0 |
-| gam | 24 | 24 | 12 | 4 | 6 | 0 | 0 | 0 | 0 | 3 | 11 | 0 |
-| optimization | 6 | 6 | 6 | 2 | 2 | 0 | 0 | 0 | 1 | 1 | 0 | 0 |
-| pow | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| ran | 22 | 22 | 5 | 3 | 2 | 0 | 0 | 0 | 0 | 3 | 14 | 0 |
-| raytrace | 12 | 12 | 12 | 5 | 6 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| sine | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| statcalc | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| tcas | 8 | 8 | 6 | 0 | 3 | 0 | 0 | 0 | 0 | 5 | 0 | 0 |
-| tsafe | 8 | 8 | 8 | 2 | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 |
+| Family | Cases | Supported | Complete | Correct EQ | Correct NEQ | Wrong EQ | Wrong NEQ | Label inconsistent | UB | UNK | Failed | Not attempted | Timed cases | Mean verifier time / timed case (s) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| CLEVER | 50 | 50 | 50 | 27 | 20 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 50 | 2.226 |
+| REVE | 32 | 31 | 9 | 5 | 2 | 0 | 0 | 0 | 1 | 17 | 6 | 1 | 23 | 26.640 |
+| airy | 12 | 12 | 12 | 4 | 6 | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 10 | 1.504 |
+| bess | 36 | 36 | 26 | 9 | 13 | 0 | 0 | 1 | 0 | 8 | 5 | 0 | 26 | 51.713 |
+| caldat | 10 | 10 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 2 | 0.930 |
+| dart | 2 | 2 | 2 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 2 | 1.825 |
+| ej_hash | 12 | 12 | 12 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 8 | 0.836 |
+| ell | 26 | 26 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 24 | 0 | 2 | 11.449 |
+| frenel | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 5 | 0 | 0 | NA |
+| gam | 24 | 24 | 12 | 4 | 6 | 0 | 0 | 0 | 0 | 3 | 11 | 0 | 12 | 56.933 |
+| optimization | 6 | 6 | 6 | 2 | 2 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 4 | 213.886 |
+| pow | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.571 |
+| ran | 22 | 22 | 5 | 3 | 2 | 0 | 0 | 0 | 0 | 3 | 14 | 0 | 6 | 2.661 |
+| raytrace | 12 | 12 | 12 | 5 | 6 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | NA |
+| sine | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 53.214 |
+| statcalc | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.545 |
+| tcas | 8 | 8 | 6 | 0 | 3 | 0 | 0 | 0 | 0 | 5 | 0 | 0 | 6 | 80.616 |
+| tsafe | 8 | 8 | 8 | 2 | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 8 | 225.411 |
+| **All** | **272** | **271** | **170** | **72** | **75** | **0** | **0** | **5** | **3** | **43** | **73** | **1** | **165** | **36.782** |
+
+`NA` means that no case in that family had a recorded verifier wall time. The
+overall mean is computed over all 165 timed cases, not as an unweighted mean of
+the family means.
 
 ## Result files
 

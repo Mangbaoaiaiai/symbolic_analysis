@@ -66,6 +66,21 @@ def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
 
 
+def generated_pair_count(path_root: Path) -> int:
+    """Return the number of generated path pairs, or zero when none exist."""
+    for name in ("manifest.json", "manifest.partial.json"):
+        path = path_root / name
+        if not path.is_file():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        pairs = payload.get("pairs", []) if isinstance(payload, dict) else []
+        return len(pairs) if isinstance(pairs, list) else 0
+    return 0
+
+
 def prepare_osf() -> None:
     BENCHMARKS_EXTRACTED.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(BENCHMARKS_ARCHIVE) as archive:
@@ -158,6 +173,13 @@ def build_paths(
     if max_cases is not None:
         command.extend(["--max-cases", str(max_cases)])
     run(command)
+    if generated_pair_count(path_root) == 0:
+        print(
+            "No generated path pairs; skipping ranking, evaluation, and "
+            "control runs for this shard.",
+            flush=True,
+        )
+        return path_root, eval_root
     if annotate_path_truth:
         run(
             [

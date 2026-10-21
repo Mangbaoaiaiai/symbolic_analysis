@@ -5,6 +5,38 @@
 This README reports the current measured outcomes for the fixed 62-case
 benchmark and the complete 272-entry OSF accounting.
 
+## Quick start
+
+Build the pinned analysis image and run the test suite:
+
+```bash
+python run_experiment.py --suite tests --rebuild
+```
+
+Run the fixed 62-case experiment with a fresh path cache:
+
+```bash
+python run_experiment.py \
+  --suite paper \
+  --bindiff \
+  --fresh \
+  --run-name paper_latest
+```
+
+Run the complete 272-entry OSF experiment:
+
+```bash
+python run_experiment.py \
+  --suite osf \
+  --fresh \
+  --run-name osf_latest
+```
+
+`--bindiff` selects the optional graph-reranking image. If it is unavailable,
+the runner falls back to feature-only ranking and records that fallback.
+Generated binaries and paths are written below `work/`; rerun summaries are
+written below `results/rerun/<run-name>/`.
+
 ## Evaluation
 
 ### Experimental scope
@@ -19,6 +51,33 @@ benchmark and the complete 272-entry OSF accounting.
 | Solver | Z3 4.12.2 |
 | SMT timeout | 60 seconds per query |
 | Loop bound | 30 completed iterations |
+
+### Difference from the paper
+
+The current fixed-benchmark result is `58/62`, while the paper reports
+`54/62`. This difference has three concrete causes.
+
+First, the execution environment differs. The paper reports a 32-core Intel
+Xeon 2.5 GHz machine with 64 GB RAM on Ubuntu 22.04. The recorded runs here use
+Docker Linux containers on an x86-64 Docker Desktop/WSL2 host with 16 logical
+CPUs and about 16 GB exposed to Docker. Symbolic-execution wall-clock limits
+therefore admit a different set of complete paths.
+
+Second, the paper does not state a fixed numeric interval for symbolic inputs.
+The fixed 62-case profile uses the same integer and floating-point assumption
+as the upstream ARDiff runner, `[-100,100]`, with Ell overrides `[0,10]` and
+`[-1,1]`. The complete OSF profile instead uses the full representable 32-bit
+SMT input spaces. These domains change path feasibility and path counts, so
+the two result sets are not directly interchangeable.
+
+Third, the implementation has engineering improvements that affect evidence
+quality: ordered standard output is part of the observable state, formatted
+floating-point output is serialized by IEEE bit pattern, 64-bit ABI values are
+preserved, infeasible paths are removed by a bounded conservative prefilter,
+path summaries are streamed to disk, and unconstrained paths recover their
+complete input arity. The latest verifier also resolves several cases that the
+paper reports as SMT-UNK. These changes are reported explicitly and are not
+converted into correct results when path evidence remains incomplete.
 
 ## 1. Main fixed 62-case result
 
@@ -93,7 +152,9 @@ cases. In the current run, the additional correct outcome is
 
 ## 4. Path-matching type distribution
 
-The complete method produced 287 directional match records:
+The complete method produced 287 valid bidirectional match records. Eight
+additional candidate records were marked `unmatched` and are excluded from
+this match-type table.
 
 | Match type | Records | Ratio |
 |---|---:|---:|
@@ -106,6 +167,27 @@ The complete method produced 287 directional match records:
 One-to-many matching therefore accounts for 1 of 287 records (0.35%) in the
 current run. Its effect on the verdict count is the `dart/test_Eq` change shown
 in the one-to-many ablation.
+
+This distribution is not evidence that all 284 exact records came from a
+single textual comparison. The current verifier has an explicit exact fast
+path that applies only when two path sets have equal size, corresponding raw
+SMT path conditions are identical in path-file order, and
+return/output/final-global-state summaries are also identical. That fast path
+accounts for 122 records in 23 cases and is a performance optimization, not a
+separate verdict rule. The remaining 162 one-to-one exact records were found by
+the general ranked matcher. Across all 284 one-to-one exact records, 130 have
+identical raw path-condition text and 154 have different raw text but passed
+SMT equivalence checks for the observable semantics.
+
+The difference from the paper's 360-record distribution is therefore partly a
+path-population difference and partly a matching-accounting difference. The
+current table covers 58 cases with complete path artifacts; the other four
+cases are UNK before matching. The current run also removes UNSAT paths before
+matching, uses the ARDiff-style fixed input domain, and credits the exact fast
+path as one-to-one instead of asking the general ranker to rediscover the same
+identity relation. The paper does not expose enough intermediate path data to
+decompose its 360 records under the current corrected pipeline, so the two
+proportions should not be interpreted as a like-for-like ablation.
 
 ## 5. Complete OSF evaluation
 

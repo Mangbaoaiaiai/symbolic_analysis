@@ -295,6 +295,8 @@ class BenchmarkSymbolicExecution:
         float_min=None,
         float_max=None,
         profile_id=PAPER_PROFILE_ID,
+        concrete_global_initializers=False,
+        retain_path_details=True,
     ):
         self.binary_path = binary_path
         self.timeout = timeout
@@ -309,6 +311,8 @@ class BenchmarkSymbolicExecution:
         self.float_min = float_min
         self.float_max = float_max
         self.profile_id = profile_id
+        self.concrete_global_initializers = concrete_global_initializers
+        self.retain_path_details = retain_path_details
         self.global_write_ranges = []
         self.global_objects = []
         self.exploration_manifest = {}
@@ -428,7 +432,8 @@ class BenchmarkSymbolicExecution:
                     sort = claripy.FSORT_DOUBLE if arg_type == "double" else claripy.FSORT_FLOAT
                     sym = claripy.FPS(name, sort)
                 else:
-                    sym = claripy.BVS(name, 32)
+                    bits = 64 if arg_type == "long" else 32
+                    sym = claripy.BVS(name, bits)
                 symbolic_variables[name] = sym
                 arg_values.append((arg_type, sym))
             initial_state = self.project.factory.call_state(
@@ -508,7 +513,8 @@ class BenchmarkSymbolicExecution:
                 print(f"Created symbolic variable: array_b_{i} (range 0-200)")
         # Paper configuration: bound global arrays to their first 16 32-bit
         # elements.  Raw bit-vectors preserve both integer and FP bit patterns.
-        self.symbolize_global_arrays(initial_state, max_elements=16)
+        if not self.concrete_global_initializers:
+            self.symbolize_global_arrays(initial_state, max_elements=16)
         # When s000_addr is None (ardiff etc.), remaining symbolic vars are
         # added by ScanfSymbolicHook.
         initial_state.globals["symbolicana_output_events"] = []
@@ -597,7 +603,11 @@ class BenchmarkSymbolicExecution:
                 continue
             if int_reg_index < int_register_limit:
                 reg_name = self.argument_register_name(
-                    state, arg_type, int_reg_index, position
+                    state,
+                    arg_type,
+                    int_reg_index,
+                    position,
+                    bits=int(sym.size()),
                 )
                 if reg_name in state.arch.registers:
                     self.set_register_value(state, reg_name, sym)
@@ -606,7 +616,7 @@ class BenchmarkSymbolicExecution:
                     state,
                     stack_index,
                     sym,
-                    slot_size=4,
+                    slot_size=8 if int(sym.size()) > 32 else 4,
                     windows=is_windows_amd64,
                 )
                 stack_index += 1
@@ -641,7 +651,7 @@ class BenchmarkSymbolicExecution:
             endness=state.arch.memory_endness,
         )
 
-    def argument_register_name(self, state, arg_type, index, position=None):
+    def argument_register_name(self, state, arg_type, index, position=None, bits=32):
         is_amd64 = "amd64" in str(getattr(state.arch, "name", "")).lower()
         try:
             binary_os = str(getattr(self.project.loader.main_object, "os", "") or "").lower()
@@ -660,8 +670,12 @@ class BenchmarkSymbolicExecution:
             else:
                 candidates = [f"s{index}", f"xmm{index}", f"v{index}"]
         else:
-            win64 = ["ecx", "edx", "r8d", "r9d"]
-            sysv_amd64 = ["edi", "esi", "edx", "ecx", "r8d", "r9d"]
+            if bits > 32:
+                win64 = ["rcx", "rdx", "r8", "r9"]
+                sysv_amd64 = ["rdi", "rsi", "rdx", "rcx", "r8", "r9"]
+            else:
+                win64 = ["ecx", "edx", "r8d", "r9d"]
+                sysv_amd64 = ["edi", "esi", "edx", "ecx", "r8d", "r9d"]
             i386 = ["eax", "edx", "ecx"]
             candidates = []
             if is_windows_amd64 and ordinal < len(win64):
@@ -781,6 +795,21 @@ class BenchmarkSymbolicExecution:
             self.describe_loop_bound_event(state)
             for state in loop_bound_states
         ]
+        experiment_profile = profile_for_input_domains(
+            self.int_min,
+            self.int_max,
+            self.float_min,
+            self.float_max,
+            loop_bound=self.loop_bound,
+            max_paths=self.max_paths,
+            timeout_seconds=self.timeout,
+            profile_id=self.profile_id,
+        )
+        experiment_profile["symbolic_execution"]["global_initialization"] = (
+            "loaded_elf_memory"
+            if self.concrete_global_initializers
+            else "symbolic_first_16_words"
+        )
         self.exploration_manifest = {
             "schema": "symbolicana.exploration.v3",
             "binary": os.path.abspath(self.binary_path),
@@ -801,15 +830,11 @@ class BenchmarkSymbolicExecution:
             },
             "loop_seer_installed": loop_seer_installed,
             "loop_seer_error": loop_seer_error,
-            "experiment_profile": profile_for_input_domains(
-                self.int_min,
-                self.int_max,
-                self.float_min,
-                self.float_max,
-                loop_bound=self.loop_bound,
-                max_paths=self.max_paths,
-                timeout_seconds=self.timeout,
-                profile_id=self.profile_id,
+            "experiment_profile": experiment_profile,
+            "global_initialization": (
+                "loaded_elf_memory"
+                if self.concrete_global_initializers
+                else "symbolic_first_16_words"
             ),
             "semantic_contract": dict(SEMANTIC_CONTRACT),
             "loop_counting": {
@@ -965,10 +990,15 @@ class BenchmarkSymbolicExecution:
                 'state': state
             }
             
-            self.paths_info.append(path_info)
-            
-                   
-            self.save_path_to_file(path_info)
+            path_file = self.save_path_to_file(path_info)
+            if self.retain_path_details:
+                self.paths_info.append(path_info)
+            else:
+                self.paths_info.append(
+                    {"index": path_info["index"], "path_file": path_file}
+                )
+            del path_info
+            states[i] = None
             
                   
             print(f"  Symbolic variable values: {signature['variables']}")
@@ -1246,16 +1276,31 @@ class BenchmarkSymbolicExecution:
                 "repr": str(expr),
             }
         variable = f"__output_{event_index}_{argument_index}"
+        smt_error = None
         try:
             solver = claripy.Solver()
             summary_var = claripy.BVS(variable, bits)
-            solver.add(summary_var == expr)
+            # printf's variadic floating-point arguments are FP ASTs. The
+            # summary variable is a bit-vector, so comparing it directly with
+            # an FP expression makes the Z3 backend emit ``(assert false)``.
+            # Preserve the IEEE bit pattern explicitly instead.
+            # claripy exposes ``sort`` as an FSort property, unlike z3 ASTs
+            # where ``sort()`` is a method.
+            summary_expr = expr.raw_to_bv() if str(
+                getattr(expr, "sort", None)
+            ) in {
+                "FLOAT",
+                "DOUBLE",
+            } else expr
+            solver.add(summary_var == summary_expr)
             smt = claripy_solver_to_smt2(solver)
-        except Exception:
+        except Exception as exc:  # noqa: BLE001
             smt = None
+            smt_error = f"{type(exc).__name__}: {exc}"
         return {
             "kind": "formatted_value",
             "available": smt is not None,
+            **({"smt_error": smt_error} if smt_error else {}),
             "specifier": specifier,
             "bits": bits,
             "variable": variable,
@@ -1311,6 +1356,14 @@ class BenchmarkSymbolicExecution:
                     if int(expr.size()) > target_bits:
                         return expr[target_bits - 1 : 0]
                     return expr
+                except Exception:
+                    continue
+        if ret_type == "long":
+            for reg_name in ("rax", "x0", "r0", "v0"):
+                if reg_name not in state.arch.registers:
+                    continue
+                try:
+                    return getattr(state.regs, reg_name)
                 except Exception:
                     continue
         # ARDiff benchmark snippets are generated as int snippet(...). Prefer
@@ -1726,6 +1779,7 @@ class BenchmarkSymbolicExecution:
             f.write(json.dumps(path_info['semantic_summary'], ensure_ascii=True, sort_keys=True))
             f.write("\n")
         print(f"  Saved to: {filename}")
+        return filename
 
 class BenchmarkAnalyzer:
     """Batch analyzer for benchmarks."""
@@ -1805,6 +1859,19 @@ def main():
     parser.add_argument('--float-min', type=float, default=None)
     parser.add_argument('--float-max', type=float, default=None)
     parser.add_argument('--profile-id', default=PAPER_PROFILE_ID)
+    parser.add_argument(
+        '--concrete-global-initializers',
+        action='store_true',
+        help=(
+            'Preserve ELF data/BSS initial values instead of replacing global '
+            'objects with symbolic first words.'
+        ),
+    )
+    parser.add_argument(
+        '--stream-path-output',
+        action='store_true',
+        help='Release each explored state after its path artifact is written.',
+    )
     args = parser.parse_args()
     if args.benchmark:
         print(f"Starting batch analysis: {args.benchmark}")
@@ -1825,6 +1892,8 @@ def main():
             args.float_min,
             args.float_max,
             args.profile_id,
+            args.concrete_global_initializers,
+            not args.stream_path_output,
         )
         results = analyzer.run_symbolic_execution()
         print(f"Done. Found {len(results)} paths")

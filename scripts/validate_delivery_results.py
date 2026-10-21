@@ -89,48 +89,60 @@ def main() -> int:
     assert len({row["case_id"] for row in manifest_rows}) == 272
     assert Counter(row["support_status"] for row in manifest_rows) == {
         "supported_snippet": 129,
-        "supported_function": 87,
+        "supported_function": 99,
         "supported_main": 28,
-        "unsupported": 28,
+        "supported_targets": 15,
+        "unsupported": 1,
     }
 
     osf_root = RESULTS / "osf"
     osf_summary = load_json(osf_root / "summary.json")
     assert osf_summary["total"] == 272
-    assert osf_summary["supported"] == 244
-    assert osf_summary["unsupported"] == 28
-    assert osf_summary["entered_symbolic_execution"] == 176
-    assert osf_summary["both_sides_complete"] == 150
-    assert osf_summary["correct"] == 129
-    assert osf_summary["determinate"] == 129
+    assert osf_summary["supported"] == 271
+    assert osf_summary["unsupported"] == 1
+    assert osf_summary["entered_symbolic_execution"] == 198
+    assert osf_summary["both_sides_complete"] == 170
+    assert osf_summary["correct"] == 147
+    assert osf_summary["determinate"] == 147
+    assert osf_summary["provisional"] is True
+    assert osf_summary["full_osf_rerun_complete"] is False
+    assert osf_summary["provisional_replaced_cases"] == 27
+    assert len(osf_summary["provisional_case_ids"]) == 27
 
     osf_rows = read_rows(osf_root / "cases.csv")
     assert len(osf_rows) == 272
     assert len({row["case_id"] for row in osf_rows}) == 272
     expected_outcomes = {
-        "correct_eq": 64,
-        "correct_neq": 65,
+        "correct_eq": 72,
+        "correct_neq": 75,
         "wrong_eq": 0,
         "wrong_neq": 0,
         "label_inconsistent": 5,
         "undefined_behavior": 3,
-        "unk": 39,
-        "failed": 68,
-        "not_attempted": 28,
+        "unk": 43,
+        "failed": 73,
+        "not_attempted": 1,
     }
     assert Counter(row["outcome"] for row in osf_rows) == Counter(expected_outcomes)
     assert sum(
         row["outcome"] in {"correct_eq", "correct_neq"} for row in osf_rows
-    ) == 129
+    ) == 147
+    provisional_rows = [
+        row
+        for row in osf_rows
+        if row["case_id"] in set(osf_summary["provisional_case_ids"])
+    ]
+    assert len(provisional_rows) == 27
+    assert all(row.get("provisional_merge_source") for row in provisional_rows)
 
     failure_rows = read_rows(osf_root / "failure_cases.csv")
     assert Counter(row["failure_category"] for row in failure_rows) == {
-        "sigkill_or_oom": 44,
-        "symbolic_timeout": 23,
+        "sigkill_or_oom": 46,
+        "symbolic_timeout": 28,
         "incomplete_symbolic_exploration": 26,
         "no_complete_paths": 1,
-        "verifier_or_semantic_unknown": 13,
-        "unsupported_harness": 28,
+        "verifier_or_semantic_unknown": 15,
+        "unsupported_harness": 1,
     }
 
     upstream = read_rows(osf_root / "upstream_142_cases.csv")
@@ -167,8 +179,8 @@ def main() -> int:
 
     print(
         "validated paper=62 (58 correct, 0 wrong, 4 UNK); "
-        "OSF=272 (244 supported, 176 entered SE, 150 complete, "
-        "129 correct, 0 wrong, 5 label inconsistencies, 3 UB exclusions)"
+        "provisional OSF=272 (271 supported, 198 entered SE, 170 complete, "
+        "147 correct, 0 wrong, 5 label inconsistencies, 3 UB exclusions)"
     )
     return 0
 

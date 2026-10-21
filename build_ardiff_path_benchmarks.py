@@ -121,6 +121,14 @@ def main() -> int:
         help="Reject path-exploding binaries instead of materializing an unbounded artifact set.",
     )
     parser.add_argument(
+        "--concrete-global-initializers",
+        action="store_true",
+        help=(
+            "Preserve ELF data/BSS initial values instead of symbolizing global "
+            "objects as additional inputs."
+        ),
+    )
+    parser.add_argument(
         "--loop-bound",
         type=int,
         default=LOOP_BOUND,
@@ -639,6 +647,11 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
         timeout_seconds=args.timeout,
         profile_id=args.profile_id,
     )
+    experiment_profile["symbolic_execution"]["global_initialization"] = (
+        "loaded_elf_memory"
+        if args.concrete_global_initializers
+        else "symbolic_first_16_words"
+    )
     fmcad_path.write_text(
         json.dumps(
             timed_ranking(
@@ -723,6 +736,9 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
         },
         "profile_id": args.profile_id,
         "profile": experiment_profile,
+        "global_initialization": experiment_profile["symbolic_execution"][
+            "global_initialization"
+        ],
         "semantic_contract": dict(SEMANTIC_CONTRACT),
     }
     return row, truth
@@ -794,6 +810,9 @@ def maybe_run_symbolic_exec(
     signature = extract_c_snippet_signature(source) if source else None
     loop_bound = getattr(args, "loop_bound", LOOP_BOUND)
     profile_id = getattr(args, "profile_id", PAPER_PROFILE_ID)
+    concrete_global_initializers = bool(
+        getattr(args, "concrete_global_initializers", False)
+    )
     cache_key = (
         hashlib.sha256(cache_material).hexdigest(),
         args.optimization,
@@ -805,6 +824,7 @@ def maybe_run_symbolic_exec(
         args.int_max,
         args.float_min,
         args.float_max,
+        concrete_global_initializers,
         signature,
     )
     failure_marker = paths_out / f"{prefix}_failure.json"
@@ -850,6 +870,7 @@ def maybe_run_symbolic_exec(
         str(loop_bound),
         "--profile-id",
         profile_id,
+        "--stream-path-output",
     ]
     for flag, value in (
         ("--int-min", args.int_min),
@@ -861,6 +882,8 @@ def maybe_run_symbolic_exec(
             cmd.extend([flag, str(value)])
     if signature:
         cmd.extend(["--signature", signature])
+    if concrete_global_initializers:
+        cmd.append("--concrete-global-initializers")
     start = time.perf_counter()
     log = paths_out / f"{prefix}_symbolic_execution.log"
     timeout_seconds = args.timeout + 30
@@ -920,7 +943,12 @@ def extract_c_snippet_signature(source: Path | None) -> str | None:
     if not source or not source.is_file():
         return None
     text = source.read_text(encoding="utf-8", errors="replace")
-    match = re.search(r"\b(?P<ret>int|double|float|long)\s+snippet\s*\((?P<args>[^)]*)\)", text)
+    scalar_types = ("bool", "char", "short", "int", "long", "double", "float", "void")
+    type_pattern = "|".join(sorted(scalar_types, key=len, reverse=True))
+    match = re.search(
+        rf"\b(?:const\s+)?(?P<ret>{type_pattern})\s+snippet\s*\((?P<args>[^)]*)\)",
+        text,
+    )
     if not match:
         return None
     arg_types = []
@@ -929,10 +957,10 @@ def extract_c_snippet_signature(source: Path | None) -> str | None:
         if not raw_arg or raw_arg == "void":
             continue
         parts = raw_arg.replace("*", " * ").split()
-        for token in parts:
-            if token in {"int", "double", "float", "long"}:
-                arg_types.append(token)
-                break
+        arg_type = next((token for token in parts if token in scalar_types), None)
+        if arg_type is None or arg_type == "void":
+            raise ValueError(f"unsupported snippet argument declaration: {raw_arg}")
+        arg_types.append(arg_type)
     return f"{match.group('ret')}({','.join(arg_types)})"
 
 

@@ -4,14 +4,17 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from scripts.audit_osf_full import (
+    aggregate_target_verdict,
     classify,
     execution_failure_detail,
+    extract_target_stdout,
     failure_category,
     failure_paths_dir,
     normalize_case,
     path_evidence,
     public_message,
     select_stage,
+    target_audit,
     valid_verdict,
 )
 
@@ -30,6 +33,70 @@ def stage(**overrides):
 
 
 class AuditOsfFullTests(unittest.TestCase):
+    def test_target_stdout_is_partitioned_without_attribution(self):
+        names = ["normalize", "intersect"]
+        stdout = (
+            "Target normalize: 0x1p+0 0x0p+0\n"
+            "Target intersect: 0\n"
+            "Result: 0\n"
+        )
+        blocks = extract_target_stdout(stdout, names)
+        self.assertEqual(blocks["normalize"], "Target normalize: 0x1p+0 0x0p+0")
+        self.assertEqual(blocks["intersect"], "Target intersect: 0")
+
+    def test_target_audit_localizes_only_the_replayed_mismatch(self):
+        item = {
+            "case_id": "raytrace/raytrace_Eq",
+            "support_status": "supported_targets",
+            "entry_name": "normalize|intersect",
+        }
+        events = [
+            {
+                "target": "normalize",
+                "source": "symbolic_oldV_path_1",
+                "target_path": "symbolic_newV_path_1",
+                "classification": "defined_neq",
+                "reason": "observable_output_diff",
+                "stdin_sha256": "abc",
+                "left_stdout": "Target normalize: same",
+                "right_stdout": "Target normalize: same",
+                "observable_output_diff": False,
+                "return_observation": "encoded_in_target_stdout",
+                "global_state_observation": "process_level_aggregate",
+            },
+            {
+                "target": "intersect",
+                "source": "symbolic_oldV_path_1",
+                "target_path": "symbolic_newV_path_1",
+                "classification": "defined_neq",
+                "reason": "observable_output_diff",
+                "stdin_sha256": "abc",
+                "left_stdout": "Target intersect: 0",
+                "right_stdout": "Target intersect: 1",
+                "observable_output_diff": True,
+                "return_observation": "encoded_in_target_stdout",
+                "global_state_observation": "process_level_aggregate",
+            },
+        ]
+
+        rows = target_audit(item, events, "NEQ")
+
+        self.assertEqual(
+            {row["target"]: row["status"] for row in rows},
+            {"normalize": "UNK", "intersect": "NEQ"},
+        )
+        self.assertEqual(aggregate_target_verdict(rows), "NEQ")
+
+    def test_complete_case_eq_authorizes_each_joint_target(self):
+        item = {
+            "case_id": "tcas/tcas_Eq",
+            "support_status": "supported_targets",
+            "entry_name": "altseptest|Non_Crossing_Biased_Climb",
+        }
+        rows = target_audit(item, [], "EQ")
+        self.assertEqual({row["status"] for row in rows}, {"EQ"})
+        self.assertEqual(aggregate_target_verdict(rows), "EQ")
+
     def test_normalizes_checkout_and_container_case_paths(self):
         expected = "bess/bessj/eq"
         self.assertEqual(
@@ -135,6 +202,22 @@ class AuditOsfFullTests(unittest.TestCase):
             failure_category(
                 {
                     **common,
+                    "outcome": "unk",
+                    "old_path_count": 160,
+                    "new_path_count": 0,
+                    "both_complete": False,
+                    "path_failure": (
+                        "symbolic_oldV: symbolic execution failed "
+                        "(symbolic executor terminated by SIGKILL)"
+                    ),
+                }
+            ),
+            "sigkill_or_oom",
+        )
+        self.assertEqual(
+            failure_category(
+                {
+                    **common,
                     "outcome": "failed",
                     "path_failure": "symbolic execution timed out",
                 }
@@ -152,6 +235,17 @@ class AuditOsfFullTests(unittest.TestCase):
                 }
             ),
             "verifier_or_semantic_unknown",
+        )
+        self.assertEqual(
+            failure_category(
+                {
+                    **common,
+                    "outcome": "failed",
+                    "path_failure": "symbolic execution produced no complete paths",
+                    "incomplete_reasons": "symbolic_oldV: timeout",
+                }
+            ),
+            "symbolic_timeout",
         )
 
     def test_eq_requires_complete_paths_and_report(self):

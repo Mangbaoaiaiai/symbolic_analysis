@@ -39,6 +39,18 @@ SMT_HEADER = """(set-info :status unknown)
 
 
 class BenchmarkManifestTests(unittest.TestCase):
+    def test_bool_float_snippet_signature_is_preserved(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_tmp:
+            source = Path(raw_tmp) / "symbolic_oldV.c"
+            source.write_text(
+                "bool snippet(float a, float b) { return a < b; }\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                benchmark_builder.extract_c_snippet_signature(source),
+                "bool(float,float)",
+            )
+
     def test_relative_paths_use_posix_separators(self) -> None:
         rel = benchmark_builder.rel_to(ROOT / "a" / "b" / "ranking.json", ROOT / "a")
         self.assertEqual(rel, "b/ranking.json")
@@ -804,6 +816,99 @@ class CoverageTests(unittest.TestCase):
                 [old_neg, old_nonneg], [new_neg, new_nonneg], 5_000
             )
             self.assertTrue(covered)
+
+    def test_one_to_one_requires_bidirectional_input_domain_equality(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = self._path(
+                directory,
+                "symbolic_oldV_path_1.txt",
+                "(= x (_ bv0 32))",
+            )
+            new = self._path(
+                directory,
+                "symbolic_newV_path_1.txt",
+                "(and (bvsge x (_ bv0 32)) (bvsle x (_ bv1 32)))",
+            )
+            ranking = {"symbolic_oldV_path_1": ["symbolic_newV_path_1"]}
+            semantic_match = (
+                True,
+                0.0,
+                1,
+                {"input_overlap": "sat"},
+            )
+            with mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+                return_value=semantic_match,
+            ):
+                strict = verifier.verify_directional_cover(
+                    [old],
+                    [new],
+                    ranking,
+                    5_000,
+                    allow_one_to_many=False,
+                )
+                union_allowed = verifier.verify_directional_cover(
+                    [old],
+                    [new],
+                    ranking,
+                    5_000,
+                    allow_one_to_many=True,
+                )
+
+        self.assertFalse(strict["records"][0]["matched"])
+        self.assertTrue(union_allowed["records"][0]["matched"])
+        self.assertTrue(
+            union_allowed["records"][0]["intersection_verified"]
+        )
+
+    def test_strict_one_to_one_rejects_target_reuse(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old_a = self._path(
+                directory,
+                "symbolic_oldV_path_1.txt",
+                "(= x (_ bv0 32))",
+            )
+            old_b = self._path(
+                directory,
+                "symbolic_oldV_path_2.txt",
+                "(= x (_ bv0 32))",
+            )
+            new = self._path(
+                directory,
+                "symbolic_newV_path_1.txt",
+                "(= x (_ bv0 32))",
+            )
+            ranking = {
+                "symbolic_oldV_path_1": ["symbolic_newV_path_1"],
+                "symbolic_oldV_path_2": ["symbolic_newV_path_1"],
+            }
+            semantic_match = (
+                True,
+                0.0,
+                1,
+                {"input_overlap": "sat"},
+            )
+            with mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+                return_value=semantic_match,
+            ):
+                strict = verifier.verify_directional_cover(
+                    [old_a, old_b],
+                    [new],
+                    ranking,
+                    5_000,
+                    allow_one_to_many=False,
+                )
+
+        self.assertEqual(
+            [record["matched"] for record in strict["records"]],
+            [True, False],
+        )
+        self.assertEqual(strict["records"][0]["match_type"], "one_to_one_exact")
 
     def test_simplifiable_equal_paths_are_covered(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:

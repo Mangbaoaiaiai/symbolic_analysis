@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import re
 from collections import Counter
@@ -114,6 +115,8 @@ def failure_paths_dir(failure: dict[str, Any], path_root: Path) -> Path | None:
 def path_index(path_root: Path) -> dict[str, dict[str, Any]]:
     out: dict[str, dict[str, Any]] = {}
     manifest = read_json(path_root / "manifest.json")
+    if not manifest.get("pairs"):
+        manifest = read_json(path_root / "manifest.partial.json")
     for pair in manifest.get("pairs", []):
         source = str(pair.get("source_case") or pair.get("pair_id") or "")
         paths_dir = localize_artifact(str(pair.get("paths_dir") or ""), path_root)
@@ -157,6 +160,163 @@ def evaluation_index(eval_root: Path) -> dict[str, dict[str, str]]:
 
 def bool_value(value: Any) -> bool:
     return value is True or str(value).lower() in {"true", "1"}
+
+
+def target_names(item: dict[str, str]) -> list[str]:
+    """Return stable target labels for a jointly wrapped all-methods case."""
+    if item.get("support_status") != "supported_targets":
+        return []
+    names = [
+        value.strip()
+        for value in str(item.get("entry_name") or "").split("|")
+        if value.strip()
+    ]
+    return list(dict.fromkeys(names))
+
+
+def extract_target_stdout(stdout: Any, names: Iterable[str]) -> dict[str, str]:
+    """Partition wrapper output into target-local blocks without guessing."""
+    ordered_names = list(names)
+    prefixes = {name: f"Target {name}:" for name in ordered_names}
+    blocks: dict[str, list[str]] = {}
+    active: str | None = None
+    for raw_line in str(stdout or "").splitlines():
+        matched = next(
+            (
+                name
+                for name in ordered_names
+                if raw_line.startswith(prefixes[name])
+            ),
+            None,
+        )
+        if matched is not None:
+            active = matched
+            blocks.setdefault(active, []).append(raw_line)
+            continue
+        if raw_line.startswith("Target ") or raw_line.startswith("Result:"):
+            active = None
+            continue
+        if active is not None:
+            blocks[active].append(raw_line)
+    return {name: "\n".join(lines) for name, lines in blocks.items()}
+
+
+def report_target_replay_events(
+    report: dict[str, Any],
+    names: list[str],
+) -> list[dict[str, Any]]:
+    """Extract compact, target-partitioned observations from replay evidence."""
+    events: list[dict[str, Any]] = []
+    mismatches = report.get("confirmed_mismatches", [])
+    if not isinstance(mismatches, list):
+        return events
+    for mismatch in mismatches:
+        if not isinstance(mismatch, dict):
+            continue
+        replay = mismatch.get("replay") or {}
+        if not isinstance(replay, dict):
+            continue
+        left = replay.get("left") or {}
+        right = replay.get("right") or {}
+        left_blocks = extract_target_stdout(left.get("stdout"), names)
+        right_blocks = extract_target_stdout(right.get("stdout"), names)
+        stdin = str(replay.get("stdin") or "")
+        for name in names:
+            left_text = left_blocks.get(name)
+            right_text = right_blocks.get(name)
+            events.append(
+                {
+                    "target": name,
+                    "source": str(mismatch.get("source") or ""),
+                    "target_path": str(mismatch.get("target") or ""),
+                    "classification": str(replay.get("classification") or ""),
+                    "reason": str(replay.get("reason") or ""),
+                    "stdin_sha256": (
+                        hashlib.sha256(stdin.encode("utf-8")).hexdigest()
+                        if stdin
+                        else ""
+                    ),
+                    "left_stdout": left_text,
+                    "right_stdout": right_text,
+                    "observable_output_diff": (
+                        left_text is not None
+                        and right_text is not None
+                        and left_text != right_text
+                    ),
+                    "return_observation": (
+                        "encoded_in_target_stdout"
+                        if left_text is not None or right_text is not None
+                        else "unavailable"
+                    ),
+                    "global_state_observation": "process_level_aggregate",
+                }
+            )
+    return events
+
+
+def target_audit(
+    item: dict[str, str],
+    events: list[dict[str, Any]],
+    verdict: str,
+) -> list[dict[str, Any]]:
+    """Derive target verdicts without attributing whole-process differences."""
+    names = target_names(item)
+    rows: list[dict[str, Any]] = []
+    for name in names:
+        target_events = [event for event in events if event.get("target") == name]
+        differing = [
+            event for event in target_events if event.get("observable_output_diff")
+        ]
+        witness = differing[0] if differing else (target_events[0] if target_events else {})
+        if verdict == "EQ":
+            status = "EQ"
+            reason = "complete_case_semantic_cover_proof"
+        elif differing:
+            status = "NEQ"
+            reason = "target_local_observable_difference"
+        else:
+            status = "UNK"
+            reason = (
+                "confirmed_case_neq_not_localized_to_target"
+                if verdict == "NEQ"
+                else "case_level_semantic_unknown"
+            )
+        rows.append(
+            {
+                "case_id": item["case_id"],
+                "target": name,
+                "status": status,
+                "reason": reason,
+                "evidence_source": witness.get("source", ""),
+                "evidence_target_path": witness.get("target_path", ""),
+                "definedness_classification": witness.get("classification", ""),
+                "stdin_sha256": witness.get("stdin_sha256", ""),
+                "left_stdout": witness.get("left_stdout") or "",
+                "right_stdout": witness.get("right_stdout") or "",
+                "observable_output_diff": bool(
+                    witness.get("observable_output_diff", False)
+                ),
+                "return_observation": witness.get(
+                    "return_observation", "unavailable"
+                ),
+                "global_state_observation": witness.get(
+                    "global_state_observation", "process_level_aggregate"
+                ),
+            }
+        )
+    return rows
+
+
+def aggregate_target_verdict(rows: list[dict[str, Any]]) -> str:
+    """Aggregate target evidence: any NEQ, else all EQ, otherwise UNK."""
+    if not rows:
+        return ""
+    statuses = [row["status"] for row in rows]
+    if "NEQ" in statuses:
+        return "NEQ"
+    if statuses and all(status == "EQ" for status in statuses):
+        return "EQ"
+    return "UNK"
 
 
 def public_message(value: Any) -> str:
@@ -257,9 +417,10 @@ def report_exploration_complete(report: dict[str, Any]) -> tuple[bool, bool]:
 
 
 def direct_report(eval_root: Path, pair_id: str) -> dict[str, Any]:
-    return read_json(
-        eval_root / "raw" / pair_id / "fmcad" / "verification_report.json"
-    )
+    standard = eval_root / "raw" / pair_id / "fmcad" / "verification_report.json"
+    if standard.is_file():
+        return read_json(standard)
+    return read_json(eval_root / pair_id / "fmcad.json")
 
 
 def stage_evidence(
@@ -277,10 +438,20 @@ def stage_evidence(
     )
     pair_id = item.get("case_id") or item.get("pair_id") or ""
     evaluation = evaluations.get(pair_id.lower(), {})
-    report = direct_report(eval_root, pair_id) if evaluation else {}
+    report = direct_report(eval_root, pair_id)
+    if not evaluation and report:
+        # A fully written verifier report is itself atomic evidence.  Support
+        # targeted/manual reruns that intentionally skip results.csv.
+        prediction = report.get("prediction")
+        evaluation = {
+            "status": "ok",
+            "prediction": "" if prediction is None else str(prediction).lower(),
+        }
     report_old, report_new = report_exploration_complete(report)
     verdict = str(report.get("verdict") or "").upper()
     prediction = evaluation.get("prediction", "")
+    names = target_names(item)
+    target_events = report_target_replay_events(report, names) if names else []
     if verdict not in {"EQ", "NEQ", "UNK"}:
         if bool_value(prediction):
             verdict = "EQ"
@@ -309,6 +480,7 @@ def stage_evidence(
         "report_new_complete": report_new,
         "report_confirms_both_complete": report_old and report_new,
         "definedness_audit": report.get("definedness_audit", {}) or {},
+        "target_replay_events": target_events,
     }
 
 
@@ -409,13 +581,18 @@ def failure_category(row: dict[str, Any]) -> str:
     if row.get("outcome") not in {"failed", "unk"}:
         return ""
     failure = str(row.get("path_failure") or "").lower()
+    incomplete = str(row.get("incomplete_reasons") or "").lower()
     old_paths = int(row.get("old_path_count", 0) or 0)
     new_paths = int(row.get("new_path_count", 0) or 0)
+    if "sigkill" in failure or "oom" in failure:
+        return "sigkill_or_oom"
+    if (
+        "timeout" in failure
+        or "timed out" in failure
+        or "timeout" in incomplete
+    ):
+        return "symbolic_timeout"
     if old_paths + new_paths == 0:
-        if "sigkill" in failure or "oom" in failure:
-            return "sigkill_or_oom"
-        if "timed out" in failure or "timeout" in failure:
-            return "symbolic_timeout"
         if "no complete paths" in failure:
             return "no_complete_paths"
         if failure:
@@ -431,6 +608,19 @@ def metric_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     failure_categories = Counter(row.get("failure_category") or "" for row in rows)
     failure_categories.pop("", None)
     supported = [row for row in rows if row["support_status"] != "unsupported"]
+    target_cases = [row for row in rows if int(row.get("target_count", 0) or 0) > 0]
+    target_verdicts = Counter(
+        row.get("target_verdict") or "" for row in target_cases
+    )
+    target_verdicts.pop("", None)
+    target_statuses: Counter[str] = Counter()
+    for row in target_cases:
+        try:
+            target_statuses.update(
+                json.loads(row.get("target_statuses") or "{}").values()
+            )
+        except (AttributeError, TypeError, json.JSONDecodeError):
+            continue
     definedness: Counter[str] = Counter()
     for row in rows:
         try:
@@ -458,6 +648,15 @@ def metric_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             int(row["old_path_count"]) + int(row["new_path_count"]) == 0
             for row in supported
         ),
+        "target_cases": len(target_cases),
+        "target_observations": sum(
+            int(row.get("target_count", 0) or 0) for row in target_cases
+        ),
+        "target_verdicts": dict(sorted(target_verdicts.items())),
+        "target_statuses": dict(sorted(target_statuses.items())),
+        "target_inconsistent_cases": sum(
+            row.get("target_audit_consistent") is False for row in target_cases
+        ),
         "correct": outcomes["correct_eq"] + outcomes["correct_neq"],
         "determinate": sum(
             outcomes[key]
@@ -477,11 +676,12 @@ def write_summary(
     family_rows: list[dict[str, Any]],
     output_dir: Path,
     *,
+    title: str,
     conflicts: list[str],
     upstream_summary: dict[str, Any],
 ) -> None:
     lines = [
-        "# Complete OSF strict audit",
+        f"# {title}",
         "",
         "## Coverage",
         "",
@@ -499,6 +699,23 @@ def write_summary(
         "An EQ is accepted only when both exploration manifests and the",
         "matching verifier report are complete. A NEQ remains valid when a",
         "verified, replayable observable difference exists.",
+        "",
+        "## Target-level audit",
+        "",
+        "Jointly wrapped cases are partitioned by their `Target <name>:`",
+        "stdout blocks. A target is reported as NEQ only when that block",
+        "differs on the same replayed input; a whole-process difference is",
+        "never attributed to every target.",
+        "",
+        "| Metric | Count |",
+        "|---|---:|",
+        f"| Multi-target cases | {summary['target_cases']} |",
+        f"| Target observations | {summary['target_observations']} |",
+        f"| Target EQ | {summary['target_statuses'].get('EQ', 0)} |",
+        f"| Target NEQ | {summary['target_statuses'].get('NEQ', 0)} |",
+        f"| Target UNK | {summary['target_statuses'].get('UNK', 0)} |",
+        f"| Case/target verdict inconsistencies | "
+        f"{summary['target_inconsistent_cases']} |",
         "",
         "## Outcomes",
         "",
@@ -591,6 +808,11 @@ def main() -> int:
     parser.add_argument("--label-audit-csv", type=Path)
     parser.add_argument("--baseline-cases", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument(
+        "--title",
+        default="Complete OSF strict audit",
+        help="Markdown report title.",
+    )
     args = parser.parse_args()
 
     if not (len(args.attempt_name) == len(args.path_root) == len(args.eval_root)):
@@ -605,6 +827,8 @@ def main() -> int:
     overrides = load_overrides(args.label_audit_csv)
     baseline = baseline_index(args.baseline_cases)
     rows: list[dict[str, Any]] = []
+    target_rows: list[dict[str, Any]] = []
+    target_case_rows: list[dict[str, Any]] = []
     conflicts: list[str] = []
     for item in manifest:
         stages = [
@@ -635,6 +859,35 @@ def main() -> int:
             attempted=attempted,
         )
         chosen = selected or {}
+        case_target_rows = target_audit(
+            item,
+            chosen.get("target_replay_events", []) or [],
+            verdict,
+        )
+        target_rows.extend(case_target_rows)
+        case_target_verdict = aggregate_target_verdict(case_target_rows)
+        if case_target_rows:
+            target_case_rows.append(
+                {
+                    "case_id": item["case_id"],
+                    "case_verdict": verdict,
+                    "target_verdict": case_target_verdict,
+                    "target_count": len(case_target_rows),
+                    "target_statuses": json.dumps(
+                        [
+                            {
+                                "target": target_row["target"],
+                                "status": target_row["status"],
+                                "reason": target_row["reason"],
+                            }
+                            for target_row in case_target_rows
+                        ],
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "consistent": case_target_verdict == verdict,
+                }
+            )
         prior = baseline.get(item["case_id"].lower(), {})
         rows.append(
             {
@@ -669,6 +922,19 @@ def main() -> int:
                 "aligned_pairs": chosen.get("aligned_pairs", ""),
                 "smt_calls": chosen.get("smt_calls", ""),
                 "unknowns": chosen.get("unknowns", ""),
+                "target_count": len(case_target_rows),
+                "target_verdict": case_target_verdict,
+                "target_audit_consistent": (
+                    case_target_verdict == verdict if case_target_rows else ""
+                ),
+                "target_statuses": json.dumps(
+                    {
+                        target_row["target"]: target_row["status"]
+                        for target_row in case_target_rows
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ),
                 "outcome": outcome,
                 "evaluated_correct": correctness,
                 "label_audit_override": overrides.get(item["case_id"].lower(), ""),
@@ -719,6 +985,8 @@ def main() -> int:
     output_dir = args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
     write_csv(output_dir / "cases.csv", rows)
+    write_csv(output_dir / "targets.csv", target_rows)
+    write_csv(output_dir / "target_cases.csv", target_case_rows)
     summary = metric_summary(rows)
     with (output_dir / "outcomes.csv").open("w", encoding="utf-8", newline="") as stream:
         writer = csv.writer(stream)
@@ -861,6 +1129,7 @@ def main() -> int:
         summary,
         family_rows,
         output_dir,
+        title=args.title,
         conflicts=conflicts,
         upstream_summary=upstream_summary,
     )

@@ -43,6 +43,70 @@ class UbHeuristicTests(unittest.TestCase):
         right.write_text("(assert true)\n", encoding="utf-8")
         return left, right
 
+    def test_unconstrained_path_recovers_complete_input_specs(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            path = Path(raw_dir) / "symbolic_oldV_path_1.txt"
+            path.write_text(
+                "(check-sat)\n"
+                "; Symbolic variable values: "
+                "{'arg_0': None, 'FP_arg_1_1_32': None, "
+                "'arg_2_2_64': None}\n"
+                "; Semantic summary JSON: "
+                '(declare-fun FP_arg_1_1_32 () (_ FloatingPoint 8 24))\n'
+                '(declare-fun arg_2_2_64 () (_ BitVec 64))\n',
+                encoding="utf-8",
+            )
+
+            specs = verifier.input_specs_from_path_artifacts(path)
+
+        self.assertEqual(
+            {name: (kind, bits) for name, kind, bits, _ in specs},
+            {
+                "arg_0": ("bitvec", 32),
+                "FP_arg_1_1_32": ("float", 32),
+                "arg_2_2_64": ("bitvec", 64),
+            },
+        )
+
+    def test_unconstrained_path_uses_standard_seeds(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            left, right = self._paths(Path(raw_dir))
+            left.write_text(
+                "(check-sat)\n"
+                "; Symbolic variable values: {'arg_0': None}\n",
+                encoding="utf-8",
+            )
+            right.write_text(
+                "(check-sat)\n"
+                "; Symbolic variable values: {'arg_0': None}\n",
+                encoding="utf-8",
+            )
+            recovered = (("arg_0", "bitvec", 32, 0),)
+            with mock.patch.object(
+                verifier,
+                "replay_standard_inputs",
+                return_value={
+                    "counterexample": [
+                        {
+                            "name": "arg_0",
+                            "kind": "bitvec",
+                            "bits": 32,
+                            "value": 1,
+                            "unsigned": 1,
+                        }
+                    ],
+                    "replay": {"confirmed": True},
+                    "observations": [],
+                },
+            ) as scan:
+                result = verifier.program_domain_counterexample(
+                    [left],
+                    [right],
+                )
+
+        self.assertIsNotNone(result)
+        self.assertEqual(scan.call_args.args[2], recovered)
+
     def test_subnormal_hex_float_is_flagged(self) -> None:
         flags = verifier.replay_anomaly_flags(
             replay_run("Result: 0x0.07fffd27161c8p-1022\n")

@@ -107,6 +107,7 @@ def build_paths(
     ranking_candidates: int | None = None,
     skip_control_rankings: bool = False,
     bindiff_mode: str = "auto",
+    concrete_global_initializers: bool = False,
 ) -> tuple[Path, Path]:
     path_root = ROOT / "work" / name / "paths"
     eval_root = ROOT / "work" / name / "evaluation"
@@ -143,6 +144,8 @@ def build_paths(
         command.extend(["--ranking-candidates", str(ranking_candidates)])
     if skip_control_rankings:
         command.append("--skip-control-rankings")
+    if concrete_global_initializers:
+        command.append("--concrete-global-initializers")
     if case_domains is not None:
         command.extend(["--case-domains", str(case_domains)])
     command.extend(domain_arguments(int_min, int_max, float_min, float_max))
@@ -519,6 +522,7 @@ def run_osf(
         ranking_candidates=64,
         skip_control_rankings=True,
         bindiff_mode="off",
+        concrete_global_initializers=True,
     )
     path_roots.append(stage1_paths)
     eval_roots.append(stage1_eval)
@@ -552,6 +556,7 @@ def run_osf(
             ranking_candidates=64,
             skip_control_rankings=True,
             bindiff_mode="off",
+            concrete_global_initializers=True,
         )
         path_roots.append(stage2_paths)
         eval_roots.append(stage2_eval)

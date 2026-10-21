@@ -1,0 +1,471 @@
+{
+  "version": 1,
+  "defaults": {
+    "selection": "desc_then_heuristic"
+  },
+  "families": {},
+  "programs": {
+    "ej_hash/hashCode": {
+      "entry": "hashCode",
+      "params": [
+        {
+          "name": "obj",
+          "type": "ejhash",
+          "mode": "record",
+          "fields": [
+            {"path": "x", "type": "int"},
+            {"path": "y", "type": "long"},
+            {"path": "z", "type": "int"}
+          ]
+        }
+      ],
+      "return": {"type": "int"}
+    },
+    "raytrace/intersect": {
+      "entry": "intersect",
+      "params": [
+        {
+          "name": "s",
+          "type": "Sphere",
+          "mode": "record",
+          "fields": [
+            {"path": "center.x", "type": "float"},
+            {"path": "center.y", "type": "float"},
+            {"path": "center.z", "type": "float"},
+            {"path": "radSqr", "type": "float"}
+          ]
+        },
+        {
+          "name": "d",
+          "type": "Sphere",
+          "mode": "record",
+          "fields": [
+            {"path": "center.x", "type": "float"},
+            {"path": "center.y", "type": "float"},
+            {"path": "center.z", "type": "float"},
+            {"path": "radSqr", "type": "float"}
+          ]
+        }
+      ],
+      "return": {"type": "bool"}
+    },
+    "raytrace/normalize": {
+      "entry": "normalize",
+      "params": [
+        {
+          "name": "v",
+          "type": "Vector3D",
+          "mode": "record",
+          "fields": [
+            {"path": "x", "type": "float"},
+            {"path": "y", "type": "float"},
+            {"path": "z", "type": "float"}
+          ]
+        }
+      ],
+      "return": {
+        "type": "Vector3D",
+        "fields": [
+          {"path": "x", "type": "float"},
+          {"path": "y", "type": "float"},
+          {"path": "z", "type": "float"}
+        ]
+      }
+    },
+    "raytrace/light": {
+      "entry": "LightConstructor",
+      "params": [
+        {"name": "type", "type": "int", "mode": "scalar"},
+        {
+          "name": "v",
+          "type": "Vector3D",
+          "mode": "record",
+          "fields": [
+            {"path": "x", "type": "float"},
+            {"path": "y", "type": "float"},
+            {"path": "z", "type": "float"}
+          ]
+        },
+        {"name": "r", "type": "float", "mode": "scalar"},
+        {"name": "g", "type": "float", "mode": "scalar"},
+        {"name": "b", "type": "float", "mode": "scalar"}
+      ],
+      "return": {
+        "type": "Light",
+        "fields": [
+          {"path": "lightType", "type": "int"},
+          {"path": "lvec.x", "type": "float"},
+          {"path": "lvec.y", "type": "float"},
+          {"path": "lvec.z", "type": "float"},
+          {"path": "ir", "type": "float"},
+          {"path": "ig", "type": "float"},
+          {"path": "ib", "type": "float"}
+        ]
+      }
+    },
+    "raytrace/surface": {
+      "entry": "SurfaceConstructor",
+      "params": [
+        {"name": "rval", "type": "float", "mode": "scalar"},
+        {"name": "gval", "type": "float", "mode": "scalar"},
+        {"name": "bval", "type": "float", "mode": "scalar"},
+        {"name": "a", "type": "float", "mode": "scalar"},
+        {"name": "d", "type": "float", "mode": "scalar"},
+        {"name": "s", "type": "float", "mode": "scalar"},
+        {"name": "n", "type": "float", "mode": "scalar"},
+        {"name": "r", "type": "float", "mode": "scalar"},
+        {"name": "t", "type": "float", "mode": "scalar"},
+        {"name": "index", "type": "float", "mode": "scalar"}
+      ],
+      "return": {
+        "type": "Surface",
+        "fields": [
+          {"path": "ir", "type": "float"},
+          {"path": "ig", "type": "float"},
+          {"path": "ib", "type": "float"},
+          {"path": "ka", "type": "float"},
+          {"path": "kd", "type": "float"},
+          {"path": "ks", "type": "float"},
+          {"path": "ns", "type": "float"},
+          {"path": "kt", "type": "float"},
+          {"path": "kr", "type": "float"},
+          {"path": "nt", "type": "float"}
+        ]
+      }
+    },
+    "raytrace/sphere": {
+      "entry": "SphereConstructor",
+      "params": [
+        {
+          "name": "s",
+          "type": "Surface",
+          "mode": "record",
+          "fields": [
+            {"path": "ir", "type": "float"},
+            {"path": "ig", "type": "float"},
+            {"path": "ib", "type": "float"},
+            {"path": "ka", "type": "float"},
+            {"path": "kd", "type": "float"},
+            {"path": "ks", "type": "float"},
+            {"path": "ns", "type": "float"},
+            {"path": "kt", "type": "float"},
+            {"path": "kr", "type": "float"},
+            {"path": "nt", "type": "float"}
+          ]
+        },
+        {
+          "name": "c",
+          "type": "Vector3D",
+          "mode": "record",
+          "fields": [
+            {"path": "x", "type": "float"},
+            {"path": "y", "type": "float"},
+            {"path": "z", "type": "float"}
+          ]
+        },
+        {"name": "r", "type": "float", "mode": "scalar"}
+      ],
+      "return": {
+        "type": "Sphere",
+        "fields": [
+          {"path": "surface.ir", "type": "float"},
+          {"path": "surface.ig", "type": "float"},
+          {"path": "surface.ib", "type": "float"},
+          {"path": "surface.ka", "type": "float"},
+          {"path": "surface.kd", "type": "float"},
+          {"path": "surface.ks", "type": "float"},
+          {"path": "surface.ns", "type": "float"},
+          {"path": "surface.kt", "type": "float"},
+          {"path": "surface.kr", "type": "float"},
+          {"path": "surface.nt", "type": "float"},
+          {"path": "center.x", "type": "float"},
+          {"path": "center.y", "type": "float"},
+          {"path": "center.z", "type": "float"},
+          {"path": "radius", "type": "float"},
+          {"path": "radSqr", "type": "float"}
+        ]
+      }
+    },
+    "airy/airy": {
+      "targets": [
+        {
+          "name": "beschb",
+          "entry": "beschb",
+          "return": {"type": "void"},
+          "observe": [
+            {"path": "gam1", "type": "double"},
+            {"path": "gam2", "type": "double"},
+            {"path": "gampl", "type": "double"},
+            {"path": "gammi", "type": "double"}
+          ]
+        },
+        {
+          "name": "chebev_c1d",
+          "entry": "chebev_c1d",
+          "params": [
+            {"name": "a", "type": "double", "mode": "scalar"},
+            {"name": "b", "type": "double", "mode": "scalar"},
+            {"name": "m", "type": "int", "mode": "scalar"},
+            {"name": "x", "type": "double", "mode": "scalar"}
+          ],
+          "return": {"type": "double"}
+        },
+        {
+          "name": "MAX",
+          "entry": "MAX",
+          "return": {"type": "double"}
+        },
+        {
+          "name": "SIGN",
+          "entry": "SIGN",
+          "return": {"type": "double"}
+        },
+        {
+          "name": "sphbes",
+          "entry": "sphbes",
+          "return": {"type": "void"},
+          "observe": []
+        }
+      ]
+    },
+    "bess/bess": {
+      "targets": [
+        {"name": "bessk", "entry": "bessk", "return": {"type": "double"}},
+        {"name": "bessk0", "entry": "bessk0", "return": {"type": "double"}},
+        {"name": "bessk1", "entry": "bessk1", "return": {"type": "double"}},
+        {"name": "bessi0", "entry": "bessi0", "return": {"type": "double"}},
+        {"name": "bessi1", "entry": "bessi1", "return": {"type": "double"}},
+        {"name": "bessi", "entry": "bessi", "return": {"type": "double"}},
+        {"name": "bessj", "entry": "bessj", "return": {"type": "double"}},
+        {"name": "bessj0", "entry": "bessj0", "return": {"type": "double"}},
+        {"name": "bessj1", "entry": "bessj1", "return": {"type": "double"}}
+      ]
+    },
+    "caldat/caldatProgram": {
+      "targets": [
+        {
+          "name": "flmoon",
+          "entry": "flmoon",
+          "return": {"type": "void"},
+          "observe": [
+            {"path": "jd", "type": "int"},
+            {"path": "frac", "type": "double"}
+          ]
+        },
+        {
+          "name": "caldat",
+          "entry": "caldat",
+          "return": {"type": "void"},
+          "observe": [
+            {"path": "id", "type": "int"},
+            {"path": "mm", "type": "int"},
+            {"path": "iyyy", "type": "int"}
+          ]
+        },
+        {"name": "badluk", "entry": "badluk"},
+        {"name": "julday", "entry": "julday"}
+      ]
+    },
+    "ej_hash/ej_hash": {
+      "targets": [
+        {
+          "name": "hashCode",
+          "entry": "hashCode",
+          "params": [
+            {
+              "name": "obj",
+              "type": "ejhash",
+              "mode": "record",
+              "fields": [
+                {"path": "x", "type": "int"},
+                {"path": "y", "type": "long"},
+                {"path": "z", "type": "int"}
+              ]
+            }
+          ],
+          "return": {"type": "int"}
+        },
+        {"name": "testCollision1", "entry": "testCollision1", "observe": []},
+        {"name": "testCollision2", "entry": "testCollision2", "observe": []},
+        {"name": "testCollision3", "entry": "testCollision3", "observe": []},
+        {"name": "testCollision4", "entry": "testCollision4", "observe": []}
+      ]
+    },
+    "gam/gam": {
+      "targets": [
+        {"name": "betai", "entry": "betai", "return": {"type": "double"}},
+        {"name": "betacf", "entry": "betacf", "return": {"type": "double"}}
+      ]
+    },
+    "optimization/optimization": {
+      "targets": [
+        {"name": "theta", "entry": "theta", "return": {"type": "double"}},
+        {"name": "wood", "entry": "wood", "observe": []}
+      ]
+    },
+    "raytrace/raytrace": {
+      "source_repairs": [
+        {"old": "obj.AMBIENT", "new": "0"},
+        {"old": "obj.DIRECTIONAL", "new": "1"},
+        {"old": "Light obj;", "new": "Light obj = {0};"}
+      ],
+      "targets": [
+        {
+          "name": "normalize",
+          "entry": "normalize",
+          "params": [
+            {
+              "name": "v",
+              "type": "Vector3D",
+              "mode": "record",
+              "fields": [
+                {"path": "x", "type": "float"},
+                {"path": "y", "type": "float"},
+                {"path": "z", "type": "float"}
+              ]
+            }
+          ],
+          "return": {
+            "type": "Vector3D",
+            "fields": [
+              {"path": "x", "type": "float"},
+              {"path": "y", "type": "float"},
+              {"path": "z", "type": "float"}
+            ]
+          }
+        },
+        {
+          "name": "LightConstructor",
+          "entry": "LightConstructor",
+          "params": [
+            {"name": "type", "type": "int", "mode": "scalar"},
+            {
+              "name": "v",
+              "type": "Vector3D",
+              "mode": "record",
+              "fields": [
+                {"path": "x", "type": "float"},
+                {"path": "y", "type": "float"},
+                {"path": "z", "type": "float"}
+              ]
+            },
+            {"name": "r", "type": "float", "mode": "scalar"},
+            {"name": "g", "type": "float", "mode": "scalar"},
+            {"name": "b", "type": "float", "mode": "scalar"}
+          ],
+          "return": {
+            "type": "Light",
+            "fields": [
+              {"path": "lightType", "type": "int"},
+              {"path": "lvec.x", "type": "float"},
+              {"path": "lvec.y", "type": "float"},
+              {"path": "lvec.z", "type": "float"},
+              {"path": "ir", "type": "float"},
+              {"path": "ig", "type": "float"},
+              {"path": "ib", "type": "float"}
+            ]
+          }
+        },
+        {
+          "name": "SphereConstructor",
+          "entry": "SphereConstructor",
+          "params": [
+            {
+              "name": "s",
+              "type": "Surface",
+              "mode": "record",
+              "fields": [
+                {"path": "ir", "type": "float"},
+                {"path": "ig", "type": "float"},
+                {"path": "ib", "type": "float"},
+                {"path": "ka", "type": "float"},
+                {"path": "kd", "type": "float"},
+                {"path": "ks", "type": "float"},
+                {"path": "ns", "type": "float"},
+                {"path": "kt", "type": "float"},
+                {"path": "kr", "type": "float"},
+                {"path": "nt", "type": "float"}
+              ]
+            },
+            {
+              "name": "c",
+              "type": "Vector3D",
+              "mode": "record",
+              "fields": [
+                {"path": "x", "type": "float"},
+                {"path": "y", "type": "float"},
+                {"path": "z", "type": "float"}
+              ]
+            },
+            {"name": "r", "type": "float", "mode": "scalar"}
+          ],
+          "return": {
+            "type": "Sphere",
+            "fields": [
+              {"path": "surface.ir", "type": "float"},
+              {"path": "surface.ig", "type": "float"},
+              {"path": "surface.ib", "type": "float"},
+              {"path": "surface.ka", "type": "float"},
+              {"path": "surface.kd", "type": "float"},
+              {"path": "surface.ks", "type": "float"},
+              {"path": "surface.ns", "type": "float"},
+              {"path": "surface.kt", "type": "float"},
+              {"path": "surface.kr", "type": "float"},
+              {"path": "surface.nt", "type": "float"},
+              {"path": "center.x", "type": "float"},
+              {"path": "center.y", "type": "float"},
+              {"path": "center.z", "type": "float"},
+              {"path": "radius", "type": "float"},
+              {"path": "radSqr", "type": "float"}
+            ]
+          }
+        },
+        {
+          "name": "intersect",
+          "entry": "intersect",
+          "params": [
+            {
+              "name": "s",
+              "type": "Sphere",
+              "mode": "record",
+              "fields": [
+                {"path": "center.x", "type": "float"},
+                {"path": "center.y", "type": "float"},
+                {"path": "center.z", "type": "float"},
+                {"path": "radSqr", "type": "float"}
+              ]
+            },
+            {
+              "name": "d",
+              "type": "Sphere",
+              "mode": "record",
+              "fields": [
+                {"path": "center.x", "type": "float"},
+                {"path": "center.y", "type": "float"},
+                {"path": "center.z", "type": "float"},
+                {"path": "radSqr", "type": "float"}
+              ]
+            }
+          ],
+          "return": {"type": "bool"}
+        }
+      ]
+    },
+    "tcas/tcas": {
+      "targets": [
+        {"name": "altseptest", "entry": "altseptest", "return": {"type": "int"}},
+        {
+          "name": "Non_Crossing_Biased_Climb",
+          "entry": "Non_Crossing_Biased_Climb",
+          "return": {"type": "int"}
+        },
+        {
+          "name": "Non_Crossing_Biased_Descend",
+          "entry": "Non_Crossing_Biased_Descend",
+          "return": {"type": "int"}
+        }
+      ]
+    }
+  },
+  "cases": {}
+}

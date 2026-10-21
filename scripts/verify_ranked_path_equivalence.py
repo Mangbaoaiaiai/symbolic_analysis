@@ -54,6 +54,12 @@ RETURN_EQ_TIMEOUT_MS = 60_000
 # verification.
 NEQ_PRESCAN_BUDGET_MS = 15_000
 NEQ_PRESCAN_PAIR_TIMEOUT_MS = 2_000
+# Feasibility filtering is a bounded pre-pass rather than a proof obligation.
+# Using the full path-pair budget here multiplies the timeout by every path in
+# both binaries and can starve the subsequent coverage proof.
+PATH_FEASIBILITY_TIMEOUT_MS = 2_000
+SMALL_PATH_FEASIBILITY_TIMEOUT_MS = 5_000
+SMALL_PATH_FEASIBILITY_LIMIT = 64
 
 # Source-free UB heuristic. A concrete replay is rejected only when both
 # sides independently look like undefined behaviour. Unknown execution
@@ -1548,6 +1554,88 @@ def concrete_input_specs(
     )
 
 
+def input_specs_from_path_artifacts(
+    *paths: Path,
+) -> tuple[tuple[str, str, int, int], ...]:
+    """Recover complete input arity when an unconstrained path has no symbols."""
+    specs: dict[str, tuple[str, int]] = {}
+    for path in paths:
+        content = path.read_text(encoding="utf-8", errors="replace")
+        names: list[str] = []
+        signature = re.search(
+            r";\s*Symbolic variable values:\s*(\{.*\})",
+            content,
+        )
+        if signature:
+            try:
+                values = ast.literal_eval(signature.group(1))
+            except (SyntaxError, ValueError):
+                values = {}
+            if isinstance(values, dict):
+                names.extend(
+                    name
+                    for name in values
+                    if isinstance(name, str) and is_input_symbol(name)
+                )
+        names.extend(
+            re.findall(
+                r"\(declare-fun\s+"
+                r"((?:FP_arg_|arg_|scanf_)[A-Za-z0-9_]+)\s+\(\)",
+                content,
+            )
+        )
+        for name in names:
+            floating = re.search(
+                rf"\(declare-fun\s+{re.escape(name)}\s+\(\)\s+"
+                r"\(_\s+FloatingPoint\s+(\d+)\s+(\d+)\)\)",
+                content,
+            )
+            bitvec = re.search(
+                rf"\(declare-fun\s+{re.escape(name)}\s+\(\)\s+"
+                r"\(_\s+BitVec\s+(\d+)\)\)",
+                content,
+            )
+            if floating:
+                bits = int(floating.group(1)) + int(floating.group(2))
+                specs[name] = ("float", bits)
+            elif bitvec:
+                specs[name] = ("bitvec", int(bitvec.group(1)))
+            elif name.startswith("FP_arg_"):
+                specs.setdefault(name, ("float", 32))
+            else:
+                specs.setdefault(name, ("bitvec", 32))
+    # Artifact summaries can contain both the ABI symbol (``arg_0``) and the
+    # floating-point SMT symbol (``FP_arg_0_0_32``) for the same argument.
+    # Keep one canonical symbol per positional argument.
+    by_position: dict[int, tuple[int, str, tuple[str, int]]] = {}
+    priority = {"FP_arg_": 0, "scanf_": 1, "arg_": 2}
+    for name, value in specs.items():
+        order = input_symbol_order(name)
+        family = next(
+            (prefix for prefix in priority if name.startswith(prefix)),
+            "arg_",
+        )
+        candidate = (priority[family], name, value)
+        current = by_position.get(order[0])
+        if (
+            current is None
+            or candidate[0] < current[0]
+            or (
+                candidate[0] == current[0]
+                and len(candidate[1]) > len(current[1])
+            )
+        ):
+            by_position[order[0]] = candidate
+    canonical = sorted(
+        (
+            (name, kind, bits, 0)
+            for _rank, name, (kind, bits) in by_position.values()
+        ),
+        key=lambda item: input_symbol_order(item[0]),
+    )
+    return tuple(canonical)
+
+
 def standard_input_seeds(
     specs: tuple[tuple[str, str, int, int], ...],
 ) -> list[list[dict[str, Any]]]:
@@ -1663,6 +1751,8 @@ def program_domain_counterexample(
     specs = concrete_input_specs(
         collect_variables(left_constraint, right_constraint)
     )
+    if not specs:
+        specs = input_specs_from_path_artifacts(left, right)
     replay = replay_standard_inputs(left, right, specs)
     if replay is None or replay.get("counterexample") is None:
         return None
@@ -2245,6 +2335,7 @@ def verify_directional_cover(
     unknowns = 0
     semantic_modes: dict[str, int] = {}
     confirmed_mismatches: list[dict[str, Any]] = []
+    used_targets: set[str] = set()
 
     for source_id, source_path in source_by_id.items():
         candidates = ranking.get(source_id, default_targets)
@@ -2262,6 +2353,8 @@ def verify_directional_cover(
         for rank, target_id in enumerate(candidates, 1):
             target_path = target_by_id.get(target_id)
             if target_path is None:
+                continue
+            if not allow_one_to_many and target_id in used_targets:
                 continue
             equivalent, elapsed, calls, semantic_details = verify_semantic_path_relation(
                 source_path, target_path, timeout_ms
@@ -2330,18 +2423,23 @@ def verify_directional_cover(
                 if equal is None:
                     unknowns += 1
                 if equal:
+                    if not allow_one_to_many:
+                        used_targets.add(target_id)
                     exact_equal = True
                     break
                 if equality_details.get("source_subset_targets") is True:
-                    if not allow_one_to_many:
-                        compatible = [target_id]
-                        compatible_ranks = [rank]
-                    intersection_verified = True
-                    break
+                    if allow_one_to_many:
+                        intersection_verified = True
+                        break
+                    compatible.pop()
+                    compatible_ranks.pop()
+                    continue
                 if not allow_one_to_many:
                     compatible.pop()
                     compatible_ranks.pop()
             else:
+                if not allow_one_to_many:
+                    used_targets.add(target_id)
                 exact_equal = True
                 break
 
@@ -2850,7 +2948,13 @@ def verify_ranked_queue(
 
     raw_old_path_count = len(old_paths)
     raw_new_path_count = len(new_paths)
-    feasibility_timeout_ms = min(timeout_ms, 10_000)
+    feasibility_budget_ms = (
+        SMALL_PATH_FEASIBILITY_TIMEOUT_MS
+        if max(raw_old_path_count, raw_new_path_count)
+        <= SMALL_PATH_FEASIBILITY_LIMIT
+        else PATH_FEASIBILITY_TIMEOUT_MS
+    )
+    feasibility_timeout_ms = min(timeout_ms, feasibility_budget_ms)
     old_paths, old_unsat, old_feasibility_unknown, old_filter_time = filter_definitely_unsat_paths(
         old_paths, feasibility_timeout_ms
     )
@@ -2909,7 +3013,12 @@ def verify_ranked_queue(
 
     smt_calls = raw_old_path_count + raw_new_path_count
     t_smt = old_filter_time + new_filter_time
-    unknowns = old_feasibility_unknown + new_feasibility_unknown
+    # The bounded prefilter deliberately keeps an infeasible-looking path when
+    # it cannot decide feasibility. Its unknown result is audit evidence, not
+    # a proof failure: all retained paths still undergo the authoritative
+    # coverage and semantic checks below.
+    feasibility_unknowns = old_feasibility_unknown + new_feasibility_unknown
+    unknowns = 0
     semantic_modes: dict[str, int] = {}
 
     reverse_ranking = invert_ranking(ranking, old_paths, new_paths)
@@ -3072,6 +3181,7 @@ def verify_ranked_queue(
         "t_smt": t_smt,
         "t_total": t_align + t_smt,
         "unknowns": unknowns,
+        "feasibility_unknowns": feasibility_unknowns,
         "semantic_contract": dict(SEMANTIC_CONTRACT),
         "profile_id": PAPER_PROFILE_ID,
         "profile": profile_from_exploration(exploration),

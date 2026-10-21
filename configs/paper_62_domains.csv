@@ -1,0 +1,3 @@
+scope,int_min,int_max,float_min,float_max,note
+default,-100,100,-100.0,100.0,Default paper profile
+ell,0,10,-1.0,1.0,Native validity range for associated Legendre polynomials

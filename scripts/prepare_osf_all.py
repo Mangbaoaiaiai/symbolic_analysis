@@ -141,6 +141,29 @@ def _writes_observable_global(text: str, body: str, entry_name: str) -> bool:
     return False
 
 
+def _has_supported_output_call(body: str) -> bool:
+    """Return whether a void entry emits one of the modeled stdio calls."""
+    return bool(
+        re.search(
+            r"\b(?:printf|fprintf|puts|fputs|putchar|putc|fputc)\s*\(",
+            body,
+        )
+    )
+
+
+def _has_observable_entry_effect(
+    text: str,
+    body: str,
+    entry_name: str,
+) -> bool:
+    """Void entries require a modeled effect to carry a semantic summary."""
+    return _has_supported_output_call(body) or _writes_observable_global(
+        text,
+        body,
+        entry_name,
+    )
+
+
 def _normalized_body(body: str) -> str:
     body = re.sub(r"/\*.*?\*/", "", body, flags=re.DOTALL)
     body = re.sub(r"//[^\n]*", "", body)
@@ -298,8 +321,14 @@ def wrap_snippet_source(path: Path) -> str:
             (item for item in _parse_c_functions(text) if item.name == "snippet"),
             None,
         )
-        if function is None or not _writes_observable_global(text, function.body, "snippet"):
-            raise ValueError("void snippet has no observable global write")
+        if function is None or not _has_observable_entry_effect(
+            text,
+            function.body,
+            "snippet",
+        ):
+            raise ValueError(
+                "void snippet has no observable global write or supported output"
+            )
         renamed = _rename_function_definition(text, "snippet", "__benchmark_snippet")
         arg_decl = ", ".join(f"{typ} {name}" for typ, name in args) or "void"
         call_args = ", ".join(name for _typ, name in args)
@@ -324,8 +353,10 @@ def wrap_function_source(path: Path, entry_name: str) -> str:
         raise ValueError(f"entry function not found: {entry_name}")
     args = _scalar_args(function.raw_args)
     if function.return_type == "void":
-        if not _writes_observable_global(text, function.body, entry_name):
-            raise ValueError(f"void {entry_name} has no observable global write")
+        if not _has_observable_entry_effect(text, function.body, entry_name):
+            raise ValueError(
+                f"void {entry_name} has no observable global write or supported output"
+            )
         renamed = _rename_function_definition(
             text, entry_name, f"__benchmark_{entry_name}"
         )

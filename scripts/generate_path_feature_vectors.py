@@ -20,25 +20,13 @@ from pathlib import Path
 # Allow importing from src
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from symbolic_analysis.analysis.path_constraint_features import (
+    FEATURE_NAMES,
     FEATURE_RANGES,
-    extract_features,
+    FEATURE_SCHEMA,
+    extract_feature_record,
     normalize_features,
 )
 from symbolic_analysis.tracing import time_block
-
-FEATURE_NAMES = [
-    "assert_count",
-    "variable_count",
-    "main_bv_width",
-    "operator_type_count",
-    "comparison_ratio",
-    "nest_depth",
-    "dominant_constant_type",
-    "variable_range_span",
-    "shift_coefficient",
-    "extend_count",
-    "extract_count",
-]
 
 
 def collect_path_files(paths_dir: Path) -> list[tuple[str, Path]]:
@@ -52,13 +40,19 @@ def collect_path_files(paths_dir: Path) -> list[tuple[str, Path]]:
 
 def compute_dataset_min_max(records: list[dict]) -> dict[str, tuple[float, float]]:
     """Compute per-feature min/max from list of {path_id, raw: [...]}."""
-    if not records or not records[0].get("raw"):
+    if not records or "raw" not in records[0]:
         return dict(FEATURE_RANGES)
     n = len(records[0]["raw"])
-    mins = [min(r["raw"][i] for r in records) for i in range(n)]
-    maxs = [max(r["raw"][i] for r in records) for i in range(n)]
-    names = list(FEATURE_RANGES.keys())
-    return {names[i]: (mins[i], maxs[i]) for i in range(n)}
+    result = {}
+    for i, name in enumerate(FEATURE_NAMES[:n]):
+        values = [
+            record["raw"][i]
+            for record in records
+            if record.get("valid", {}).get(name, True)
+        ]
+        if values:
+            result[name] = (min(values), max(values))
+    return result
 
 
 def main() -> None:
@@ -119,8 +113,8 @@ def main() -> None:
             except Exception as e:
                 print(f"Warning: skip {path}: {e}", file=sys.stderr)
                 continue
-            raw, _ = extract_features(content)
-            rec = {"path_id": path_id, "raw": raw}
+            record = extract_feature_record(content)
+            rec = {"path_id": path_id, **record.to_dict()}
             records.append(rec)
         trace["vectors_generated"] = len(records)
 
@@ -137,6 +131,7 @@ def main() -> None:
             r["normalized"] = normalize_features(r["raw"], min_max)
 
     out_data = {
+        "schema": FEATURE_SCHEMA,
         "feature_names": FEATURE_NAMES,
         "vectors": {r["path_id"]: r["raw"] for r in records},
         "vectors_by_path": records,

@@ -1,0 +1,87 @@
+{
+  "baseline": {
+    "both_sides_complete": 128,
+    "both_sides_path_artifacts": 146,
+    "correct": 110,
+    "definedness_classifications": {
+      "asymmetric_ub_like": 9,
+      "both_ub_like": 15,
+      "defined_neq": 67,
+      "ub_status_unknown": 1
+    },
+    "determinate": 110,
+    "entered_symbolic_execution": 146,
+    "failure_categories": {
+      "incomplete_symbolic_exploration": 26,
+      "no_complete_paths": 1,
+      "sigkill_or_oom": 44,
+      "symbolic_timeout": 23,
+      "unsupported_harness": 28,
+      "verifier_or_semantic_unknown": 13
+    },
+    "incomplete_exploration": 18,
+    "no_path_artifact": 86,
+    "outcomes": {
+      "correct_eq": 55,
+      "correct_neq": 55,
+      "failed": 0,
+      "harness_invalid": 0,
+      "label_inconsistent": 5,
+      "not_attempted": 126,
+      "undefined_behavior": 4,
+      "unk": 27,
+      "wrong_eq": 0,
+      "wrong_neq": 0
+    },
+    "supported": 232,
+    "total": 272,
+    "unknown_as_neq_witnesses": 1,
+    "unsupported": 40
+  },
+  "both_sides_complete": 150,
+  "both_sides_path_artifacts": 165,
+  "conflicting_attempts": [],
+  "correct": 129,
+  "definedness_classifications": {
+    "asymmetric_ub_like": 9,
+    "both_ub_like": 15,
+    "defined_neq": 67,
+    "ub_status_unknown": 1
+  },
+  "delta": {
+    "both_sides_complete": 22,
+    "both_sides_path_artifacts": 19,
+    "correct": 19,
+    "determinate": 19,
+    "entered_symbolic_execution": 30,
+    "supported": 12
+  },
+  "determinate": 129,
+  "entered_symbolic_execution": 176,
+  "failure_categories": {
+    "incomplete_symbolic_exploration": 26,
+    "no_complete_paths": 1,
+    "sigkill_or_oom": 44,
+    "symbolic_timeout": 23,
+    "unsupported_harness": 28,
+    "verifier_or_semantic_unknown": 13
+  },
+  "incomplete_exploration": 26,
+  "no_path_artifact": 68,
+  "outcomes": {
+    "correct_eq": 64,
+    "correct_neq": 65,
+    "failed": 68,
+    "harness_invalid": 0,
+    "label_inconsistent": 5,
+    "not_attempted": 28,
+    "undefined_behavior": 3,
+    "unk": 39,
+    "wrong_eq": 0,
+    "wrong_neq": 0
+  },
+  "supported": 244,
+  "total": 272,
+  "unknown_as_neq_witnesses": 1,
+  "unsupported": 28
+}

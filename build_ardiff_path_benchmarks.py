@@ -29,10 +29,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 SYMBOLIC_SRC = ROOT / "src"
 sys.path.insert(0, str(SYMBOLIC_SRC))
+sys.path.insert(0, str(ROOT / "scripts"))
 
 from symbolic_analysis.analysis.path_constraint_features import (  # noqa: E402
+    FEATURE_NAMES,
     FEATURE_RANGES,
-    extract_features,
+    FEATURE_SCHEMA,
+    cosine_with_validity,
+    extract_feature_record,
     normalize_features,
 )
 from symbolic_analysis.analysis.hybrid_path_matching import (  # noqa: E402
@@ -40,6 +44,18 @@ from symbolic_analysis.analysis.hybrid_path_matching import (  # noqa: E402
     hybrid_rank_paths,
 )
 from symbolic_analysis.analysis.basic_block_mapping import build_structural_block_map  # noqa: E402
+from symbolic_analysis.analysis.bindiff_backend import (  # noqa: E402
+    build_bindiff_mapping,
+)
+from symbolic_analysis.profile import (  # noqa: E402
+    FULL_INPUT_SPACE,
+    LOOP_BOUND,
+    MAX_PATHS,
+    PAPER_PROFILE_ID,
+    SEMANTIC_CONTRACT,
+    profile_for_input_domains,
+)
+from generate_path_truth import compute_pair_truth  # noqa: E402
 
 
 PATH_RE = re.compile(r"^(?P<prefix>symbolic_(?:old|new)V)_path_(?P<idx>\d+)\.txt$")
@@ -63,18 +79,68 @@ def main() -> int:
         type=Path,
         default=Path("experiments/ardiff_comparison/benchmarks"),
     )
-    parser.add_argument("--int-min", type=int, default=None)
-    parser.add_argument("--int-max", type=int, default=None)
-    parser.add_argument("--float-min", type=float, default=None)
-    parser.add_argument("--float-max", type=float, default=None)
+    parser.add_argument(
+        "--int-min",
+        type=int,
+        default=None,
+        help="Lower signed integer bound; omit both integer bounds for the full domain.",
+    )
+    parser.add_argument(
+        "--int-max",
+        type=int,
+        default=None,
+        help="Upper signed integer bound; omit both integer bounds for the full domain.",
+    )
+    parser.add_argument(
+        "--case-domains",
+        type=Path,
+        help=(
+            "Optional CSV of per-family input domains with scope/int_min/int_max/"
+            "float_min/float_max columns. The 'default' row is the fallback."
+        ),
+    )
+    parser.add_argument(
+        "--float-min",
+        type=float,
+        default=None,
+        help="Lower floating-point bound; omit both floating bounds for the full domain.",
+    )
+    parser.add_argument(
+        "--float-max",
+        type=float,
+        default=None,
+        help="Upper floating-point bound; omit both floating bounds for the full domain.",
+    )
     parser.add_argument("--out-dir", type=Path, default=Path("benchmarks/ardiff_paths"))
     parser.add_argument("--eval-output-dir", type=Path, default=Path("evaluation_results_ardiff"))
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument(
         "--max-paths",
         type=int,
-        default=128,
+        default=MAX_PATHS,
         help="Reject path-exploding binaries instead of materializing an unbounded artifact set.",
+    )
+    parser.add_argument(
+        "--loop-bound",
+        type=int,
+        default=LOOP_BOUND,
+        help="Maximum completed iterations per symbolic loop.",
+    )
+    parser.add_argument(
+        "--profile-id",
+        default=PAPER_PROFILE_ID,
+        help="Auditable symbolic-execution profile identifier.",
+    )
+    parser.add_argument(
+        "--ranking-candidates",
+        type=int,
+        default=None,
+        help="Retain only the highest-ranked N candidates per source path.",
+    )
+    parser.add_argument(
+        "--skip-control-rankings",
+        action="store_true",
+        help="Do not materialize the optional Naive and VeriBin control rankings.",
     )
     parser.add_argument(
         "--optimization",
@@ -83,6 +149,16 @@ def main() -> int:
         help="Compiler optimization level (paper main configuration: O3).",
     )
     parser.add_argument("--max-cases", type=int, default=None)
+    parser.add_argument(
+        "--bindiff-mode",
+        choices=("auto", "structural", "off"),
+        default="auto",
+        help="Use real BinDiff, the explicit structural fallback, or feature-only.",
+    )
+    parser.add_argument("--bindiff-binary", default=None)
+    parser.add_argument("--ghidra-headless", default=None)
+    parser.add_argument("--java-home", default=None)
+    parser.add_argument("--bindiff-output-dir", type=Path, default=None)
     parser.add_argument(
         "--case",
         action="append",
@@ -94,6 +170,12 @@ def main() -> int:
         action="append",
         default=[],
         help="Only run cases whose first relative path component exactly matches.",
+    )
+    parser.add_argument(
+        "--exclude-family",
+        action="append",
+        default=[],
+        help="Exclude cases whose first relative path component exactly matches.",
     )
     parser.add_argument(
         "--exclude-case",
@@ -110,8 +192,20 @@ def main() -> int:
     parser.add_argument("--skip-symbolic-exec", action="store_true")
     parser.add_argument("--skip-evaluation", action="store_true")
     parser.add_argument("--skip-semantic-truth", action="store_true")
+    parser.add_argument(
+        "--skip-ranking-truth",
+        action="store_true",
+        help=(
+            "Defer independent SAT-overlap truth to "
+            "scripts/annotate_path_truth.py."
+        ),
+    )
     parser.add_argument("--python", default=os.environ.get("PYTHON", "python3"))
     args = parser.parse_args()
+    if args.case_domains is not None:
+        args.case_domains = load_case_domains(args.case_domains)
+    else:
+        args.case_domains = {}
 
     explicit_benchmarks = any(
         arg == "--benchmarks" or arg.startswith("--benchmarks=") for arg in sys.argv[1:]
@@ -134,6 +228,9 @@ def main() -> int:
     if args.family:
         families = set(args.family)
         cases = [case for case in cases if case.rel.parts[0] in families]
+    if args.exclude_family:
+        excluded_families = set(args.exclude_family)
+        cases = [case for case in cases if case.rel.parts[0] not in excluded_families]
     if args.case:
         cases = [
             case
@@ -197,25 +294,6 @@ def main() -> int:
         encoding="utf-8",
     )
     ground_truth_path = out_dir / "groundtruth.json"
-    if not args.skip_semantic_truth and manifest_rows:
-        semantic_truth_path = out_dir / "groundtruth_semantic.json"
-        completed = subprocess.run(
-            [
-                args.python,
-                str(ROOT / "scripts" / "generate_semantic_path_truth.py"),
-                "--benchmarks",
-                str(out_dir),
-                "--out",
-                str(semantic_truth_path),
-                "--timeout-ms",
-                "60000",
-            ],
-            text=True,
-            check=False,
-        )
-        if completed.returncode != 0:
-            raise RuntimeError("semantic path-truth generation failed")
-        ground_truth_path = semantic_truth_path
     (out_dir / "generation_summary.json").write_text(
         json.dumps(
             {
@@ -361,7 +439,39 @@ def parse_case_rel(rel: Path) -> tuple[str, str, str, bool] | None:
     return subset, program, truth, truth.lower() == "eq"
 
 
+def load_case_domains(path: Path) -> dict[str, dict[str, int | float | None]]:
+    domains: dict[str, dict[str, int | float | None]] = {}
+    with path.open(encoding="utf-8", newline="") as stream:
+        for row in csv.DictReader(stream):
+            scope = (row.get("scope") or "").strip().lower()
+            if not scope:
+                continue
+            raw_int_min = (row.get("int_min") or "").strip()
+            raw_int_max = (row.get("int_max") or "").strip()
+            raw_float_min = (row.get("float_min") or "").strip()
+            raw_float_max = (row.get("float_max") or "").strip()
+            domains[scope] = {
+                "int_min": int(raw_int_min) if raw_int_min else None,
+                "int_max": int(raw_int_max) if raw_int_max else None,
+                "float_min": float(raw_float_min) if raw_float_min else None,
+                "float_max": float(raw_float_max) if raw_float_max else None,
+            }
+    return domains
+
+
+def case_domain_args(args: argparse.Namespace, subset: str) -> argparse.Namespace:
+    domains = getattr(args, "case_domains", {}) or {}
+    domain = domains.get(subset.lower()) or domains.get("default")
+    if not domain:
+        return args
+    resolved = argparse.Namespace(**vars(args))
+    for key, value in domain.items():
+        setattr(resolved, key, value)
+    return resolved
+
+
 def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    args = case_domain_args(args, case.subset)
     case_out = out_dir / "cases" / case.rel
     bin_out = case_out / "bin"
     paths_out = case_out / "paths"
@@ -391,60 +501,173 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
     pair_id = f"{case.subset}/{sanitize(case.program)}"
     old_ids = [p.stem for _, p in old_paths]
     new_ids = [p.stem for _, p in new_paths]
-    truth_pairs = {
-        old.stem: new.stem
-        for (old_idx, old), (new_idx, new) in zip(old_paths, new_paths)
-        if old_idx == new_idx
-    }
-    if not truth_pairs:
-        truth_pairs = dict(zip(old_ids, new_ids))
+    if args.skip_ranking_truth:
+        truth_pairs: dict[str, list[str]] = {}
+        path_truth: dict[str, Any] = {
+            "schema": "symbolicana.path_truth.v1",
+            "semantics": "sat_input_overlap",
+            "status": "pending",
+            "queries": [],
+        }
+    else:
+        path_truth_sets, path_truth = compute_pair_truth(
+            [path for _index, path in old_paths],
+            [path for _index, path in new_paths],
+            timeout_ms=60_000,
+        )
+        truth_pairs = {
+            query: sorted(targets)
+            for query, targets in path_truth_sets.items()
+        }
 
     naive_path = rankings_out / "naive.json"
     veribin_path = rankings_out / "veribin.json"
     fmcad_path = rankings_out / "fmcad.json"
-    naive_path.write_text(
-        json.dumps(timed_ranking(build_naive_ranking, pair_id, old_paths, new_paths), indent=2) + "\n",
-        encoding="utf-8",
-    )
-    veribin_path.write_text(
-        json.dumps(
-            timed_ranking(
-                build_veribin_ranking,
-                pair_id,
-                old_paths,
-                new_paths,
-                preprocess_seconds=veribin_preprocess_seconds(paths_out),
-            ),
-            indent=2,
+    if not args.skip_control_rankings:
+        naive_path.write_text(
+            json.dumps(
+                timed_ranking(build_naive_ranking, pair_id, old_paths, new_paths),
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
         )
-        + "\n",
-        encoding="utf-8",
+        veribin_path.write_text(
+            json.dumps(
+                timed_ranking(
+                    build_veribin_ranking,
+                    pair_id,
+                    old_paths,
+                    new_paths,
+                    preprocess_seconds=veribin_preprocess_seconds(paths_out),
+                ),
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    trace_required = not args.skip_control_rankings or args.bindiff_mode != "off"
+    old_traces = (
+        [
+            parse_execution_trace(path.read_text(encoding="utf-8", errors="replace"))
+            for _, path in old_paths
+        ]
+        if trace_required
+        else []
     )
-    map_started = time.perf_counter()
-    old_traces = [parse_execution_trace(path.read_text(encoding="utf-8", errors="replace")) for _, path in old_paths]
-    new_traces = [parse_execution_trace(path.read_text(encoding="utf-8", errors="replace")) for _, path in new_paths]
-    bb_map, bb_map_stats = build_structural_block_map(old_bin, new_bin, old_traces, new_traces)
-    bb_map_seconds = time.perf_counter() - map_started
+    new_traces = (
+        [
+            parse_execution_trace(path.read_text(encoding="utf-8", errors="replace"))
+            for _, path in new_paths
+        ]
+        if trace_required
+        else []
+    )
     bb_map_path = rankings_out / "basic_block_map.json"
-    bb_map_path.write_text(
-        json.dumps(
-            {
-                "matching_bb_addrs": {hex(k): hex(v) for k, v in bb_map.items()},
-                "statistics": bb_map_stats,
-            },
-            indent=2,
-        ) + "\n",
-        encoding="utf-8",
+    graph_state: dict[str, Any] = {
+        "map": None,
+        "metadata": {
+            "status": "not_requested",
+            "backend": "feature_only_not_requested",
+        },
+    }
+
+    def graph_provider():
+        if graph_state["map"] is not None:
+            return graph_state["map"], graph_state["metadata"]
+        if args.bindiff_mode == "off":
+            graph_state["metadata"] = {
+                "status": "disabled",
+                "backend": "feature_only",
+            }
+            return None, graph_state["metadata"]
+        started = time.perf_counter()
+        if args.bindiff_mode == "structural":
+            bb_map, stats = build_structural_block_map(
+                old_bin, new_bin, old_traces, new_traces
+            )
+            graph_state["map"] = bb_map
+            graph_state["metadata"] = {
+                "status": "ok",
+                "backend": "structural_fallback",
+                "statistics": stats,
+                "elapsed": time.perf_counter() - started,
+            }
+            return bb_map, graph_state["metadata"]
+        bindiff_out = (
+            args.bindiff_output_dir / case.rel
+            if args.bindiff_output_dir is not None
+            else out_dir / "bindiff" / case.rel
+        )
+        result = build_bindiff_mapping(
+            old_bin,
+            new_bin,
+            bindiff_out,
+            old_traces=old_traces,
+            new_traces=new_traces,
+            bindiff_binary=args.bindiff_binary,
+            ghidra_headless=args.ghidra_headless,
+            java_home=args.java_home,
+        )
+        if result.get("status") == "ok" and result.get("mapping") is not None:
+            graph_state["map"] = result["mapping"]
+            graph_state["metadata"] = {
+                key: value for key, value in result.items() if key != "mapping"
+            }
+            return result["mapping"], graph_state["metadata"]
+        bb_map, stats = build_structural_block_map(
+            old_bin, new_bin, old_traces, new_traces
+        )
+        graph_state["map"] = bb_map
+        graph_state["metadata"] = {
+            **{key: value for key, value in result.items() if key != "mapping"},
+            "status": "fallback",
+            "backend": "structural_fallback",
+            "fallback_reason": result.get("reason", "bindiff_unavailable"),
+            "statistics": stats,
+            "elapsed": time.perf_counter() - started,
+        }
+        return bb_map, graph_state["metadata"]
+
+    experiment_profile = profile_for_input_domains(
+        args.int_min,
+        args.int_max,
+        args.float_min,
+        args.float_max,
+        loop_bound=args.loop_bound,
+        max_paths=args.max_paths,
+        timeout_seconds=args.timeout,
+        profile_id=args.profile_id,
     )
     fmcad_path.write_text(
         json.dumps(
             timed_ranking(
-                lambda pid, old, new: build_hybrid_fmcad_ranking(pid, old, new, bb_map),
+                lambda pid, old, new: build_hybrid_fmcad_ranking(
+                    pid,
+                    old,
+                    new,
+                    graph_provider=graph_provider,
+                    profile_id=args.profile_id,
+                    profile=experiment_profile,
+                    max_results_per_query=args.ranking_candidates,
+                ),
                 pair_id,
                 old_paths,
                 new_paths,
-                preprocess_seconds=bb_map_seconds,
             ),
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    bb_map = graph_state["map"] or {}
+    bb_map_path.write_text(
+        json.dumps(
+            {
+                "matching_bb_addrs": {hex(k): hex(v) for k, v in bb_map.items()},
+                "backend": graph_state["metadata"].get("backend", "feature_only"),
+                "status": graph_state["metadata"].get("status", "not_requested"),
+                "metadata": graph_state["metadata"],
+            },
             indent=2,
         ) + "\n",
         encoding="utf-8",
@@ -458,15 +681,24 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
         "original_path_count": len(old_paths),
         "patched_path_count": len(new_paths),
         "ground_truth_pairs": truth_pairs,
+        "path_truth": path_truth,
     }
-    truth = dict(base)
+    truth = {**base, "path_truth": path_truth}
+    (case_out / "path_truth.json").write_text(
+        json.dumps(path_truth, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
     row = {
         **base,
         "left": rel_to(old_paths[0][1], out_dir),
         "right": rel_to(new_paths[0][1], out_dir),
         "paths_dir": rel_to(paths_out, out_dir),
-        "naive_ranking_path": rel_to(naive_path, out_dir),
-        "veribin_ranking_path": rel_to(veribin_path, out_dir),
+        "naive_ranking_path": (
+            rel_to(naive_path, out_dir) if not args.skip_control_rankings else ""
+        ),
+        "veribin_ranking_path": (
+            rel_to(veribin_path, out_dir) if not args.skip_control_rankings else ""
+        ),
         "fmcad_ranking_path": rel_to(fmcad_path, out_dir),
         "basic_block_map_path": rel_to(bb_map_path, out_dir),
         "source_case": rel_to(case.case_dir, out_dir),
@@ -475,20 +707,23 @@ def process_case(case: Case, out_dir: Path, args: argparse.Namespace) -> tuple[d
         "compiler": "gcc",
         "optimization": args.optimization,
         "symbolic_timeout_seconds": args.timeout,
-        "loop_bound": 30,
+        "loop_bound": args.loop_bound,
         "max_paths": args.max_paths,
         "input_ranges": {
             "integer": (
                 [args.int_min, args.int_max]
                 if args.int_min is not None or args.int_max is not None
-                else "unbounded"
+                else FULL_INPUT_SPACE
             ),
             "floating_point": (
                 [args.float_min, args.float_max]
                 if args.float_min is not None or args.float_max is not None
-                else "unbounded"
+                else FULL_INPUT_SPACE
             ),
         },
+        "profile_id": args.profile_id,
+        "profile": experiment_profile,
+        "semantic_contract": dict(SEMANTIC_CONTRACT),
     }
     return row, truth
 
@@ -557,11 +792,15 @@ def maybe_run_symbolic_exec(
 ) -> None:
     cache_material = source.read_bytes() if source and source.is_file() else binary.read_bytes()
     signature = extract_c_snippet_signature(source) if source else None
+    loop_bound = getattr(args, "loop_bound", LOOP_BOUND)
+    profile_id = getattr(args, "profile_id", PAPER_PROFILE_ID)
     cache_key = (
         hashlib.sha256(cache_material).hexdigest(),
         args.optimization,
         args.timeout,
         args.max_paths,
+        loop_bound,
+        profile_id,
         args.int_min,
         args.int_max,
         args.float_min,
@@ -586,15 +825,9 @@ def maybe_run_symbolic_exec(
             error = f"symbolic execution incomplete for {binary}: {reasons}"
             failure = {"status": "incomplete", "error": error, "exploration": exploration}
             failure_marker.write_text(json.dumps(failure, indent=2) + "\n", encoding="utf-8")
-            _SYMBOLIC_EXEC_CACHE[cache_key] = {"status": "failure", "failure": failure}
             raise RuntimeError(error)
     cached = None if args.force_symbolic_exec else _SYMBOLIC_EXEC_CACHE.get(cache_key)
-    if cached:
-        if cached["status"] == "failure":
-            failure = dict(cached["failure"])
-            failure["cache_hit"] = True
-            failure_marker.write_text(json.dumps(failure, indent=2) + "\n", encoding="utf-8")
-            raise RuntimeError(failure.get("error", "cached symbolic-execution failure"))
+    if cached and cached["status"] == "success":
         copy_cached_symbolic_artifacts(
             Path(cached["paths_dir"]), str(cached["prefix"]), paths_out, prefix
         )
@@ -613,6 +846,10 @@ def maybe_run_symbolic_exec(
         str(args.timeout),
         "--max-paths",
         str(args.max_paths),
+        "--loop-bound",
+        str(loop_bound),
+        "--profile-id",
+        profile_id,
     ]
     for flag, value in (
         ("--int-min", args.int_min),
@@ -646,7 +883,6 @@ def maybe_run_symbolic_exec(
                 error = f"symbolic execution timed out for {binary}; see {log}"
                 failure = {"status": "timeout", "error": error, "elapsed": elapsed}
                 failure_marker.write_text(json.dumps(failure, indent=2) + "\n", encoding="utf-8")
-                _SYMBOLIC_EXEC_CACHE[cache_key] = {"status": "failure", "failure": failure}
                 raise RuntimeError(error)
             time.sleep(0.25)
         elapsed = time.perf_counter() - start
@@ -656,7 +892,6 @@ def maybe_run_symbolic_exec(
         error = f"symbolic execution failed for {binary}; see {log}"
         failure = {"status": "error", "error": error, "elapsed": elapsed}
         failure_marker.write_text(json.dumps(failure, indent=2) + "\n", encoding="utf-8")
-        _SYMBOLIC_EXEC_CACHE[cache_key] = {"status": "failure", "failure": failure}
         raise RuntimeError(error)
     if not collect_path_files(paths_out, prefix):
         error = f"symbolic execution produced no complete paths for {binary}; see {log}"
@@ -664,7 +899,6 @@ def maybe_run_symbolic_exec(
         if exploration_manifest.is_file():
             failure["exploration"] = json.loads(exploration_manifest.read_text(encoding="utf-8"))
         failure_marker.write_text(json.dumps(failure, indent=2) + "\n", encoding="utf-8")
-        _SYMBOLIC_EXEC_CACHE[cache_key] = {"status": "failure", "failure": failure}
         raise RuntimeError(error)
     _SYMBOLIC_EXEC_CACHE[cache_key] = {
         "status": "success", "paths_dir": paths_out, "prefix": prefix
@@ -772,17 +1006,40 @@ def read_elapsed_from_log(path: Path) -> float:
 
 def build_fmcad_ranking(pair_id: str, old_paths: list[tuple[int, Path]], new_paths: list[tuple[int, Path]]) -> dict[str, Any]:
     all_paths = [p for _, p in old_paths + new_paths]
-    raw = {p.stem: extract_features(p.read_text(encoding="utf-8", errors="replace"))[0] for p in all_paths}
-    min_max = compute_min_max(raw)
-    vectors = {pid: normalize_features(vec, min_max) for pid, vec in raw.items()}
+    records = {
+        p.stem: extract_feature_record(
+            p.read_text(encoding="utf-8", errors="replace")
+        )
+        for p in all_paths
+    }
+    min_max = compute_feature_min_max(records)
+    vectors = {
+        pid: normalize_features(record.raw, min_max)
+        for pid, record in records.items()
+    }
+    validity = {
+        pid: [record.valid[name] for name in FEATURE_NAMES]
+        for pid, record in records.items()
+    }
     queries = []
     for _, old in old_paths:
         ranked = []
         for _, new in new_paths:
-            ranked.append({"path_id": new.stem, "similarity": round(cosine(vectors[old.stem], vectors[new.stem]), 6)})
+            score = cosine_with_validity(
+                vectors[old.stem],
+                vectors[new.stem],
+                validity[old.stem],
+                validity[new.stem],
+            )
+            ranked.append({"path_id": new.stem, "similarity": round(score, 6)})
         ranked.sort(key=lambda item: (-item["similarity"], path_numeric_suffix(item["path_id"])))
         queries.append({"query": old.stem, "ranking": ranked})
-    return {"pair_id": pair_id, "method": "fmcad_11d_cosine", "queries": queries}
+    return {
+        "pair_id": pair_id,
+        "method": "fmcad_11d_cosine",
+        "feature_schema": FEATURE_SCHEMA,
+        "queries": queries,
+    }
 
 
 def build_hybrid_fmcad_ranking(
@@ -790,6 +1047,10 @@ def build_hybrid_fmcad_ranking(
     old_paths: list[tuple[int, Path]],
     new_paths: list[tuple[int, Path]],
     matching_bb_map: dict[int, int] | None = None,
+    graph_provider=None,
+    profile_id: str = PAPER_PROFILE_ID,
+    profile: dict[str, Any] | None = None,
+    max_results_per_query: int | None = None,
 ) -> dict[str, Any]:
     data = hybrid_rank_paths(
         [p for _, p in old_paths],
@@ -802,6 +1063,10 @@ def build_hybrid_fmcad_ranking(
             feature_weight=0.0,
         ),
         matching_bb_map=matching_bb_map,
+        graph_provider=graph_provider,
+        profile_id=profile_id,
+        profile=profile,
+        max_results_per_query=max_results_per_query,
     )
     data["pair_id"] = pair_id
     return data
@@ -862,15 +1127,20 @@ def veribin_score(old: dict[str, Any], new: dict[str, Any], scoring: str) -> flo
     return difflib.SequenceMatcher(None, old["constraint"], new["constraint"]).ratio()
 
 
-def compute_min_max(raw: dict[str, list[float]]) -> dict[str, tuple[float, float]]:
+def compute_feature_min_max(records: dict[str, Any]) -> dict[str, tuple[float, float]]:
     names = list(FEATURE_RANGES.keys())
-    values = list(raw.values())
-    if not values:
+    if not records:
         return dict(FEATURE_RANGES)
-    return {
-        name: (min(vec[i] for vec in values), max(vec[i] for vec in values))
-        for i, name in enumerate(names)
-    }
+    result = {}
+    for index, name in enumerate(names):
+        values = [
+            record.raw[index]
+            for record in records.values()
+            if record.valid[name]
+        ]
+        if values:
+            result[name] = (min(values), max(values))
+    return result
 
 
 def cosine(left: list[float], right: list[float]) -> float:

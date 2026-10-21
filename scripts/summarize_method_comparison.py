@@ -34,6 +34,27 @@ def parse_method_input(value: str) -> MethodInput:
     return MethodInput(name=name, root=Path(raw_path), group=group)
 
 
+def canonical_case_id(case_id: str) -> str:
+    family, rest = case_id.split("/", 1)
+    family = family.lower()
+    if family == "clever":
+        family = "moddiff"
+    elif family == "pow":
+        family = "power"
+    return f"{family}/{rest}".lower()
+
+
+def load_case_filter(path: Path | None) -> set[str] | None:
+    if path is None:
+        return None
+    with path.open(encoding="utf-8", newline="") as stream:
+        return {
+            canonical_case_id(row["case_id"])
+            for row in csv.DictReader(stream)
+            if row.get("case_id")
+        }
+
+
 def result_files(root: Path) -> Iterable[Path]:
     direct = root / "results.csv"
     if direct.is_file():
@@ -98,6 +119,19 @@ def prefer_successful_attempts(
     return [selected[pair_id] for pair_id in order]
 
 
+def filter_case_ids(
+    rows: list[dict[str, str]],
+    included: set[str] | None,
+) -> list[dict[str, str]]:
+    if included is None:
+        return rows
+    return [
+        row
+        for row in rows
+        if canonical_case_id(str(row.get("pair_id") or "")) in included
+    ]
+
+
 def as_bool(value: str | None) -> bool | None:
     lowered = str(value or "").strip().lower()
     if lowered in {"true", "1", "yes"}:
@@ -142,7 +176,11 @@ REPORT_NAMES_BY_GROUP = {
 }
 
 
-def match_type_counts(root: Path, group: str | None = None) -> Counter[str]:
+def match_type_counts(
+    root: Path,
+    group: str | None = None,
+    included: set[str] | None = None,
+) -> Counter[str]:
     counts: Counter[str] = Counter()
     allowed_names = REPORT_NAMES_BY_GROUP.get(group)
     for report_path in sorted(root.rglob("*.json")):
@@ -161,6 +199,21 @@ def match_type_counts(root: Path, group: str | None = None) -> Counter[str]:
             continue
         if not isinstance(report, dict) or "matches" not in report:
             continue
+        if included is not None:
+            try:
+                relative = report_path.relative_to(root)
+                parts = relative.parts
+                raw_index = parts.index("raw")
+                tail = parts[raw_index + 1 :]
+                if report_path.name == "verification_report.json":
+                    pair_parts = tail[:-2]
+                else:
+                    pair_parts = tail[:-1]
+                pair_id = "/".join(pair_parts)
+                if canonical_case_id(pair_id) not in included:
+                    continue
+            except (ValueError, IndexError):
+                continue
         for directional_key in ("matches", "reverse_matches"):
             for record in report.get(directional_key, []) or []:
                 match_type = str(record.get("match_type") or "")
@@ -333,11 +386,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Exclude pair IDs beginning with this prefix after merging shards.",
     )
+    parser.add_argument(
+        "--include-case-manifest",
+        type=Path,
+        help="Keep only case IDs present in this paper manifest.",
+    )
     return parser
 
 
 def main() -> int:
     args = build_parser().parse_args()
+    included = load_case_filter(args.include_case_manifest)
     grouped: dict[str, list[dict[str, str]]] = {}
     inputs: dict[str, list[MethodInput]] = {}
     for item in args.input:
@@ -347,7 +406,10 @@ def main() -> int:
         for name, rows in grouped.items():
             grouped[name] = exclude_case_prefixes(rows, args.exclude_case_prefix)
     for name, rows in grouped.items():
-        grouped[name] = prefer_successful_attempts(rows)
+        grouped[name] = filter_case_ids(
+            prefer_successful_attempts(rows),
+            included,
+        )
     summaries = [
         summarize(
             MethodInput(name=name, root=Path(".")),
@@ -360,7 +422,7 @@ def main() -> int:
     for summary in summaries:
         counts: Counter[str] = Counter()
         for item in inputs[summary["method"]]:
-            counts.update(match_type_counts(item.root, item.group))
+            counts.update(match_type_counts(item.root, item.group, included))
         summary["match_records"] = sum(counts.values())
         summary["one_to_many_records"] = sum(
             count for kind, count in counts.items() if kind.startswith("one_to_many_")

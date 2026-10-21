@@ -117,6 +117,10 @@ class SummarizeOsfAllTests(unittest.TestCase):
             ("label_inconsistent", ""),
         )
         self.assertEqual(
+            apply_label_override("wrong_neq", "no", "undefined_behavior"),
+            ("undefined_behavior", ""),
+        )
+        self.assertEqual(
             apply_label_override("correct_eq", "yes", "label_inconsistent"),
             ("correct_eq", "yes"),
         )

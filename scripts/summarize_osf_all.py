@@ -400,21 +400,26 @@ def main() -> int:
 
     preparation = Counter(row["support_status"] for row in rows)
     paths = Counter(row["path_status"] for row in rows if row["support_status"] != "unsupported")
+    fully_explored = sum(
+        row["path_status"] == "complete"
+        and row["old_exploration_complete"] == "True"
+        and row["new_exploration_complete"] == "True"
+        for row in rows
+    )
+    incomplete_exploration = sum(
+        row["path_status"] == "complete"
+        and not (
+            row["old_exploration_complete"] == "True"
+            and row["new_exploration_complete"] == "True"
+        )
+        for row in rows
+    )
     outcomes = Counter(row["osf_outcome"] for row in rows)
     outcomes_upstream = Counter(row["osf_outcome"] for row in upstream)
     evaluated = [
         row
         for row in rows
-        if row["osf_outcome"]
-        in {
-            "correct_eq",
-            "correct_neq",
-            "wrong_eq",
-            "wrong_neq",
-            "label_inconsistent",
-            "unk",
-            "failed",
-        }
+        if row["osf_outcome"] not in {"", "not_attempted"}
     ]
     correct = sum(
         row["osf_outcome"] in {"correct_eq", "correct_neq"} for row in evaluated
@@ -429,6 +434,9 @@ def main() -> int:
         f"- Upstream ARDiff 142-case population matched: {len(upstream)}",
         "",
         "## Path generation",
+        "",
+        f"- Complete exploration on both sides: {fully_explored}",
+        f"- Path artifacts with incomplete exploration: {incomplete_exploration}",
         "",
         "| Status | Cases |",
         "|---|---:|",
@@ -450,11 +458,71 @@ def main() -> int:
         "wrong_eq",
         "wrong_neq",
         "label_inconsistent",
+        "undefined_behavior",
+        "harness_invalid",
         "unk",
         "failed",
         "not_attempted",
     ):
         lines.append(f"| {key} | {outcomes.get(key, 0)} | {outcomes_upstream.get(key, 0)} |")
+
+    family_rows = []
+    for family in sorted({row["family"] for row in rows}):
+        family_items = [row for row in rows if row["family"] == family]
+        family_outcomes = Counter(row["osf_outcome"] for row in family_items)
+        family_rows.append(
+            {
+                "family": family,
+                "cases": len(family_items),
+                "supported": sum(
+                    row["support_status"] != "unsupported"
+                    for row in family_items
+                ),
+                "complete_paths": sum(
+                    row["path_status"] == "complete"
+                    for row in family_items
+                ),
+                "correct_eq": family_outcomes.get("correct_eq", 0),
+                "correct_neq": family_outcomes.get("correct_neq", 0),
+                "wrong_eq": family_outcomes.get("wrong_eq", 0),
+                "wrong_neq": family_outcomes.get("wrong_neq", 0),
+                "label_inconsistent": family_outcomes.get(
+                    "label_inconsistent", 0
+                ),
+                "undefined_behavior": family_outcomes.get(
+                    "undefined_behavior", 0
+                ),
+                "harness_invalid": family_outcomes.get("harness_invalid", 0),
+                "unk": family_outcomes.get("unk", 0),
+                "failed": family_outcomes.get("failed", 0),
+                "not_attempted": family_outcomes.get("not_attempted", 0),
+            }
+        )
+    family_fields = list(family_rows[0]) if family_rows else []
+    with (args.output_dir / "family_summary.csv").open(
+        "w", encoding="utf-8", newline=""
+    ) as stream:
+        writer = csv.DictWriter(stream, fieldnames=family_fields)
+        writer.writeheader()
+        writer.writerows(family_rows)
+    lines.extend(
+        [
+            "",
+            "## Per-family results",
+            "",
+            "| Family | Cases | Supported | Complete paths | Correct EQ | "
+            "Correct NEQ | Wrong EQ | Wrong NEQ | Label inconsistent | "
+            "Undefined behavior | UNK | Failed | Not attempted |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for row in family_rows:
+        lines.append(
+            "| {family} | {cases} | {supported} | {complete_paths} | "
+            "{correct_eq} | {correct_neq} | {wrong_eq} | {wrong_neq} | "
+            "{label_inconsistent} | {undefined_behavior} | {unk} | "
+            "{failed} | {not_attempted} |".format(**row)
+        )
     lines.extend(
         [
             "",

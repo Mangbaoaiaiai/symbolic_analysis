@@ -10,9 +10,14 @@ import angr
 import claripy
 import re
 import os
+import sys
 import glob
 import json
 import hashlib
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
 from claripy.backends.backend_z3 import claripy_solver_to_smt2
 from angr.sim_type import (
     SimTypeChar,
@@ -21,6 +26,15 @@ from angr.sim_type import (
     SimTypeInt,
     SimTypeLongLong,
     SimTypePointer,
+)
+from symbolic_analysis.profile import (
+    FULL_INPUT_SPACE,
+    LOOP_BOUND,
+    MAX_PATHS,
+    PAPER_PROFILE_ID,
+    SEMANTIC_CONTRACT,
+    SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
+    profile_for_input_domains,
 )
 import logging
 
@@ -272,14 +286,15 @@ class BenchmarkSymbolicExecution:
         self,
         binary_path,
         output_prefix=None,
-        timeout=120,
+        timeout=SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
         snippet_signature=None,
-        loop_bound=30,
-        max_paths=128,
+        loop_bound=LOOP_BOUND,
+        max_paths=MAX_PATHS,
         int_min=None,
         int_max=None,
         float_min=None,
         float_max=None,
+        profile_id=PAPER_PROFILE_ID,
     ):
         self.binary_path = binary_path
         self.timeout = timeout
@@ -293,9 +308,12 @@ class BenchmarkSymbolicExecution:
         self.int_max = int_max
         self.float_min = float_min
         self.float_max = float_max
+        self.profile_id = profile_id
         self.global_write_ranges = []
+        self.global_objects = []
         self.exploration_manifest = {}
         self.output_hook_names = []
+        self.loop_bound_events = []
         
                 
         if output_prefix is None:
@@ -357,6 +375,7 @@ class BenchmarkSymbolicExecution:
         if self.output_hook_names:
             print("Hooked output functions: " + ", ".join(self.output_hook_names))
         self.global_write_ranges = self.collect_global_write_ranges()
+        self.global_objects = self.collect_global_objects()
         
                 
         self.find_target_functions()
@@ -494,6 +513,7 @@ class BenchmarkSymbolicExecution:
         # added by ScanfSymbolicHook.
         initial_state.globals["symbolicana_output_events"] = []
         initial_state.globals["symbolicana_output_hooks"] = list(self.output_hook_names)
+        self.install_global_observation_scope(initial_state)
         return initial_state
 
     def symbolize_global_arrays(self, state, max_elements=16):
@@ -681,13 +701,14 @@ class BenchmarkSymbolicExecution:
         simgr.use_technique(angr.exploration_techniques.Timeout(timeout=self.timeout))
         loop_seer_installed = False
         loop_seer_error = None
+        loop_technique = None
         try:
-            simgr.use_technique(
-                angr.exploration_techniques.LoopSeer(
-                    bound=self.loop_bound,
-                    discard_stash="loop_bound",
-                )
+            loop_technique = angr.exploration_techniques.LoopSeer(
+                bound=self.loop_bound,
+                discard_stash="loop_bound",
+                use_header=False,
             )
+            simgr.use_technique(loop_technique)
             loop_seer_installed = True
         except Exception as exc:
             loop_seer_error = str(exc)
@@ -715,12 +736,31 @@ class BenchmarkSymbolicExecution:
                 other_errors.append(errored)
         all_states_raw.extend(returned_error_states)
 
+        post_bound_states = []
+        if loop_technique is not None:
+            remaining_terminal = []
+            for state in all_states_raw:
+                event = self.terminal_loop_bound_event(state, loop_technique)
+                if event is None:
+                    remaining_terminal.append(state)
+                else:
+                    state.globals["symbolicana_loop_bound_event"] = event
+                    post_bound_states.append(state)
+            all_states_raw = remaining_terminal
+        loop_bound_states_raw = (
+            list(simgr.stashes.get("loop_bound", []))
+            + post_bound_states
+        )
+
         # LAZY_SOLVES deliberately keeps infeasible states until a result is
         # demanded.  Prune them before completeness/path-limit accounting;
         # otherwise infeasible loop continuations look like real bound events.
         all_states = self.filter_feasible_states(all_states_raw)
         timeout_states = self.filter_feasible_states(timeout_states_raw)
-        loop_bound_states = self.filter_feasible_states(loop_bound_states_raw)
+        loop_bound_states = self.filter_feasible_states(
+            loop_bound_states_raw,
+            force_solver=True,
+        )
         active_states = self.filter_feasible_states(list(simgr.active))
         other_errors = [item for item in other_errors if self.state_is_feasible(item.state)]
 
@@ -737,8 +777,12 @@ class BenchmarkSymbolicExecution:
             incomplete_reasons.append("execution_error")
         if len(all_states) > self.max_paths:
             incomplete_reasons.append("path_limit_exceeded")
+        self.loop_bound_events = [
+            self.describe_loop_bound_event(state)
+            for state in loop_bound_states
+        ]
         self.exploration_manifest = {
-            "schema": "symbolicana.exploration.v2",
+            "schema": "symbolicana.exploration.v3",
             "binary": os.path.abspath(self.binary_path),
             "timeout_seconds": self.timeout,
             "loop_bound": self.loop_bound,
@@ -747,16 +791,34 @@ class BenchmarkSymbolicExecution:
                 "integer": (
                     [self.int_min, self.int_max]
                     if self.int_min is not None or self.int_max is not None
-                    else "unbounded"
+                    else FULL_INPUT_SPACE
                 ),
                 "floating_point": (
                     [self.float_min, self.float_max]
                     if self.float_min is not None or self.float_max is not None
-                    else "unbounded"
+                    else FULL_INPUT_SPACE
                 ),
             },
             "loop_seer_installed": loop_seer_installed,
             "loop_seer_error": loop_seer_error,
+            "experiment_profile": profile_for_input_domains(
+                self.int_min,
+                self.int_max,
+                self.float_min,
+                self.float_max,
+                loop_bound=self.loop_bound,
+                max_paths=self.max_paths,
+                timeout_seconds=self.timeout,
+                profile_id=self.profile_id,
+            ),
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
+            "loop_counting": {
+                "strategy": "back_edge_trip_counts",
+                "permitted_completed_iterations": self.loop_bound,
+                "exceed_condition": "back_edge_trip_count > permitted_iterations",
+                "scope": "loops in the analyzed binary",
+            },
+            "loop_bound_events": self.loop_bound_events,
             "complete": not incomplete_reasons,
             "incomplete_reasons": incomplete_reasons,
             "terminating_path_count": len(all_states),
@@ -785,12 +847,12 @@ class BenchmarkSymbolicExecution:
         
         return self.paths_info
 
-    def state_is_feasible(self, state):
+    def state_is_feasible(self, state, force_solver=False):
         # Pure-floating numerical paths use LAZY_SOLVES specifically because
         # eager FP satisfiability can exceed the analysis budget.  Preserve
         # their path formulas (including an occasional unsat formula); overlap
         # checks in the SMT verification stage safely discard unsat regions.
-        if angr.options.LAZY_SOLVES in state.options:
+        if angr.options.LAZY_SOLVES in state.options and not force_solver:
             return True
         try:
             return bool(state.solver.satisfiable())
@@ -799,8 +861,89 @@ class BenchmarkSymbolicExecution:
             # downstream verifier must conservatively return UNK.
             return True
 
-    def filter_feasible_states(self, states):
-        return [state for state in states if self.state_is_feasible(state)]
+    def filter_feasible_states(self, states, force_solver=False):
+        return [
+            state
+            for state in states
+            if self.state_is_feasible(state, force_solver=force_solver)
+        ]
+
+    def describe_loop_bound_event(self, state):
+        stored = state.globals.get("symbolicana_loop_bound_event")
+        if isinstance(stored, dict):
+            return stored
+        loops = []
+        try:
+            active = list(getattr(state.loop_data, "current_loop", []))
+        except Exception:
+            active = []
+        for loop, _exits in active:
+            try:
+                header = int(loop.entry.addr)
+            except Exception:
+                continue
+            header_counts = state.loop_data.header_trip_counts.get(header, [])
+            back_edge_counts = state.loop_data.back_edge_trip_counts.get(header, [])
+            loops.append(
+                {
+                    "header": hex(header),
+                    "header_trip_count": (
+                        int(header_counts[-1]) if header_counts else None
+                    ),
+                    "back_edge_trip_count": (
+                        int(back_edge_counts[-1]) if back_edge_counts else None
+                    ),
+                }
+            )
+        return {
+            "state_address": hex(int(state.addr)),
+            "loops": loops,
+            "reason": "feasible_execution_would_enter_iteration_above_bound",
+            "bound": self.loop_bound,
+        }
+
+    def terminal_loop_bound_event(self, state, loop_technique):
+        """Detect an exceeded self-loop that reached a normal terminal state.
+
+        In a do-while/self-loop layout, the final iteration does not execute a
+        back edge, so the usual ``count > k`` test is one short. The terminal
+        path is removed here rather than serializing a truncated result.
+        """
+        try:
+            counts_by_header = state.loop_data.back_edge_trip_counts
+        except Exception:
+            return None
+        exceeded = []
+        for header, loop in getattr(loop_technique, "loops", {}).items():
+            counts = counts_by_header.get(header, [])
+            if not counts:
+                continue
+            completed = max(int(value) for value in counts)
+            self_loop = any(
+                int(source.addr) == int(header)
+                for source, _target in getattr(loop, "continue_edges", [])
+            )
+            threshold_exceeded = (
+                completed >= self.loop_bound
+                if self_loop
+                else completed > self.loop_bound
+            )
+            if threshold_exceeded:
+                exceeded.append(
+                    {
+                        "header": hex(int(header)),
+                        "back_edge_trip_count": completed,
+                        "shape": "self_loop_body" if self_loop else "condition_header",
+                    }
+                )
+        if not exceeded:
+            return None
+        return {
+            "state_address": hex(int(state.addr)),
+            "loops": exceeded,
+            "reason": "terminal_path_exceeds_loop_iteration_bound",
+            "bound": self.loop_bound,
+        }
     
     def analyze_states(self, states):
         """Analyze all states."""
@@ -927,6 +1070,7 @@ class BenchmarkSymbolicExecution:
         """
         summary = {
             "schema": "symbolicana.path_semantics.v3",
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
             "input_space": {
                 "kind": "path_constraints",
                 "constraint_count": len(state.solver.constraints),
@@ -1205,8 +1349,102 @@ class BenchmarkSymbolicExecution:
                 ranges.append((start, start + size, name))
         return ranges
 
+    def collect_global_objects(self):
+        """Collect named writable objects in static data/BSS/common sections."""
+        objects = []
+        seen = set()
+        try:
+            symbols = list(self.project.loader.main_object.symbols)
+        except Exception:
+            return objects
+        for symbol in symbols:
+            name = str(getattr(symbol, "name", "") or "")
+            size = int(getattr(symbol, "size", 0) or 0)
+            address = int(getattr(symbol, "rebased_addr", 0) or 0)
+            if (
+                not name
+                or name.startswith("_")
+                or size <= 0
+                or not address
+                or bool(getattr(symbol, "is_function", False))
+                or bool(getattr(symbol, "is_import", False))
+            ):
+                continue
+            region = next(
+                (
+                    (start, end, section)
+                    for start, end, section in self.global_write_ranges
+                    if start <= address and address + size <= end
+                ),
+                None,
+            )
+            if region is None:
+                continue
+            start, _end, section = region
+            key = (name, address, size)
+            if key in seen:
+                continue
+            seen.add(key)
+            objects.append(
+                {
+                    "name": name,
+                    "address": address,
+                    "size": size,
+                    "section": section,
+                    "rva": address - start,
+                    "writable": True,
+                }
+            )
+        return sorted(objects, key=lambda item: (item["name"], item["address"]))
+
+    def install_global_observation_scope(self, state):
+        objects = []
+        for item in self.global_objects:
+            object_copy = dict(item)
+            object_copy["initial_content_sha256"] = self.object_content_hash(
+                state, item
+            )
+            objects.append(object_copy)
+        state.globals["symbolicana_global_objects"] = objects
+        state.globals["symbolicana_global_scope"] = {
+            "schema": "symbolicana.global_scope.v1",
+            "objects": objects,
+            "cell_size_bytes": 8,
+            "address_model": "named_writable_objects",
+            "scope_complete": True,
+        }
+
+    def object_content_hash(self, state, item):
+        chunks = []
+        try:
+            for offset in range(0, int(item["size"]), 8):
+                size = min(8, int(item["size"]) - offset)
+                expr = state.memory.load(
+                    int(item["address"]) + offset,
+                    size=size,
+                    endness=state.arch.memory_endness,
+                )
+                chunks.append(
+                    {
+                        "offset": offset,
+                        "size": size,
+                        "expr": str(expr),
+                        "symbolic": bool(getattr(expr, "symbolic", False)),
+                    }
+                )
+        except Exception as exc:
+            return {"available": False, "reason": f"load_failed: {exc}"}
+        encoded = json.dumps(chunks, sort_keys=True, separators=(",", ":"))
+        return {
+            "available": True,
+            "sha256": hashlib.sha256(encoded.encode("utf-8")).hexdigest(),
+            "cells": len(chunks),
+            "contains_symbolic": any(cell["symbolic"] for cell in chunks),
+        }
+
     def extract_memory_summary(self, state):
         writes = []
+        unresolved = []
         try:
             actions = list(state.history.actions)
         except Exception:
@@ -1214,16 +1452,51 @@ class BenchmarkSymbolicExecution:
         for action in actions:
             if getattr(action, "type", None) != "mem" or getattr(action, "action", None) != "write":
                 continue
-            addr = self.safe_action_value(getattr(action, "addr", None), state)
+            addr, addr_reason = self.safe_action_int(
+                getattr(action, "addr", None), state
+            )
+            if addr is None:
+                unresolved.append(
+                    {
+                        "field": "address",
+                        "reason": addr_reason,
+                        "expr": self.safe_action_repr(
+                            getattr(action, "addr", None)
+                        ),
+                    }
+                )
+                continue
             if not self.is_observable_heap_or_global_address(addr, state):
                 continue
-            data = self.safe_action_value(getattr(action, "data", None), state)
-            size = self.safe_action_value(getattr(action, "size", None), state)
-            writes.append({"addr": addr, "data": data, "size": size})
+            size_bits, size_reason = self.safe_action_int(
+                getattr(action, "size", None), state
+            )
+            if size_bits is None or size_bits <= 0:
+                unresolved.append(
+                    {
+                        "field": "size",
+                        "reason": size_reason or "non_positive_size",
+                        "expr": self.safe_action_repr(
+                            getattr(action, "size", None)
+                        ),
+                    }
+                )
+                continue
+            writes.append(
+                {
+                    "addr": addr,
+                    "data": self.safe_action_repr(
+                        getattr(action, "data", None)
+                    ),
+                    "size_bits": size_bits,
+                    "size_bytes": (size_bits + 7) // 8,
+                }
+            )
         return {
-            "available": True,
+            "available": not unresolved,
             "writes": writes,
             "write_count": len(writes),
+            "unresolved": unresolved,
         }
 
     def extract_local_summary(self, state):
@@ -1250,8 +1523,10 @@ class BenchmarkSymbolicExecution:
         for action in actions:
             if getattr(action, "type", None) != "mem" or getattr(action, "action", None) != "write":
                 continue
-            addr = self.safe_action_value(getattr(action, "addr", None), state)
-            if not isinstance(addr, int):
+            addr, _reason = self.safe_action_int(
+                getattr(action, "addr", None), state
+            )
+            if addr is None:
                 continue
             rel = addr - initial_sp
             # Keep the current snippet frame and a small caller-spill band. Stack
@@ -1259,9 +1534,21 @@ class BenchmarkSymbolicExecution:
             # ABI/linkage writes near SP without swallowing unrelated memory.
             if rel < -0x10000 or rel > 0x100:
                 continue
-            data = self.safe_action_value(getattr(action, "data", None), state)
-            size = self.safe_action_value(getattr(action, "size", None), state)
-            writes.append({"offset": rel, "data": data, "size": size})
+            size_bits, _size_reason = self.safe_action_int(
+                getattr(action, "size", None), state
+            )
+            if size_bits is None or size_bits <= 0:
+                continue
+            writes.append(
+                {
+                    "offset": rel,
+                    "data": self.safe_action_repr(
+                        getattr(action, "data", None)
+                    ),
+                    "size_bits": size_bits,
+                    "size_bytes": (size_bits + 7) // 8,
+                }
+            )
         return {
             "available": True,
             "base": "snippet_initial_sp",
@@ -1270,14 +1557,18 @@ class BenchmarkSymbolicExecution:
         }
 
     def extract_global_summary(self, state):
-        """Snapshot the final symbolic value of every concretely written global cell.
-
-        Keys are section-relative so image-base relocation and consistent section
-        shifts do not affect cross-binary comparison.  Write order is deliberately
-        excluded: it remains available in ``memory_state`` only for diagnosis.
-        """
+        """Snapshot every byte range in the final global observation scope."""
         cells = {}
         unresolved = []
+        objects = state.globals.get("symbolicana_global_objects")
+        if not isinstance(objects, list):
+            return {
+                "available": False,
+                "reason": "global_observation_scope_missing",
+                "address_model": "named_writable_objects",
+                "regions": {},
+                "unresolved": [{"reason": "scope_missing"}],
+            }
         try:
             actions = list(state.history.actions)
         except Exception:
@@ -1285,36 +1576,91 @@ class BenchmarkSymbolicExecution:
         for action in actions:
             if getattr(action, "type", None) != "mem" or getattr(action, "action", None) != "write":
                 continue
-            addr = self.safe_action_value(getattr(action, "addr", None), state)
-            size_bits = self.safe_action_value(getattr(action, "size", None), state)
-            if not isinstance(addr, int):
-                unresolved.append({"address": addr, "reason": "symbolic_write_address"})
-                continue
-            region = next(
-                ((start, end, name) for start, end, name in self.global_write_ranges if start <= addr < end),
-                None,
+            addr, addr_reason = self.safe_action_int(
+                getattr(action, "addr", None), state
             )
-            if region is None:
+            if addr is None:
+                unresolved.append(
+                    {
+                        "address": None,
+                        "reason": f"symbolic_write_address:{addr_reason}",
+                    }
+                )
                 continue
-            if not isinstance(size_bits, int) or size_bits <= 0:
-                unresolved.append({"address": addr, "reason": "unknown_write_size"})
+            in_global = any(
+                start <= addr < end
+                for start, end, _name in self.global_write_ranges
+            )
+            if not in_global:
                 continue
-            start, end, name = region
-            size_bytes = max(1, (size_bits + 7) // 8)
-            if addr + size_bytes > end:
-                unresolved.append({"address": addr, "reason": "write_crosses_region"})
+            size_bits, size_reason = self.safe_action_int(
+                getattr(action, "size", None), state
+            )
+            if size_bits is None or size_bits <= 0:
+                unresolved.append(
+                    {
+                        "address": addr,
+                        "reason": f"unknown_write_size:{size_reason}",
+                    }
+                )
                 continue
-            canonical = f"{name}:{addr - start:#x}:{size_bytes}"
             try:
-                expr = state.memory.load(addr, size_bytes, endness=state.arch.memory_endness)
-                cells[canonical] = self.serialize_observable_expr(state, expr, canonical)
+                state.memory.load(
+                    addr,
+                    size=(size_bits + 7) // 8,
+                    endness=state.arch.memory_endness,
+                )
             except Exception as exc:
                 unresolved.append({"address": addr, "reason": f"load_failed:{exc}"})
+        for item in objects:
+            name = str(item.get("name") or "")
+            address = int(item.get("address") or 0)
+            size = int(item.get("size") or 0)
+            if not name or not address or size <= 0:
+                unresolved.append(
+                    {"address": address, "reason": "invalid_global_object"}
+                )
+                continue
+            for offset in range(0, size, 8):
+                chunk = min(8, size - offset)
+                canonical = f"{name}@{offset:#x}:{chunk}"
+                try:
+                    expr = state.memory.load(
+                        address + offset,
+                        size=chunk,
+                        endness=state.arch.memory_endness,
+                    )
+                    cell = self.serialize_observable_expr(
+                        state, expr, canonical
+                    )
+                    cell.update(
+                        {
+                            "object": name,
+                            "offset": offset,
+                            "size_bytes": chunk,
+                            "section": item.get("section"),
+                            "object_rva": item.get("rva"),
+                            "initial_content_sha256": item.get(
+                                "initial_content_sha256"
+                            ),
+                        }
+                    )
+                    cells[canonical] = cell
+                except Exception as exc:
+                    unresolved.append(
+                        {
+                            "address": address + offset,
+                            "reason": f"load_failed:{exc}",
+                        }
+                    )
+        scope = state.globals.get("symbolicana_global_scope") or {}
         return {
             "available": not unresolved,
-            "address_model": "section_relative_written_cells",
+            "address_model": "named_writable_objects",
             "regions": cells,
             "unresolved": unresolved,
+            "scope": scope,
+            "cell_size_bytes": 8,
         }
 
     def serialize_observable_expr(self, state, expr, canonical):
@@ -1346,16 +1692,23 @@ class BenchmarkSymbolicExecution:
             pass
         return False
 
-    def safe_action_value(self, value, state):
+    def safe_action_int(self, value, state):
         if value is None:
-            return None
+            return None, "missing_value"
         ast = getattr(value, "ast", value)
+        if isinstance(ast, int):
+            return ast, None
         try:
             if hasattr(ast, "symbolic") and not ast.symbolic:
-                return state.solver.eval(ast, cast_to=int)
+                return int(state.solver.eval(ast, cast_to=int)), None
         except Exception:
-            pass
-        return str(ast)
+            return None, "concrete_eval_failed"
+        return None, "symbolic_value"
+
+    def safe_action_repr(self, value):
+        if value is None:
+            return None
+        return str(getattr(value, "ast", value))
     
 
     
@@ -1377,7 +1730,7 @@ class BenchmarkSymbolicExecution:
 class BenchmarkAnalyzer:
     """Batch analyzer for benchmarks."""
     
-    def __init__(self, benchmark_dir, timeout=120):
+    def __init__(self, benchmark_dir, timeout=SYMBOLIC_EXECUTION_TIMEOUT_SECONDS):
         self.benchmark_dir = benchmark_dir
         self.timeout = timeout
         self.results = {}
@@ -1437,7 +1790,12 @@ def main():
     parser = argparse.ArgumentParser(description='Improved symbolic execution analysis tool')
     parser.add_argument('--benchmark', help='Benchmark directory for batch analysis')
     parser.add_argument('--binary', help='Single binary path')
-    parser.add_argument('--timeout', type=int, default=120, help='Symbolic execution timeout (seconds)')
+    parser.add_argument(
+        '--timeout',
+        type=int,
+        default=SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
+        help='Symbolic execution timeout (seconds)',
+    )
     parser.add_argument('--output-prefix', help='Output file prefix')
     parser.add_argument('--signature', help='Snippet signature, e.g. double(double,int)')
     parser.add_argument('--loop-bound', type=int, default=30, help='Per-loop iteration bound (default: 30)')
@@ -1446,6 +1804,7 @@ def main():
     parser.add_argument('--int-max', type=int, default=None)
     parser.add_argument('--float-min', type=float, default=None)
     parser.add_argument('--float-max', type=float, default=None)
+    parser.add_argument('--profile-id', default=PAPER_PROFILE_ID)
     args = parser.parse_args()
     if args.benchmark:
         print(f"Starting batch analysis: {args.benchmark}")
@@ -1465,6 +1824,7 @@ def main():
             args.int_max,
             args.float_min,
             args.float_max,
+            args.profile_id,
         )
         results = analyzer.run_symbolic_execution()
         print(f"Done. Found {len(results)} paths")

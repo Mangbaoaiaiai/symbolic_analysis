@@ -175,6 +175,21 @@ int client(int c, int d) {
             with self.assertRaisesRegex(ValueError, "no observable global"):
                 wrap_function_source(source, "wood")
 
+    def test_void_function_with_supported_printf_is_accepted(self) -> None:
+        with TemporaryDirectory() as raw_tmp:
+            source = Path(raw_tmp) / "oldV.c"
+            source.write_text(
+                "#include <stdio.h>\n"
+                "void wood(double x) {\n"
+                "  if (x > 0.0) { printf(\"positive\\n\"); }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            wrapped = wrap_function_source(source, "wood")
+            self.assertIn("void __benchmark_wood(double x)", wrapped)
+            self.assertIn("int snippet(double x)", wrapped)
+            self.assertIn("__benchmark_wood(x); return 0;", wrapped)
+
 
 if __name__ == "__main__":
     unittest.main()

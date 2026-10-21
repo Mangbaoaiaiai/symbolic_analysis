@@ -1,0 +1,7 @@
+category,cases
+incomplete_symbolic_exploration,26
+no_complete_paths,1
+sigkill_or_oom,44
+symbolic_timeout,23
+unsupported_harness,28
+verifier_or_semantic_unknown,13

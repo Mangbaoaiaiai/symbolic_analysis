@@ -1,7 +1,0 @@
-"case_id","family","program","ground_truth","source_case"
-"tcas/altseptest_Eq","tcas","altseptest","EQ","tcas/altseptest/Eq"
-"tcas/altseptest_NEq","tcas","altseptest","NEQ","tcas/altseptest/Neq"
-"tcas/NonCrossingBiasedClimb_Eq","tcas","NonCrossingBiasedClimb","EQ","tcas/NonCrossingBiasedClimb/Eq"
-"tcas/NonCrossingBiasedClimb_NEq","tcas","NonCrossingBiasedClimb","NEQ","tcas/NonCrossingBiasedClimb/Neq"
-"tcas/NonCrossingBiasedDescend_Eq","tcas","NonCrossingBiasedDescend","EQ","tcas/NonCrossingBiasedDescend/Eq"
-"tcas/NonCrossingBiasedDescend_NEq","tcas","NonCrossingBiasedDescend","NEQ","tcas/NonCrossingBiasedDescend/Neq"

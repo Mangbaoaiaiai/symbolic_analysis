@@ -20,6 +20,10 @@ from symbolic_analysis.analysis.hybrid_path_matching import (  # noqa: E402
     hybrid_rank_paths,
     load_matching_bb_map,
 )
+from symbolic_analysis.profile import (  # noqa: E402
+    HYBRID_MARGIN_THRESHOLD,
+    HYBRID_TOP1_THRESHOLD,
+)
 
 
 def main() -> None:
@@ -31,8 +35,12 @@ def main() -> None:
     parser.add_argument("--old-path", type=Path, action="append", default=[], help="Single original path file.")
     parser.add_argument("--new-path", type=Path, action="append", default=[], help="Single patched path file.")
     parser.add_argument("--matching-bb-map", type=Path, default=None, help="JSON map of old basic-block/instruction addresses to new addresses.")
-    parser.add_argument("--high-threshold", type=float, default=0.80)
-    parser.add_argument("--margin-threshold", type=float, default=0.05)
+    parser.add_argument(
+        "--high-threshold", type=float, default=HYBRID_TOP1_THRESHOLD
+    )
+    parser.add_argument(
+        "--margin-threshold", type=float, default=HYBRID_MARGIN_THRESHOLD
+    )
     parser.add_argument("--graph-min-score", type=float, default=0.01)
     parser.add_argument("--graph-weight", type=float, default=1.0)
     parser.add_argument("--feature-weight", type=float, default=0.0)

@@ -16,11 +16,23 @@ import json
 import os
 import re
 import subprocess
+import sys
 import time
 from dataclasses import asdict, dataclass, field
 from enum import Enum
 from pathlib import Path
 from typing import Any, Iterable, Optional
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
+
+from symbolic_analysis.profile import (  # noqa: E402
+    HYBRID_MARGIN_THRESHOLD,
+    HYBRID_TOP1_THRESHOLD,
+    PAPER_PROFILE_ID,
+    SMT_TIMEOUT_MS,
+    SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
+    paper_profile,
+)
 
 
 class Group(str, Enum):
@@ -80,6 +92,9 @@ class TraceStats:
 @dataclass
 class RankingStats:
     valid_queries: int = 0
+    all_queries: int = 0
+    unknown_queries: int = 0
+    no_related_queries: int = 0
     hit_at_1: int = 0
     hit_at_3: int = 0
     reciprocal_rank_sum: float = 0.0
@@ -139,6 +154,9 @@ class GroupResult:
             "mrr": self.ranking.mrr,
             "ranking_queries": self.ranking.valid_queries,
             "ranking_missing": self.ranking.missing,
+            "ranking_all_queries": self.ranking.all_queries,
+            "ranking_unknown_queries": self.ranking.unknown_queries,
+            "ranking_no_related_queries": self.ranking.no_related_queries,
             "t_se": self.timing.t_se,
             "t_align": self.timing.t_align,
             "t_smt": self.timing.t_smt,
@@ -148,6 +166,13 @@ class GroupResult:
             "aligned_pairs": self.pairing.aligned_pairs,
             "correct_pairs": self.pairing.correct_pairs,
             "smt_calls": self.pairing.smt_calls,
+            "one_to_many_old_to_new": self.extra.get("one_to_many_old_to_new", 0),
+            "one_to_many_new_to_old": self.extra.get("one_to_many_new_to_old", 0),
+            "one_to_many_cases": self.extra.get("one_to_many_cases", 0),
+            "profile_id": self.extra.get("profile_id", ""),
+            "evaluation_wall_seconds": self.extra.get(
+                "evaluation_wall_seconds"
+            ),
             "command": " ".join(self.command),
             "stdout_path": str(self.stdout_path) if self.stdout_path else None,
             "stderr_path": str(self.stderr_path) if self.stderr_path else None,
@@ -217,18 +242,27 @@ class ToolRunner:
         # this container runtime. Redirect directly to the persisted log files
         # and read them back after the child exits. The tool's output contract
         # remains unchanged for callers that parse stdout.
-        with stdout_path.open("w", encoding="utf-8", errors="replace") as stdout_stream:
-            with stderr_path.open("w", encoding="utf-8", errors="replace") as stderr_stream:
-                completed = subprocess.run(
-                    command,
-                    cwd=self.config.root,
-                    env=command_env,
-                    text=True,
-                    stdout=stdout_stream,
-                    stderr=stderr_stream,
-                    timeout=self.config.timeout,
-                    check=False,
-                )
+        try:
+            with stdout_path.open("w", encoding="utf-8", errors="replace") as stdout_stream:
+                with stderr_path.open("w", encoding="utf-8", errors="replace") as stderr_stream:
+                    completed = subprocess.run(
+                        command,
+                        cwd=self.config.root,
+                        env=command_env,
+                        text=True,
+                        stdout=stdout_stream,
+                        stderr=stderr_stream,
+                        timeout=self.config.timeout,
+                        check=False,
+                    )
+        except subprocess.TimeoutExpired:
+            completed = subprocess.CompletedProcess(
+                command,
+                124,
+                "",
+                f"tool timeout after {self.config.timeout} seconds\n",
+            )
+            stderr_path.write_text(completed.stderr, encoding="utf-8")
         elapsed = time.perf_counter() - start
         completed.stdout = stdout_path.read_text(encoding="utf-8", errors="replace")
         completed.stderr = stderr_path.read_text(encoding="utf-8", errors="replace")
@@ -270,12 +304,18 @@ class NaiveMatchingRunner(ToolRunner):
 
         try:
             completed, elapsed, stdout_path, stderr_path, trace_path = self._run_command(
-                pair, command, "naive"
+                pair, command, "naive", env=symbolic_env(self.config)
             )
             result.stdout_path = stdout_path
             result.stderr_path = stderr_path
             result.trace_paths.append(trace_path)
-            result.status = "ok" if completed.returncode == 0 else "failed"
+            result.status = (
+                "ok" if completed.returncode in {0, 124} else "failed"
+            )
+            result.extra["evaluation_wall_seconds"] = elapsed
+            if completed.returncode == 124:
+                result.error = "tool_timeout"
+                result.extra["failure_kind"] = "timeout"
             apply_verification_report(result, report_path, fallback_elapsed=elapsed)
             apply_trace_stats(result, [trace_path])
         except Exception as exc:  # noqa: BLE001 - evaluation harness records failures.
@@ -347,12 +387,18 @@ class VeriBinAlignRunner(ToolRunner):
             result.extra["report_path"] = str(report_path)
             try:
                 completed, elapsed, stdout_path, stderr_path, trace_path = self._run_command(
-                    pair, command, "veribin_align"
+                    pair, command, "veribin_align", env=symbolic_env(self.config)
                 )
                 result.stdout_path = stdout_path
                 result.stderr_path = stderr_path
                 result.trace_paths.append(trace_path)
-                result.status = "ok" if completed.returncode == 0 else "failed"
+                result.status = (
+                    "ok" if completed.returncode in {0, 124} else "failed"
+                )
+                result.extra["evaluation_wall_seconds"] = elapsed
+                if completed.returncode == 124:
+                    result.error = "tool_timeout"
+                    result.extra["failure_kind"] = "timeout"
                 apply_verification_report(result, report_path, fallback_elapsed=elapsed)
                 apply_trace_stats(result, [trace_path])
             except Exception as exc:  # noqa: BLE001
@@ -372,7 +418,13 @@ class VeriBinAlignRunner(ToolRunner):
             result.stdout_path = stdout_path
             result.stderr_path = stderr_path
             result.trace_paths.append(trace_path)
-            result.status = "ok" if completed.returncode == 0 else "failed"
+            result.status = (
+                "ok" if completed.returncode in {0, 124} else "failed"
+            )
+            result.extra["evaluation_wall_seconds"] = elapsed
+            if completed.returncode == 124:
+                result.error = "tool_timeout"
+                result.extra["failure_kind"] = "timeout"
             result.timing = parse_veribin_timing(completed.stdout, fallback_total=elapsed)
             result.pairing = parse_veribin_output(completed.stdout)
             apply_trace_stats(result, [trace_path])
@@ -417,9 +469,9 @@ class FmcadAlignRunner(ToolRunner):
             "--new-prefix",
             "symbolic_newV",
             "--high-threshold",
-            "0.70",
+            str(HYBRID_TOP1_THRESHOLD),
             "--margin-threshold",
-            "0.05",
+            str(HYBRID_MARGIN_THRESHOLD),
             "--out",
             str(ranking_path),
         ]
@@ -468,13 +520,19 @@ class FmcadAlignRunner(ToolRunner):
             extend_truth_args(verify_command, pair, self.config.use_ground_truth_path_matches)
             result.command = verify_command
             completed, elapsed, stdout_path, stderr_path, verify_trace_path = self._run_command(
-                pair, verify_command, "fmcad_verify"
+                pair, verify_command, "fmcad_verify", env=self._env()
             )
             result.stdout_path = stdout_path
             result.stderr_path = stderr_path
             trace_paths.append(verify_trace_path)
             result.trace_paths.extend(trace_paths)
-            result.status = "ok" if completed.returncode == 0 else "failed"
+            result.status = (
+                "ok" if completed.returncode in {0, 124} else "failed"
+            )
+            result.extra["evaluation_wall_seconds"] = elapsed
+            if completed.returncode == 124:
+                result.error = "tool_timeout"
+                result.extra["failure_kind"] = "timeout"
             apply_verification_report(result, report_path, fallback_elapsed=elapsed)
             apply_trace_stats(result, result.trace_paths)
         except Exception as exc:  # noqa: BLE001
@@ -590,6 +648,7 @@ def load_manifest(manifest: Path) -> list[BinaryPair]:
             "basic_block_map_path",
             "ranking_paths",
             "ground_truth_pairs",
+            "path_truth",
             "correct_path_pairs",
             "path_pairs",
             "func_addr_old",
@@ -734,6 +793,17 @@ def apply_verification_report(result: GroupResult, report_path: Path, fallback_e
     result.extra["unknown_smt_results"] = int(data.get("unknowns", 0) or 0)
     result.extra["semantic_definition"] = data.get("semantic_definition")
     result.extra["semantic_modes"] = data.get("semantic_modes")
+    result.extra["profile_id"] = data.get("profile_id", "")
+    matching_counts = data.get("matching_counts") or {}
+    result.extra["one_to_many_old_to_new"] = int(
+        matching_counts.get("one_to_many_old_to_new", 0) or 0
+    )
+    result.extra["one_to_many_new_to_old"] = int(
+        matching_counts.get("one_to_many_new_to_old", 0) or 0
+    )
+    result.extra["one_to_many_cases"] = int(
+        matching_counts.get("one_to_many_cases", 0) or 0
+    )
 
 
 def parse_veribin_timing(output: str, fallback_total: float) -> TimingStats:
@@ -982,6 +1052,7 @@ def apply_ranking_metrics(
     external_ranking_truth: dict[str, dict[str, set[str]]],
 ) -> None:
     truth_by_pair: dict[str, dict[str, set[str]]] = {}
+    status_by_pair: dict[str, dict[str, str]] = {}
     for pair in pairs:
         raw_pairs = first_present(
             pair.metadata,
@@ -993,6 +1064,9 @@ def apply_ranking_metrics(
         parsed = normalize_truth_pairs(raw_pairs)
         if parsed:
             truth_by_pair[pair.pair_id] = parsed
+        raw_path_truth = pair.metadata.get("path_truth")
+        if isinstance(raw_path_truth, dict):
+            status_by_pair[pair.pair_id] = path_truth_status(raw_path_truth)
     truth_by_pair.update(external_ranking_truth)
 
     for result in results:
@@ -1002,7 +1076,11 @@ def apply_ranking_metrics(
         candidates = load_ranking_candidates(result)
         if not candidates:
             continue
-        result.ranking = compute_ranking_stats(candidates, truth_pairs)
+        result.ranking = compute_ranking_stats(
+            candidates,
+            truth_pairs,
+            status_by_pair.get(result.pair_id),
+        )
 
 
 def apply_precomputed_ranking_timing(results: list[GroupResult]) -> None:
@@ -1160,9 +1238,28 @@ def merge_candidate_map(dst: dict[str, list[str]], src: dict[str, list[str]]) ->
 def compute_ranking_stats(
     candidates_by_query: dict[str, list[str]],
     truth_by_query: dict[str, set[str]],
+    status_by_query: dict[str, str] | None = None,
 ) -> RankingStats:
     stats = RankingStats()
-    for query, correct_targets in truth_by_query.items():
+    status_by_query = status_by_query or {}
+    stats.all_queries = len(status_by_query) or len(truth_by_query)
+    stats.unknown_queries = sum(
+        1 for status in status_by_query.values() if status == "unknown"
+    )
+    stats.no_related_queries = sum(
+        1 for status in status_by_query.values() if status == "unsat"
+    )
+    eligible_queries = {
+        query
+        for query, status in status_by_query.items()
+        if status == "sat" and truth_by_query.get(query)
+    }
+    if not status_by_query:
+        eligible_queries = {
+            query for query, targets in truth_by_query.items() if targets
+        }
+    for query in sorted(eligible_queries):
+        correct_targets = truth_by_query[query]
         stats.valid_queries += 1
         candidates = candidates_by_query.get(norm_path_id(query), [])
         rank = first_correct_rank(candidates, correct_targets)
@@ -1176,6 +1273,23 @@ def compute_ranking_stats(
             stats.hit_at_3 += 1
         stats.reciprocal_rank_sum += 1.0 / rank
     return stats
+
+
+def path_truth_status(payload: dict[str, Any]) -> dict[str, str]:
+    statuses = {}
+    for item in payload.get("queries", []):
+        if not isinstance(item, dict):
+            continue
+        query = str(item.get("query") or "")
+        if not query:
+            continue
+        if item.get("unknown_targets"):
+            statuses[query] = "unknown"
+        elif item.get("related_targets"):
+            statuses[query] = "sat"
+        else:
+            statuses[query] = "unsat"
+    return statuses
 
 
 def first_correct_rank(candidates: list[str], correct_targets: set[str]) -> Optional[int]:
@@ -1674,13 +1788,13 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--timeout",
         type=int,
-        default=3600,
+        default=SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
         help="Wall-clock cap for one external verifier process, in seconds.",
     )
     parser.add_argument(
         "--smt-timeout-ms",
         type=int,
-        default=60_000,
+        default=SMT_TIMEOUT_MS,
         help="Timeout for each SMT query, in milliseconds (paper: 60000).",
     )
     parser.add_argument("--python", default=os.environ.get("PYTHON", "python3"))

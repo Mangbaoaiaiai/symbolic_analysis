@@ -1,0 +1,45 @@
+FROM eclipse-temurin:11-jdk-jammy AS jdk
+
+FROM symbolicana-paper:latest
+
+ARG BINDIFF_URL=https://github.com/google/bindiff/releases/download/v8/bindiff_8_amd64.deb
+ARG GHIDRA_URL=https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_9.2.3_build/ghidra_9.2.3_PUBLIC_20210325.zip
+ARG BINEXPORT_URL=https://github.com/google/binexport/releases/download/v12-20210517-rc4/ghidra_BinExport.zip
+ARG BINDIFF_SHA256=821990e3974a9df6733794370e485486ac276ba5d777a06b4ebe575f092f4dda
+ARG GHIDRA_SHA256=9019c78f8b38d68fd40908b040466974a370e26ba51b2aaearc744171040f714
+ARG BINEXPORT_SHA256=edf05a47b3195085ec4559e6f0fe545f08f1d17cf2d53989ca8d8083d582a247
+
+COPY --from=jdk /opt/java/openjdk /opt/jdk11
+
+RUN apt-get -o Acquire::Retries=5 update \
+    && apt-get -o Acquire::Retries=5 install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fL --retry 5 -o /tmp/bindiff.deb "$BINDIFF_URL" \
+    && curl -fL --retry 5 -o /tmp/ghidra.zip "$GHIDRA_URL" \
+    && curl -fL --retry 5 -o /tmp/binexport.zip "$BINEXPORT_URL" \
+    && echo "$BINDIFF_SHA256  /tmp/bindiff.deb" | sha256sum -c - \
+    && echo "$GHIDRA_SHA256  /tmp/ghidra.zip" | sha256sum -c - \
+    && echo "$BINEXPORT_SHA256  /tmp/binexport.zip" | sha256sum -c - \
+    && dpkg-deb -x /tmp/bindiff.deb /tmp/bindiff-root \
+    && mv /tmp/bindiff-root/opt/bindiff /opt/bindiff \
+    && mkdir -p /opt/ghidra /tmp/ghidra-root \
+    && unzip -q /tmp/ghidra.zip -d /tmp/ghidra-root \
+    && cp -a /tmp/ghidra-root/ghidra_9.2.3_PUBLIC/. /opt/ghidra/ \
+    && unzip -p /tmp/binexport.zip BinExport/lib/BinExport.jar \
+        > /opt/ghidra/Ghidra/Features/Base/lib/BinExport.jar \
+    && chmod +x /opt/bindiff/bin/bindiff /opt/bindiff/bin/binexport2dump \
+        /opt/ghidra/support/analyzeHeadless \
+    && rm -rf /tmp/bindiff.deb /tmp/bindiff-root /tmp/ghidra.zip \
+        /tmp/ghidra-root /tmp/binexport.zip
+
+ENV JAVA_HOME=/opt/jdk11
+ENV PATH=/opt/jdk11/bin:/opt/bindiff/bin:/opt/ghidra/support:$PATH
+
+COPY scripts/ghidra/BinExportHeadless.java \
+    /opt/ghidra/Ghidra/Features/Base/ghidra_scripts/BinExportHeadless.java
+
+LABEL org.opencontainers.image.title="symbolicana-bindiff"
+LABEL org.opencontainers.image.description="Symbolicana with BinDiff 8 and Ghidra 9.2.3"

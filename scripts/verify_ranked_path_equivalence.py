@@ -5,11 +5,15 @@ from __future__ import annotations
 
 import ast
 import argparse
+import hashlib
 import json
+import math
 import re
 import struct
 import subprocess
 import time
+from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -19,17 +23,29 @@ from z3 import (
     BitVecVal,
     BoolVal,
     Context,
+    ExprRef,
     FPNumRef,
     Not,
     Or,
     Solver,
     fpToIEEEBV,
+    is_app,
+    is_bv_value,
+    is_fp_value,
+    is_int_value,
+    is_quantifier,
     parse_smt2_string,
     sat,
-    simplify,
     unsat,
 )
 from z3.z3util import get_vars
+from symbolic_analysis.profile import (
+    FULL_INPUT_SPACE,
+    PAPER_PROFILE_ID,
+    SEMANTIC_CONTRACT,
+    SMT_TIMEOUT_MS,
+    profile_for_input_domains,
+)
 
 # Paper Section 4.1 uses 60 seconds for every path-pair SMT comparison.
 RETURN_EQ_TIMEOUT_MS = 60_000
@@ -38,6 +54,18 @@ RETURN_EQ_TIMEOUT_MS = 60_000
 # verification.
 NEQ_PRESCAN_BUDGET_MS = 15_000
 NEQ_PRESCAN_PAIR_TIMEOUT_MS = 2_000
+
+# Source-free UB heuristic. A concrete replay is rejected only when both
+# sides independently look like undefined behaviour. Unknown execution
+# status is intentionally treated as NEQ under the current experimental
+# policy; this is an empirical policy, not a proof of C undefined behaviour.
+DEFINEDNESS_POLICY = "anomaly_v1_unknown_as_neq"
+REPLAY_REPETITIONS = 3
+UB_LIKE_FLAGS = {"crash", "inf", "nan", "subnormal", "unstable"}
+_HEX_FLOAT_RE = re.compile(
+    r"(?<![A-Za-z0-9_.])[-+]?0x(?:[0-9a-f]+(?:\.[0-9a-f]*)?|\.[0-9a-f]+)p[-+]?\d+(?![A-Za-z0-9_.])",
+    re.IGNORECASE,
+)
 
 
 def clean_smt(content: str) -> str:
@@ -122,6 +150,7 @@ def verify_semantic_path_pair(left: Path, right: Path, timeout_ms: int) -> tuple
         "memory_state_equivalent": None,
         "global_state_equivalent": None,
         "semantic_mode": "input_return_output_global_state",
+        "semantic_contract": dict(SEMANTIC_CONTRACT),
     }
 
     input_eq, input_time = verify_path_pair(left, right, timeout_ms)
@@ -151,10 +180,11 @@ def verify_semantic_path_pair(left: Path, right: Path, timeout_ms: int) -> tuple
         return output_eq, total_time, details
 
     details["memory_state_equivalent"] = "auxiliary_not_checked"
-    global_eq, global_time, _global_calls = verify_global_state_equivalence(
+    global_eq, global_time, _global_calls, global_mapping = verify_global_state_equivalence(
         left_summary, right_summary, timeout_ms, left, right
     )
     total_time += global_time
+    details["global_mapping"] = global_mapping
     details["global_state_equivalent"] = global_eq
     if global_eq is not True:
         return global_eq, total_time, details
@@ -175,6 +205,38 @@ def verify_semantic_path_relation(
     ctx = Context()
     left_constraint = parse_formula(left, ctx)
     right_constraint = parse_formula(right, ctx)
+    input_specs = concrete_input_specs(
+        collect_variables(left_constraint, right_constraint)
+    )
+    concrete_replay = replay_standard_inputs(left, right, input_specs)
+    standard_observations = (
+        list(concrete_replay.get("observations", []))
+        if concrete_replay is not None
+        else []
+    )
+    if (
+        concrete_replay is not None
+        and concrete_replay.get("counterexample") is not None
+    ):
+        details = {
+            "input_overlap": "sat",
+            "return_value_equivalent": False,
+            "program_output_equivalent": False,
+            "memory_state_equivalent": None,
+            "global_state_equivalent": None,
+            "semantic_mode": "concrete_program_domain_replay",
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
+            "counterexample": {"inputs": concrete_replay["counterexample"]},
+            "counterexample_source": "standard_domain_seed_replay",
+            "replay": concrete_replay["replay"],
+            "definedness_observations": standard_observations,
+        }
+        return (
+            False,
+            time.perf_counter() - start,
+            0,
+            details,
+        )
     overlap_solver = Solver(ctx=ctx)
     overlap_solver.set("timeout", timeout_ms)
     overlap_solver.add(left_constraint, right_constraint)
@@ -190,7 +252,11 @@ def verify_semantic_path_relation(
         "memory_state_equivalent": None,
         "global_state_equivalent": None,
         "semantic_mode": "input_return_output_global_state_overlap",
+        "semantic_contract": dict(SEMANTIC_CONTRACT),
+        "definedness_policy": DEFINEDNESS_POLICY,
     }
+    if standard_observations:
+        details["definedness_observations"] = standard_observations
     if overlap_status == unsat:
         return False, elapsed, smt_calls, details
     if overlap_status != sat:
@@ -204,6 +270,36 @@ def verify_semantic_path_relation(
 
     left_return = left_summary.get("return_value") or {}
     right_return = right_summary.get("return_value") or {}
+    if overlap_model is not None:
+        seed_inputs = concrete_inputs_from_variables(
+            overlap_model,
+            collect_variables(left_constraint, right_constraint),
+        )
+        for inputs in unique_input_seeds(
+            [
+                seed_inputs,
+                sample_inputs_from_path(left),
+                sample_inputs_from_path(right),
+            ]
+        ):
+            replay = replay_counterexample(
+                left,
+                right,
+                {"inputs": inputs},
+            )
+            if replay.get("confirmed"):
+                details["return_value_equivalent"] = False
+                details["counterexample"] = {"inputs": inputs}
+                details["counterexample_source"] = (
+                    "path_overlap_model_replay"
+                )
+                details["replay"] = replay
+                return (
+                    False,
+                    elapsed,
+                    smt_calls,
+                    details,
+                )
     return_eq: bool | None = None
     return_time = 0.0
     return_calls = 0
@@ -246,8 +342,21 @@ def verify_semantic_path_relation(
                     left_summary, right_summary, timeout_ms, left, right
                 )
             details["counterexample"] = counterexample
-            details["replay"] = replay_counterexample(left, right, counterexample)
-        return return_eq, elapsed, smt_calls, details
+            replay = replay_counterexample(left, right, counterexample)
+            details["replay"] = replay
+            if replay_rejected_as_both_ub(replay):
+                details["definedness_rejected_return"] = counterexample
+                details["definedness_reason"] = "both_ub_like"
+                details["conditional_eq"] = True
+                merge_replay_observations(
+                    details,
+                    replay,
+                    source="return_counterexample_replay",
+                    inputs=(counterexample or {}).get("inputs"),
+                )
+                return_eq = True
+        if return_eq is not True:
+            return return_eq, elapsed, smt_calls, details
 
     output_eq, output_time, output_calls = verify_output_equivalence(
         left_summary, right_summary, timeout_ms, left, right
@@ -265,20 +374,157 @@ def verify_semantic_path_relation(
                 right,
             )
             details["output_counterexample"] = counterexample
-            details["replay"] = replay_counterexample(left, right, counterexample)
-        return output_eq, elapsed, smt_calls, details
+            replay = replay_counterexample(left, right, counterexample)
+            details["replay"] = replay
+            if replay_rejected_as_both_ub(replay):
+                details["definedness_rejected_output"] = counterexample
+                details["definedness_reason"] = "both_ub_like"
+                details["conditional_eq"] = True
+                merge_replay_observations(
+                    details,
+                    replay,
+                    source="output_counterexample_replay",
+                    inputs=(counterexample or {}).get("inputs"),
+                )
+                output_eq = True
+        if output_eq is not True:
+            return output_eq, elapsed, smt_calls, details
 
     details["memory_state_equivalent"] = "auxiliary_not_checked"
-    global_eq, global_time, global_calls = verify_global_state_equivalence(
+    global_eq, global_time, global_calls, global_mapping = verify_global_state_equivalence(
         left_summary, right_summary, timeout_ms, left, right
     )
     elapsed += global_time
     smt_calls += global_calls
+    details["global_mapping"] = global_mapping
     details["global_state_equivalent"] = global_eq
     if global_eq is not True:
+        details["global_state_reason"] = (
+            "symbolic_global_difference_unreplayed"
+            if global_eq is False
+            else "symbolic_global_evidence_incomplete"
+        )
         return global_eq, elapsed, smt_calls, details
 
     return True, elapsed, smt_calls, details
+
+
+def replay_rejected_as_both_ub(replay: dict[str, Any]) -> bool:
+    return bool(replay) and replay.get("reason") == "both_ub_like"
+
+
+def compact_replay_run(run: Any) -> dict[str, Any] | None:
+    if not isinstance(run, dict):
+        return None
+    return {
+        "completed": run.get("completed"),
+        "returncode": run.get("returncode"),
+        "stdout": run.get("stdout"),
+        "stderr": run.get("stderr"),
+    }
+
+
+def make_replay_observation(
+    replay: dict[str, Any],
+    *,
+    source: str = "counterexample_replay",
+    inputs: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Build a stable, compact event suitable for the final audit report."""
+    samples = {
+        "left": [
+            compact_replay_run(sample)
+            for sample in replay.get("left_samples", [])
+        ],
+        "right": [
+            compact_replay_run(sample)
+            for sample in replay.get("right_samples", [])
+        ],
+    }
+    variant_payload = {
+        "classification": replay.get("classification"),
+        "reason": replay.get("reason"),
+        "stdin": replay.get("stdin"),
+        "observable_output_diff": replay.get("observable_output_diff"),
+        "left_flags": replay.get("left_flags", []),
+        "right_flags": replay.get("right_flags", []),
+        "left": compact_replay_run(replay.get("left")),
+        "right": compact_replay_run(replay.get("right")),
+        "samples": samples,
+    }
+    variant_digest = hashlib.sha256(
+        json.dumps(
+            variant_payload,
+            sort_keys=True,
+            ensure_ascii=True,
+            default=str,
+        ).encode("utf-8")
+    ).hexdigest()
+    logical_payload = {
+        "classification": replay.get("classification"),
+        "stdin": replay.get("stdin"),
+        "inputs": inputs,
+    }
+    logical_digest = hashlib.sha256(
+        json.dumps(
+            logical_payload,
+            sort_keys=True,
+            ensure_ascii=True,
+            default=str,
+        ).encode("utf-8")
+    ).hexdigest()
+    variant = {
+        "variant_id": f"replay-variant:{variant_digest}",
+        "source": source,
+        "left_flags": list(replay.get("left_flags", [])),
+        "right_flags": list(replay.get("right_flags", [])),
+        "left": compact_replay_run(replay.get("left")),
+        "right": compact_replay_run(replay.get("right")),
+        "samples": samples,
+    }
+    event = {
+        "event_id": f"witness:{logical_digest}",
+        "source": source,
+        "sources": [source],
+        "occurrences": 1,
+        "classification": replay.get("classification"),
+        "reason": replay.get("reason"),
+        "definedness_policy": replay.get(
+            "definedness_policy", DEFINEDNESS_POLICY
+        ),
+        "stdin": replay.get("stdin"),
+        "observable_output_diff": replay.get("observable_output_diff"),
+        "left_flags": list(replay.get("left_flags", [])),
+        "right_flags": list(replay.get("right_flags", [])),
+        "left": compact_replay_run(replay.get("left")),
+        "right": compact_replay_run(replay.get("right")),
+        "samples": samples,
+        "variants": [variant],
+    }
+    if inputs is not None:
+        event["inputs"] = inputs
+    return event
+
+
+def merge_replay_observations(
+    target: dict[str, Any],
+    replay: dict[str, Any],
+    *,
+    source: str,
+    inputs: list[dict[str, Any]] | None = None,
+) -> None:
+    event = make_replay_observation(
+        replay,
+        source=source,
+        inputs=inputs,
+    )
+    observations = target.setdefault("definedness_observations", [])
+    if not any(
+        existing.get("event_id") == event["event_id"]
+        for existing in observations
+        if isinstance(existing, dict)
+    ):
+        observations.append(event)
 
 
 def verify_return_equivalence(
@@ -299,7 +545,7 @@ def verify_return_equivalence(
     left_smt = left_return.get("smt")
     right_smt = right_return.get("smt")
     if not left_smt or not right_smt:
-        return (left_return.get("repr") == right_return.get("repr")), 0.0
+        return None, 0.0
     equivalent, elapsed, _calls = verify_return_smt_equivalence(
         left_return, right_return, timeout_ms, left_path, right_path
     )
@@ -380,12 +626,26 @@ def verify_output_equivalence(
             or int(left.get("bits", 0) or 0) <= 0
         ):
             return False, total_time, calls
-        if (
-            left.get("repr")
-            and right.get("repr")
-            and left.get("repr") == right.get("repr")
-        ):
-            continue
+        left_smt = left.get("smt")
+        right_smt = right.get("smt")
+        left_var = summary_variable_name(
+            left_smt, left.get("variable")
+        )
+        right_var = summary_variable_name(
+            right_smt, right.get("variable")
+        )
+        signatures_complete = all(
+            isinstance(value, str) and value
+            for value in (left_smt, right_smt, left_var, right_var)
+        )
+        if signatures_complete:
+            left_signature = _smt_defined_expr_signature(left_smt, left_var)
+            right_signature = _smt_defined_expr_signature(right_smt, right_var)
+            if (
+                left_signature is not None
+                and left_signature == right_signature
+            ):
+                continue
         equivalent, elapsed = verify_observable_expr_equivalence(
             left,
             right,
@@ -423,7 +683,68 @@ def output_segments_identical(
             left.get("kind") != "formatted_value"
             or left.get("specifier") != right.get("specifier")
             or int(left.get("bits", 0) or 0) != int(right.get("bits", 0) or 0)
-            or left.get("repr") != right.get("repr")
+        ):
+            return False
+        left_smt = left.get("smt")
+        right_smt = right.get("smt")
+        left_var = summary_variable_name(
+            left_smt, left.get("variable")
+        )
+        right_var = summary_variable_name(
+            right_smt, right.get("variable")
+        )
+        if not all(
+            isinstance(value, str) and value
+            for value in (left_smt, right_smt, left_var, right_var)
+        ):
+            return False
+        left_signature = _smt_defined_expr_signature(left_smt, left_var)
+        right_signature = _smt_defined_expr_signature(right_smt, right_var)
+        if (
+            left_signature is None
+            or right_signature is None
+            or left_signature != right_signature
+        ):
+            return False
+    return True
+
+
+def global_regions_identical(
+    left_state: dict[str, Any],
+    right_state: dict[str, Any],
+) -> bool:
+    left_regions = left_state.get("regions")
+    right_regions = right_state.get("regions")
+    if not isinstance(left_regions, dict) or not isinstance(right_regions, dict):
+        return False
+    if set(left_regions) != set(right_regions):
+        return False
+    for key in sorted(left_regions):
+        left = left_regions[key]
+        right = right_regions[key]
+        if not isinstance(left, dict) or not isinstance(right, dict):
+            return False
+        if int(left.get("bits", 0) or 0) != int(right.get("bits", 0) or 0):
+            return False
+        left_smt = left.get("smt")
+        right_smt = right.get("smt")
+        left_var = summary_variable_name(
+            left_smt, left.get("variable")
+        )
+        right_var = summary_variable_name(
+            right_smt, right.get("variable")
+        )
+        if not all(
+            isinstance(value, str) and value
+            for value in (left_smt, right_smt, left_var, right_var)
+        ):
+            return False
+        left_signature = _smt_defined_expr_signature(left_smt, left_var)
+        right_signature = _smt_defined_expr_signature(right_smt, right_var)
+        if (
+            left_signature is None
+            or right_signature is None
+            or left_signature != right_signature
         ):
             return False
     return True
@@ -466,15 +787,24 @@ def find_output_counterexample(
                 or int(left.get("bits", 0) or 0) != int(right.get("bits", 0) or 0)
             ):
                 break
-            if left.get("repr") == right.get("repr"):
-                continue
             left_smt = left.get("smt")
             right_smt = right.get("smt")
-            left_var = left.get("variable")
-            right_var = right.get("variable")
+            left_var = summary_variable_name(
+                left_smt, left.get("variable")
+            )
+            right_var = summary_variable_name(
+                right_smt, right.get("variable")
+            )
             if not all(
                 isinstance(value, str) and value
                 for value in (left_smt, right_smt, left_var, right_var)
+            ):
+                return None
+            left_signature = _smt_defined_expr_signature(left_smt, left_var)
+            right_signature = _smt_defined_expr_signature(right_smt, right_var)
+            if (
+                left_signature is not None
+                and left_signature == right_signature
             ):
                 continue
             right_var_renamed = f"{right_var}__right"
@@ -511,14 +841,21 @@ def return_expressions_identical(
     left_return: dict[str, Any],
     right_return: dict[str, Any],
 ) -> bool:
-    return bool(
+    if not (
         left_return.get("available")
         and right_return.get("available")
         and left_return.get("bits") == right_return.get("bits")
-        and left_return.get("repr")
-        and right_return.get("repr")
-        and left_return.get("repr") == right_return.get("repr")
-    )
+    ):
+        return False
+    left_smt = left_return.get("smt")
+    right_smt = right_return.get("smt")
+    left_var = return_variable_name(left_smt)
+    right_var = return_variable_name(right_smt)
+    if not left_smt or not right_smt or not left_var or not right_var:
+        return False
+    left_signature = _smt_defined_expr_signature(left_smt, left_var)
+    right_signature = _smt_defined_expr_signature(right_smt, right_var)
+    return left_signature is not None and left_signature == right_signature
 
 
 def verify_return_equivalence_on_overlap(
@@ -541,7 +878,7 @@ def verify_return_equivalence_on_overlap(
     left_var = return_variable_name(left_smt)
     right_var = return_variable_name(right_smt)
     if not left_smt or not right_smt or not left_var or not right_var:
-        return (left_return.get("repr") == right_return.get("repr")), 0.0, 0
+        return None, 0.0, 0
     return verify_return_smt_equivalence(
         left_return, right_return, timeout_ms, left_path, right_path
     )
@@ -567,7 +904,7 @@ def verify_return_smt_equivalence(
     left_var = return_variable_name(left_smt)
     right_var = return_variable_name(right_smt)
     if not left_smt or not right_smt or not left_var or not right_var:
-        return (left_return.get("repr") == right_return.get("repr")), 0.0, 0
+        return None, 0.0, 0
 
     bits = int(left_return["bits"])
     right_var_renamed = f"{right_var}__right"
@@ -610,21 +947,32 @@ def verify_global_state_equivalence(
     timeout_ms: int,
     left_path: Path | None = None,
     right_path: Path | None = None,
-) -> tuple[bool | None, float, int]:
+) -> tuple[bool | None, float, int, dict[str, Any]]:
     left_state = left_summary.get("global_state") or {}
     right_state = right_summary.get("global_state") or {}
     if not left_state.get("available") or not right_state.get("available"):
-        return None, 0.0, 0
+        return None, 0.0, 0, {
+            "method": "unavailable",
+            "reason": "global_state_unavailable",
+        }
     left_regions = left_state.get("regions")
     right_regions = right_state.get("regions")
     if not isinstance(left_regions, dict) or not isinstance(right_regions, dict):
-        return None, 0.0, 0
+        return None, 0.0, 0, {
+            "method": "unavailable",
+            "reason": "global_regions_malformed",
+        }
     if not left_regions and not right_regions:
-        return True, 0.0, 0
+        return True, 0.0, 0, {
+            "method": "empty_observation_scope",
+            "assumptions": [],
+        }
 
-    pairs = map_global_regions(left_regions, right_regions)
+    pairs, mapping_evidence = map_global_regions_with_evidence(
+        left_regions, right_regions
+    )
     if pairs is None:
-        return None, 0.0, 0
+        return None, 0.0, 0, mapping_evidence
     total_time = 0.0
     calls = 0
     for left_cell, right_cell in pairs:
@@ -634,8 +982,8 @@ def verify_global_state_equivalence(
         total_time += elapsed
         calls += int(bool(left_cell.get("smt") and right_cell.get("smt")))
         if equivalent is not True:
-            return equivalent, total_time, calls
-    return True, total_time, calls
+            return equivalent, total_time, calls, mapping_evidence
+    return True, total_time, calls, mapping_evidence
 
 
 def map_global_regions(
@@ -647,20 +995,231 @@ def map_global_regions(
     normalization.  Structural fallback is accepted only for a unique ordered
     mapping with identical cell widths.
     """
-    if set(left_regions) == set(right_regions):
-        return [(left_regions[key], right_regions[key]) for key in sorted(left_regions)]
-    if len(left_regions) != len(right_regions):
+    pairs, _evidence = map_global_regions_with_evidence(
+        left_regions, right_regions
+    )
+    return pairs
+
+
+READ_ONLY_SECTIONS = {".rodata", ".data.rel.ro", ".text"}
+
+
+def _cell_content_sha256(cell: dict[str, Any]) -> str | None:
+    content = cell.get("initial_content_sha256")
+    if isinstance(content, dict):
+        value = content.get("sha256")
+        return str(value) if value else None
+    return None
+
+
+def _cell_ast_signature(cell: dict[str, Any]) -> tuple[Any, ...] | None:
+    smt = cell.get("smt")
+    expected = cell.get("variable")
+    variable = summary_variable_name(smt, expected)
+    if not smt or not variable:
         return None
+    return _smt_defined_expr_signature(smt, variable)
+
+
+def _global_candidate_evidence(
+    left_items: list[dict[str, Any]],
+    right_items: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[tuple[dict[str, Any], dict[str, Any], str]]]:
+    layout_pairs: list[tuple[dict[str, Any], dict[str, Any], str]] = []
+    readonly_pairs: list[tuple[dict[str, Any], dict[str, Any], str]] = []
+    ast_targets: dict[int, list[dict[str, Any]]] = {}
+    for left in left_items:
+        left_hash = _cell_content_sha256(left)
+        left_section = str(left.get("section") or "")
+        left_signature = _cell_ast_signature(left)
+        for right in right_items:
+            if int(left.get("bits", 0) or 0) != int(
+                right.get("bits", 0) or 0
+            ):
+                continue
+            right_hash = _cell_content_sha256(right)
+            right_section = str(right.get("section") or "")
+            if (
+                left_section
+                and left_section == right_section
+                and int(left.get("offset", -1) or 0)
+                == int(right.get("offset", -2) or 0)
+                and int(left.get("size_bytes", 0) or 0)
+                == int(right.get("size_bytes", 0) or 0)
+                and left_hash is not None
+                and left_hash == right_hash
+            ):
+                layout_pairs.append((left, right, "layout_content"))
+            if (
+                left_section in READ_ONLY_SECTIONS
+                and left_section == right_section
+                and left_hash is not None
+                and left_hash == right_hash
+            ):
+                readonly_pairs.append((left, right, "readonly_content"))
+            if (
+                left_signature is not None
+                and left_signature == _cell_ast_signature(right)
+            ):
+                ast_targets.setdefault(id(left), []).append(right)
+
+    evidence = {
+        "layout_content_candidates": len(layout_pairs),
+        "readonly_content_candidates": len(readonly_pairs),
+        "ast_context_candidates": sum(
+            len(targets) for targets in ast_targets.values()
+        ),
+        "ambiguous_ast_candidates": sum(
+            len(targets)
+            for targets in ast_targets.values()
+            if len(targets) > 1
+        ),
+    }
+    unique_pairs = []
+    for candidates in (readonly_pairs, layout_pairs):
+        left_counts = Counter(id(left) for left, _right, _kind in candidates)
+        right_counts = Counter(id(right) for _left, right, _kind in candidates)
+        for left, right, kind in candidates:
+            if left_counts[id(left)] == 1 and right_counts[id(right)] == 1:
+                unique_pairs.append((left, right, kind))
+    return evidence, unique_pairs
+
+
+def map_global_regions_with_evidence(
+    left_regions: dict[str, Any], right_regions: dict[str, Any]
+) -> tuple[list[tuple[dict[str, Any], dict[str, Any]]] | None, dict[str, Any]]:
+    if set(left_regions) == set(right_regions):
+        pairs = [
+            (left_regions[key], right_regions[key])
+            for key in sorted(left_regions)
+        ]
+        return pairs, {
+            "method": "exact_canonical_key",
+            "assumptions": [],
+            "mapped_regions": len(pairs),
+        }
+
     left_items = sorted(left_regions.items())
     right_items = sorted(right_regions.items())
+    left_by_id = {}
+    right_by_id = {}
+    for index, (_key, cell) in enumerate(left_items):
+        identity = _region_identity(cell, index)
+        left_by_id.setdefault(identity, []).append(cell)
+    for index, (_key, cell) in enumerate(right_items):
+        identity = _region_identity(cell, index)
+        right_by_id.setdefault(identity, []).append(cell)
+
+    used_left = set()
+    used_right = set()
     pairs = []
-    for (_left_key, left), (_right_key, right) in zip(left_items, right_items):
-        if not isinstance(left, dict) or not isinstance(right, dict):
-            return None
+    assumptions = []
+    methods = []
+    for identity, left_cells in left_by_id.items():
+        right_cells = right_by_id.get(identity, [])
+        if len(left_cells) != 1 or len(right_cells) != 1:
+            continue
+        left = left_cells[0]
+        right = right_cells[0]
         if int(left.get("bits", 0) or 0) != int(right.get("bits", 0) or 0):
-            return None
+            continue
         pairs.append((left, right))
-    return pairs
+        used_left.add(id(left))
+        used_right.add(id(right))
+        methods.append("identity_key")
+        if identity[0] == "position":
+            assumptions.append("position_identity")
+
+    remaining_left = [
+        cell for _key, cell in left_items if id(cell) not in used_left
+    ]
+    remaining_right = [
+        cell for _key, cell in right_items if id(cell) not in used_right
+    ]
+    if len(remaining_left) != len(remaining_right):
+        return None, {
+            "method": "failed",
+            "reason": "region_count_mismatch_after_identity_mapping",
+            "assumptions": assumptions,
+            "left_unmapped": len(remaining_left),
+            "right_unmapped": len(remaining_right),
+        }
+
+    candidate_evidence, unique_candidates = _global_candidate_evidence(
+        remaining_left,
+        remaining_right,
+    )
+    for left, right, kind in unique_candidates:
+        remaining_left_ids = {id(item) for item in remaining_left}
+        remaining_right_ids = {id(item) for item in remaining_right}
+        if id(left) not in remaining_left_ids or id(right) not in remaining_right_ids:
+            continue
+        pairs.append((left, right))
+        methods.append(kind)
+        assumptions.append(f"{kind}_unique_pair")
+        remaining_left = [
+            item for item in remaining_left if item is not left
+        ]
+        remaining_right = [
+            item for item in remaining_right if item is not right
+        ]
+
+    if len(remaining_left) != len(remaining_right):
+        return None, {
+            "method": "failed",
+            "reason": "region_count_mismatch_after_evidence_mapping",
+            "assumptions": assumptions,
+            "candidate_evidence": candidate_evidence,
+            "left_unmapped": len(remaining_left),
+            "right_unmapped": len(remaining_right),
+        }
+
+    for left, right in zip(remaining_left, remaining_right):
+        if not isinstance(left, dict) or not isinstance(right, dict):
+            return None, {
+                "method": "failed",
+                "reason": "malformed_region",
+                "assumptions": assumptions,
+            }
+        if int(left.get("bits", 0) or 0) != int(right.get("bits", 0) or 0):
+            return None, {
+                "method": "failed",
+                "reason": "width_conflict",
+                "assumptions": assumptions,
+            }
+        pairs.append((left, right))
+        methods.append("sorted_width_compatible_fallback")
+    if remaining_left:
+        assumptions.extend(
+            [
+                "sorted_region_position",
+                "compatible_width",
+                "identity_not_proved_by_fallback",
+            ]
+        )
+    return pairs, {
+        "method": "exact_then_sorted_width_fallback",
+        "methods": sorted(set(methods)),
+        "assumptions": assumptions,
+        "mapped_regions": len(pairs),
+        "candidate_evidence": candidate_evidence,
+        "fallback_regions": len(remaining_left),
+        "fallback_order": "sorted_canonical_key" if remaining_left else None,
+    }
+
+
+def _region_identity(cell: Any, fallback_index: int) -> tuple[Any, ...]:
+    if not isinstance(cell, dict):
+        return ("position", fallback_index)
+    object_name = cell.get("object")
+    offset = cell.get("offset")
+    size_bytes = cell.get("size_bytes")
+    if object_name is not None and offset is not None and size_bytes is not None:
+        return ("object", str(object_name), int(offset), int(size_bytes))
+    key = cell.get("key")
+    if isinstance(key, str):
+        return ("key", key)
+    return ("position", fallback_index)
 
 
 def verify_observable_expr_equivalence(
@@ -677,8 +1236,8 @@ def verify_observable_expr_equivalence(
         return False, 0.0
     left_smt = left.get("smt")
     right_smt = right.get("smt")
-    left_var = left.get("variable")
-    right_var = right.get("variable")
+    left_var = summary_variable_name(left_smt, left.get("variable"))
+    right_var = summary_variable_name(right_smt, right.get("variable"))
     if not all(isinstance(value, str) and value for value in (left_smt, right_smt, left_var, right_var)):
         return None, 0.0
     right_var_renamed = f"{right_var}__right"
@@ -833,6 +1392,290 @@ def sample_inputs_from_path(path: Path) -> list[dict[str, Any]]:
     return out
 
 
+def complete_replay_inputs(
+    left_path: Path,
+    right_path: Path,
+    inputs: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fill arguments omitted by an unconstrained SMT model.
+
+    A model only assigns input variables that occur in the queried formulas.
+    Replaying that partial assignment directly leaves later ``scanf``
+    parameters uninitialized.  Path artifacts retain a complete satisfying
+    sample, so use it for omitted argument positions while keeping every
+    counterexample-provided value unchanged.
+    """
+
+    def key(item: dict[str, Any]) -> tuple[int, str]:
+        return input_symbol_order(str(item.get("name") or ""))
+
+    supplied = {key(item)[0]: item for item in inputs}
+    signature_samples = {
+        key(item)[0]: item
+        for item in (
+            sample_inputs_from_path(left_path)
+            + sample_inputs_from_path(right_path)
+        )
+    }
+    if not supplied:
+        return []
+
+    max_index = max(
+        [*supplied.keys(), *signature_samples.keys()],
+        default=-1,
+    )
+    if max_index < 0:
+        return inputs
+
+    template = min(supplied.values(), key=key)
+    template_name = str(template.get("name") or "")
+    template_bits = int(template.get("bits", 32) or 32)
+    prefix = (
+        "FP_arg"
+        if template_name.startswith("FP_arg_")
+        else "scanf"
+        if template_name.startswith("scanf_")
+        else "arg"
+    )
+    completed: list[dict[str, Any]] = []
+    for index in range(max_index + 1):
+        item = supplied.get(index)
+        if item is not None:
+            completed.append(item)
+            continue
+        sample = signature_samples.get(index)
+        if sample is not None:
+            if prefix == "FP_arg":
+                completed.append(
+                    {
+                        "name": f"FP_arg_{index}_{index}_{template_bits}",
+                        "kind": "float",
+                        "bits": template_bits,
+                        "value": 0.0,
+                        "ieee_bits": int(sample.get("unsigned", 0)) & ((1 << template_bits) - 1),
+                    }
+                )
+            else:
+                integer = int(sample.get("value", 0))
+                completed.append(
+                    {
+                        "name": f"arg_{index}_{index}_{template_bits}",
+                        "kind": "bitvec",
+                        "bits": template_bits,
+                        "value": integer,
+                        "unsigned": integer & ((1 << template_bits) - 1),
+                    }
+                )
+            continue
+        if prefix == "FP_arg":
+            completed.append(
+                {
+                    "name": f"FP_arg_{index}_{index}_{template_bits}",
+                    "kind": "float",
+                    "bits": template_bits,
+                    "value": 0.0,
+                }
+            )
+        else:
+            completed.append(
+                {
+                    "name": f"arg_{index}_{index}_{template_bits}",
+                    "kind": "bitvec",
+                    "bits": template_bits,
+                    "value": 0,
+                    "unsigned": 0,
+                }
+            )
+    return completed
+
+
+def unique_input_seeds(
+    candidates: list[list[dict[str, Any]]],
+) -> list[list[dict[str, Any]]]:
+    unique = []
+    seen = set()
+    for candidate in candidates:
+        if not candidate:
+            continue
+        key = tuple(
+            sorted(
+                (
+                    str(item.get("name") or ""),
+                    str(item.get("kind") or ""),
+                    repr(item.get("value")),
+                )
+                for item in candidate
+            )
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(candidate)
+    return unique
+
+
+def concrete_input_specs(
+    variables: list[Any],
+) -> tuple[tuple[str, str, int, int], ...]:
+    specs = {}
+    for variable in variables:
+        name = variable.decl().name()
+        if not is_input_symbol(name):
+            continue
+        sort_text = str(variable.sort())
+        bitvec = re.fullmatch(r"BitVec\((\d+)\)", sort_text)
+        if bitvec:
+            specs[name] = ("bitvec", int(bitvec.group(1)), 0)
+            continue
+        floating = re.fullmatch(
+            r"(?:FloatingPoint|FPSort)\((\d+), (\d+)\)",
+            sort_text,
+        )
+        if floating:
+            exponent_bits = int(floating.group(1))
+            significand_bits = int(floating.group(2))
+            specs[name] = (
+                "float",
+                exponent_bits + significand_bits,
+                0,
+            )
+    return tuple(
+        (name, kind, bits, precision)
+        for name, (kind, bits, precision) in sorted(
+            specs.items(),
+            key=lambda item: input_symbol_order(item[0]),
+        )
+    )
+
+
+def standard_input_seeds(
+    specs: tuple[tuple[str, str, int, int], ...],
+) -> list[list[dict[str, Any]]]:
+    def make_seed(values: list[int | float]) -> list[dict[str, Any]]:
+        seed = []
+        for (name, kind, bits, _precision), value in zip(specs, values):
+            if kind == "bitvec":
+                integer = int(value)
+                seed.append(
+                    {
+                        "name": name,
+                        "kind": "bitvec",
+                        "bits": bits,
+                        "value": integer,
+                        "unsigned": integer & ((1 << bits) - 1),
+                    }
+                )
+            else:
+                seed.append(
+                    {
+                        "name": name,
+                        "kind": "float",
+                        "bits": bits,
+                        "value": float(value),
+                    }
+                )
+        return seed
+
+    if not specs:
+        return []
+    count = len(specs)
+    seeds = [
+        make_seed([0] * count),
+        make_seed([1] * count),
+    ]
+    for index in range(count):
+        for value in (-1, 0, 1, 2, 10, 11):
+            values: list[int | float] = [1] * count
+            values[index] = value
+            seeds.append(make_seed(values))
+    return unique_input_seeds(seeds)
+
+
+_STANDARD_SEED_REPLAY_CACHE: dict[
+    tuple[str, str, tuple[tuple[str, str, int, int], ...]],
+    dict[str, Any],
+] = {}
+
+
+def replay_result_is_auditable(replay: dict[str, Any]) -> bool:
+    return bool(replay.get("confirmed")) or replay.get("classification") in {
+        "both_ub_like",
+        "asymmetric_ub_like",
+        "ub_status_unknown",
+    }
+
+
+def replay_standard_inputs(
+    left: Path,
+    right: Path,
+    specs: tuple[tuple[str, str, int, int], ...],
+) -> dict[str, Any] | None:
+    left_binary = binary_for_path(left)
+    right_binary = binary_for_path(right)
+    if left_binary is None or right_binary is None:
+        return None
+    cache_key = (str(left_binary), str(right_binary), specs)
+    if cache_key in _STANDARD_SEED_REPLAY_CACHE:
+        return _STANDARD_SEED_REPLAY_CACHE[cache_key]
+    observations: list[dict[str, Any]] = []
+    for seed in standard_input_seeds(specs):
+        replay = replay_counterexample(
+            left,
+            right,
+            {"inputs": seed},
+        )
+        if replay_result_is_auditable(replay):
+            observations.append(
+                make_replay_observation(
+                    replay,
+                    source="standard_domain_seed_replay",
+                    inputs=seed,
+                )
+            )
+        if replay.get("confirmed"):
+            result = {
+                "counterexample": seed,
+                "replay": replay,
+                "observations": observations,
+            }
+            _STANDARD_SEED_REPLAY_CACHE[cache_key] = result
+            return result
+    result = {
+        "counterexample": None,
+        "replay": None,
+        "observations": observations,
+    }
+    _STANDARD_SEED_REPLAY_CACHE[cache_key] = result
+    return result
+
+
+def program_domain_counterexample(
+    source_paths: list[Path],
+    target_paths: list[Path],
+) -> dict[str, Any] | None:
+    if not source_paths or not target_paths:
+        return None
+    left = source_paths[0]
+    right = target_paths[0]
+    ctx = Context()
+    left_constraint = parse_formula(left, ctx)
+    right_constraint = parse_formula(right, ctx)
+    specs = concrete_input_specs(
+        collect_variables(left_constraint, right_constraint)
+    )
+    replay = replay_standard_inputs(left, right, specs)
+    if replay is None or replay.get("counterexample") is None:
+        return None
+    return {
+        "source": left.stem,
+        "target": right.stem,
+        "rank": 1,
+        "counterexample": {"inputs": replay["counterexample"]},
+        "replay": replay["replay"],
+        "counterexample_source": "standard_domain_seed_replay",
+    }
+
+
 def is_input_symbol(name: str) -> bool:
     return bool(re.match(r"^(?:arg_|FP_arg_|scanf_)", name))
 
@@ -855,11 +1698,21 @@ def z3_value_to_concrete(model, value) -> dict[str, Any] | None:
         bits = int(value.ebits()) + int(value.sbits())
         if bits not in {32, 64}:
             return None
-        raw = (
-            (int(bool(value.sign())) << (bits - 1))
-            | (int(value.exponent_as_long()) << (bits - value.ebits() - 1))
-            | int(value.significand_as_long())
-        )
+        if str(value).strip() == "NaN":
+            # Z3 rejects sign/significand accessors for NaN numerals.
+            raw = (
+                ((1 << int(value.ebits())) - 1)
+                << (int(value.sbits()) - 1)
+            ) | (1 << (int(value.sbits()) - 2))
+        else:
+            raw = (
+                (int(bool(value.sign())) << (bits - 1))
+                | (
+                    int(value.exponent_as_long())
+                    << (bits - value.ebits() - 1)
+                )
+                | int(value.significand_as_long())
+            )
         number = struct.unpack(
             ">f" if bits == 32 else ">d",
             raw.to_bytes(bits // 8, "big"),
@@ -911,30 +1764,152 @@ def replay_counterexample(
     right_binary = binary_for_path(right_path)
     if left_binary is None or right_binary is None:
         return {"confirmed": False, "reason": "binary_unavailable"}
-    tokens = [format_replay_value(item) for item in counterexample["inputs"]]
+    inputs = complete_replay_inputs(
+        left_path,
+        right_path,
+        counterexample["inputs"],
+    )
+    tokens = [format_replay_value(item) for item in inputs]
     stdin = " ".join(tokens) + "\n"
     left_run = run_binary(left_binary, stdin)
     right_run = run_binary(right_binary, stdin)
-    if not left_run.get("completed") or not right_run.get("completed"):
-        return {
-            "confirmed": False,
-            "reason": "replay_failed",
-            "stdin": stdin,
-            "left": left_run,
-            "right": right_run,
-        }
-    confirmed = (
-        left_run.get("returncode") != right_run.get("returncode")
-        or left_run.get("stdout") != right_run.get("stdout")
-        or left_run.get("stderr") != right_run.get("stderr")
+
+    left_samples = [left_run]
+    right_samples = [right_run]
+    output_diff = not replay_observables_equal(left_run, right_run)
+    left_flags = replay_anomaly_flags(left_run)
+    right_flags = replay_anomaly_flags(right_run)
+
+    # Stability checks are only needed for a concrete mismatch or an already
+    # suspicious value. This keeps the common clean-replay path cheap.
+    needs_stability_check = bool(
+        output_diff
+        or left_flags
+        or right_flags
+        or not left_run.get("completed")
+        or not right_run.get("completed")
     )
+    if needs_stability_check:
+        for _ in range(max(0, REPLAY_REPETITIONS - 1)):
+            left_samples.append(run_binary(left_binary, stdin))
+            right_samples.append(run_binary(right_binary, stdin))
+
+    if replay_samples_unstable(left_samples):
+        left_flags.add("unstable")
+    if replay_samples_unstable(right_samples):
+        right_flags.add("unstable")
+
+    left_ub_like = bool(left_flags & UB_LIKE_FLAGS)
+    right_ub_like = bool(right_flags & UB_LIKE_FLAGS)
+    unknown = bool(
+        (left_flags | right_flags) & {"execution_unknown"}
+    )
+    if left_ub_like and right_ub_like:
+        confirmed = False
+        reason = "both_ub_like"
+        classification = "both_ub_like"
+    elif unknown:
+        # Experimental policy chosen for deployment on binaries whose source
+        # is unavailable: unresolved UB status confirms a candidate NEQ.
+        confirmed = True
+        reason = "ub_status_unknown"
+        classification = "ub_status_unknown"
+    elif left_ub_like or right_ub_like:
+        confirmed = True
+        reason = "asymmetric_ub_like"
+        classification = "asymmetric_ub_like"
+    elif output_diff:
+        confirmed = True
+        reason = "observable_output_diff"
+        classification = "defined_neq"
+    else:
+        confirmed = False
+        reason = "no_observable_output_diff"
+        classification = "defined_equal"
+
     return {
         "confirmed": confirmed,
-        "reason": "observable_output_diff" if confirmed else "no_observable_output_diff",
+        "reason": reason,
+        "classification": classification,
+        "definedness_policy": DEFINEDNESS_POLICY,
         "stdin": stdin,
+        "observable_output_diff": output_diff,
+        "replay_count": max(len(left_samples), len(right_samples)),
+        "left_flags": sorted(left_flags),
+        "right_flags": sorted(right_flags),
         "left": left_run,
         "right": right_run,
+        "left_samples": left_samples,
+        "right_samples": right_samples,
     }
+
+
+def replay_anomaly_flags(run: dict[str, Any]) -> set[str]:
+    """Return source-free heuristic evidence for undefined-like execution."""
+    if not run.get("completed"):
+        return {"execution_unknown"}
+
+    flags: set[str] = set()
+    returncode = run.get("returncode")
+    if isinstance(returncode, int) and returncode < 0:
+        flags.add("crash")
+
+    text = f"{run.get('stdout') or ''}\n{run.get('stderr') or ''}"
+    if re.search(r"(?i)(?<![A-Za-z0-9_.])[-+]?nan(?![A-Za-z0-9_])", text):
+        flags.add("nan")
+    if re.search(
+        r"(?i)(?<![A-Za-z0-9_.])[-+]?(?:inf(?:inity)?)(?![A-Za-z0-9_])",
+        text,
+    ):
+        flags.add("inf")
+
+    minimum_normal = 2.2250738585072014e-308
+    for token in _HEX_FLOAT_RE.findall(text):
+        try:
+            value = float.fromhex(token)
+        except (OverflowError, ValueError):
+            continue
+        if math.isfinite(value) and value != 0.0 and abs(value) < minimum_normal:
+            flags.add("subnormal")
+            break
+    return flags
+
+
+def replay_samples_unstable(samples: list[dict[str, Any]]) -> bool:
+    if len(samples) < 2:
+        return False
+    signatures = {
+        (
+            sample.get("completed"),
+            sample.get("returncode"),
+            normalize_replay_nan_text(sample.get("stdout")),
+            normalize_replay_nan_text(sample.get("stderr")),
+        )
+        for sample in samples
+    }
+    return len(signatures) > 1
+
+
+def normalize_replay_nan_text(value: Any) -> str:
+    """Treat IEEE NaN sign/payload formatting as one abstract observable."""
+    return re.sub(
+        r"(?i)(?<![A-Za-z0-9_.])[-+]?nan(?![A-Za-z0-9_])",
+        "nan",
+        str(value or ""),
+    )
+
+
+def replay_observables_equal(
+    left_run: dict[str, Any],
+    right_run: dict[str, Any],
+) -> bool:
+    return (
+        left_run.get("returncode") == right_run.get("returncode")
+        and normalize_replay_nan_text(left_run.get("stdout"))
+        == normalize_replay_nan_text(right_run.get("stdout"))
+        and normalize_replay_nan_text(left_run.get("stderr"))
+        == normalize_replay_nan_text(right_run.get("stderr"))
+    )
 
 
 def binary_for_path(path: Path) -> Path | None:
@@ -1012,6 +1987,75 @@ def append_smt_assertions(smt_text: str, assertions: list[str]) -> str:
     return "\n".join([smt_text, *assertions])
 
 
+@lru_cache(maxsize=4096)
+def _smt_defined_expr_signature(
+    smt_text: str,
+    definition_variable: str,
+) -> tuple[Any, ...] | None:
+    """Return an alpha-normalized signature for a summary-defined expression.
+
+    SMT-LIB is parsed in a fresh context so a malformed summary cannot poison
+    later comparisons. The defined variable is renamed to a canonical marker;
+    all free input symbols retain their names and sorts.
+    """
+    try:
+        ctx = Context()
+        formula = formula_from_smt_text(smt_text, ctx)
+    except Exception:
+        return None
+
+    stack = [formula]
+    while stack:
+        current = stack.pop()
+        if is_app(current) and current.decl().name() == "and":
+            stack.extend(current.arg(i) for i in range(current.num_args()))
+            continue
+        if not (is_app(current) and current.decl().name() == "="):
+            continue
+        if current.num_args() != 2:
+            continue
+        left, right = current.arg(0), current.arg(1)
+        if str(left) == definition_variable or str(right) == definition_variable:
+            expression = right if str(left) == definition_variable else left
+            return _canonical_expr_signature(
+                expression,
+                definition_variable=definition_variable,
+            )
+    return None
+
+
+def _canonical_expr_signature(
+    expr: ExprRef,
+    *,
+    definition_variable: str,
+) -> tuple[Any, ...]:
+    if is_app(expr) and expr.num_args() == 0:
+        if is_bv_value(expr):
+            return ("const", "bitvec", int(expr.size()), int(expr.as_long()))
+        if is_int_value(expr):
+            return ("const", "int", str(expr))
+        if is_fp_value(expr):
+            return ("const", "fp", str(expr.sort()), expr.sexpr())
+        name = "__SUMMARY_VALUE__" if str(expr) == definition_variable else str(expr)
+        return ("symbol", name, str(expr.sort()))
+    if is_app(expr):
+        return (
+            "app",
+            str(expr.decl().name()),
+            str(expr.sort()),
+            tuple(
+                _canonical_expr_signature(
+                    expr.arg(index),
+                    definition_variable=definition_variable,
+                )
+                for index in range(expr.num_args())
+            ),
+        )
+    if is_quantifier(expr):
+        return ("quantifier", expr.sexpr())
+    return ("other", expr.sexpr())
+
+
 def float_numeric_not_equal(left_ret, right_ret, bits: int, ctx: Context):
     """Return a BV predicate for IEEE754 numeric inequality.
 
@@ -1054,16 +2098,37 @@ def return_variable_name(smt_text: str | None) -> str | None:
     return match.group(1) if match else None
 
 
+def summary_variable_name(
+    smt_text: str | None,
+    expected_name: str | None,
+) -> str | None:
+    """Resolve the backend-mangled definition symbol for a summary cell."""
+    if not smt_text or not expected_name:
+        return None
+    declared = re.findall(r"\(declare-fun\s+([^\s()]+)\s+\(\)", smt_text)
+    if expected_name in declared:
+        return expected_name
+    matching = [
+        name
+        for name in declared
+        if name.startswith(expected_name + "_")
+    ]
+    return matching[0] if len(matching) == 1 else None
+
+
 def check_input_coverage(old_path: Path, covering_new_paths: list[Path], timeout_ms: int) -> tuple[bool | None, float]:
     if not covering_new_paths:
         return False, 0.0
+    old_text = exact_path_condition_text(old_path)
+    if any(
+        old_text == exact_path_condition_text(path)
+        for path in covering_new_paths
+    ):
+        return True, 0.0
     start = time.perf_counter()
     ctx = Context()
     old_formula = parse_formula(old_path, ctx)
     cover_formulas = [parse_formula(path, ctx) for path in covering_new_paths]
-    old_key = str(simplify(old_formula))
-    if any(old_key == str(simplify(formula)) for formula in cover_formulas):
-        return True, 0.0
     solver = Solver(ctx=ctx)
     solver.set("timeout", timeout_ms)
     solver.add(old_formula, Not(Or(*cover_formulas)))
@@ -1096,14 +2161,14 @@ def check_union_coverage(source_paths: list[Path], target_paths: list[Path], tim
         return True, 0.0
     if not target_paths:
         return False, 0.0
+    if sorted(exact_path_condition_text(path) for path in source_paths) == sorted(
+        exact_path_condition_text(path) for path in target_paths
+    ):
+        return True, 0.0
     start = time.perf_counter()
     ctx = Context()
     source_formulas = [parse_formula(path, ctx) for path in source_paths]
     target_formulas = [parse_formula(path, ctx) for path in target_paths]
-    source_keys = {str(simplify(formula)) for formula in source_formulas}
-    target_keys = {str(simplify(formula)) for formula in target_formulas}
-    if source_keys == target_keys:
-        return True, 0.0
     source_formula = Or(*source_formulas)
     target_formula = Or(*target_formulas)
     solver = Solver(ctx=ctx)
@@ -1242,6 +2307,11 @@ def verify_directional_cover(
                 candidate_unknowns += 1
                 continue
             if equivalent is not True:
+                if semantic_details.get("global_state_reason") in {
+                    "symbolic_global_difference_unreplayed",
+                    "symbolic_global_evidence_incomplete",
+                }:
+                    candidate_unknowns += 1
                 continue
 
             compatible.append(target_id)
@@ -1429,9 +2499,7 @@ def exact_path_bijection_proves_equivalence(
         return None
     records = []
     for old_path, new_path in zip(old_paths, new_paths):
-        if canonical_smt_text(old_path.read_text(encoding="utf-8", errors="replace")) != canonical_smt_text(
-            new_path.read_text(encoding="utf-8", errors="replace")
-        ):
+        if exact_path_condition_text(old_path) != exact_path_condition_text(new_path):
             return None
         old_summary = extract_semantic_summary(old_path)
         new_summary = extract_semantic_summary(new_path)
@@ -1451,7 +2519,7 @@ def exact_path_bijection_proves_equivalence(
             or not new_global.get("available")
             or old_global.get("unresolved")
             or new_global.get("unresolved")
-            or old_global.get("regions") != new_global.get("regions")
+            or not global_regions_identical(old_global, new_global)
         ):
             return None
         records.append(
@@ -1466,29 +2534,19 @@ def exact_path_bijection_proves_equivalence(
                 "source_subset_targets": True,
                 "targets_subset_source": True,
                 "intersections": [],
-                "proof": "simplified_path_return_output_state_identity",
+                "proof": "exact_path_formula_and_observable_summary_identity",
             }
         )
     return records
 
 
-def canonical_smt_text(text: str) -> str:
-    """Canonicalize fresh `let` names by first occurrence for alpha equality."""
-    lines = []
-    for raw_line in text.splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith(";") or line.startswith("(check-sat"):
-            continue
-        lines.append(line)
-    joined = "\n".join(lines)
-    names: dict[str, str] = {}
-
-    def replacement(match: re.Match[str]) -> str:
-        original = match.group(0)
-        canonical = names.setdefault(original, f"?v{len(names)}")
-        return canonical
-
-    return re.sub(r"\?x\d+", replacement, joined)
+def exact_path_condition_text(path: Path) -> str:
+    """Return the unnormalized SMT formula without benchmark metadata."""
+    content = path.read_text(encoding="utf-8", errors="replace")
+    marker = "\n; Path signature:"
+    if marker in content:
+        return content.split(marker, 1)[0]
+    return content
 
 
 def prescan_replayable_counterexample(
@@ -1607,6 +2665,8 @@ def verify_ranked_queue(
             "t_smt": 0.0,
             "t_total": 0.0,
             "unknowns": 1,
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
+            "profile_id": PAPER_PROFILE_ID,
             "matches": [],
             "reverse_matches": [],
         }
@@ -1633,6 +2693,8 @@ def verify_ranked_queue(
             "t_smt": 0.0,
             "t_total": 0.0,
             "unknowns": 0,
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
+            "profile_id": PAPER_PROFILE_ID,
             "semantic_definition": [
                 "input_space_equivalence",
                 "function_return_value_equivalence",
@@ -1652,6 +2714,13 @@ def verify_ranked_queue(
                 for record in exact_records
             ],
             "confirmed_mismatches": [],
+            "matching_counts": {
+                "old_to_new_records": len(exact_records),
+                "new_to_old_records": len(exact_records),
+                "one_to_many_old_to_new": 0,
+                "one_to_many_new_to_old": 0,
+                "one_to_many_cases": 0,
+            },
             "exploration": exploration,
             "path_feasibility_filter": {
                 "raw_old_path_count": len(old_paths),
@@ -1666,6 +2735,118 @@ def verify_ranked_queue(
             "allow_one_to_many": allow_one_to_many,
             "exact_path_bijection": True,
         }
+
+    if truth_pairs is None:
+        replay_started = time.perf_counter()
+        domain_mismatch = program_domain_counterexample(
+            old_paths,
+            new_paths,
+        )
+        replay_elapsed = time.perf_counter() - replay_started
+        if domain_mismatch is not None:
+            if naive:
+                method = "naive_all_pairs"
+                t_align = 0.0
+            else:
+                if ranking_path is None:
+                    raise ValueError("--ranking is required unless --naive is used")
+                ranking_data = json.loads(
+                    ranking_path.read_text(encoding="utf-8")
+                )
+                timing = (
+                    ranking_data.get("timing", {})
+                    if isinstance(ranking_data, dict)
+                    else {}
+                )
+                t_align = float(
+                    timing.get(
+                        "t_align",
+                        ranking_data.get("t_align", 0.0),
+                    )
+                    or 0.0
+                )
+                method = str(ranking_data.get("method", "ranked"))
+            record_details = {
+                "input_overlap": "sat",
+                "return_value_equivalent": False,
+                "program_output_equivalent": False,
+                "memory_state_equivalent": None,
+                "global_state_equivalent": None,
+                "semantic_mode": "concrete_program_domain_replay",
+                "semantic_contract": dict(SEMANTIC_CONTRACT),
+                "counterexample": domain_mismatch["counterexample"],
+                "counterexample_source": "standard_domain_seed_replay",
+                "replay": domain_mismatch["replay"],
+            }
+            match_record = {
+                "query": domain_mismatch["source"],
+                "target": domain_mismatch["target"],
+                "rank": 1,
+                "semantic_equivalent_on_overlap": False,
+                "details": record_details,
+                "prescan": True,
+            }
+            return {
+                "method": method,
+                "prediction": False,
+                "verdict": "NEQ",
+                "failure_stage": None,
+                "alignment_success": False,
+                "input_space_equal": None,
+                "old_input_subset_new": None,
+                "new_input_subset_old": None,
+                "old_path_count": len(old_paths),
+                "new_path_count": len(new_paths),
+                "candidate_pairs": len(old_paths) * len(new_paths),
+                "aligned_pairs": 0,
+                "smt_calls": 0,
+                "t_align": t_align,
+                "t_smt": replay_elapsed,
+                "t_total": t_align + replay_elapsed,
+                "unknowns": 0,
+                "semantic_contract": dict(SEMANTIC_CONTRACT),
+                "profile_id": PAPER_PROFILE_ID,
+                "semantic_definition": [
+                    "input_space_equivalence",
+                    "function_return_value_equivalence",
+                    "program_output_equivalence",
+                    "globally_observable_memory_state_equivalence",
+                ],
+                "semantic_modes": {
+                    "concrete_program_domain_replay": 1
+                },
+                "matches": [match_record],
+                "reverse_matches": [],
+                "confirmed_mismatches": [
+                    {
+                        "source": domain_mismatch["source"],
+                        "target": domain_mismatch["target"],
+                        "rank": 1,
+                        "counterexample": domain_mismatch["counterexample"],
+                        "replay": domain_mismatch["replay"],
+                    }
+                ],
+                "matching_counts": {
+                    "old_to_new_records": 0,
+                    "new_to_old_records": 0,
+                    "one_to_many_old_to_new": 0,
+                    "one_to_many_new_to_old": 0,
+                    "one_to_many_cases": 0,
+                },
+                "exploration": exploration,
+                "path_feasibility_filter": {
+                    "raw_old_path_count": len(old_paths),
+                    "raw_new_path_count": len(new_paths),
+                    "removed_unsat_old": 0,
+                    "removed_unsat_new": 0,
+                    "unknown_old": 0,
+                    "unknown_new": 0,
+                    "timeout_ms": 0,
+                    "skipped_reason": "neq_program_domain_replay",
+                },
+                "allow_one_to_many": allow_one_to_many,
+                "counterexample_prescan": True,
+            }
 
     raw_old_path_count = len(old_paths)
     raw_new_path_count = len(new_paths)
@@ -1703,6 +2884,8 @@ def verify_ranked_queue(
             "t_smt": old_filter_time + new_filter_time,
             "t_total": old_filter_time + new_filter_time,
             "unknowns": 1,
+            "semantic_contract": dict(SEMANTIC_CONTRACT),
+            "profile_id": PAPER_PROFILE_ID,
             "matches": [],
             "reverse_matches": [],
             "confirmed_mismatches": [],
@@ -1783,6 +2966,8 @@ def verify_ranked_queue(
                 "t_smt": t_smt,
                 "t_total": t_align + t_smt,
                 "unknowns": unknowns,
+                "semantic_contract": dict(SEMANTIC_CONTRACT),
+                "profile_id": PAPER_PROFILE_ID,
                 "semantic_definition": [
                     "input_space_equivalence",
                     "function_return_value_equivalence",
@@ -1840,6 +3025,35 @@ def verify_ranked_queue(
         prediction = None
         failure_stage = "coverage_or_semantic_verification"
 
+    matching_counts = {
+        "old_to_new_records": sum(
+            1 for record in forward["records"] if record["matched"]
+        ),
+        "new_to_old_records": sum(
+            1 for record in reverse["records"] if record["matched"]
+        ),
+        "one_to_many_old_to_new": sum(
+            1
+            for record in forward["records"]
+            if record["matched"]
+            and str(record.get("match_type", "")).startswith("one_to_many")
+        ),
+        "one_to_many_new_to_old": sum(
+            1
+            for record in reverse["records"]
+            if record["matched"]
+            and str(record.get("match_type", "")).startswith("one_to_many")
+        ),
+        "one_to_many_cases": len(
+            {
+                record["query"]
+                for record in forward["records"] + reverse["records"]
+                if record["matched"]
+                and str(record.get("match_type", "")).startswith("one_to_many")
+            }
+        ),
+    }
+
     return {
         "method": method,
         "prediction": prediction,
@@ -1858,6 +3072,9 @@ def verify_ranked_queue(
         "t_smt": t_smt,
         "t_total": t_align + t_smt,
         "unknowns": unknowns,
+        "semantic_contract": dict(SEMANTIC_CONTRACT),
+        "profile_id": PAPER_PROFILE_ID,
+        "profile": profile_from_exploration(exploration),
         "semantic_definition": [
             "input_space_equivalence",
             "function_return_value_equivalence",
@@ -1868,6 +3085,7 @@ def verify_ranked_queue(
         "matches": forward["records"],
         "reverse_matches": reverse["records"],
         "confirmed_mismatches": confirmed_mismatches,
+        "matching_counts": matching_counts,
         "exploration": exploration,
             "path_feasibility_filter": feasibility_filter,
         "allow_one_to_many": allow_one_to_many,
@@ -1887,6 +3105,38 @@ def load_exploration_status(paths_dir: Path) -> dict[str, dict[str, Any] | None]
         except (OSError, json.JSONDecodeError):
             out[prefix] = None
     return out
+
+
+def profile_from_exploration(
+    exploration: dict[str, dict[str, Any] | None],
+) -> dict[str, Any]:
+    """Read the input domain actually recorded by path generation."""
+    integer_domain: Any = None
+    floating_domain: Any = None
+    for side in exploration.values():
+        if not side:
+            continue
+        ranges = side.get("input_ranges") or {}
+        if integer_domain is None:
+            integer_domain = ranges.get("integer")
+        if floating_domain is None:
+            floating_domain = ranges.get("floating_point")
+
+    def bounds(value: Any) -> tuple[int | float | None, int | float | None]:
+        if value in (None, FULL_INPUT_SPACE, "unbounded"):
+            return None, None
+        if isinstance(value, list) and len(value) == 2:
+            return value[0], value[1]
+        return None, None
+
+    int_min, int_max = bounds(integer_domain)
+    float_min, float_max = bounds(floating_domain)
+    return profile_for_input_domains(
+        int_min,
+        int_max,
+        float_min,
+        float_max,
+    )
 
 
 def parse_truth_pairs(raw: str | None) -> dict[str, set[str]] | None:
@@ -1923,12 +3173,128 @@ def parse_bool(raw: str | None) -> bool | None:
     return None
 
 
+def collect_definedness_audit(result: Any) -> dict[str, Any]:
+    """Summarize replay classifications without changing the verdict."""
+    events: dict[str, dict[str, Any]] = {}
+    stack = [result]
+    seen: set[int] = set()
+    seen_replays: set[int] = set()
+
+    def add_event(event: dict[str, Any]) -> None:
+        event_id = event.get("event_id")
+        classification = event.get("classification")
+        if not isinstance(event_id, str) or not classification:
+            return
+        if event_id not in events:
+            normalized = dict(event)
+            normalized.setdefault("occurrences", 1)
+            normalized.setdefault("sources", [normalized.get("source")])
+            normalized.setdefault("variants", [])
+            events[event_id] = normalized
+            return
+
+        existing = events[event_id]
+        existing["occurrences"] = int(existing.get("occurrences", 1)) + int(
+            event.get("occurrences", 1)
+        )
+        source = event.get("source")
+        if source and source not in existing.setdefault("sources", []):
+            existing["sources"].append(source)
+        if not existing.get("inputs") and event.get("inputs"):
+            existing["inputs"] = event["inputs"]
+        known_variants = {
+            variant.get("variant_id")
+            for variant in existing.setdefault("variants", [])
+            if isinstance(variant, dict)
+        }
+        for variant in event.get("variants", []):
+            if (
+                isinstance(variant, dict)
+                and variant.get("variant_id") not in known_variants
+            ):
+                existing["variants"].append(variant)
+                known_variants.add(variant.get("variant_id"))
+        existing["left_flags"] = sorted(
+            set(existing.get("left_flags", []))
+            | set(event.get("left_flags", []))
+        )
+        existing["right_flags"] = sorted(
+            set(existing.get("right_flags", []))
+            | set(event.get("right_flags", []))
+        )
+
+    while stack:
+        value = stack.pop()
+        if isinstance(value, dict) and id(value) in seen_replays:
+            continue
+        if isinstance(value, (dict, list)):
+            identity = id(value)
+            if identity in seen:
+                continue
+            seen.add(identity)
+        if isinstance(value, dict):
+            if value.get("event_id") and value.get("classification"):
+                add_event(value)
+            replay = value.get("replay")
+            if isinstance(replay, dict):
+                counterexample = (
+                    value.get("counterexample")
+                    or value.get("output_counterexample")
+                )
+                inputs = (
+                    counterexample.get("inputs")
+                    if isinstance(counterexample, dict)
+                    else None
+                )
+                add_event(
+                    make_replay_observation(
+                        replay,
+                        source="verification_counterexample_replay",
+                        inputs=inputs,
+                    )
+                )
+                seen_replays.add(id(replay))
+            stack.extend(value.values())
+        elif isinstance(value, list):
+            stack.extend(value)
+
+    counts: Counter[str] = Counter(
+        str(event.get("classification"))
+        for event in events.values()
+        if event.get("classification")
+    )
+    return {
+        "policy": DEFINEDNESS_POLICY,
+        "checks": len(events),
+        "classification_counts": dict(sorted(counts.items())),
+        "rejected_witnesses": counts.get("both_ub_like", 0),
+        "unknown_as_neq": counts.get("ub_status_unknown", 0),
+        "events": sorted(
+            events.values(),
+            key=lambda event: (
+                str(event.get("classification")),
+                str(event.get("event_id")),
+            ),
+        ),
+    }
+
+
+def finalize_definedness_audit(result: dict[str, Any]) -> dict[str, Any]:
+    result["definedness_policy"] = DEFINEDNESS_POLICY
+    result["definedness_audit"] = collect_definedness_audit(result)
+    result["conditional_eq"] = bool(
+        result.get("verdict") == "EQ"
+        and result["definedness_audit"]["rejected_witnesses"] > 0
+    )
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--paths-dir", type=Path, required=True)
     parser.add_argument("--ranking", type=Path)
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--timeout-ms", type=int, default=30_000)
+    parser.add_argument("--timeout-ms", type=int, default=SMT_TIMEOUT_MS)
     parser.add_argument("--naive", action="store_true")
     parser.add_argument("--truth-pairs-json")
     parser.add_argument("--program-ground-truth")
@@ -1954,6 +3320,7 @@ def main() -> int:
         args.allow_legacy_artifacts,
         not args.one_to_one_only,
     )
+    finalize_definedness_audit(result)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False))

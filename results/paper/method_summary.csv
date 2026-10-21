@@ -1,5 +1,0 @@
-method,cases_run,expected_cases,missing_cases,correct_determinate,wrong_determinate,unk,failed,hit_at_1_percent,hit_at_3_percent,mrr,ranking_queries,match_records,one_to_many_records,match_one_to_many_exact_cover,match_one_to_one_exact,match_one_to_one_source_subset_target
-Naive,62,62,0,58,0,4,0,19.62025316455696,34.49367088607595,0.312659336693933,316,261,1,1,258,2
-VeriBin,62,62,0,58,0,4,0,43.35443037974683,52.84810126582279,0.5201407177890414,316,261,1,1,258,2
-Hybrid,62,62,0,58,0,4,0,75.9493670886076,80.0632911392405,0.7893879693172522,316,261,1,1,258,2
-Hybrid-one-to-one,62,62,0,57,0,5,0,75.9493670886076,80.0632911392405,0.7893879693172522,316,260,0,,258,2

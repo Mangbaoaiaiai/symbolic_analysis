@@ -7,6 +7,8 @@ from tempfile import TemporaryDirectory
 from scripts.summarize_method_comparison import (
     MethodInput,
     exclude_case_prefixes,
+    filter_case_ids,
+    load_case_filter,
     load_method_rows,
     match_type_counts,
     parse_method_input,
@@ -105,6 +107,24 @@ class SummarizeMethodComparisonTests(unittest.TestCase):
             prefer_successful_attempts(rows),
             [{"pair_id": "fam/case", "status": "ok"}],
         )
+
+    def test_case_manifest_filter_uses_canonical_ids(self) -> None:
+        with TemporaryDirectory() as raw_tmp:
+            manifest = Path(raw_tmp) / "paper.csv"
+            manifest.write_text(
+                "case_id,family,program,ground_truth,source_case\n"
+                "ModDiff/Add_Eq,ModDiff,Add,EQ,CLEVER/Add/Eq\n",
+                encoding="utf-8",
+            )
+            included = load_case_filter(manifest)
+            rows = [
+                {"pair_id": "CLEVER/Add_Eq"},
+                {"pair_id": "CLEVER/Sub_Eq"},
+            ]
+            self.assertEqual(
+                filter_case_ids(rows, included),
+                [{"pair_id": "CLEVER/Add_Eq"}],
+            )
 
 
 if __name__ == "__main__":

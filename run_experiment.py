@@ -10,7 +10,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-DEFAULT_IMAGE = "symbolicana-paper:latest"
+BASE_IMAGE = "symbolicana-paper:latest"
+BINDIFF_IMAGE = os.environ.get(
+    "SYMBOLICANA_BINDIFF_IMAGE", "symbolicana-bindiff:latest"
+)
+DEFAULT_IMAGE = os.environ.get("SYMBOLICANA_IMAGE", BASE_IMAGE)
 
 
 def run(command: list[str]) -> None:
@@ -37,7 +41,27 @@ def main() -> int:
         default="paper",
         help="Experiment suite to execute.",
     )
-    parser.add_argument("--image", default=DEFAULT_IMAGE)
+    parser.add_argument("--image")
+    parser.add_argument(
+        "--bindiff",
+        action="store_true",
+        help=(
+            "Build/use the BinDiff 8 + Ghidra 9.2.3 image from "
+            "Dockerfile.bindiff."
+        ),
+    )
+    parser.add_argument(
+        "--run-name",
+        help=(
+            "Run label. Defaults to the suite name; --suite all writes separate "
+            "paper and OSF result directories."
+        ),
+    )
+    parser.add_argument(
+        "--paper-manifest",
+        default="configs/paper_62.csv",
+        help="Paper-suite case manifest, relative to the repository root.",
+    )
     parser.add_argument("--rebuild", action="store_true")
     parser.add_argument(
         "--fresh",
@@ -52,12 +76,43 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if args.rebuild or not docker_image_exists(args.image):
-        build = ["docker", "build", "-t", args.image, str(ROOT)]
+    base_build = ["docker", "build", "-t", BASE_IMAGE, str(ROOT)]
+    bindiff_build = [
+        "docker",
+        "build",
+        "-f",
+        str(ROOT / "Dockerfile.bindiff"),
+        "-t",
+        BINDIFF_IMAGE,
+        str(ROOT),
+    ]
+
+    def build(command: list[str]) -> None:
         if args.dry_run:
-            print("+ " + " ".join(build))
+            print("+ " + " ".join(command))
         else:
-            run(build)
+            run(command)
+
+    use_default_bindiff = args.bindiff and args.image is None
+    if args.rebuild or (use_default_bindiff and not docker_image_exists(BASE_IMAGE)):
+        build(base_build)
+    if use_default_bindiff and (args.rebuild or not docker_image_exists(BINDIFF_IMAGE)):
+        build(bindiff_build)
+
+    effective_image = args.image or (
+        BINDIFF_IMAGE if use_default_bindiff else DEFAULT_IMAGE
+    )
+    if not args.dry_run and not docker_image_exists(effective_image):
+        if effective_image != BASE_IMAGE:
+            print(
+                f"Image {effective_image!r} is unavailable; "
+                f"falling back to {BASE_IMAGE!r} with explicit feature-only "
+                "graph fallback.",
+                flush=True,
+            )
+        effective_image = BASE_IMAGE
+        if not docker_image_exists(effective_image):
+            build(base_build)
 
     command = [
         "docker",
@@ -69,7 +124,9 @@ def main() -> int:
         f"{ROOT}:/workspace/symbolicana",
         "-w",
         "/workspace/symbolicana",
-        args.image,
+        "-e",
+        f"SYMBOLICANA_IMAGE={effective_image}",
+        effective_image,
         "python",
         "scripts/run_suite.py",
         "--suite",
@@ -79,6 +136,10 @@ def main() -> int:
         command.extend(["--max-cases", str(args.max_cases)])
     if args.fresh:
         command.append("--fresh")
+    if args.run_name:
+        command.extend(["--run-name", args.run_name])
+    if args.suite in {"paper", "all"}:
+        command.extend(["--paper-manifest", args.paper_manifest])
     if args.dry_run:
         print("+ " + " ".join(command))
     else:

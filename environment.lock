@@ -6,6 +6,11 @@ libc6-dev=2.36-9+deb12u14
 angr=9.2.192
 claripy=9.2.192
 z3=4.12.2
+bindiff=8 (@568181968, 2023-09-25)
+ghidra=9.2.3 PUBLIC
+binexport=12-20210517-rc4
+java=11.0.32.1+1
 architecture=x86-64 Linux
 image=symbolicana-paper:latest
+bindiff_image=symbolicana-bindiff:latest
 

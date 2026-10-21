@@ -1,0 +1,16 @@
+{
+  "total": 62,
+  "correct": 58,
+  "wrong": 0,
+  "unk": 4,
+  "eq_correct": 29,
+  "eq_total": 33,
+  "neq_correct": 29,
+  "neq_total": 29,
+  "conditional_eq_cases": [],
+  "classification_counts": {
+    "asymmetric_ub_like": 2,
+    "defined_neq": 27
+  },
+  "unknown_as_neq": 0
+}

@@ -61,6 +61,7 @@ def main() -> int:
                 "pair_id": pair_id,
                 "ground_truth": row.get("ground_truth"),
                 "ground_truth_pairs": row.get("ground_truth_pairs", {}),
+                "path_truth": row.get("path_truth", {}),
                 "source_shard": str(shard.resolve()),
                 "source_shard_order": shard_order,
             }

@@ -41,6 +41,27 @@ def classify(verdict: str, truth: bool | None) -> str:
     return "wrong_eq" if prediction else "wrong_neq"
 
 
+def summarize_variant(name: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    counts = Counter(row["outcome"] for row in rows)
+    final_count = sum(row["path_status"] == "complete" for row in rows)
+    denominator = len(rows)
+    correct = counts["correct_eq"] + counts["correct_neq"]
+    return {
+        "variant": name,
+        "candidate_cases": denominator,
+        "correct_rate_denominator": denominator,
+        "path_complete": final_count,
+        "correct_determinate": correct,
+        "wrong_determinate": counts["wrong_eq"] + counts["wrong_neq"],
+        "unk": counts["unk"],
+        "verifier_failed": counts["verifier_failed"],
+        "path_failed": counts["path_failed"],
+        "correct_rate_percent": (
+            100.0 * correct / denominator if denominator else None
+        ),
+    }
+
+
 def load_generated_and_failures(
     manifest_paths: list[Path],
 ) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
@@ -56,6 +77,21 @@ def load_generated_and_failures(
                 str(item.get("error") or "failure"),
             )
     return generated, failures
+
+
+def load_eval_rows(eval_roots: list[Path]) -> dict[str, dict[str, str]]:
+    rows: dict[str, dict[str, str]] = {}
+    for root in eval_roots:
+        path = root / "results.csv"
+        if not path.is_file():
+            continue
+        with path.open(encoding="utf-8", newline="") as stream:
+            for row in csv.DictReader(stream):
+                if row.get("group") != "fmcad_align":
+                    continue
+                key = canonical_case_id(str(row.get("pair_id") or ""))
+                rows.setdefault(key, row)
+    return rows
 
 
 def main() -> int:
@@ -75,6 +111,7 @@ def main() -> int:
 
     manifest_paths = [args.benchmarks, *args.supplemental_benchmarks]
     generated, failures = load_generated_and_failures(manifest_paths)
+    eval_rows = load_eval_rows(args.eval_root)
     with args.paper_manifest.open(encoding="utf-8", newline="") as stream:
         candidates = list(csv.DictReader(stream))
 
@@ -86,6 +123,8 @@ def main() -> int:
         verdict = ""
         report_path = ""
         path_status = "path_failed" if key in failures else "not_found"
+        result_status = ""
+        result_error = ""
         if pair is not None:
             path_status = "complete"
             report = (
@@ -115,8 +154,18 @@ def main() -> int:
                     report_path = str(report)
                 except (OSError, json.JSONDecodeError):
                     verdict = ""
+            if not report_path and key in eval_rows:
+                eval_row = eval_rows[key]
+                result_status = str(eval_row.get("status") or "")
+                result_error = str(eval_row.get("error") or "")
+                if result_status == "ok" and str(
+                    eval_row.get("prediction") or ""
+                ).strip().lower() in {"", "none", "null"}:
+                    verdict = "UNK"
         if path_status == "path_failed":
             outcome = "path_failed"
+        elif verdict == "UNK":
+            outcome = classify(verdict, truth)
         elif not report_path:
             outcome = "verifier_failed"
         else:
@@ -130,23 +179,13 @@ def main() -> int:
                 "verdict": verdict,
                 "outcome": outcome,
                 "path_failure": failures.get(key, ""),
+                "result_status": result_status,
+                "result_error": result_error,
                 "report_path": report_path,
             }
         )
 
-    variants = {
-        "all_72": rows,
-        "exclude_gam_erfcc": [
-            row
-            for row in rows
-            if row["case_id"] not in {"gam/erfcc_Eq", "gam/erfcc_NEq"}
-        ],
-        "exclude_gam_gcf": [
-            row
-            for row in rows
-            if row["case_id"] not in {"gam/gcf_Eq", "gam/gcf_NEq"}
-        ],
-    }
+    variants = {"fixed_62": rows}
     args.output_dir.mkdir(parents=True, exist_ok=True)
     with (args.output_dir / "paper_cases.csv").open(
         "w", encoding="utf-8", newline=""
@@ -157,21 +196,7 @@ def main() -> int:
 
     summaries = []
     for name, variant in variants.items():
-        counts = Counter(row["outcome"] for row in variant)
-        final_count = sum(row["path_status"] == "complete" for row in variant)
-        correct = counts["correct_eq"] + counts["correct_neq"]
-        summary = {
-            "variant": name,
-            "candidate_cases": len(variant),
-            "path_complete": final_count,
-            "correct_determinate": correct,
-            "wrong_determinate": counts["wrong_eq"] + counts["wrong_neq"],
-            "unk": counts["unk"],
-            "verifier_failed": counts["verifier_failed"],
-            "path_failed": counts["path_failed"],
-            "correct_rate_percent": 100.0 * correct / final_count if final_count else None,
-        }
-        summaries.append(summary)
+        summaries.append(summarize_variant(name, variant))
     with (args.output_dir / "variant_summary.csv").open(
         "w", encoding="utf-8", newline=""
     ) as stream:
@@ -200,8 +225,8 @@ def main() -> int:
         )
     lines.extend(
         [
-        "| Variant | Candidates | Path complete | Correct | Wrong | UNK | Verifier failed | Path failed | Correct rate |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Variant | Candidates | Correct-rate denominator | Path complete | Correct | Wrong | UNK | Verifier failed | Path failed | Correct rate |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
     for item in summaries:
@@ -212,7 +237,8 @@ def main() -> int:
         )
         lines.append(
             f"| {item['variant']} | {item['candidate_cases']} | "
-            f"{item['path_complete']} | {item['correct_determinate']} | "
+            f"{item['correct_rate_denominator']} | {item['path_complete']} | "
+            f"{item['correct_determinate']} | "
             f"{item['wrong_determinate']} | {item['unk']} | "
             f"{item['verifier_failed']} | {item['path_failed']} | {rate} |"
         )

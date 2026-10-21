@@ -16,25 +16,18 @@ from symbolic_analysis.analysis.hybrid_path_matching import (
     load_matching_bb_map,
 )
 from symbolic_analysis.analysis.path_constraint_features import (
+    FEATURE_NAMES,
     FEATURE_RANGES,
-    extract_features,
+    FEATURE_SCHEMA,
+    extract_feature_record,
     normalize_features,
 )
-
-
-FEATURE_NAMES = [
-    "assert_count",
-    "variable_count",
-    "main_bv_width",
-    "operator_type_count",
-    "comparison_ratio",
-    "nest_depth",
-    "dominant_constant_type",
-    "variable_range_span",
-    "shift_coefficient",
-    "extend_count",
-    "extract_count",
-]
+from symbolic_analysis.profile import (
+    HYBRID_MARGIN_THRESHOLD,
+    HYBRID_TOP1_THRESHOLD,
+    SMT_TIMEOUT_MS,
+    SYMBOLIC_EXECUTION_TIMEOUT_SECONDS,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -59,7 +52,9 @@ def build_parser() -> argparse.ArgumentParser:
     se = sub.add_parser("symbolic-exec", help="Generate path constraints for one binary.")
     se.add_argument("--binary", type=Path, required=True)
     se.add_argument("--output-prefix", required=True)
-    se.add_argument("--timeout", type=int, default=120)
+    se.add_argument(
+        "--timeout", type=int, default=SYMBOLIC_EXECUTION_TIMEOUT_SECONDS
+    )
     se.add_argument("--signature", help="Snippet signature, e.g. double(double,int)")
     se.set_defaults(handler=cmd_symbolic_exec)
 
@@ -79,8 +74,12 @@ def build_parser() -> argparse.ArgumentParser:
     rank.add_argument("--old-path", type=Path, action="append", default=[])
     rank.add_argument("--new-path", type=Path, action="append", default=[])
     rank.add_argument("--matching-bb-map", type=Path)
-    rank.add_argument("--high-threshold", type=float, default=0.80)
-    rank.add_argument("--margin-threshold", type=float, default=0.05)
+    rank.add_argument(
+        "--high-threshold", type=float, default=HYBRID_TOP1_THRESHOLD
+    )
+    rank.add_argument(
+        "--margin-threshold", type=float, default=HYBRID_MARGIN_THRESHOLD
+    )
     rank.add_argument("--graph-min-score", type=float, default=0.01)
     rank.add_argument("--graph-weight", type=float, default=1.0)
     rank.add_argument("--feature-weight", type=float, default=0.0)
@@ -91,7 +90,7 @@ def build_parser() -> argparse.ArgumentParser:
     verify.add_argument("--paths-dir", type=Path, required=True)
     verify.add_argument("--ranking", type=Path)
     verify.add_argument("--out", type=Path, required=True)
-    verify.add_argument("--timeout-ms", type=int, default=30_000)
+    verify.add_argument("--timeout-ms", type=int, default=SMT_TIMEOUT_MS)
     verify.add_argument("--naive", action="store_true")
     verify.add_argument("--truth-pairs-json")
     verify.add_argument("--program-ground-truth")
@@ -137,8 +136,10 @@ def cmd_vectors(args: argparse.Namespace) -> int:
 
     records = []
     for path_id, path in files:
-        raw, _ = extract_features(path.read_text(encoding="utf-8", errors="replace"))
-        records.append({"path_id": path_id, "raw": raw})
+        record = extract_feature_record(
+            path.read_text(encoding="utf-8", errors="replace")
+        )
+        records.append({"path_id": path_id, **record.to_dict()})
 
     min_max = None
     if args.include_min_max or args.normalize:
@@ -148,6 +149,7 @@ def cmd_vectors(args: argparse.Namespace) -> int:
             record["normalized"] = normalize_features(record["raw"], min_max)
 
     out_data = {
+        "schema": FEATURE_SCHEMA,
         "feature_names": FEATURE_NAMES,
         "vectors": {r["path_id"]: r["raw"] for r in records},
         "vectors_by_path": records,

@@ -1,0 +1,2 @@
+cases,supported,entered_symbolic_execution,both_sides_complete,correct,correct_eq,correct_neq,wrong_eq,wrong_neq,label_inconsistent,undefined_behavior,harness_invalid,unk,failed,not_attempted
+142,142,99,93,81,38,43,0,0,2,1,0,15,43,0

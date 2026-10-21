@@ -1,203 +1,36 @@
-"""
-Path constraint feature extraction for similarity ranking (BinDiffNN-style).
+"""Versioned 11-dimensional path-constraint feature extraction.
 
-Extracts 11 structural/semantic features from SMT-LIB path constraint text
-for use in cosine-similarity-based ordering (no match/unmatch threshold).
+Features are extracted from the SMT-LIB assertions only. The parser keeps
+source assertions intact, retains free-symbol identity, and expands ``let``
+bindings only for occurrence counting.
 """
 
+from __future__ import annotations
+
+import math
 import re
+import struct
 from collections import Counter
-from typing import Dict, List, Optional, Tuple
+from dataclasses import dataclass, field
+from typing import Any
 
-# SMT-LIB operators we count
-COMPARISON_OPS = {"bvuge", "bvule", "bvslt", "bvsge", "bvsgt", "bvsle", "bvult", "bvugt"}
-SHIFT_OPS = {"bvshl", "bvlshr", "bvashr"}
-EXTEND_OPS = {"zero_extend", "sign_extend"}
-EXTRACT_OP = "extract"
-OTHER_OPS = {
-    "bvand", "bvor", "bvxor", "bvnot", "bvadd", "bvsub", "bvmul", "bvconcat",
-    "bvnand", "bvnor", "bvneg",
-}
-ALL_OPS = COMPARISON_OPS | SHIFT_OPS | EXTEND_OPS | OTHER_OPS
-ALL_OPS.add(EXTRACT_OP)
+import z3
 
+FEATURE_NAMES = [
+    "assert_count",
+    "variable_count",
+    "main_bv_width",
+    "operator_type_count",
+    "comparison_ratio",
+    "nest_depth",
+    "dominant_constant_type",
+    "variable_range_span",
+    "shift_coefficient",
+    "extend_count",
+    "extract_count",
+]
 
-def _constraint_body(content: str) -> str:
-    """Return SMT constraint part only (before ; Path signature or check-sat)."""
-    if "; Path signature:" in content:
-        content = content.split("; Path signature:")[0]
-    if "(check-sat)" in content:
-        content = content.split("(check-sat)")[0]
-    return content.strip()
-
-
-def _count_asserts(body: str) -> int:
-    return len(re.findall(r"\(\s*assert\s+", body))
-
-
-def _variable_names(body: str) -> set:
-    # Declared: (declare-fun name () (_ BitVec N))
-    declared = set(re.findall(r"\(\s*declare-fun\s+(\S+)\s+\(\)", body))
-    # Temp vars in let: ?x38, ?x44, etc.
-    temps = set(re.findall(r"\?x\d+", body))
-    return declared | temps
-
-
-def _bitvec_widths(body: str) -> List[int]:
-    return [int(m) for m in re.findall(r"\(\s*_\s+BitVec\s+(\d+)\s*\)", body)]
-
-
-def _operator_counts(body: str) -> Dict[str, int]:
-    counts = {}
-    for op in ALL_OPS:
-        if op == EXTRACT_OP:
-            # (_ extract 31 0) style
-            n = len(re.findall(r"\(\s*_\s+extract\s+", body))
-        elif op in EXTEND_OPS:
-            # (_ zero_extend 32) or (_ sign_extend 32)
-            n = len(re.findall(r"\(\s*_\s+" + re.escape(op) + r"\s+", body))
-        else:
-            n = len(re.findall(r"\(\s*" + re.escape(op) + r"\s+", body))
-        if n > 0:
-            counts[op] = n
-    return counts
-
-
-def _max_nesting_depth(body: str) -> int:
-    depth = 0
-    max_d = 0
-    # Skip comments
-    without_comments = re.sub(r";[^\n]*", "", body)
-    for c in without_comments:
-        if c == "(":
-            depth += 1
-            max_d = max(max_d, depth)
-        elif c == ")":
-            depth -= 1
-    return max_d
-
-
-def _constraint_bounds(body: str) -> List[int]:
-    """Extract numeric constants from bvuge/bvule/bvsge/bvsle (variable bounds)."""
-    # e.g. (bvuge x (_ bv0 32)) or (bvule x (_ bv15 32))
-    constants = []
-    for m in re.findall(r"\(\s*(?:bvuge|bvule|bvsge|bvsle|bvslt|bvsgt)\s+[^)]+\(\s*_\s+bv(\d+)\s+\d+\s*\)", body):
-        constants.append(int(m))
-    # Also (_ bvN M) as second arg in comparison
-    for m in re.findall(r"\(\s*_\s+bv(\d+)\s+\d+\s*\)", body):
-        constants.append(int(m))
-    return constants
-
-
-def _shift_constants(body: str) -> List[int]:
-    """Constants used in bvshl/bvlshr/bvashr (e.g. (_ bv3 64))."""
-    # Match shift op followed eventually by (_ bvN M)
-    constants = []
-    for m in re.findall(r"\(\s*(?:bvshl|bvlshr|bvashr)\s+[^)]*\(\s*_\s+bv(\d+)\s+\d+\s*\)", body):
-        constants.append(int(m))
-    return constants
-
-
-def _dominant_constant_type(body: str) -> int:
-    """
-    0 = range-dominated (bounds), 1 = shift-dominated, 2 = other/mixed.
-    """
-    bounds = _constraint_bounds(body)
-    shifts = _shift_constants(body)
-    if bounds and not shifts:
-        return 0
-    if shifts and not bounds:
-        return 1
-    if bounds and shifts:
-        return 2
-    return 2
-
-
-def extract_features(path_content: str) -> Tuple[List[float], Dict[str, float]]:
-    """
-    Extract 11-dimensional raw feature vector from path constraint file content.
-
-    Returns:
-        (raw_features, feature_dict): raw_features is list of 11 numbers,
-        feature_dict maps feature names to values for inspection.
-    """
-    body = _constraint_body(path_content)
-
-    # 1. Assert count
-    n_asserts = _count_asserts(body)
-
-    # 2. Variable count
-    n_vars = len(_variable_names(body))
-
-    # 3. Dominant bit-vector width (most frequent; largest width breaks ties)
-    widths = _bitvec_widths(body)
-    if widths:
-        counts = Counter(widths)
-        max_count = max(counts.values())
-        main_bv_width = max(width for width, count in counts.items() if count == max_count)
-    else:
-        main_bv_width = 0
-
-    # 4. Core operator type count (unique operator kinds)
-    op_counts = _operator_counts(body)
-    n_op_types = len(op_counts)
-
-    # 5. Comparison op ratio
-    total_ops = sum(op_counts.values())
-    comp_ops = sum(op_counts.get(op, 0) for op in COMPARISON_OPS)
-    comparison_ratio = (comp_ops / total_ops) if total_ops else 0.0
-
-    # 6. Nested expression depth
-    nest_depth = _max_nesting_depth(body)
-
-    # 7. Dominant constant type (0/1/2)
-    dom_const = _dominant_constant_type(body)
-
-    # 8. Variable constraint range span (max - min of bound constants)
-    bounds = _constraint_bounds(body)
-    range_span = (max(bounds) - min(bounds)) if len(bounds) >= 2 else 0
-
-    # 9. Shift coefficient (max shift constant, or 0)
-    shift_consts = _shift_constants(body)
-    shift_coef = max(shift_consts) if shift_consts else 0
-
-    # 10. Zero-extend + sign-extend count
-    ext_count = sum(op_counts.get(op, 0) for op in EXTEND_OPS)
-
-    # 11. Extract count
-    extract_count = op_counts.get(EXTRACT_OP, 0)
-
-    raw = [
-        float(n_asserts),
-        float(n_vars),
-        float(main_bv_width),
-        float(n_op_types),
-        comparison_ratio,
-        float(nest_depth),
-        float(dom_const),
-        float(range_span),
-        float(shift_coef),
-        float(ext_count),
-        float(extract_count),
-    ]
-    names = [
-        "assert_count",
-        "variable_count",
-        "main_bv_width",
-        "operator_type_count",
-        "comparison_ratio",
-        "nest_depth",
-        "dominant_constant_type",
-        "variable_range_span",
-        "shift_coefficient",
-        "extend_count",
-        "extract_count",
-    ]
-    return raw, dict(zip(names, raw))
-
-
-# Default min/max for normalization (empirical for typical path constraints)
-FEATURE_RANGES: Dict[str, Tuple[float, float]] = {
+FEATURE_RANGES: dict[str, tuple[float, float]] = {
     "assert_count": (0, 25),
     "variable_count": (0, 30),
     "main_bv_width": (0, 64),
@@ -211,23 +44,603 @@ FEATURE_RANGES: Dict[str, Tuple[float, float]] = {
     "extract_count": (0, 20),
 }
 
+FEATURE_SCHEMA = "symbolicana.pcfv.v2"
+
+_BV_COMPARISONS = {
+    "bvult",
+    "bvule",
+    "bvugt",
+    "bvuge",
+    "bvslt",
+    "bvsle",
+    "bvsgt",
+    "bvsge",
+}
+_FP_COMPARISONS = {"fp.eq", "fp.lt", "fp.leq", "fp.gt", "fp.geq"}
+_EQUALITY_OPS = {"=", "distinct"}
+_COMPARISON_OPS = _BV_COMPARISONS | _FP_COMPARISONS | _EQUALITY_OPS
+_SHIFT_OPS = {"bvshl", "bvlshr", "bvashr"}
+_EXTEND_OPS = {"zero_extend", "sign_extend"}
+_EXTRACT_OP = "extract"
+_LOGICAL_OPS = {"and", "or", "not", "xor", "=>", "ite"}
+_BV_CORE_OPS = {
+    "bvadd",
+    "bvsub",
+    "bvmul",
+    "bvudiv",
+    "bvsdiv",
+    "bvurem",
+    "bvsrem",
+    "bvsmod",
+    "bvand",
+    "bvor",
+    "bvxor",
+    "bvnot",
+    "bvneg",
+    "bvnand",
+    "bvnor",
+    "bvshl",
+    "bvlshr",
+    "bvashr",
+    "bvcomp",
+    "bvconcat",
+    "zero_extend",
+    "sign_extend",
+    "extract",
+    "rotate_left",
+    "rotate_right",
+    "repeat",
+    "int2bv",
+    "bv2int",
+    "bvredand",
+    "bvredor",
+}
+_FP_CORE_OPS = {
+    "fp.add",
+    "fp.sub",
+    "fp.mul",
+    "fp.div",
+    "fp.rem",
+    "fp.neg",
+    "fp.abs",
+    "fp.sqrt",
+    "fp.roundToIntegral",
+    "fp.fma",
+    "fp.min",
+    "fp.max",
+    "fp.eq",
+    "fp.lt",
+    "fp.leq",
+    "fp.gt",
+    "fp.geq",
+    "fp.isNaN",
+    "fp.isInfinite",
+    "fp.isZero",
+    "fp.isNormal",
+    "fp.isSubnormal",
+    "fp.to_ieee_bv",
+    "to_fp",
+    "to_fp_unsigned",
+    "fp.to_sbv",
+    "fp.to_ubv",
+}
+_ARRAY_OPS = {"select", "store"}
+_ARITH_OPS = {"+", "-", "*", "/", "div", "mod", "<", "<=", ">", ">="}
+_CORE_OPS = (
+    _BV_CORE_OPS
+    | _FP_CORE_OPS
+    | _ARRAY_OPS
+    | _ARITH_OPS
+    | _COMPARISON_OPS
+    | _LOGICAL_OPS
+)
+
+_INPUT_SYMBOL_RE = re.compile(
+    r"^(?:arg_\d+|FP_arg_\d+|scanf_\d+|count_param|array_b_\d+)"
+    r"(?:_\d+)*(?:_\d+)?$"
+)
+
+
+class FeatureExtractionError(ValueError):
+    """Raised when a path constraint cannot be parsed as complete SMT-LIB."""
+
+
+@dataclass
+class FeatureRecord:
+    raw: list[float]
+    values: dict[str, float]
+    valid: dict[str, bool]
+    missing: dict[str, str]
+    details: dict[str, Any] = field(default_factory=dict)
+    schema: str = FEATURE_SCHEMA
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema": self.schema,
+            "feature_names": list(FEATURE_NAMES),
+            "raw": self.raw,
+            "values": self.values,
+            "valid": self.valid,
+            "missing": self.missing,
+            "details": self.details,
+        }
+
+
+@dataclass
+class _ExprStats:
+    operator_counts: Counter[str] = field(default_factory=Counter)
+    total_operators: int = 0
+    depth: int = 0
+    variables: set[tuple[str, str]] = field(default_factory=set)
+    variable_exprs: dict[tuple[str, str], z3.ExprRef] = field(default_factory=dict)
+    boundary_constants: list[tuple[str, int]] = field(default_factory=list)
+    shift_constants: list[int] = field(default_factory=list)
+    symbolic_shifts: int = 0
+
+
+def _constraint_body(content: str) -> str:
+    if "; Path signature:" in content:
+        content = content.split("; Path signature:", 1)[0]
+    if "(check-sat)" in content:
+        content = content.split("(check-sat)", 1)[0]
+    lines = [
+        line
+        for line in content.splitlines()
+        if not line.lstrip().startswith("(set-info :status")
+    ]
+    return "\n".join(lines).strip()
+
+
+def parse_constraints(path_content: str) -> list[z3.BoolRef]:
+    body = _constraint_body(path_content)
+    if not body:
+        return []
+    try:
+        formulas = z3.parse_smt2_string(body, ctx=z3.Context())
+    except z3.Z3Exception as exc:
+        raise FeatureExtractionError(f"invalid SMT-LIB path constraint: {exc}") from exc
+    if not all(isinstance(formula, z3.BoolRef) for formula in formulas):
+        raise FeatureExtractionError("path constraint contains a non-Boolean assertion")
+    return list(formulas)
+
+
+def _operator_name(expr: z3.ExprRef) -> str:
+    if not z3.is_app(expr):
+        return ""
+    return str(expr.decl().name())
+
+
+def _is_numeric_constant(expr: z3.ExprRef) -> bool:
+    return bool(
+        z3.is_int_value(expr)
+        or z3.is_rational_value(expr)
+        or z3.is_bv_value(expr)
+        or z3.is_fp_value(expr)
+    )
+
+
+def _sort_identity(sort: z3.SortRef) -> str:
+    return str(sort)
+
+
+def _collect_stats(
+    expr: z3.ExprRef,
+    *,
+    under_comparison: bool = False,
+    _cache: dict[tuple[int, bool], _ExprStats] | None = None,
+    _constant_cache: dict[tuple[int, bool], tuple[tuple[str, int], ...]]
+    | None = None,
+) -> _ExprStats:
+    cache = {} if _cache is None else _cache
+    constant_cache = {} if _constant_cache is None else _constant_cache
+    cache_key = (expr.get_id(), under_comparison)
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    if z3.is_app(expr) and expr.num_args() == 0 and not _is_numeric_constant(expr):
+        key = (str(expr), _sort_identity(expr.sort()))
+        stats = _ExprStats(
+            variables={key},
+            variable_exprs={key: expr},
+        )
+        cache[cache_key] = stats
+        return stats
+
+    if not z3.is_app(expr):
+        stats = _ExprStats()
+        cache[cache_key] = stats
+        return stats
+
+    name = _operator_name(expr)
+    stats = _ExprStats()
+    child_stats = [
+        _collect_stats(
+            expr.arg(index),
+            under_comparison=under_comparison or name in _COMPARISON_OPS,
+            _cache=cache,
+            _constant_cache=constant_cache,
+        )
+        for index in range(expr.num_args())
+    ]
+    for child in child_stats:
+        stats.operator_counts.update(child.operator_counts)
+        stats.total_operators += child.total_operators
+        stats.variables.update(child.variables)
+        stats.variable_exprs.update(child.variable_exprs)
+        stats.boundary_constants.extend(child.boundary_constants)
+        stats.shift_constants.extend(child.shift_constants)
+        stats.symbolic_shifts += child.symbolic_shifts
+
+    if name in _CORE_OPS:
+        stats.operator_counts[name] += 1
+        stats.total_operators += 1
+        stats.depth = 1 + max((child.depth for child in child_stats), default=0)
+    else:
+        stats.depth = max((child.depth for child in child_stats), default=0)
+
+    if name in _SHIFT_OPS and expr.num_args() >= 2:
+        amount = expr.arg(1)
+        folded = z3.simplify(amount)
+        if z3.is_bv_value(folded):
+            stats.shift_constants.append(int(folded.as_long()))
+        else:
+            stats.symbolic_shifts += 1
+
+    if name in _COMPARISON_OPS and bool(stats.variables):
+        for index in range(expr.num_args()):
+            operand = expr.arg(index)
+            stats.boundary_constants.extend(
+                _bitvector_constants(
+                    operand,
+                    skip_shift_amounts=True,
+                    _cache=constant_cache,
+                )
+            )
+
+    cache[cache_key] = stats
+    return stats
+
+
+def _bitvector_constants(
+    expr: z3.ExprRef,
+    *,
+    skip_shift_amounts: bool = False,
+    _cache: dict[tuple[int, bool], tuple[tuple[str, int], ...]] | None = None,
+) -> list[tuple[str, int]]:
+    cache = {} if _cache is None else _cache
+    cache_key = (expr.get_id(), skip_shift_amounts)
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return list(cached)
+
+    out: list[tuple[str, int]] = []
+    if z3.is_bv_value(expr):
+        out.append((_sort_identity(expr.sort()), int(expr.as_long())))
+    elif z3.is_app(expr):
+        if skip_shift_amounts and _operator_name(expr) in _SHIFT_OPS:
+            if expr.num_args():
+                out.extend(
+                    _bitvector_constants(
+                        expr.arg(0),
+                        skip_shift_amounts=True,
+                        _cache=cache,
+                    )
+                )
+        else:
+            for index in range(expr.num_args()):
+                out.extend(
+                    _bitvector_constants(
+                        expr.arg(index),
+                        skip_shift_amounts=skip_shift_amounts,
+                        _cache=cache,
+                    )
+                )
+    cache[cache_key] = tuple(out)
+    return out
+
+
+def _variable_widths(variables: set[tuple[str, str]]) -> list[int]:
+    widths = []
+    for _name, sort_text in variables:
+        match = re.fullmatch(r"BitVec\((\d+)\)", sort_text)
+        if match:
+            widths.append(int(match.group(1)))
+    return widths
+
+
+def _signed_value(value: int, bits: int) -> int:
+    return value - (1 << bits) if value >= (1 << (bits - 1)) else value
+
+
+def _fp_value_to_float(value: z3.ExprRef) -> float:
+    if not z3.is_fp_value(value):
+        raise FeatureExtractionError(f"not a floating-point value: {value}")
+    exponent_bits = int(value.ebits())
+    significand_bits = int(value.sbits())
+    bits = exponent_bits + significand_bits
+    if bits not in {32, 64}:
+        raise FeatureExtractionError(f"unsupported FP width: {bits}")
+    raw = (
+        (int(bool(value.sign())) << (bits - 1))
+        | (int(value.exponent_as_long()) << (bits - exponent_bits - 1))
+        | int(value.significand_as_long())
+    )
+    return struct.unpack(
+        ">f" if bits == 32 else ">d",
+        raw.to_bytes(bits // 8, "big"),
+    )[0]
+
+
+def _is_same_expr(left: z3.ExprRef, right: z3.ExprRef) -> bool:
+    return bool(left.eq(right))
+
+
+def _input_bounds(
+    variables: list[z3.ExprRef],
+    formulas: list[z3.BoolRef],
+) -> tuple[float | None, dict[str, Any]]:
+    inputs = [
+        variable
+        for variable in variables
+        if _INPUT_SYMBOL_RE.match(str(variable))
+    ]
+    if not inputs:
+        return None, {"inputs": [], "reason": "no input symbols"}
+
+    bounds: dict[tuple[str, str], dict[str, list[tuple[Any, str, bool]]]] = {}
+    comparisons: list[z3.ExprRef] = []
+    seen_nodes: set[int] = set()
+    for formula in formulas:
+        stack = [formula]
+        while stack:
+            current = stack.pop()
+            if not z3.is_app(current):
+                continue
+            node_id = current.get_id()
+            if node_id in seen_nodes:
+                continue
+            seen_nodes.add(node_id)
+            if _operator_name(current) in _COMPARISON_OPS:
+                comparisons.append(current)
+            stack.extend(current.arg(i) for i in range(current.num_args()))
+
+    for variable in inputs:
+        key = (str(variable), _sort_identity(variable.sort()))
+        if z3.is_bv(variable):
+            bounds[key] = {"signed": [], "unsigned": []}
+            bits = variable.size()
+            for comparison in comparisons:
+                if comparison.num_args() != 2:
+                    continue
+                left, right = comparison.arg(0), comparison.arg(1)
+                if _is_same_expr(left, variable) and z3.is_bv_value(z3.simplify(right)):
+                    op = _operator_name(comparison)
+                    raw = int(z3.simplify(right).as_long())
+                    signed = _signed_value(raw, bits)
+                    if op in {"bvsge", "bvsgt"}:
+                        bounds[key]["signed"].append((signed, "lower", op.endswith("gt")))
+                    elif op in {"bvsle", "bvslt"}:
+                        bounds[key]["signed"].append((signed, "upper", op.endswith("lt")))
+                    elif op in {"bvuge", "bvugt"}:
+                        bounds[key]["unsigned"].append((raw, "lower", op.endswith("gt")))
+                    elif op in {"bvule", "bvult"}:
+                        bounds[key]["unsigned"].append((raw, "upper", op.endswith("lt")))
+                    elif op == "=":
+                        bounds[key]["signed"].extend(
+                            [(signed, "lower", False), (signed, "upper", False)]
+                        )
+                elif _is_same_expr(right, variable) and z3.is_bv_value(z3.simplify(left)):
+                    op = _operator_name(comparison)
+                    raw = int(z3.simplify(left).as_long())
+                    signed = _signed_value(raw, bits)
+                    if op in {"bvsle", "bvslt"}:
+                        bounds[key]["signed"].append((signed, "lower", op.endswith("lt")))
+                    elif op in {"bvsge", "bvsgt"}:
+                        bounds[key]["signed"].append((signed, "upper", op.endswith("gt")))
+                    elif op in {"bvule", "bvult"}:
+                        bounds[key]["unsigned"].append((raw, "lower", op.endswith("lt")))
+                    elif op in {"bvuge", "bvugt"}:
+                        bounds[key]["unsigned"].append((raw, "upper", op.endswith("gt")))
+        elif z3.is_fp(variable):
+            bounds[key] = {"fp": []}
+            for comparison in comparisons:
+                if comparison.num_args() != 2:
+                    continue
+                left, right = comparison.arg(0), comparison.arg(1)
+                if _is_same_expr(left, variable) and z3.is_fp_value(z3.simplify(right)):
+                    op = _operator_name(comparison)
+                    value = _fp_value_to_float(z3.simplify(right))
+                    if op in {"fp.geq", "fp.gt"}:
+                        bounds[key]["fp"].append((value, "lower", op.endswith("gt")))
+                    elif op in {"fp.leq", "fp.lt"}:
+                        bounds[key]["fp"].append((value, "upper", op.endswith("lt")))
+        else:
+            bounds[key] = {}
+
+    spans = []
+    evidence = {"inputs": []}
+    for variable in inputs:
+        key = (str(variable), _sort_identity(variable.sort()))
+        if z3.is_bv(variable):
+            candidates = []
+            for signedness in ("signed", "unsigned"):
+                items = bounds[key][signedness]
+                lowers = [value + (1 if strict else 0) for value, side, strict in items if side == "lower"]
+                uppers = [value - (1 if strict else 0) for value, side, strict in items if side == "upper"]
+                if lowers and uppers:
+                    lo = max(lowers)
+                    hi = min(uppers)
+                    if hi >= lo:
+                        candidates.append(
+                            {
+                                "signedness": signedness,
+                                "lower": lo,
+                                "upper": hi,
+                                "span": hi - lo,
+                            }
+                        )
+            if not candidates:
+                return None, {
+                    "inputs": evidence["inputs"],
+                    "reason": f"incomplete bounds for {key[0]}",
+                }
+            selected = max(candidates, key=lambda item: item["span"])
+            spans.append(selected["span"])
+            evidence["inputs"].append({**selected, "name": key[0], "kind": "bitvec"})
+        elif z3.is_fp(variable):
+            items = bounds[key]["fp"]
+            lowers = [value for value, side, _strict in items if side == "lower"]
+            uppers = [value for value, side, _strict in items if side == "upper"]
+            if not lowers or not uppers:
+                return None, {
+                    "inputs": evidence["inputs"],
+                    "reason": f"incomplete bounds for {key[0]}",
+                }
+            lo, hi = max(lowers), min(uppers)
+            if hi < lo:
+                return None, {
+                    "inputs": evidence["inputs"],
+                    "reason": f"empty bounds for {key[0]}",
+                }
+            span = hi - lo
+            spans.append(span)
+            evidence["inputs"].append(
+                {"name": key[0], "kind": "float", "lower": lo, "upper": hi, "span": span}
+            )
+        else:
+            return None, {
+                "inputs": evidence["inputs"],
+                "reason": f"unsupported input sort for {key[0]}: {key[1]}",
+            }
+    if not spans:
+        return None, {"inputs": evidence["inputs"], "reason": "no span evidence"}
+    evidence["maximum"] = max(spans)
+    return float(max(spans)), evidence
+
+
+def extract_feature_record(path_content: str) -> FeatureRecord:
+    formulas = parse_constraints(path_content)
+    stats = _ExprStats()
+    for formula in formulas:
+        item = _collect_stats(formula)
+        stats.operator_counts.update(item.operator_counts)
+        stats.total_operators += item.total_operators
+        stats.depth = max(stats.depth, item.depth)
+        stats.variables.update(item.variables)
+        stats.variable_exprs.update(item.variable_exprs)
+        stats.boundary_constants.extend(item.boundary_constants)
+        stats.shift_constants.extend(item.shift_constants)
+        stats.symbolic_shifts += item.symbolic_shifts
+
+    variables = list(stats.variable_exprs.values())
+    widths = _variable_widths(stats.variables)
+    if widths:
+        counts = Counter(widths)
+        top = max(counts.values())
+        main_bv_width = max(width for width, count in counts.items() if count == top)
+    else:
+        main_bv_width = 0
+
+    comparison_count = sum(
+        count for op, count in stats.operator_counts.items() if op in _COMPARISON_OPS
+    )
+    comparison_ratio = (
+        comparison_count / stats.total_operators if stats.total_operators else 0.0
+    )
+    has_range = bool(stats.boundary_constants)
+    has_shift = bool(stats.shift_constants)
+    dominant_constant_type = (
+        0 if has_range and not has_shift
+        else 1 if has_shift and not has_range
+        else 2
+    )
+
+    span, span_evidence = _input_bounds(variables, formulas)
+    valid = {name: True for name in FEATURE_NAMES}
+    missing: dict[str, str] = {}
+    if span is None:
+        valid["variable_range_span"] = False
+        missing["variable_range_span"] = span_evidence.get("reason", "missing")
+
+    raw = [
+        float(len(formulas)),
+        float(len(stats.variables)),
+        float(main_bv_width),
+        float(len(stats.operator_counts)),
+        float(comparison_ratio),
+        float(stats.depth),
+        float(dominant_constant_type),
+        float(span or 0.0),
+        float(max(stats.shift_constants) if stats.shift_constants else 0),
+        float(sum(stats.operator_counts.get(op, 0) for op in _EXTEND_OPS)),
+        float(stats.operator_counts.get(_EXTRACT_OP, 0)),
+    ]
+    values = dict(zip(FEATURE_NAMES, raw))
+    details = {
+        "assertions": len(formulas),
+        "variables": [
+            {"name": name, "sort": sort_text}
+            for name, sort_text in sorted(stats.variables)
+        ],
+        "operator_counts": dict(sorted(stats.operator_counts.items())),
+        "comparison_count": comparison_count,
+        "total_operator_occurrences": stats.total_operators,
+        "constant_evidence": {
+            "range": len(stats.boundary_constants),
+            "shift": len(stats.shift_constants),
+            "symbolic_shift": stats.symbolic_shifts,
+        },
+        "input_span_evidence": span_evidence,
+    }
+    return FeatureRecord(raw, values, valid, missing, details)
+
+
+def extract_features(path_content: str) -> tuple[list[float], dict[str, float]]:
+    """Return the backward-compatible raw vector and named values.
+
+    Missing optional dimensions keep slot 8 at zero, but callers that need
+    ranking validity must use :func:`extract_feature_record`.
+    """
+    record = extract_feature_record(path_content)
+    return record.raw, record.values
+
 
 def normalize_features(
-    raw: List[float],
-    min_max: Optional[Dict[str, Tuple[float, float]]] = None,
-) -> List[float]:
-    """
-    Normalize raw 11-dim vector to [0, 1] per feature.
-    If min_max is None, use FEATURE_RANGES.
-    """
-    names = list(FEATURE_RANGES.keys())
-    min_max = min_max or {n: FEATURE_RANGES[n] for n in names}
+    raw: list[float],
+    min_max: dict[str, tuple[float, float]] | None = None,
+) -> list[float]:
+    names = list(FEATURE_NAMES)
+    ranges = min_max or {name: FEATURE_RANGES[name] for name in names}
     out = []
-    for i, name in enumerate(names):
-        lo, hi = min_max.get(name, (0, 1))
-        v = raw[i]
+    for index, name in enumerate(names):
+        lo, hi = ranges.get(name, (0.0, 1.0))
+        value = raw[index]
         if hi <= lo:
             out.append(0.0)
         else:
-            out.append(max(0.0, min(1.0, (v - lo) / (hi - lo))))
+            out.append(max(0.0, min(1.0, (value - lo) / (hi - lo))))
     return out
+
+
+def cosine_with_validity(
+    left: list[float],
+    right: list[float],
+    left_valid: list[bool] | None = None,
+    right_valid: list[bool] | None = None,
+) -> float:
+    if len(left) != len(right):
+        return 0.0
+    mask = [
+        (left_valid is None or left_valid[index])
+        and (right_valid is None or right_valid[index])
+        for index in range(len(left))
+    ]
+    if not any(mask):
+        return 0.0
+    dot = sum(left[index] * right[index] for index in range(len(left)) if mask[index])
+    left_norm = math.sqrt(sum(left[index] ** 2 for index in range(len(left)) if mask[index]))
+    right_norm = math.sqrt(sum(right[index] ** 2 for index in range(len(right)) if mask[index]))
+    if left_norm == 0.0 or right_norm == 0.0:
+        return 0.0
+    return max(0.0, min(1.0, dot / (left_norm * right_norm)))

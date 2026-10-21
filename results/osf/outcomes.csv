@@ -1,0 +1,11 @@
+outcome,cases
+correct_eq,64
+correct_neq,65
+wrong_eq,0
+wrong_neq,0
+label_inconsistent,5
+undefined_behavior,3
+harness_invalid,0
+unk,39
+failed,68
+not_attempted,28

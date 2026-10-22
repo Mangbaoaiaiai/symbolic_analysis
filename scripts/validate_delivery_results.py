@@ -100,65 +100,67 @@ def main() -> int:
     assert osf_summary["total"] == 272
     assert osf_summary["supported"] == 271
     assert osf_summary["unsupported"] == 1
-    assert osf_summary["entered_symbolic_execution"] == 198
-    assert osf_summary["both_sides_complete"] == 170
-    assert osf_summary["correct"] == 147
-    assert osf_summary["determinate"] == 147
-    assert osf_summary["provisional"] is True
-    assert osf_summary["full_osf_rerun_complete"] is False
-    assert osf_summary["provisional_replaced_cases"] == 27
-    assert len(osf_summary["provisional_case_ids"]) == 27
+    assert osf_summary["entered_symbolic_execution"] == 195
+    assert osf_summary["both_sides_path_artifacts"] == 180
+    assert osf_summary["both_sides_complete"] == 165
+    assert osf_summary["correct"] == 144
+    assert osf_summary["determinate"] == 144
+    assert osf_summary["conflicting_attempts"] == []
+    assert osf_summary["provisional"] is False
+    assert osf_summary["full_osf_rerun_complete"] is True
+    assert osf_summary["timed_cases"] == 169
+    assert abs(osf_summary["mean_verifier_seconds"] - 26.9103549260657) < 1e-12
 
     osf_rows = read_rows(osf_root / "cases.csv")
     assert len(osf_rows) == 272
     assert len({row["case_id"] for row in osf_rows}) == 272
     expected_outcomes = {
         "correct_eq": 72,
-        "correct_neq": 75,
+        "correct_neq": 72,
         "wrong_eq": 0,
         "wrong_neq": 0,
+        "harness_invalid": 0,
         "label_inconsistent": 5,
         "undefined_behavior": 3,
         "unk": 43,
-        "failed": 73,
+        "failed": 76,
         "not_attempted": 1,
     }
     assert Counter(row["outcome"] for row in osf_rows) == Counter(expected_outcomes)
+    assert osf_summary["outcomes"] == expected_outcomes
     assert sum(
         row["outcome"] in {"correct_eq", "correct_neq"} for row in osf_rows
-    ) == 147
-    provisional_rows = [
-        row
-        for row in osf_rows
-        if row["case_id"] in set(osf_summary["provisional_case_ids"])
-    ]
-    assert len(provisional_rows) == 27
-    assert all(row.get("provisional_merge_source") for row in provisional_rows)
+    ) == 144
+    assert sum(bool(row["evaluation_wall_seconds"]) for row in osf_rows) == 169
 
     failure_rows = read_rows(osf_root / "failure_cases.csv")
     assert Counter(row["failure_category"] for row in failure_rows) == {
-        "sigkill_or_oom": 46,
-        "symbolic_timeout": 28,
-        "incomplete_symbolic_exploration": 26,
-        "no_complete_paths": 1,
-        "verifier_or_semantic_unknown": 15,
+        "sigkill_or_oom": 63,
+        "symbolic_timeout": 26,
+        "incomplete_symbolic_exploration": 15,
+        "no_complete_paths": 2,
+        "verifier_or_semantic_unknown": 13,
         "unsupported_harness": 1,
     }
+
+    family_rows = read_rows(osf_root / "family_summary.csv")
+    assert sum(int(row["cases"]) for row in family_rows) == 272
+    assert sum(int(row["timed_cases"]) for row in family_rows) == 169
 
     upstream = read_rows(osf_root / "upstream_142_cases.csv")
     assert len(upstream) == 142
     assert sum(
         row["outcome"] in {"correct_eq", "correct_neq"} for row in upstream
-    ) == 81
+    ) == 79
     assert Counter(row["outcome"] for row in upstream) == Counter({
         "correct_eq": 38,
-        "correct_neq": 43,
+        "correct_neq": 41,
         "wrong_eq": 0,
         "wrong_neq": 0,
         "label_inconsistent": 2,
         "undefined_behavior": 1,
-        "unk": 15,
-        "failed": 43,
+        "unk": 14,
+        "failed": 46,
     })
 
     audit_rows = read_rows(ROOT / "configs" / "osf_label_audit.csv")
@@ -179,8 +181,8 @@ def main() -> int:
 
     print(
         "validated paper=62 (58 correct, 0 wrong, 4 UNK); "
-        "provisional OSF=272 (271 supported, 198 entered SE, 170 complete, "
-        "147 correct, 0 wrong, 5 label inconsistencies, 3 UB exclusions)"
+        "OSF=272 (271 supported, 195 entered SE, 165 complete, "
+        "144 correct, 0 wrong, 5 label inconsistencies, 3 UB exclusions)"
     )
     return 0
 

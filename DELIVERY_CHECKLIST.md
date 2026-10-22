@@ -15,25 +15,23 @@
 - [x] Generated paths, binaries, caches, raw logs, and local workspace paths
       are excluded.
 
-## Current provisional OSF audit
+## Complete OSF audit
 
-- [x] `results/osf/summary.json` marks the aggregate as provisional and records
-      that the complete rerun is not finished.
-- [x] Exactly 27 case rows are replaced: 21 from the all-method entry
-      regression and 6 from the complex-type regression.
-- [x] The previous 272-entry full audit supplies all other case rows.
+- [x] `results/osf/summary.json` records `"provisional": false` and
+      `"full_osf_rerun_complete": true`.
 - [x] `271 / 272` entries are supported or staged.
-- [x] `198` entries entered symbolic execution.
-- [x] `185` entries have both-side path artifacts.
-- [x] `170` entries have complete exploration on both sides.
-- [x] The provisional audit reports `147` correct determinate outcomes:
-      `72` EQ and `75` NEQ.
-- [x] The provisional audit reports zero `wrong_eq` and zero `wrong_neq`.
-- [x] Five source-level label inconsistencies remain visible per case.
-- [x] Three final undefined-behavior exclusions remain visible per case.
-- [x] Failure accounting reports 28 symbolic timeouts, 46 SIGKILL/OOM
-      cases, 26 incomplete explorations, 15 verifier/semantic unknowns, one
-      no-complete-path case, and one unsupported harness.
+- [x] `195` entries entered symbolic execution.
+- [x] `180` entries have both-side path artifacts.
+- [x] `165` entries have complete exploration on both sides.
+- [x] The strict audit reports `144` correct determinate outcomes: `72` EQ and
+      `72` NEQ.
+- [x] The strict audit reports zero `wrong_eq` and zero `wrong_neq`.
+- [x] No conflicting stage verdicts remain.
+- [x] Five source-level label inconsistencies and three final
+      undefined-behavior exclusions remain visible per case.
+- [x] Failure accounting reports 26 symbolic timeouts, 63 SIGKILL/OOM cases,
+      15 incomplete explorations, 13 verifier/semantic unknowns, two
+      no-complete-path cases, and one unsupported harness.
 - [x] The upstream ARDiff 142-case subset has its own summary and case table.
 - [x] The benchmark archive SHA-256 is
       `e3cdbb21ab079ed69d3a40286cebf4d21d0ec51ee64ca898d93a57d885ba4005`.
@@ -42,22 +40,18 @@
 
 - [x] The analysis image reports Python 3.12.15, GCC 12.2, angr/claripy
       9.2.192, and Z3 4.12.2.
-- [x] All 158 Docker unit/integration tests pass.
-- [x] `python scripts/validate_delivery_results.py` passes for the provisional
-      table.
+- [x] The Docker unit/integration suite passes (`162` tests).
+- [x] `python scripts/validate_delivery_results.py` passes for the complete
+      OSF table.
 - [x] `git diff --check` passes.
 - [x] The curated tables contain no host or container work paths.
 
-## Pending final OSF run
+## Repository delivery
 
-- [ ] Commit and push this provisional release to GitHub `main`.
-- [ ] Start a fresh 272-entry OSF run from the pushed release checkout.
-- [ ] Complete both OSF path-generation/evaluation stages.
-- [ ] Re-audit every case from the new run without reusing the provisional
-      rows.
-- [ ] Replace `results/osf/` with the final path-free audit.
-- [ ] Update README, this checklist, and the result validator with the final
-      measured counts.
-- [ ] Set `"provisional": false` and
-      `"full_osf_rerun_complete": true` in `results/osf/summary.json`.
-- [ ] Commit the final full-run results and push to GitHub `main`.
+- [x] The completed 272-entry run has been re-audited across all stage and
+      retry roots.
+- [x] Missing evaluation reports for complete paths were regenerated.
+- [x] Case-ID filtering is case-insensitive, so `_NEq` cases are not omitted.
+- [x] Final result files replace the provisional aggregate.
+- [x] README, result audit, checklist, and validator use the final counts.
+- [x] Commit the final full-run results and push `main`.

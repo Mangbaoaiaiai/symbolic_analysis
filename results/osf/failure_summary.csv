@@ -1,7 +1,7 @@
 category,cases
+incomplete_symbolic_exploration,15
+no_complete_paths,2
+sigkill_or_oom,63
+symbolic_timeout,26
 unsupported_harness,1
-sigkill_or_oom,46
-symbolic_timeout,28
-no_complete_paths,1
-incomplete_symbolic_exploration,26
-verifier_or_semantic_unknown,15
+verifier_or_semantic_unknown,13

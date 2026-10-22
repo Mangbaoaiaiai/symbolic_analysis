@@ -4,8 +4,13 @@ import json
 import tempfile
 from collections import Counter
 from pathlib import Path
+from types import SimpleNamespace
 
-from run_evaluation import compute_ranking_stats, path_truth_status
+from run_evaluation import (
+    compute_ranking_stats,
+    path_truth_status,
+    select_benchmark_pairs,
+)
 from scripts.summarize_paper_subset import canonical_case_id
 from scripts.summarize_paper_eval import (
     classify,
@@ -17,6 +22,17 @@ from symbolic_analysis.profile import FULL_INPUT_SPACE, profile_for_input_domain
 
 
 class PaperSubsetTests(unittest.TestCase):
+    def test_pair_selector_is_case_insensitive(self) -> None:
+        pairs = [
+            SimpleNamespace(pair_id="CLEVER/LoopMult10_Neq"),
+            SimpleNamespace(pair_id="CLEVER/LoopMult10_Eq"),
+        ]
+        selected = select_benchmark_pairs(pairs, ["CLEVER/LoopMult10_NEq"])
+        self.assertEqual(
+            [pair.pair_id for pair in selected],
+            ["CLEVER/LoopMult10_Neq"],
+        )
+
     def test_fixed_62_manifest_identity(self) -> None:
         path = Path(__file__).resolve().parents[1] / "configs" / "paper_62.csv"
         with path.open(encoding="utf-8", newline="") as stream:

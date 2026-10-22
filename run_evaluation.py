@@ -611,6 +611,18 @@ def discover_benchmark_pairs(benchmarks_dir: Path) -> list[BinaryPair]:
     return discover_by_layout(benchmarks_dir)
 
 
+def select_benchmark_pairs(
+    pairs: list[BinaryPair], selectors: list[str]
+) -> list[BinaryPair]:
+    """Filter pair IDs using case-insensitive substring selectors."""
+    folded = [selector.casefold() for selector in selectors]
+    return [
+        pair
+        for pair in pairs
+        if any(selector in pair.pair_id.casefold() for selector in folded)
+    ]
+
+
 def load_manifest(manifest: Path) -> list[BinaryPair]:
     data = json.loads(manifest.read_text(encoding="utf-8"))
     pairs = data.get("pairs", data if isinstance(data, list) else [])
@@ -1892,11 +1904,7 @@ def main() -> int:
         )
     pairs = discover_benchmark_pairs(config.benchmarks_dir)
     if args.pair:
-        pairs = [
-            pair
-            for pair in pairs
-            if any(selector in pair.pair_id for selector in args.pair)
-        ]
+        pairs = select_benchmark_pairs(pairs, args.pair)
     if not pairs:
         config.output_dir.mkdir(parents=True, exist_ok=True)
         (config.output_dir / "results.json").write_text(

@@ -2,45 +2,48 @@ case_id,family,label,support_status,failure_category,artifact_status,old_path_co
 REVE/ackermann_Eq,REVE,EQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 REVE/ackermann_NEq,REVE,NEQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 REVE/addhorn_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,1,131,False,,ok,,unk
-REVE/addhorn_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,1,132,False,,ok,,unk
+REVE/addhorn_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,1,34,False,,,,unk
 REVE/average_Eq,REVE,EQ,unsupported,unsupported_harness,not_attempted,0,0,False,,,,not_attempted
-REVE/barthe_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,516,515,False,,ok,,unk
-REVE/barthe_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,516,131,False,,ok,,unk
-REVE/barthe2_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,515,515,False,,ok,,unk
-REVE/barthe2big_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,61,62,False,,ok,,unk
+REVE/barthe_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,124,123,False,,ok,,unk
+REVE/barthe_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,124,33,False,,ok,,unk
+REVE/barthe2_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,123,123,False,,,,unk
+REVE/barthe2big_Eq,REVE,EQ,supported_function,sigkill_or_oom,partial,61,0,False,symbolic_newV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
 REVE/barthe2big2_Eq,REVE,EQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-REVE/digits10_Eq,REVE,EQ,supported_function,verifier_or_semantic_unknown,both_sides,10,10,True,,ok,tool_timeout,unk
+REVE/digits10_Eq,REVE,EQ,supported_function,verifier_or_semantic_unknown,both_sides,10,10,True,,,,unk
 REVE/inlining_Eq,REVE,EQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 REVE/inlining_NEq,REVE,NEQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-REVE/limit1_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,515,516,False,,ok,,unk
-REVE/limit1_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,515,516,False,,ok,,unk
-REVE/limit2_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,515,515,False,,ok,,unk
-REVE/limit2_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,partial,515,0,False,symbolic_newV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
-REVE/limit3_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,partial,515,0,False,symbolic_newV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
-REVE/loop_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,129,129,False,,ok,,unk
+REVE/limit1_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,123,124,False,,,,unk
+REVE/limit1_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,123,124,False,,ok,,unk
+REVE/limit2_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,123,123,False,,ok,,unk
+REVE/limit2_NEq,REVE,NEQ,supported_function,sigkill_or_oom,partial,123,0,False,symbolic_newV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+REVE/limit3_Eq,REVE,EQ,supported_function,sigkill_or_oom,partial,123,0,False,symbolic_newV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+REVE/loop_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,31,31,False,,,,unk
 REVE/mccarthy91_Eq,REVE,EQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-REVE/triangular_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,123,123,False,,ok,,unk
+REVE/triangular_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,123,123,False,,,,unk
 REVE/triangularMod_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,2,2,False,,ok,,unk
-REVE/triangularMod_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,1,515,False,,ok,,unk
-REVE/whileif_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,1,130,False,,ok,,unk
-airy/airy_Eq,airy,EQ,supported_targets,verifier_or_semantic_unknown,both_sides,160,200,True,,,,unk
-bess/bess_Eq,bess,EQ,supported_targets,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution produced no complete paths,,,failed
-bess/bess_NEq,bess,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,568,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+REVE/triangularMod_NEq,REVE,NEQ,supported_function,incomplete_symbolic_exploration,both_sides,1,123,False,,,,unk
+REVE/whileif_Eq,REVE,EQ,supported_function,incomplete_symbolic_exploration,both_sides,1,32,False,,,,unk
+airy/airy_Eq,airy,EQ,supported_targets,sigkill_or_oom,partial,56,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+airy/airy_NEq,airy,NEQ,supported_targets,sigkill_or_oom,partial,53,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+airy/chebev_c1d_Eq,airy,EQ,supported_function,verifier_or_semantic_unknown,both_sides,4,4,True,,,,unk
+bess/bess_Eq,bess,EQ,supported_targets,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
+bess/bess_NEq,bess,NEQ,supported_snippet,symbolic_timeout,partial,576,0,False,symbolic_oldV: symbolic execution timed out,,,unk
 bess/bessi_Eq,bess,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 bess/bessi_NEq,bess,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 bess/bessj_Eq,bess,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 bess/bessj_NEq,bess,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-bess/bessk_Eq,bess,EQ,supported_snippet,incomplete_symbolic_exploration,partial,751,0,False,symbolic_oldV: symbolic execution timed out,,,unk
-bess/bessk_NEq,bess,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,718,0,False,symbolic_oldV: symbolic execution timed out,,,unk
-bess/bessy_Eq,bess,EQ,supported_snippet,incomplete_symbolic_exploration,partial,692,0,False,symbolic_oldV: symbolic execution timed out,,,unk
-bess/bessy_NEq,bess,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,638,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+bess/bessk_Eq,bess,EQ,supported_snippet,symbolic_timeout,partial,748,0,False,symbolic_oldV: symbolic execution timed out,,,unk
+bess/bessk_NEq,bess,NEQ,supported_snippet,symbolic_timeout,partial,751,0,False,symbolic_oldV: symbolic execution timed out,,,unk
+bess/bessy_Eq,bess,EQ,supported_snippet,symbolic_timeout,partial,668,0,False,symbolic_oldV: symbolic execution timed out,,,unk
+bess/bessy_NEq,bess,NEQ,supported_snippet,symbolic_timeout,partial,705,0,False,symbolic_oldV: symbolic execution timed out,,,unk
 bess/bessy1_Eq,bess,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,13,13,True,,ok,,unk
-bess/dawson_Eq,bess,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,5,5,True,,ok,,unk
-bess/pythag_Eq,bess,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,7,7,True,,ok,tool_timeout,unk
+bess/dawson_Eq,bess,EQ,supported_snippet,no_complete_paths,failed,0,0,False,symbolic_oldV: symbolic execution produced no complete paths,,,failed
+bess/dawson_NEq,bess,NEQ,supported_snippet,no_complete_paths,failed,0,0,False,symbolic_oldV: symbolic execution produced no complete paths,,,failed
+bess/pythag_Eq,bess,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,7,7,True,,,,unk
 caldat/badluk_Eq,caldat,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 caldat/badluk_NEq,caldat,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 caldat/caldat_Eq,caldat,EQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
-caldat/caldat_NEq,caldat,NEQ,supported_function,no_complete_paths,failed,0,0,False,symbolic_oldV: symbolic execution produced no complete paths,,,failed
+caldat/caldat_NEq,caldat,NEQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 caldat/caldatProgram_Eq,caldat,EQ,supported_targets,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 caldat/caldatProgram_NEq,caldat,NEQ,supported_targets,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 caldat/flmoon_Eq,caldat,EQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
@@ -53,15 +56,15 @@ ell/ell_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_old
 ell/ell_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/ellProgram_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/ellProgram_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ell/elle_Eq,ell,EQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+ell/elle_Eq,ell,EQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/elle_NEq,ell,NEQ,supported_function,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/ellpi_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ell/ellpi_NEq,ell,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+ell/ellpi_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/plgndr_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/plgndr_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ell/rc_Eq,ell,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+ell/rc_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/rc_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ell/rd_Eq,ell,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+ell/rd_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/rd_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/rf_Eq,ell,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ell/rf_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
@@ -72,47 +75,47 @@ ell/sncndn_NEq,ell,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symboli
 frenel/cisi_Eq,frenel,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 frenel/cisi_NEq,frenel,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 frenel/frenel_Eq,frenel,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-frenel/frenel_NEq,frenel,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,46,0,False,symbolic_oldV: symbolic execution timed out,,,unk
+frenel/frenel_NEq,frenel,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 frenel/frenelProgram_Eq,frenel,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 frenel/frenelProgram_NEq,frenel,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/betacf_Eq,gam,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/betacf_NEq,gam,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/betai_Eq,gam,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,18,18,True,,ok,tool_timeout,unk
+gam/betai_NEq,gam,NEQ,supported_snippet,incomplete_symbolic_exploration,both_sides,18,7,False,symbolic_newV: symbolic execution failed,,,unk
 gam/expint_Eq,gam,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
-gam/expint_NEq,gam,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,5,0,False,symbolic_newV: symbolic execution timed out,,,unk
+gam/expint_NEq,gam,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 gam/factrl_Eq,gam,EQ,supported_function,verifier_or_semantic_unknown,both_sides,3,3,True,,ok,,unk
-gam/gam_Eq,gam,EQ,supported_targets,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
-gam/gam_NEq,gam,NEQ,supported_targets,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+gam/gam_Eq,gam,EQ,supported_targets,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
+gam/gam_NEq,gam,NEQ,supported_targets,symbolic_timeout,partial,42,0,False,symbolic_oldV: symbolic execution timed out,,,unk
 gam/gammp_Eq,gam,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/gammp_NEq,gam,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/gammq_Eq,gam,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-gam/gammq_NEq,gam,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
-gam/gser_Eq,gam,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+gam/gammq_NEq,gam,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
+gam/gser_Eq,gam,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 gam/gser_NEq,gam,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-optimization/wood_Eq,optimization,EQ,supported_function,verifier_or_semantic_unknown,both_sides,9,7,True,,ok,tool_timeout,unk
+optimization/optimization_Eq,optimization,EQ,supported_targets,verifier_or_semantic_unknown,both_sides,27,21,True,,ok,tool_timeout,unk
 ran/bnldev_Eq,ran,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/bnldev_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/expdev_Eq,ran,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/expdev_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/gamdev_Eq,ran,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ran/gamdev_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
-ran/gasdev_NEq,ran,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,3,0,False,symbolic_newV: symbolic execution timed out,,,unk
+ran/gamdev_NEq,ran,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
+ran/gasdev_NEq,ran,NEQ,supported_snippet,symbolic_timeout,partial,3,0,False,symbolic_newV: symbolic execution timed out,,,unk
 ran/poidev_Eq,ran,EQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/poidev_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/ran_Eq,ran,EQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/ran_NEq,ran,NEQ,supported_function,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/ranone_Eq,ran,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
-ran/ranone_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
+ran/ranone_NEq,ran,NEQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ran/ranthree_Eq,ran,EQ,supported_snippet,sigkill_or_oom,failed,0,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,failed
 ran/ranthree_NEq,ran,NEQ,supported_snippet,symbolic_timeout,failed,0,0,False,symbolic_oldV: symbolic execution timed out,,,failed
 ran/ranwo_Eq,ran,EQ,supported_snippet,incomplete_symbolic_exploration,both_sides,2,2,False,,ok,,unk
-ran/ranwo_NEq,ran,NEQ,supported_snippet,incomplete_symbolic_exploration,partial,2,0,False,symbolic_oldV: symbolic execution timed out,,,unk
-raytrace/normalize_Eq,raytrace,EQ,supported_function,verifier_or_semantic_unknown,both_sides,3,3,True,,ok,,unk
+ran/ranwo_NEq,ran,NEQ,supported_snippet,sigkill_or_oom,partial,2,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
 tcas/NonCrossingBiasedClimb_Eq,tcas,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,5,5,True,,ok,,unk
 tcas/NonCrossingBiasedDescend_Eq,tcas,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,5,7,True,,ok,,unk
 tcas/altseptest_Eq,tcas,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,29,29,True,,ok,,unk
-tcas/tcas_Eq,tcas,EQ,supported_targets,sigkill_or_oom,partial,160,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
-tcas/tcas_NEq,tcas,NEQ,supported_targets,sigkill_or_oom,partial,158,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+tcas/tcas_Eq,tcas,EQ,supported_targets,sigkill_or_oom,partial,24,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
+tcas/tcas_NEq,tcas,NEQ,supported_targets,sigkill_or_oom,partial,24,0,False,symbolic_oldV: symbolic execution failed (symbolic executor terminated by SIGKILL (typically OOM)),,,unk
 tsafe/conflict_NEq,tsafe,NEQ,supported_snippet,verifier_or_semantic_unknown,both_sides,8,12,True,,ok,tool_timeout,unk
 tsafe/snippet_Eq,tsafe,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,201,201,True,,ok,tool_timeout,unk
 tsafe/tsafe_Eq,tsafe,EQ,supported_snippet,verifier_or_semantic_unknown,both_sides,201,201,True,,ok,tool_timeout,unk

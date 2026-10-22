@@ -81,6 +81,14 @@ def generated_pair_count(path_root: Path) -> int:
     return 0
 
 
+def manifest_record_count(path: Path) -> int:
+    """Return the number of records in a CSV case manifest."""
+    if not path.is_file():
+        return 0
+    with path.open("r", encoding="utf-8-sig", newline="") as stream:
+        return sum(1 for _ in csv.DictReader(stream))
+
+
 def prepare_osf() -> None:
     BENCHMARKS_EXTRACTED.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(BENCHMARKS_ARCHIVE) as archive:
@@ -629,28 +637,35 @@ def run_osf(
         encoding="utf-8",
     )
 
-    audit_command = [
-        PYTHON,
-        "scripts/audit_osf_full.py",
-        "--manifest",
-        str(manifest),
-        "--label-audit-csv",
-        "configs/osf_label_audit.csv",
-        "--output-dir",
-        f"results/rerun/{run_name}/audit",
-    ]
-    for attempt, path_root, eval_root in zip(attempts, path_roots, eval_roots):
-        audit_command.extend(
-            [
-                "--attempt-name",
-                str(attempt["name"]),
-                "--path-root",
-                str(path_root),
-                "--eval-root",
-                str(eval_root),
-            ]
+    if manifest_record_count(manifest) == 272:
+        audit_command = [
+            PYTHON,
+            "scripts/audit_osf_full.py",
+            "--manifest",
+            str(manifest),
+            "--label-audit-csv",
+            "configs/osf_label_audit.csv",
+            "--output-dir",
+            f"results/rerun/{run_name}/audit",
+        ]
+        for attempt, path_root, eval_root in zip(attempts, path_roots, eval_roots):
+            audit_command.extend(
+                [
+                    "--attempt-name",
+                    str(attempt["name"]),
+                    "--path-root",
+                    str(path_root),
+                    "--eval-root",
+                    str(eval_root),
+                ]
+            )
+        run(audit_command)
+    else:
+        print(
+            "Subset manifest: skipped the full-matrix strict audit. "
+            "Use the complete 272-case manifest for the final aggregate.",
+            flush=True,
         )
-    run(audit_command)
 
 
 def run_tests() -> None:

@@ -11,7 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from scripts.run_suite import generated_pair_count, resolve_run_names
+from scripts.run_suite import (
+    generated_pair_count,
+    manifest_record_count,
+    resolve_run_names,
+)
 
 
 class RunNameTests(unittest.TestCase):
@@ -30,6 +34,16 @@ class RunNameTests(unittest.TestCase):
                 encoding="utf-8",
             )
             self.assertEqual(generated_pair_count(root), 1)
+
+    def test_manifest_record_count_handles_missing_subset_and_bom(self) -> None:
+        with TemporaryDirectory() as raw_tmp:
+            path = Path(raw_tmp) / "cases.csv"
+            self.assertEqual(manifest_record_count(path), 0)
+            path.write_text(
+                "\ufeffcase_id,label\na/b_Eq,EQ\na/c_NEq,NEQ\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(manifest_record_count(path), 2)
 
     def test_single_suites_default_to_their_own_names(self) -> None:
         self.assertEqual(resolve_run_names("paper", None), ("paper", "paper"))

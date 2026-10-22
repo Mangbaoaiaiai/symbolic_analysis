@@ -179,22 +179,21 @@ failures (`bess/bessi_Eq`, `bess/bessj_Eq`, `bess/bessk_Eq`, and
 
 ## 3. Complete OSF evaluation
 
-> **Provisional aggregate.** The current 272-entry table combines the previous
-> complete OSF audit with targeted results for 27 cases supported by the latest
-> entry/type adaptation. It is not yet a single end-to-end run. The summary
-> records `provisional: true` and `full_osf_rerun_complete: false`.
+All 272 entries use the same complete-input-space profile. The table below is
+the strict audit of the current run, including every generation retry and
+verification attempt.
 
 | Outcome | Cases |
 |---|---:|
 | Correct EQ | **72** |
-| Correct NEQ | **75** |
-| **Correct determinate** | **147** |
+| Correct NEQ | **72** |
+| **Correct determinate** | **144** |
 | Wrong EQ | 0 |
 | Wrong NEQ | 0 |
 | Label inconsistent | 5 |
 | Undefined behavior excluded | 3 |
 | UNK | 43 |
-| Failed | 73 |
+| Failed | 76 |
 | Not attempted / unsupported | 1 |
 | **Total** | **272** |
 
@@ -203,16 +202,16 @@ Coverage and failure accounting:
 | Metric | Cases |
 |---|---:|
 | Supported / staged | 271 |
-| Entered symbolic execution | 198 |
-| Both-side path artifacts | 185 |
-| Both-side complete exploration | 170 |
-| Incomplete exploration | 28 |
-| No path artifact | 73 |
-| `symbolic_timeout` | 28 |
-| `sigkill_or_oom` | 46 |
-| `incomplete_symbolic_exploration` | 26 |
-| `verifier_or_semantic_unknown` | 15 |
-| `no_complete_paths` | 1 |
+| Entered symbolic execution | 195 |
+| Both-side path artifacts | 180 |
+| Both-side complete exploration | 165 |
+| Incomplete exploration | 30 |
+| No path artifact | 76 |
+| `symbolic_timeout` | 26 |
+| `sigkill_or_oom` | 63 |
+| `incomplete_symbolic_exploration` | 15 |
+| `verifier_or_semantic_unknown` | 13 |
+| `no_complete_paths` | 2 |
 | `unsupported_harness` | 1 |
 
 The only unsupported entry is `REVE/average_Eq`; its source declares `int a[]`
@@ -222,28 +221,28 @@ Per-family OSF results:
 
 | Family | Cases | Supported | Complete | Correct EQ | Correct NEQ | Wrong EQ | Wrong NEQ | Label inconsistent | UB | UNK | Failed | Not attempted | Timed cases | Mean verifier time / timed case (s) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| CLEVER | 50 | 50 | 50 | 27 | 20 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 50 | 2.226 |
-| REVE | 32 | 31 | 9 | 5 | 2 | 0 | 0 | 0 | 1 | 17 | 6 | 1 | 23 | 26.640 |
-| airy | 12 | 12 | 12 | 4 | 6 | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 10 | 1.504 |
-| bess | 36 | 36 | 26 | 9 | 13 | 0 | 0 | 1 | 0 | 8 | 5 | 0 | 26 | 51.713 |
-| caldat | 10 | 10 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 2 | 0.930 |
-| dart | 2 | 2 | 2 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 2 | 1.825 |
-| ej_hash | 12 | 12 | 12 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 8 | 0.836 |
-| ell | 26 | 26 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 24 | 0 | 2 | 11.449 |
-| frenel | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 5 | 0 | 0 | NA |
-| gam | 24 | 24 | 12 | 4 | 6 | 0 | 0 | 0 | 0 | 3 | 11 | 0 | 12 | 56.933 |
-| optimization | 6 | 6 | 6 | 2 | 2 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 4 | 213.886 |
-| pow | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.571 |
-| ran | 22 | 22 | 5 | 3 | 2 | 0 | 0 | 0 | 0 | 3 | 14 | 0 | 6 | 2.661 |
-| raytrace | 12 | 12 | 12 | 5 | 6 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | NA |
-| sine | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 53.214 |
-| statcalc | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.545 |
-| tcas | 8 | 8 | 6 | 0 | 3 | 0 | 0 | 0 | 0 | 5 | 0 | 0 | 6 | 80.616 |
-| tsafe | 8 | 8 | 8 | 2 | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 8 | 225.411 |
-| **All** | **272** | **271** | **170** | **72** | **75** | **0** | **0** | **5** | **3** | **43** | **73** | **1** | **165** | **36.782** |
+| airy | 12 | 12 | 10 | 3 | 5 | 0 | 0 | 1 | 0 | 3 | 0 | 0 | 9 | 1.612 |
+| bess | 36 | 36 | 24 | 9 | 12 | 0 | 0 | 1 | 0 | 7 | 7 | 0 | 23 | 19.775 |
+| caldat | 10 | 10 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 2 | 0.772 |
+| CLEVER | 50 | 50 | 50 | 27 | 20 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 50 | 1.911 |
+| dart | 2 | 2 | 2 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 2 | 1.350 |
+| ej_hash | 12 | 12 | 12 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 0.873 |
+| ell | 26 | 26 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 24 | 0 | 2 | 9.092 |
+| frenel | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 | 0 | NA |
+| gam | 24 | 24 | 11 | 4 | 5 | 0 | 0 | 0 | 0 | 4 | 11 | 0 | 11 | 59.246 |
+| optimization | 6 | 6 | 6 | 2 | 2 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 6 | 205.246 |
+| pow | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.622 |
+| ran | 22 | 22 | 5 | 3 | 2 | 0 | 0 | 0 | 0 | 3 | 14 | 0 | 6 | 0.915 |
+| raytrace | 12 | 12 | 12 | 6 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 0.998 |
+| REVE | 32 | 31 | 9 | 5 | 2 | 0 | 0 | 0 | 1 | 17 | 6 | 1 | 14 | 0.578 |
+| sine | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 45.889 |
+| statcalc | 2 | 2 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0.570 |
+| tcas | 8 | 8 | 6 | 0 | 3 | 0 | 0 | 0 | 0 | 5 | 0 | 0 | 6 | 24.046 |
+| tsafe | 8 | 8 | 8 | 2 | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 8 | 225.360 |
+| **All** | **272** | **271** | **165** | **72** | **72** | **0** | **0** | **5** | **3** | **43** | **76** | **1** | **169** | **26.910** |
 
 `NA` means that no case in that family had a recorded verifier wall time. The
-overall mean is computed over all 165 timed cases, not as an unweighted mean of
+overall mean is computed over all 169 timed cases, not as an unweighted mean of
 the family means.
 
 ## Result files

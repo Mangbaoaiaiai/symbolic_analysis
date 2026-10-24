@@ -245,6 +245,35 @@ Per-family OSF results:
 overall mean is computed over all 169 timed cases, not as an unweighted mean of
 the family means.
 
+### Path-matching type distribution
+
+`Records` counts accepted source-path records. `Four-class share` is the share
+of those accepted records. `Target links` counts target paths covered after
+one-to-many expansion, so it can be larger than `Records`.
+
+One-target-per-source configuration:
+
+| Match Type | Records | Four-class share | Target links |
+|---|---:|---:|---:|
+| One-to-one exact | 904 | 76.61% | 904 |
+| One-to-one source-subset-target | 276 | 23.39% | 276 |
+| One-to-many exact cover | 0 | 0.00% | 0 |
+| One-to-many source-subset-target union | 0 | 0.00% | 0 |
+| **Four-class total** | **1,180** | **100.00%** | **1,180** |
+
+Full multi-target union configuration:
+
+| Match Type | Records | Four-class share | Target links |
+|---|---:|---:|---:|
+| One-to-one exact | 906 | 71.56% | 906 |
+| One-to-one source-subset-target | 185 | 14.61% | 185 |
+| One-to-many exact cover | 36 | 2.84% | 86 |
+| One-to-many source-subset-target union | 139 | 10.98% | 859 |
+| **Four-class total** | **1,266** | **100.00%** | **2,036** |
+
+Percentages are rounded to two decimals; displayed components can differ from
+100.00% by 0.01% due to rounding.
+
 ## Result files
 
 | Result | File |

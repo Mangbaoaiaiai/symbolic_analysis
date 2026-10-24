@@ -116,22 +116,6 @@ The 58 analyzed cases include 29 correct EQ, 29 correct NEQ, and no incorrect
 EQ/NEQ result. The four remaining cases are excluded only from the denominator
 for timing and ranking metrics; they remain UNK in the verdict denominator.
 
-## 2. One-to-many path-matching ablation
-
-Strict one-to-one mode requires a distinct, bidirectionally equal input-domain
-match for every source and target path. The complete method additionally allows
-one source region to be covered by a union of target regions.
-
-| Configuration | Correct / 62 | Correct EQ | Correct NEQ | Wrong | UNK | Correct rate |
-|---|---:|---:|---:|---:|---:|---:|
-| Strict one-to-one | 57 | 28/33 | 29/29 | 0 | 5 | 91.94% |
-| Bidirectional one-to-many coverage | **58** | **29/33** | **29/29** | **0** | **4** | **93.55%** |
-| Difference | +1 | +1 EQ | 0 | 0 | -1 | +1.61 pp |
-
-The additional case is `dart/test_Eq`: strict one-to-one returns UNK, while
-coverage-based matching returns the correct EQ result. The four path-generation
-failures (`bess/bessi_Eq`, `bess/bessj_Eq`, `bess/bessk_Eq`, and
-`bess/bessy_Eq`) are UNK in both configurations.
 
 ### Column definitions
 
@@ -251,15 +235,7 @@ the family means.
 of those accepted records. `Target links` counts target paths covered after
 one-to-many expansion, so it can be larger than `Records`.
 
-One-target-per-source configuration:
 
-| Match Type | Records | Four-class share | Target links |
-|---|---:|---:|---:|
-| One-to-one exact | 904 | 76.61% | 904 |
-| One-to-one source-subset-target | 276 | 23.39% | 276 |
-| One-to-many exact cover | 0 | 0.00% | 0 |
-| One-to-many source-subset-target union | 0 | 0.00% | 0 |
-| **Four-class total** | **1,180** | **100.00%** | **1,180** |
 
 Full multi-target union configuration:
 

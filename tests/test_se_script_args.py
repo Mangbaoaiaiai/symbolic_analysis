@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 SPEC = importlib.util.spec_from_file_location(
     "se_script_improved",
     ROOT / "scripts" / "se_script_improved.py",
@@ -50,124 +52,28 @@ class _Regs:
 
 
 class SymbolicArgumentTests(unittest.TestCase):
-    def test_global_initializer_mode_is_explicit_and_defaults_off(self) -> None:
-        legacy = se_script.BenchmarkSymbolicExecution("binary")
-        concrete = se_script.BenchmarkSymbolicExecution(
-            "binary",
-            concrete_global_initializers=True,
+    def test_call_depth_bound_moves_deep_states_to_audited_stash(self) -> None:
+        class SimulationManager:
+            def __init__(self):
+                self.stashes = {"active": [state_a, state_b]}
+
+            def step(self, *, stash, **kwargs):
+                del stash, kwargs
+                return {}
+
+        state_a = SimpleNamespace(
+            callstack=SimpleNamespace(depth=3)
         )
-        self.assertFalse(legacy.concrete_global_initializers)
-        self.assertTrue(concrete.concrete_global_initializers)
-        self.assertTrue(legacy.retain_path_details)
-
-    def test_streaming_path_output_releases_each_state(self) -> None:
-        runner = se_script.BenchmarkSymbolicExecution.__new__(
-            se_script.BenchmarkSymbolicExecution
+        state_b = SimpleNamespace(
+            callstack=SimpleNamespace(depth=4)
         )
-        runner.paths_info = []
-        runner.retain_path_details = False
-        runner.extract_path_signature = lambda state: {
-            "variables": {},
-            "constraints": {"count": 0},
-        }
-        runner.generate_smt_constraints = lambda state: "(check-sat)"
-        runner.extract_semantic_summary = lambda state: {"state": state}
-        runner.save_path_to_file = lambda info: f"path_{info['index']}.txt"
-        states = [object(), object()]
-
-        runner.analyze_states(states)
-
-        self.assertEqual(
-            runner.paths_info,
-            [
-                {"index": 1, "path_file": "path_1.txt"},
-                {"index": 2, "path_file": "path_2.txt"},
-            ],
-        )
-        self.assertEqual(states, [None, None])
-
-    def test_printf_fp_argument_is_serialized_as_ieee_bits(self) -> None:
-        runner = se_script.BenchmarkSymbolicExecution.__new__(
-            se_script.BenchmarkSymbolicExecution
-        )
-        value = se_script.claripy.BVS("double_value", 64).raw_to_fp()
-
-        segment = runner.serialize_output_argument(
-            SimpleNamespace(),
-            value,
-            event_index=0,
-            argument_index=0,
-            specifier="%a",
-        )
-
-        self.assertEqual(segment["kind"], "formatted_value")
-        self.assertTrue(segment["available"])
-        self.assertNotIn("(assert\n false)", segment["smt"])
-        self.assertIn("__output_0_0", segment["smt"])
-        self.assertIn("double_value", segment["smt"])
-
-    def test_printf_integer_argument_is_serialized(self) -> None:
-        runner = se_script.BenchmarkSymbolicExecution.__new__(
-            se_script.BenchmarkSymbolicExecution
-        )
-        value = se_script.claripy.BVS("integer_value", 32)
-
-        segment = runner.serialize_output_argument(
-            SimpleNamespace(),
-            value,
-            event_index=1,
-            argument_index=0,
-            specifier="%d",
-        )
-
-        self.assertEqual(segment["kind"], "formatted_value")
-        self.assertTrue(segment["available"])
-        self.assertNotIn("smt_error", segment)
-        self.assertIn("__output_1_0", segment["smt"])
-        self.assertIn("integer_value", segment["smt"])
-
-    def test_long_return_uses_64_bit_register(self) -> None:
-        runner = se_script.BenchmarkSymbolicExecution.__new__(
-            se_script.BenchmarkSymbolicExecution
-        )
-        runner.snippet_signature = {"return": "long", "args": []}
-        state = SimpleNamespace(
-            arch=SimpleNamespace(registers={"eax": (0, 4), "rax": (0, 8)}),
-            regs=SimpleNamespace(eax="low32", rax="full64"),
-        )
-
-        self.assertEqual(runner.get_return_expr(state), "full64")
-
-    def test_64_bit_sysv_integer_uses_full_register(self) -> None:
-        runner = se_script.BenchmarkSymbolicExecution.__new__(
-            se_script.BenchmarkSymbolicExecution
-        )
-        runner.binary_path = "symbolic_oldV"
-        runner.project = SimpleNamespace(
-            loader=SimpleNamespace(
-                main_object=SimpleNamespace(os="linux"),
-            )
-        )
-        state = SimpleNamespace(
-            arch=SimpleNamespace(
-                name="AMD64",
-                registers={"rsi": (0, 8)},
-                memory_endness="Iend_LE",
-            ),
-            regs=_Regs(),
-            memory=_Memory(),
-        )
-
-        runner.install_call_arguments(
-            state,
-            [
-                ("int", _SizedValue("arg0")),
-                ("long", _SizedValue("arg1", bits=64)),
-            ],
-        )
-
-        self.assertFalse(hasattr(state.regs, "esi"))
-        self.assertEqual(state.regs.rsi.name, "arg1")
+        technique = se_script.CallDepthBound(3)
+        manager = SimulationManager()
+        technique.step(manager)
+        self.assertEqual(manager.stashes["active"], [state_a])
+        self.assertEqual(manager.stashes["recursion_bound"], [state_b])
+        self.assertEqual(technique.max_observed_depth, 4)
+        self.assertEqual(technique.bound_event_count, 1)
 
     def test_sysv_stack_arguments_are_installed_after_six_registers(self) -> None:
         runner = se_script.BenchmarkSymbolicExecution.__new__(

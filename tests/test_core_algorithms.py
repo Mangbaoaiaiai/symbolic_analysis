@@ -799,6 +799,10 @@ class ProgramOutputTests(unittest.TestCase):
             replay.assert_called_once()
 
 
+
+
+
+
 class CoverageTests(unittest.TestCase):
     def _path(self, directory: Path, name: str, predicate: str) -> Path:
         path = directory / name
@@ -817,98 +821,31 @@ class CoverageTests(unittest.TestCase):
             )
             self.assertTrue(covered)
 
-    def test_one_to_one_requires_bidirectional_input_domain_equality(self) -> None:
-        with tempfile.TemporaryDirectory() as raw_dir:
-            directory = Path(raw_dir)
-            old = self._path(
-                directory,
-                "symbolic_oldV_path_1.txt",
-                "(= x (_ bv0 32))",
-            )
-            new = self._path(
-                directory,
-                "symbolic_newV_path_1.txt",
-                "(and (bvsge x (_ bv0 32)) (bvsle x (_ bv1 32)))",
-            )
-            ranking = {"symbolic_oldV_path_1": ["symbolic_newV_path_1"]}
-            semantic_match = (
-                True,
-                0.0,
-                1,
-                {"input_overlap": "sat"},
-            )
-            with mock.patch.object(
-                verifier,
-                "verify_semantic_path_relation",
-                return_value=semantic_match,
-            ):
-                strict = verifier.verify_directional_cover(
-                    [old],
-                    [new],
-                    ranking,
-                    5_000,
-                    allow_one_to_many=False,
-                )
-                union_allowed = verifier.verify_directional_cover(
-                    [old],
-                    [new],
-                    ranking,
-                    5_000,
-                    allow_one_to_many=True,
-                )
-
-        self.assertFalse(strict["records"][0]["matched"])
-        self.assertTrue(union_allowed["records"][0]["matched"])
-        self.assertTrue(
-            union_allowed["records"][0]["intersection_verified"]
-        )
-
-    def test_strict_one_to_one_rejects_target_reuse(self) -> None:
-        with tempfile.TemporaryDirectory() as raw_dir:
-            directory = Path(raw_dir)
-            old_a = self._path(
-                directory,
-                "symbolic_oldV_path_1.txt",
-                "(= x (_ bv0 32))",
-            )
-            old_b = self._path(
-                directory,
-                "symbolic_oldV_path_2.txt",
-                "(= x (_ bv0 32))",
-            )
-            new = self._path(
-                directory,
-                "symbolic_newV_path_1.txt",
-                "(= x (_ bv0 32))",
-            )
-            ranking = {
-                "symbolic_oldV_path_1": ["symbolic_newV_path_1"],
-                "symbolic_oldV_path_2": ["symbolic_newV_path_1"],
+    def test_global_regions_use_historical_sorted_position_fallback(self) -> None:
+        left = {
+            "global": {
+                "bits": 32,
+                "variable": "__global_0",
+                "smt": SMT_HEADER
+                + "(declare-fun __global_0 () (_ BitVec 32))\n"
+                + "(assert (= __global_0 (_ bv1 32)))\n",
             }
-            semantic_match = (
-                True,
-                0.0,
-                1,
-                {"input_overlap": "sat"},
-            )
-            with mock.patch.object(
-                verifier,
-                "verify_semantic_path_relation",
-                return_value=semantic_match,
-            ):
-                strict = verifier.verify_directional_cover(
-                    [old_a, old_b],
-                    [new],
-                    ranking,
-                    5_000,
-                    allow_one_to_many=False,
-                )
-
-        self.assertEqual(
-            [record["matched"] for record in strict["records"]],
-            [True, False],
+        }
+        right = {
+            "global": dict(left["global"]),
+        }
+        canonical_pairs, canonical_method = verifier.map_global_regions_with_mode(
+            left,
+            right,
         )
-        self.assertEqual(strict["records"][0]["match_type"], "one_to_one_exact")
+        fallback_pairs, fallback_method = verifier.map_global_regions_with_mode(
+            left,
+            {"other_global": dict(left["global"])},
+        )
+        self.assertEqual(canonical_method, "canonical_key")
+        self.assertEqual(len(canonical_pairs or []), 1)
+        self.assertEqual(fallback_method, "sorted_position_fallback")
+        self.assertEqual(len(fallback_pairs or []), 1)
 
     def test_simplifiable_equal_paths_are_covered(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
@@ -930,6 +867,16 @@ class CoverageTests(unittest.TestCase):
             covered, elapsed = verifier.check_union_coverage([old], [new], 5_000)
             self.assertTrue(covered)
             self.assertGreaterEqual(elapsed, 0.0)
+            evidence = verifier.check_union_coverage_evidence(
+                [old],
+                [new],
+                5_000,
+                direction="old_domain_subset_new_domain",
+            )
+            self.assertEqual(
+                evidence["method"],
+                "canonical_path_ast_identity",
+            )
             self.assertNotEqual(
                 verifier.exact_path_condition_text(old),
                 verifier.exact_path_condition_text(new),
@@ -946,8 +893,8 @@ class CoverageTests(unittest.TestCase):
                     "bits": 32,
                     "repr": "x",
                     "smt": SMT_HEADER
-                    + "(declare-fun __return_value () (_ BitVec 32))\n"
-                    + "(assert (= __return_value x))\n",
+                    + "(declare-fun __return_value_1 () (_ BitVec 32))\n"
+                    + "(assert (= __return_value_1 x))\n",
                 },
                 "program_output": {
                     "available": True,
@@ -1015,48 +962,728 @@ class CoverageTests(unittest.TestCase):
             records = verifier.exact_path_bijection_proves_equivalence([old], [new])
             self.assertIsNone(records)
 
-    def test_exact_path_bijection_rejects_nonidentical_formula_text(self) -> None:
+    def test_single_target_ablation_allows_target_reuse_and_subset(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old_1 = self._path(directory, "symbolic_oldV_path_1.txt", "(= x (_ bv1 32))")
+            old_2 = self._path(directory, "symbolic_oldV_path_2.txt", "(= x (_ bv1 32))")
+            new_1 = self._path(directory, "symbolic_newV_path_1.txt", "(= x (_ bv1 32))")
+            ranking = {
+                "symbolic_oldV_path_1": ["symbolic_newV_path_1"],
+                "symbolic_oldV_path_2": ["symbolic_newV_path_1"],
+            }
+            semantic = (
+                True,
+                0.0,
+                0,
+                {
+                    "input_overlap": "sat",
+                    "semantic_mode": "test",
+                },
+            )
+            equality = (
+                False,
+                0.0,
+                {
+                    "source_subset_targets": True,
+                    "targets_subset_source": False,
+                },
+            )
+            with mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+                return_value=semantic,
+            ), mock.patch.object(
+                verifier,
+                "check_path_union_equal",
+                return_value=equality,
+            ):
+                strict = verifier.verify_directional_cover(
+                    [old_1, old_2],
+                    [new_1],
+                    ranking,
+                    1_000,
+                    allow_one_to_many=False,
+                )
+                full = verifier.verify_directional_cover(
+                    [old_1, old_2],
+                    [new_1],
+                    ranking,
+                    1_000,
+                    allow_one_to_many=True,
+                )
+            self.assertTrue(strict["success"])
+            self.assertEqual(len(strict["matched_targets"]), 1)
+            self.assertEqual(strict["matched_source_count"], 2)
+            self.assertTrue(all(record["matched"] for record in strict["records"]))
+            self.assertEqual(
+                {record["match_type"] for record in strict["records"]},
+                {"one_to_one_source_subset_target"},
+            )
+            self.assertTrue(full["success"])
+            self.assertEqual(
+                strict["matching_policy"],
+                "single_target_reusable_source_subset",
+            )
+            self.assertEqual(full["matching_policy"], "multi_target_union")
+            self.assertTrue(strict["target_reuse_allowed"])
+            self.assertTrue(full["target_reuse_allowed"])
+            self.assertTrue(strict["source_subset_allowed"])
+            self.assertTrue(full["source_subset_allowed"])
+
+    def test_single_target_ablation_does_not_accumulate_union(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = self._path(
+                directory,
+                "symbolic_oldV_path_1.txt",
+                "(bvsge x (_ bv0 32))",
+            )
+            new_zero = self._path(
+                directory,
+                "symbolic_newV_path_1.txt",
+                "(= x (_ bv0 32))",
+            )
+            new_positive = self._path(
+                directory,
+                "symbolic_newV_path_2.txt",
+                "(bvsgt x (_ bv0 32))",
+            )
+            ranking = {
+                "symbolic_oldV_path_1": [
+                    "symbolic_newV_path_1",
+                    "symbolic_newV_path_2",
+                ]
+            }
+            semantic = (
+                True,
+                0.0,
+                0,
+                {
+                    "input_overlap": "sat",
+                    "semantic_mode": "test",
+                },
+            )
+
+            def union_equal(
+                _source: Path,
+                targets: list[Path],
+                _timeout_ms: int,
+            ) -> tuple[bool, float, dict[str, bool]]:
+                equal = len(targets) > 1
+                return (
+                    equal,
+                    0.0,
+                    {
+                        "source_subset_targets": equal,
+                        "targets_subset_source": equal,
+                    },
+                )
+
+            with mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+                return_value=semantic,
+            ), mock.patch.object(
+                verifier,
+                "check_path_union_equal",
+                side_effect=union_equal,
+            ):
+                strict = verifier.verify_directional_cover(
+                    [old],
+                    [new_zero, new_positive],
+                    ranking,
+                    1_000,
+                    allow_one_to_many=False,
+                )
+                full = verifier.verify_directional_cover(
+                    [old],
+                    [new_zero, new_positive],
+                    ranking,
+                    1_000,
+                    allow_one_to_many=True,
+                )
+
+            self.assertFalse(strict["success"])
+            self.assertEqual(strict["records"][0]["match_type"], "unmatched")
+            self.assertTrue(full["success"])
+            self.assertEqual(
+                full["records"][0]["match_type"],
+                "one_to_many_exact_cover",
+            )
+            self.assertEqual(
+                strict["matching_policy"],
+                "single_target_reusable_source_subset",
+            )
+            self.assertEqual(full["matching_policy"], "multi_target_union")
+
+    def test_exploration_count_mismatch_is_unk(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            paths_dir = Path(raw_dir)
+            (paths_dir / "symbolic_oldV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (= x (_ bv1 32)))\n",
+                encoding="utf-8",
+            )
+            (paths_dir / "symbolic_newV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (= x (_ bv1 32)))\n",
+                encoding="utf-8",
+            )
+            for prefix in ("symbolic_oldV", "symbolic_newV"):
+                (paths_dir / f"{prefix}_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 2,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            result = verifier.verify_ranked_queue(
+                paths_dir,
+                None,
+                timeout_ms=1_000,
+                naive=True,
+                truth_pairs=None,
+                program_ground_truth=True,
+            )
+            self.assertEqual(result["verdict"], "UNK")
+            self.assertEqual(
+                result["failure_reason"],
+                "missing_or_incomplete_exploration_manifest",
+            )
+
+    def test_incomplete_artifact_can_only_confirm_neq_by_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            paths_dir = Path(raw_dir)
+            (paths_dir / "symbolic_oldV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (= x (_ bv1 32)))\n",
+                encoding="utf-8",
+            )
+            (paths_dir / "symbolic_newV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (= x (_ bv1 32)))\n",
+                encoding="utf-8",
+            )
+            for prefix in ("symbolic_oldV", "symbolic_newV"):
+                (paths_dir / f"{prefix}_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": False,
+                            "proof_eligible": False,
+                            "incomplete_reasons": [
+                                "lossy_address_concretization"
+                            ],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            mismatch = {
+                "query": "symbolic_oldV_path_1",
+                "target": "symbolic_newV_path_1",
+                "rank": 1,
+                "prescan": True,
+                "evidence_path": "confirmed.jsonl",
+            }
+            no_mismatch = {
+                "mismatch": None,
+                "records": [],
+                "smt_calls": 0,
+                "t_smt": 0.0,
+                "semantic_modes": {},
+            }
+            with mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+                return_value={"counterexample": None},
+            ), mock.patch.object(
+                verifier,
+                "prescan_replayable_counterexample",
+                side_effect=[
+                    {
+                        **no_mismatch,
+                        "mismatch": mismatch,
+                    },
+                ],
+            ):
+                result = verifier.verify_ranked_queue(
+                    paths_dir,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=True,
+                )
+
+        self.assertEqual(result["verdict"], "NEQ")
+        self.assertEqual(result["fast_path_branch"], "ranked_prescan_NEQ")
+        self.assertTrue(result["exploration_coverage_blocked"])
+
+    def test_domain_mismatch_is_neq_without_feasibility_prefilter(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            (directory / "symbolic_oldV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (bvsge x (_ bv0 32)))\n",
+                encoding="utf-8",
+            )
+            (directory / "symbolic_newV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (bvsle x (_ bv0 32)))\n",
+                encoding="utf-8",
+            )
+            for prefix in ("symbolic_oldV", "symbolic_newV"):
+                (directory / f"{prefix}_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                            "input_ranges": {
+                                "integer": "full_representable_input_space",
+                                "floating_point": "full_representable_input_space",
+                            },
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            old_mismatch = {
+                "direction": "old_domain_subset_new_domain",
+                "status": "sat",
+                "subset": False,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.01,
+                "query_path": "old.smt2",
+                "query_sha256": "old-hash",
+                "witness_inputs": [
+                    {
+                        "name": "x",
+                        "kind": "bitvec",
+                        "bits": 32,
+                        "value": 1,
+                        "unsigned": 1,
+                    }
+                ],
+                "witness_schema_complete": True,
+            }
+            new_unknown = {
+                "direction": "new_domain_subset_old_domain",
+                "status": "unknown",
+                "subset": None,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.02,
+                "query_path": "new.smt2",
+                "query_sha256": "new-hash",
+                "reason_unknown": "timeout",
+                "witness_schema_complete": False,
+            }
+            with mock.patch.object(
+                verifier,
+                "filter_definitely_unsat_paths",
+            ) as feasibility_filter, mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+                return_value={"counterexample": None, "reason": "not_found"},
+            ), mock.patch.object(
+                verifier,
+                "prescan_replayable_counterexample",
+                return_value={
+                    "mismatch": None,
+                    "records": [],
+                    "smt_calls": 0,
+                    "t_smt": 0.0,
+                    "semantic_modes": {},
+                },
+            ), mock.patch.object(
+                verifier,
+                "check_union_coverage_evidence",
+                side_effect=[old_mismatch, new_unknown],
+            ), mock.patch.object(
+                verifier,
+                "audit_domain_witness",
+                return_value={
+                    "direction": "old_domain_subset_new_domain",
+                    "classification": "definedness_mismatch",
+                    "reason": "one_side_defined_success_other_defined_rejection",
+                    "definedness_confirmed": True,
+                    "supports_neq": True,
+                    "witness_schema_complete": True,
+                    "witness_inputs": old_mismatch["witness_inputs"],
+                    "replay": {
+                        "confirmed": False,
+                        "reason": "program_exit_nonzero",
+                        "left": {
+                            "completed": True,
+                            "returncode": 3,
+                            "stdout": "",
+                            "stderr": "",
+                        },
+                        "right": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "ok\n",
+                            "stderr": "",
+                        },
+                    },
+                },
+            ):
+                result = verifier.verify_ranked_queue(
+                    directory,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=True,
+                )
+
+        feasibility_filter.assert_not_called()
+        self.assertEqual(result["verdict"], "NEQ")
+        self.assertEqual(result["domain_mismatch_count"], 1)
+        self.assertEqual(result["fast_path_branch"], "confirmed_domain_NEQ")
+        self.assertEqual(result["feasibility_complete"], "not_applicable")
+        self.assertIsNone(result["new_input_subset_old"])
+        self.assertFalse(result["old_input_subset_new"])
+
+    def test_domain_artifact_coverage_defect_blocks_eq(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            for side, condition in (
+                ("old", "(assert (bvsge x (_ bv0 32)))\n"),
+                ("new", "(assert (bvsle x (_ bv0 32)))\n"),
+            ):
+                (directory / f"symbolic_{side}V_path_1.txt").write_text(
+                    SMT_HEADER + condition,
+                    encoding="utf-8",
+                )
+                (directory / f"symbolic_{side}V_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            mismatch = {
+                "direction": "old_domain_subset_new_domain",
+                "status": "sat",
+                "subset": False,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.01,
+                "witness_inputs": [
+                    {
+                        "name": "x",
+                        "kind": "bitvec",
+                        "bits": 32,
+                        "value": 1,
+                        "unsigned": 1,
+                    }
+                ],
+                "witness_schema_complete": True,
+            }
+            no_mismatch = {
+                "direction": "new_domain_subset_old_domain",
+                "status": "unsat",
+                "subset": True,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.01,
+                "witness_schema_complete": False,
+            }
+            audit = {
+                "direction": "old_domain_subset_new_domain",
+                "classification": "artifact_coverage_defect",
+                "reason": "both_defined_with_identical_observables",
+                "supports_neq": False,
+                "definedness_confirmed": True,
+                "witness_schema_complete": True,
+                "witness_inputs": mismatch["witness_inputs"],
+            }
+            directional = {
+                "success": True,
+                "matching_complete": True,
+                "semantic_checks_complete": True,
+                "source_count": 1,
+                "processed_source_count": 1,
+                "coverage_status_counts": {"covered_exact": 1},
+                "semantic_status_counts": {"all_equivalent": 1},
+                "matched_targets": {"symbolic_newV_path_1"},
+                "records": [],
+                "smt_calls": 0,
+                "t_smt": 0.0,
+                "unknowns": 0,
+                "matched_source_count": 1,
+                "semantic_modes": {},
+                "confirmed_mismatches": [],
+            }
+            with mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+                return_value={"counterexample": None},
+            ), mock.patch.object(
+                verifier,
+                "prescan_replayable_counterexample",
+                return_value={
+                    "mismatch": None,
+                    "records": [],
+                    "smt_calls": 0,
+                    "t_smt": 0.0,
+                    "semantic_modes": {},
+                },
+            ), mock.patch.object(
+                verifier,
+                "check_union_coverage_evidence",
+                side_effect=[mismatch, no_mismatch],
+            ), mock.patch.object(
+                verifier,
+                "audit_domain_witness",
+                return_value=audit,
+            ), mock.patch.object(
+                verifier,
+                "verify_directional_cover",
+                return_value=directional,
+            ):
+                result = verifier.verify_ranked_queue(
+                    directory,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=None,
+                )
+
+        self.assertEqual(result["verdict"], "UNK")
+        self.assertEqual(
+            result["failure_stage"],
+            "domain_artifact_coverage_defect",
+        )
+        self.assertEqual(
+            result["domain_artifact_coverage_defect_count"],
+            1,
+        )
+        self.assertEqual(result["fast_path_branch"], "domain_witness_UNK")
+
+    def test_domain_witness_replay_classifies_defined_and_signal_outcomes(
+        self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
             directory = Path(raw_dir)
             old = directory / "symbolic_oldV_path_1.txt"
             new = directory / "symbolic_newV_path_1.txt"
-            old.write_text(
-                SMT_HEADER
-                + "(assert (let ((?x10 (bvadd x (_ bv1 32)))) "
-                + "(= ?x10 (_ bv3 32))))\n",
-                encoding="utf-8",
-            )
-            new.write_text(
-                SMT_HEADER
-                + "(assert (let ((?x99 (bvadd x (_ bv1 32)))) "
-                + "(= ?x99 (_ bv3 32))))\n",
-                encoding="utf-8",
-            )
-            summary = {
-                "return_value": {
-                    "available": True,
-                    "bits": 32,
-                    "repr": "x",
-                },
-                "program_output": {
-                    "available": True,
-                    "events": [],
-                },
-                "global_state": {
-                    "available": True,
-                    "regions": {},
-                },
+            old.write_text(SMT_HEADER, encoding="utf-8")
+            new.write_text(SMT_HEADER, encoding="utf-8")
+            evidence = {
+                "direction": "old_domain_subset_new_domain",
+                "witness_inputs": [
+                    {
+                        "name": "x",
+                        "kind": "bitvec",
+                        "bits": 32,
+                        "value": 1,
+                        "unsigned": 1,
+                    }
+                ],
+                "witness_schema_complete": True,
             }
-            for path in (old, new):
-                with path.open("a", encoding="utf-8") as stream:
-                    stream.write(
-                        "; Semantic summary JSON: "
-                        + verifier.json.dumps(summary)
-                        + "\n"
+            cases = [
+                (
+                    {
+                        "confirmed": True,
+                        "reason": "observable_output_diff",
+                        "left": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "1\n",
+                            "stderr": "",
+                        },
+                        "right": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "2\n",
+                            "stderr": "",
+                        },
+                    },
+                    "observable_mismatch",
+                    True,
+                ),
+                (
+                    {
+                        "confirmed": False,
+                        "reason": "program_exit_nonzero",
+                        "left": {
+                            "completed": True,
+                            "returncode": -11,
+                            "stdout": "",
+                            "stderr": "",
+                        },
+                        "right": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "ok\n",
+                            "stderr": "",
+                        },
+                    },
+                    "one_sided_ub_candidate",
+                    False,
+                ),
+                (
+                    {
+                        "confirmed": False,
+                        "reason": "no_observable_output_diff",
+                        "left": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "ok\n",
+                            "stderr": "",
+                        },
+                        "right": {
+                            "completed": True,
+                            "returncode": 0,
+                            "stdout": "ok\n",
+                            "stderr": "",
+                        },
+                    },
+                    "artifact_coverage_defect",
+                    False,
+                ),
+            ]
+            for replay, classification, supports_neq in cases:
+                with self.subTest(classification=classification):
+                    with mock.patch.object(
+                        verifier,
+                        "replay_counterexample",
+                        return_value=replay,
+                    ):
+                        audit = verifier.audit_domain_witness(
+                            [old],
+                            [new],
+                            evidence,
+                        )
+                    self.assertEqual(
+                        audit["classification"],
+                        classification,
                     )
-            self.assertIsNone(
-                verifier.exact_path_bijection_proves_equivalence([old], [new])
+                    self.assertEqual(audit["supports_neq"], supports_neq)
+
+    def test_exact_identity_requires_new_proof_eligibility_marker(self) -> None:
+        record = {
+            "complete": True,
+            "incomplete_reasons": [],
+            "terminating_path_count": 1,
+            "active_count": 0,
+            "timeout_count": 0,
+            "loop_bound_event_count": 0,
+            "errored_count": 0,
+            "max_paths": 128,
+        }
+        self.assertFalse(
+            verifier.exploration_is_complete(record, path_count=1)
+        )
+        record["proof_eligible"] = False
+        self.assertFalse(
+            verifier.exploration_is_complete(record, path_count=1)
+        )
+        record["proof_eligible"] = True
+        self.assertTrue(
+            verifier.exploration_is_complete(record, path_count=1)
+        )
+
+    def test_domain_mismatch_without_complete_schema_stays_unk(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            (directory / "symbolic_oldV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (bvsge x (_ bv0 32)))\n",
+                encoding="utf-8",
             )
+            (directory / "symbolic_newV_path_1.txt").write_text(
+                SMT_HEADER + "(assert (bvsle x (_ bv0 32)))\n",
+                encoding="utf-8",
+            )
+            for prefix in ("symbolic_oldV", "symbolic_newV"):
+                (directory / f"{prefix}_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            mismatch_without_schema = {
+                "direction": "old_domain_subset_new_domain",
+                "status": "sat",
+                "subset": False,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.01,
+                "witness_schema_complete": False,
+                "witness_inputs": [],
+            }
+            unknown = {
+                "direction": "new_domain_subset_old_domain",
+                "status": "unknown",
+                "subset": None,
+                "method": "smt_union_exclusion",
+                "elapsed_seconds": 0.01,
+                "witness_schema_complete": False,
+            }
+            with mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+                return_value={"counterexample": None, "reason": "not_found"},
+            ), mock.patch.object(
+                verifier,
+                "prescan_replayable_counterexample",
+                return_value={
+                    "mismatch": None,
+                    "records": [],
+                    "smt_calls": 0,
+                    "t_smt": 0.0,
+                    "semantic_modes": {},
+                },
+            ), mock.patch.object(
+                verifier,
+                "check_union_coverage_evidence",
+                side_effect=[mismatch_without_schema, unknown],
+            ):
+                result = verifier.verify_ranked_queue(
+                    directory,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=True,
+                )
+
+        self.assertEqual(result["verdict"], "UNK")
+        self.assertEqual(result["failure_stage"], "domain_witness_unconfirmed")
 
     def test_exact_path_bijection_requires_output_metadata(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
@@ -1088,154 +1715,122 @@ class CoverageTests(unittest.TestCase):
             records = verifier.exact_path_bijection_proves_equivalence([old], [new])
             self.assertIsNone(records)
 
-    def test_malformed_global_smt_cannot_use_identity_shortcut(self) -> None:
-        state = {
-            "available": True,
-            "regions": {
-                "g:0:32": {
-                    "bits": 32,
-                    "variable": "__global_0",
-                    "smt": "(declare-fun __global_0 () (_ BitVec 32)) (assert",
-                }
-            },
-        }
-        self.assertFalse(
-            verifier.global_regions_identical(state, state)
-        )
-
-    def test_global_mapping_records_layout_and_ast_candidates(self) -> None:
-        content = {"sha256": "same-initial-content"}
-        left = {
-            "left@0x0:8": {
-                "object": "left",
-                "offset": 0,
-                "size_bytes": 8,
-                "bits": 64,
-                "section": ".data",
-                "initial_content_sha256": content,
-                "variable": "__global_left",
-                "smt": """(declare-fun __global_left_1_64 () (_ BitVec 64))
-(assert (= (_ bv0 64) __global_left_1_64))
-""",
-            }
-        }
-        right = {
-            "right@0x0:8": {
-                "object": "right",
-                "offset": 0,
-                "size_bytes": 8,
-                "bits": 64,
-                "section": ".data",
-                "initial_content_sha256": content,
-                "variable": "__global_right",
-                "smt": """(declare-fun __global_right_1_64 () (_ BitVec 64))
-(assert (= (_ bv0 64) __global_right_1_64))
-""",
-            }
-        }
-        pairs, evidence = verifier.map_global_regions_with_evidence(
-            left, right
-        )
-        self.assertIsNotNone(pairs)
-        self.assertIn("layout_content", evidence["methods"])
-        self.assertGreaterEqual(
-            evidence["candidate_evidence"]["layout_content_candidates"], 1
-        )
-        self.assertGreaterEqual(
-            evidence["candidate_evidence"]["ast_context_candidates"], 1
-        )
-
-    def test_ast_only_duplicate_candidates_remain_ambiguous(self) -> None:
-        def cell(name: str, value: int, offset: int) -> dict[str, object]:
-            variable = f"__global_{name}"
-            return {
-                "object": name,
-                "offset": offset,
-                "size_bytes": 8,
-                "bits": 64,
-                "section": ".data",
-                "variable": variable,
-                "smt": (
-                    f"(declare-fun {variable}_1_64 () (_ BitVec 64))\n"
-                    f"(assert (= (_ bv{value} 64) {variable}_1_64))\n"
-                ),
-            }
-
-        left = {
-            f"{name}@0x0:8": cell(name, 0, offset)
-            for name, offset in (("a", 0), ("b", 8))
-        }
-        right = {
-            f"{name}@0x0:8": cell(name, 0, offset)
-            for name, offset in (("c", 0), ("d", 8))
-        }
-        _pairs, evidence = verifier.map_global_regions_with_evidence(
-            left, right
-        )
-        self.assertGreaterEqual(
-            evidence["candidate_evidence"]["ast_context_candidates"], 4
-        )
-        self.assertGreaterEqual(
-            evidence["candidate_evidence"]["ambiguous_ast_candidates"], 2
-        )
-
-    def test_standard_seed_replay_detects_observable_neq(self) -> None:
+    def test_exact_path_bijection_rejects_different_global_smt(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
-            root = Path(raw_dir)
-            paths = root / "case" / "paths"
-            binaries = root / "case" / "bin"
-            paths.mkdir(parents=True)
-            binaries.mkdir(parents=True)
-            old = paths / "symbolic_oldV_path_1.txt"
-            new = paths / "symbolic_newV_path_1.txt"
-            old.write_text("(assert true)\n", encoding="utf-8")
-            new.write_text("(assert true)\n", encoding="utf-8")
-            for name, output in (
-                ("symbolic_oldV", "old"),
-                ("symbolic_newV", "new"),
-            ):
-                executable = binaries / name
-                executable.write_text(
-                    f"#!/bin/sh\ncat >/dev/null\necho {output}\n",
-                    encoding="utf-8",
-                )
-                executable.chmod(0o755)
-            verifier._STANDARD_SEED_REPLAY_CACHE.clear()
-            result = verifier.replay_standard_inputs(
-                old,
-                new,
-                (("arg_0", "bitvec", 32, 0),),
+            directory = Path(raw_dir)
+            old = self._path(
+                directory, "symbolic_oldV_path_1.txt", "(= x (_ bv1 32))"
             )
-            self.assertIsNotNone(result)
-            self.assertTrue(result["replay"]["confirmed"])
-
-    def test_backend_mangled_global_variable_is_equivalent(self) -> None:
-        smt = """(set-info :status unknown)
-(declare-fun __global_counter_0_0x0_1_10_8 () (_ BitVec 8))
-(assert (= (_ bv0 8) __global_counter_0_0x0_1_10_8))
-"""
-        state = {
-            "available": True,
-            "regions": {
-                "counter@0x0:1": {
+            new = self._path(
+                directory, "symbolic_newV_path_1.txt", "(= x (_ bv1 32))"
+            )
+            common = {
+                "return_value": {
                     "available": True,
-                    "bits": 8,
-                    "variable": "__global_counter_0_0x0_1",
-                    "smt": smt,
-                }
-            },
-        }
-        self.assertTrue(
-            verifier.global_regions_identical(state, state)
-        )
-        equivalent, _elapsed, _calls, _mapping = (
-            verifier.verify_global_state_equivalence(
-                {"global_state": state},
-                {"global_state": state},
-                1_000,
+                    "bits": 32,
+                    "repr": "x",
+                    "smt": SMT_HEADER
+                    + "(declare-fun __return_value_1 () (_ BitVec 32))\n"
+                    + "(assert (= __return_value_1 x))\n",
+                },
+                "program_output": {"available": True, "events": []},
+            }
+            old_summary = {
+                **common,
+                "global_state": {
+                    "available": True,
+                    "unresolved": [],
+                    "regions": {
+                        "global": {
+                            "bits": 32,
+                            "repr": "same-display-text",
+                            "variable": "__global_0",
+                            "smt": SMT_HEADER
+                            + "(declare-fun __global_0 () (_ BitVec 32))\n"
+                            + "(assert (= __global_0 (bvadd x (_ bv1 32))))\n",
+                        }
+                    },
+                },
+            }
+            new_summary = {
+                **common,
+                "global_state": {
+                    "available": True,
+                    "unresolved": [],
+                    "regions": {
+                        "global": {
+                            "bits": 32,
+                            "repr": "same-display-text",
+                            "variable": "__global_0",
+                            "smt": SMT_HEADER
+                            + "(declare-fun __global_0 () (_ BitVec 32))\n"
+                            + "(assert (= __global_0 (bvsub x (_ bv1 32))))\n",
+                        }
+                    },
+                },
+            }
+            for path, summary in ((old, old_summary), (new, new_summary)):
+                with path.open("a", encoding="utf-8") as stream:
+                    stream.write(
+                        "; Semantic summary JSON: "
+                        + verifier.json.dumps(summary)
+                        + "\n"
+                    )
+            self.assertIsNone(
+                verifier.exact_path_bijection_proves_equivalence([old], [new])
             )
-        )
-        self.assertTrue(equivalent)
+
+    def test_exact_path_bijection_accepts_canonical_formula_ast(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = directory / "symbolic_oldV_path_1.txt"
+            new = directory / "symbolic_newV_path_1.txt"
+            old.write_text(
+                SMT_HEADER
+                + "(assert (let ((?x10 (bvadd x (_ bv1 32)))) "
+                + "(= ?x10 (_ bv3 32))))\n",
+                encoding="utf-8",
+            )
+            new.write_text(
+                SMT_HEADER
+                + "(assert (let ((?x99 (bvadd x (_ bv1 32)))) "
+                + "(= ?x99 (_ bv3 32))))\n",
+                encoding="utf-8",
+            )
+            summary = {
+                "return_value": {
+                    "available": True,
+                    "bits": 32,
+                    "repr": "x",
+                    "smt": SMT_HEADER
+                    + "(declare-fun __return_value_1 () (_ BitVec 32))\n"
+                    + "(assert (= __return_value_1 x))\n",
+                },
+                "program_output": {
+                    "available": True,
+                    "events": [],
+                },
+                "global_state": {
+                    "available": True,
+                    "regions": {},
+                },
+            }
+            for path in (old, new):
+                with path.open("a", encoding="utf-8") as stream:
+                    stream.write(
+                        "; Semantic summary JSON: "
+                        + verifier.json.dumps(summary)
+                        + "\n"
+                    )
+            records = verifier.exact_path_bijection_proves_equivalence(
+                [old],
+                [new],
+            )
+            self.assertIsNotNone(records)
+            self.assertEqual(
+                records[0]["path_condition_identity"],
+                "canonical_path_ast",
+            )
 
     def test_missing_target_region_is_not_covered(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
@@ -1260,8 +1855,8 @@ class CoverageTests(unittest.TestCase):
                 [sat_path, unsat_path], 1_000
             )
             self.assertEqual(feasible, [sat_path])
-            self.assertEqual(removed, 1)
-            self.assertEqual(unknown, 0)
+            self.assertEqual(removed, [unsat_path.stem])
+            self.assertEqual(unknown, [])
 
     def test_confirmed_neq_stops_directional_scan(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
@@ -1323,68 +1918,771 @@ class CoverageTests(unittest.TestCase):
             self.assertEqual(len(result["records"]), 1)
             self.assertEqual(result["records"][0]["query"], "symbolic_oldV_path_1")
 
-
-class ReplayInputTests(unittest.TestCase):
-    def test_partial_model_is_completed_from_path_signature(self) -> None:
+    def test_complete_matching_keeps_coverage_after_confirmed_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
             directory = Path(raw_dir)
-            left = directory / "symbolic_oldV_path_1.txt"
-            right = directory / "symbolic_newV_path_1.txt"
-            signature = (
-                "; Symbolic variable values: "
-                "{'arg_0': 1, 'arg_1': 2, 'arg_2': 3, 'arg_3': 4}\n"
-            )
-            left.write_text(SMT_HEADER + signature, encoding="utf-8")
-            right.write_text(SMT_HEADER + signature, encoding="utf-8")
-            supplied = [
+            old_1 = self._path(directory, "symbolic_oldV_path_1.txt", "(= x (_ bv1 32))")
+            old_2 = self._path(directory, "symbolic_oldV_path_2.txt", "(= x (_ bv2 32))")
+            new_1 = self._path(directory, "symbolic_newV_path_1.txt", "(= x (_ bv1 32))")
+            new_2 = self._path(directory, "symbolic_newV_path_2.txt", "(= x (_ bv2 32))")
+            ranking = {
+                "symbolic_oldV_path_1": ["symbolic_newV_path_1"],
+                "symbolic_oldV_path_2": ["symbolic_newV_path_2"],
+            }
+            coverage = (True, 0.0, {
+                "source_subset_targets": True,
+                "targets_subset_source": True,
+            })
+            mismatch = (
+                False,
+                0.0,
+                1,
                 {
-                    "name": "arg_0_0_32",
-                    "kind": "bitvec",
-                    "bits": 32,
-                    "value": 9,
-                    "unsigned": 9,
-                }
-            ]
-
-            completed = verifier.complete_replay_inputs(left, right, supplied)
-
-            self.assertEqual([item["value"] for item in completed], [9, 2, 3, 4])
-            self.assertEqual(completed[0], supplied[0])
-
-    def test_signed_nan_stdout_is_an_abstract_observable_equal(self) -> None:
-        self.assertTrue(
-            verifier.replay_observables_equal(
-                {"returncode": 0, "stdout": "Result: nan\n", "stderr": ""},
-                {"returncode": 0, "stdout": "Result: -nan\n", "stderr": ""},
+                    "input_overlap": "sat",
+                    "semantic_mode": "test",
+                    "replay": {"confirmed": True, "reason": "observable_output_diff"},
+                },
             )
-        )
-        self.assertFalse(
-            verifier.replay_observables_equal(
-                {"returncode": 0, "stdout": "Result: nan\n", "stderr": ""},
-                {"returncode": 0, "stdout": "Result: 0x0p+0\n", "stderr": ""},
+            equivalent = (
+                True,
+                0.0,
+                1,
+                {
+                    "input_overlap": "sat",
+                    "semantic_mode": "test",
+                    "replay": {"confirmed": False, "reason": "no_observable_output_diff"},
+                },
             )
-        )
+            with mock.patch.object(
+                verifier,
+                "verify_path_overlap",
+                return_value=(verifier.sat, 0.0),
+            ), mock.patch.object(
+                verifier,
+                "check_path_union_equal",
+                return_value=coverage,
+            ), mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+                side_effect=[mismatch, equivalent],
+            ):
+                result = verifier.verify_complete_directional_cover(
+                    [old_1, old_2],
+                    [new_1, new_2],
+                    ranking,
+                    1_000,
+                    allow_one_to_many=True,
+                )
 
-    def test_verifier_profile_uses_recorded_full_input_ranges(self) -> None:
-        profile = verifier.profile_from_exploration(
-            {
-                "symbolic_oldV": {
-                    "input_ranges": {
-                        "integer": "unbounded",
-                        "floating_point": "unbounded",
+            self.assertEqual(result["processed_source_count"], 2)
+            self.assertEqual(len(result["records"]), 2)
+            self.assertTrue(all(record["coverage_success"] for record in result["records"]))
+            self.assertEqual(
+                result["records"][0]["match_type"],
+                "one_to_one_exact",
+            )
+            self.assertEqual(result["records"][0]["semantic_status"], "confirmed_mismatch")
+            self.assertEqual(result["records"][1]["semantic_status"], "all_equivalent")
+            self.assertEqual(len(result["confirmed_mismatches"]), 1)
+            self.assertTrue(result["matching_complete"])
+            self.assertTrue(result["semantic_checks_complete"])
+            self.assertFalse(result["success"])
+
+    def test_complete_mode_disables_program_level_fast_exits(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            paths_dir = Path(raw_dir)
+            for prefix in ("symbolic_oldV", "symbolic_newV"):
+                (paths_dir / f"{prefix}_path_1.txt").write_text(
+                    SMT_HEADER + "(assert (= x (_ bv1 32)))\n",
+                    encoding="utf-8",
+                )
+                (paths_dir / f"{prefix}_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            directional = {
+                "success": True,
+                "covered": True,
+                "matching_complete": True,
+                "semantic_checks_complete": True,
+                "semantic_all_equivalent": True,
+                "source_count": 1,
+                "processed_source_count": 1,
+                "coverage_status_counts": {"covered_exact": 1},
+                "semantic_status_counts": {"all_equivalent": 1},
+                "matched_targets": {"symbolic_newV_path_1"},
+                "records": [
+                    {
+                        "query": "symbolic_oldV_path_1",
+                        "match": "symbolic_newV_path_1",
+                        "matched": True,
+                        "coverage_success": True,
+                        "matching_complete": True,
+                        "match_type": "one_to_one_exact",
+                        "semantic_status": "all_equivalent",
+                        "semantic_checks_complete": True,
+                        "source_subset_targets": True,
+                        "semantic_checks": [{"target": "symbolic_newV_path_1", "equivalent": True}],
                     }
+                ],
+                "smt_calls": 1,
+                "t_smt": 0.0,
+                "unknowns": 0,
+                "matched_source_count": 1,
+                "semantic_modes": {},
+                "confirmed_mismatches": [],
+            }
+            reverse_directional = verifier.json.loads(verifier.json.dumps(
+                {key: value for key, value in directional.items() if key != "matched_targets"}
+            ))
+            reverse_directional["matched_targets"] = {"symbolic_oldV_path_1"}
+            reverse_record = reverse_directional["records"][0]
+            reverse_record.update(query="symbolic_newV_path_1", match="symbolic_oldV_path_1")
+            reverse_record["semantic_checks"][0]["target"] = "symbolic_oldV_path_1"
+            with mock.patch.object(
+                verifier,
+                "exact_path_bijection_proves_equivalence",
+                wraps=verifier.exact_path_bijection_proves_equivalence,
+            ) as exact_fast_path, mock.patch.object(
+                verifier,
+                "prescan_replayable_counterexample",
+            ) as prescan, mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+            ) as domain_prescan, mock.patch.object(
+                verifier,
+                "verify_complete_directional_cover",
+                side_effect=[directional, reverse_directional],
+            ), mock.patch.object(
+                verifier,
+                "check_union_coverage",
+                return_value=(True, 0.0),
+            ), mock.patch.object(
+                verifier,
+                "filter_definitely_unsat_paths",
+            ) as feasibility_filter:
+                result = verifier.verify_ranked_queue(
+                    paths_dir,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=True,
+                    complete_matching=True,
+                )
+
+            exact_fast_path.assert_not_called()
+            prescan.assert_not_called()
+            domain_prescan.assert_not_called()
+            feasibility_filter.assert_not_called()
+            self.assertEqual(result["verdict"], "EQ")
+            self.assertEqual(result["analysis_mode"], "complete_path_matching")
+            self.assertFalse(result["exact_fast_path_enabled"])
+            self.assertFalse(result["domain_counterexample_prescan_enabled"])
+            self.assertEqual(result["exact_fast_path_synthetic_records"], 0)
+            self.assertEqual(result["prescan_invocations"], 0)
+            self.assertEqual(result["forward_processed_source_count"], 1)
+            self.assertEqual(result["reverse_processed_source_count"], 1)
+
+    def test_normal_mode_uses_stable_domain_replay_before_traversal(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = self._path(
+                directory,
+                "symbolic_oldV_path_1.txt",
+                "(bvsge x (_ bv0 32))",
+            )
+            new = self._path(
+                directory,
+                "symbolic_newV_path_1.txt",
+                "(bvsle x (_ bv0 32))",
+            )
+            for side in ("old", "new"):
+                (directory / f"symbolic_{side}V_exploration.json").write_text(
+                    verifier.json.dumps(
+                        {
+                            "complete": True,
+                            "proof_eligible": True,
+                            "incomplete_reasons": [],
+                            "terminating_path_count": 1,
+                            "active_count": 0,
+                            "timeout_count": 0,
+                            "loop_bound_event_count": 0,
+                            "errored_count": 0,
+                            "max_paths": 128,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            mismatch = {
+                "source": old.stem,
+                "target": new.stem,
+                "rank": 1,
+                "counterexample": {
+                    "inputs": [
+                        {
+                            "name": "x",
+                            "kind": "bitvec",
+                            "bits": 32,
+                            "value": 0,
+                        }
+                    ]
+                },
+                "replay": {
+                    "confirmed": True,
+                    "reason": "observable_output_diff",
+                },
+                "counterexample_source": "standard_domain_seed_replay",
+                "seeds_tested": 1,
+                "seeds_available": 8,
+                "observations": [],
+            }
+            with mock.patch.object(
+                verifier,
+                "program_domain_counterexample",
+                return_value=mismatch,
+            ), mock.patch.object(
+                verifier,
+                "check_union_coverage",
+            ) as coverage:
+                result = verifier.verify_ranked_queue(
+                    directory,
+                    None,
+                    timeout_ms=1_000,
+                    naive=True,
+                    truth_pairs=None,
+                    program_ground_truth=True,
+                )
+
+            coverage.assert_not_called()
+            self.assertEqual(result["verdict"], "NEQ")
+            self.assertEqual(result["fast_path_branch"], "standard_domain_seed_replay")
+            self.assertEqual(result["domain_prescan_invocations"], 1)
+            self.assertEqual(result["confirmed_counterexample_count"], 1)
+            self.assertEqual(result["t_align"], 0.0)
+
+    def test_program_domain_counterexample_tries_standard_seeds(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = directory / "symbolic_oldV_path_1.txt"
+            new = directory / "symbolic_newV_path_1.txt"
+            formula = (
+                "(set-info :status unknown)\n"
+                "(declare-fun arg_0 () (_ BitVec 32))\n"
+                "(assert (bvsge arg_0 (_ bv0 32)))\n"
+            )
+            old.write_text(formula, encoding="utf-8")
+            new.write_text(formula, encoding="utf-8")
+            replay_results = [
+                {
+                    "confirmed": False,
+                    "reason": "no_observable_output_diff",
+                },
+                {
+                    "confirmed": True,
+                    "reason": "observable_output_diff",
+                },
+            ]
+            with mock.patch.object(
+                verifier,
+                "replay_counterexample",
+                side_effect=replay_results,
+            ):
+                result = verifier.program_domain_counterexample([old], [new])
+
+            self.assertIsNotNone(result["counterexample"])
+            self.assertEqual(result["seeds_tested"], 2)
+            self.assertGreaterEqual(result["seeds_available"], 2)
+            self.assertTrue(result["replay"]["confirmed"])
+
+    def test_complete_matching_marks_unknown_coverage_incomplete(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = self._path(
+                directory,
+                "symbolic_oldV_path_1.txt",
+                "(bvsge x (_ bv0 32))",
+            )
+            new = self._path(
+                directory,
+                "symbolic_newV_path_1.txt",
+                "(bvsle x (_ bv0 32))",
+            )
+            with mock.patch.object(
+                verifier,
+                "verify_path_overlap",
+                return_value=(verifier.sat, 0.0),
+            ), mock.patch.object(
+                verifier,
+                "check_path_union_equal",
+                return_value=(
+                    None,
+                    0.0,
+                    {
+                        "source_subset_targets": None,
+                        "targets_subset_source": None,
+                    },
+                ),
+            ), mock.patch.object(
+                verifier,
+                "verify_semantic_path_relation",
+            ) as semantic:
+                result = verifier.verify_complete_directional_cover(
+                    [old],
+                    [new],
+                    {"symbolic_oldV_path_1": ["symbolic_newV_path_1"]},
+                    1_000,
+                )
+
+            semantic.assert_not_called()
+            self.assertFalse(result["matching_complete"])
+            self.assertEqual(
+                result["coverage_status_counts"].get("coverage_unknown"),
+                1,
+            )
+            self.assertEqual(result["records"][0]["coverage_status"], "coverage_unknown")
+            self.assertGreater(result["unknowns"], 0)
+
+    def test_global_fallback_uses_zero_sign_insensitive_comparison(self) -> None:
+        left = {
+            "global_state": {
+                "available": True,
+                "unresolved": [],
+                "objects": {
+                    "alpha": {
+                        "available": True,
+                        "bits": 64,
+                        "variable": "__global_0",
+                        "repr": "<BV64 fpToIEEEBV(FPV(0, DOUBLE))>",
+                        "smt": "(declare-fun __global_0 () (_ BitVec 64))\n"
+                        "(assert (= __global_0 (_ bv0 64)))\n",
+                    }
+                },
+            }
+        }
+        right = {
+            "global_state": {
+                "available": True,
+                "unresolved": [],
+                "objects": {
+                    "beta": {
+                        "available": True,
+                        "bits": 64,
+                        "variable": "__global_1",
+                        "repr": "<BV64 fpToIEEEBV(FPV(0, DOUBLE))>",
+                        "smt": "(declare-fun __global_1 () (_ BitVec 64))\n"
+                        "(assert (= __global_1 (_ bv9223372036854775808 64)))\n",
+                    }
+                },
+            }
+        }
+
+        equivalent, _elapsed, _calls, mapping = verifier.verify_global_state_equivalence(
+            left,
+            right,
+            2_000,
+        )
+
+        self.assertTrue(equivalent)
+        self.assertEqual(mapping["method"], "sorted_position_fallback")
+        self.assertTrue(mapping["fallback_used"])
+
+    def test_return_float_zero_is_equal_but_nonzero_is_not(self) -> None:
+        smt_header = "(declare-fun __return_value () (_ BitVec 64))\n"
+        positive_zero = {
+            "available": True,
+            "bits": 64,
+            "repr": "<BV64 fpToIEEEBV(FPV(0, DOUBLE))>",
+            "smt": smt_header + "(assert (= __return_value (_ bv0 64)))\n",
+        }
+        negative_zero = {
+            "available": True,
+            "bits": 64,
+            "repr": "<BV64 fpToIEEEBV(FPV(0, DOUBLE))>",
+            "smt": smt_header
+            + "(assert (= __return_value (_ bv9223372036854775808 64)))\n",
+        }
+        positive_one = {
+            "available": True,
+            "bits": 64,
+            "repr": "<BV64 fpToIEEEBV(FPV(1, DOUBLE))>",
+            "smt": smt_header + "(assert (= __return_value (_ bv4607182418800017408 64)))\n",
+        }
+
+        zero_equal, _elapsed, _calls = verifier.verify_return_smt_equivalence(
+            positive_zero,
+            negative_zero,
+            2_000,
+        )
+        nonzero_equal, _elapsed, _calls = verifier.verify_return_smt_equivalence(
+            positive_zero,
+            positive_one,
+            2_000,
+        )
+
+        self.assertTrue(zero_equal)
+        self.assertFalse(nonzero_equal)
+
+    def test_expression_signature_keeps_internal_zero_sign(self) -> None:
+        ctx = Context()
+        sort = FPSort(11, 53, ctx=ctx)
+        positive_zero = FPVal(0.0, sort, ctx=ctx)
+        negative_zero = FPVal(-0.0, sort, ctx=ctx)
+        self.assertNotEqual(
+            verifier._canonical_expr_signature(
+                positive_zero,
+                definition_variable="unused",
+            ),
+            verifier._canonical_expr_signature(
+                negative_zero,
+                definition_variable="unused",
+            ),
+        )
+
+    def test_replay_ignores_zero_sign_only_for_known_float_output(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = directory / "symbolic_oldV_path_1.txt"
+            new = directory / "symbolic_newV_path_1.txt"
+            summary = {
+                "program_output": {
+                    "available": True,
+                    "unresolved": [],
+                    "events": [
+                        {
+                            "sink": "stdout",
+                            "segments": [
+                                {"kind": "text", "value": "Result: "},
+                                {
+                                    "kind": "formatted_value",
+                                    "available": True,
+                                    "specifier": "%a",
+                                    "bits": 64,
+                                    "variable": "__output_0",
+                                    "repr": "<BV64 fpToIEEEBV(FPS(arg_0, DOUBLE))>",
+                                    "smt": "(declare-fun __output_0 () (_ BitVec 64))\n"
+                                    "(assert (= __output_0 (_ bv0 64)))\n",
+                                },
+                                {"kind": "text", "value": "\n"},
+                            ],
+                        }
+                    ],
                 }
             }
-        )
-        execution = profile["symbolic_execution"]
+            for path in (old, new):
+                path.write_text(
+                    SMT_HEADER
+                    + "; Semantic summary JSON: "
+                    + verifier.json.dumps(summary)
+                    + "\n",
+                    encoding="utf-8",
+                )
+            negative = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "Result: -0x0p+0\n",
+                "stderr": "",
+            }
+            positive = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "Result: 0x0p+0\n",
+                "stderr": "",
+            }
+            with mock.patch.object(
+                verifier,
+                "binary_for_path",
+                side_effect=[Path("old"), Path("new")],
+            ), mock.patch.object(
+                verifier,
+                "run_binary",
+                side_effect=[negative, negative, positive, positive],
+            ):
+                replay = verifier.replay_counterexample(
+                    old,
+                    new,
+                    {
+                        "inputs": [
+                            {
+                                "name": "FP_arg_0",
+                                "kind": "float",
+                                "bits": 64,
+                                "value": 0.0,
+                            }
+                        ]
+                    },
+                )
+
+            self.assertFalse(replay["confirmed"])
+            self.assertTrue(
+                replay["comparison"]["float_zero_sign_insensitive"]
+            )
+
+    def test_replay_without_output_metadata_normalizes_signed_zero(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = directory / "symbolic_oldV_path_1.txt"
+            new = directory / "symbolic_newV_path_1.txt"
+            for path in (old, new):
+                path.write_text(
+                    SMT_HEADER + "(assert (= x (_ bv0 32)))\n",
+                    encoding="utf-8",
+                )
+            negative = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "Result: -0x0p+0\n",
+                "stderr": "",
+            }
+            positive = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "Result: 0x0p+0\n",
+                "stderr": "",
+            }
+            with mock.patch.object(
+                verifier,
+                "binary_for_path",
+                side_effect=[Path("old"), Path("new")],
+            ), mock.patch.object(
+                verifier,
+                "run_binary",
+                side_effect=[negative, negative, positive, positive],
+            ):
+                replay = verifier.replay_counterexample(
+                    old,
+                    new,
+                    {
+                        "inputs": [
+                            {
+                                "name": "x",
+                                "kind": "bitvec",
+                                "bits": 32,
+                                "value": 0,
+                                "unsigned": 0,
+                            }
+                        ]
+                    },
+                )
+
+        self.assertFalse(replay["confirmed"])
         self.assertEqual(
-            execution["integer_domain"],
-            "full_representable_input_space",
+            replay["comparison"]["stdout"]["method"],
+            "text_numeric_zero_normalization",
+        )
+        self.assertTrue(
+            replay["comparison"]["float_zero_sign_insensitive"]
+        )
+
+    def test_replay_still_detects_positive_vs_negative_infinity(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            old = directory / "symbolic_oldV_path_1.txt"
+            new = directory / "symbolic_newV_path_1.txt"
+            summary = {
+                "program_output": {
+                    "available": True,
+                    "unresolved": [],
+                    "events": [
+                        {
+                            "sink": "stdout",
+                            "segments": [
+                                {
+                                    "kind": "formatted_value",
+                                    "available": True,
+                                    "specifier": "%a",
+                                    "bits": 64,
+                                    "variable": "__output_0",
+                                    "repr": "<BV64 fpToIEEEBV(FPS(arg_0, DOUBLE))>",
+                                    "smt": "(declare-fun __output_0 () (_ BitVec 64))\n",
+                                },
+                                {"kind": "text", "value": "\n"},
+                            ],
+                        }
+                    ],
+                }
+            }
+            for path in (old, new):
+                path.write_text(
+                    SMT_HEADER
+                    + "; Semantic summary JSON: "
+                    + verifier.json.dumps(summary)
+                    + "\n",
+                    encoding="utf-8",
+                )
+            positive_inf = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "inf\n",
+                "stderr": "",
+            }
+            negative_inf = {
+                "completed": True,
+                "returncode": 0,
+                "stdout": "-inf\n",
+                "stderr": "",
+            }
+            with mock.patch.object(
+                verifier,
+                "binary_for_path",
+                side_effect=[Path("old"), Path("new")],
+            ), mock.patch.object(
+                verifier,
+                "run_binary",
+                side_effect=[
+                    positive_inf,
+                    positive_inf,
+                    negative_inf,
+                    negative_inf,
+                ],
+            ):
+                replay = verifier.replay_counterexample(
+                    old,
+                    new,
+                    {
+                        "inputs": [
+                            {
+                                "name": "FP_arg_0",
+                                "kind": "float",
+                                "bits": 64,
+                                "value": 1.0,
+                            }
+                        ]
+                    },
+                )
+
+            self.assertTrue(replay["confirmed"])
+            self.assertEqual(replay["reason"], "observable_output_diff")
+
+
+class SignedZeroStructuredOutputTests(unittest.TestCase):
+    def test_structured_layout_with_missing_float_type_normalizes_zero_sign(
+        self,
+    ) -> None:
+        summary = {
+            "program_output": {
+                "events": [
+                    {
+                        "segments": [
+                            {"kind": "text", "value": "Result: ", "sink": "stdout"},
+                            {
+                                "kind": "formatted_value",
+                                "specifier": "",
+                                "bits": 0,
+                                "sink": "stdout",
+                            },
+                        ]
+                    }
+                ]
+            }
+        }
+        equal, comparison = verifier.replay_streams_equivalent(
+            summary,
+            summary,
+            "Result: -0x0.0p+0\n",
+            "Result: 0x0.0p+0\n",
+            sink="stdout",
+        )
+        self.assertTrue(equal)
+        self.assertTrue(comparison["zero_sign_normalization"])
+
+    def test_empty_output_layout_still_normalizes_signed_zero(self) -> None:
+        summary = {
+            "program_output": {
+                "events": [
+                    {
+                        "segments": [],
+                    }
+                ]
+            }
+        }
+        equal, comparison = verifier.replay_streams_equivalent(
+            summary,
+            summary,
+            "Result: -0x0p+0\n",
+            "Result: 0x0p+0\n",
+            sink="stdout",
+        )
+        self.assertTrue(equal)
+        self.assertEqual(
+            comparison["method"],
+            "text_numeric_zero_normalization",
+        )
+        self.assertTrue(comparison["zero_sign_normalization"])
+
+
+class FailureClassificationTests(unittest.TestCase):
+    def test_unknown_without_existing_reason_gets_a_primary_reason(self) -> None:
+        result = verifier.attach_failure_classification(
+            {
+                "verdict": "UNK",
+                "failure_stage": "matching_incomplete",
+                "artifact_status": "incomplete_or_lossy",
+                "eq_proof_eligible": False,
+                "semantic_model_neq_eligible": False,
+            }
+        )
+        self.assertEqual(result["failure_reason"], "matching_incomplete")
+        classification = result["failure_classification"]
+        self.assertEqual(classification["semantic_verdict"], "UNK")
+        self.assertEqual(
+            classification["artifact_completeness"],
+            "incomplete_or_lossy",
         )
         self.assertEqual(
-            execution["floating_point_domain"],
-            "full_representable_input_space",
+            classification["primary_reason"],
+            "matching_incomplete",
         )
+
+    def test_completed_candidate_inputs_revalidate_original_query(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            query = Path(raw) / "query.smt2"
+            query.write_text(
+                "(set-logic QF_BV)\n"
+                "(declare-const arg_0 (_ BitVec 32))\n"
+                "(assert (= arg_0 #x00000001))\n"
+                "(check-sat)\n",
+                encoding="utf-8",
+            )
+            counterexample = {
+                "_candidate_checkpoint": {"query_path": str(query)}
+            }
+            matching = verifier.revalidate_completed_counterexample_query(
+                counterexample,
+                [
+                    {
+                        "name": "arg_0",
+                        "kind": "bitvec",
+                        "bits": 32,
+                        "unsigned": 1,
+                    }
+                ],
+            )
+            mismatching = verifier.revalidate_completed_counterexample_query(
+                counterexample,
+                [
+                    {
+                        "name": "arg_0",
+                        "kind": "bitvec",
+                        "bits": 32,
+                        "unsigned": 2,
+                    }
+                ],
+            )
+        self.assertEqual(matching["status"], "sat")
+        self.assertEqual(mismatching["status"], "unsat")
 
 
 if __name__ == "__main__":

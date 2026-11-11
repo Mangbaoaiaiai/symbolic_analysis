@@ -11,3 +11,5 @@ pycparser>=2.21,<3
 cffi>=1.15,<2
 # Z3 4.12.x imports pkg_resources; newer setuptools releases remove it.
 setuptools<81
+# B10Z50 backend used by the 2026-11-11 method snapshot.
+bitwuzla==0.9.1

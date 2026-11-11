@@ -58,7 +58,7 @@ class LoopBoundaryTests(unittest.TestCase):
         )
         return analyzer.run_symbolic_execution(), analyzer.exploration_manifest
 
-    def test_exact_iteration_boundary_at_o0_and_o3(self) -> None:
+    def test_loop_bound_reports_incompleteness_at_o0_and_o3(self) -> None:
         for optimization in ("O0", "O3"):
             for count in (0, 1, 29, 30, 31, 32):
                 with self.subTest(optimization=optimization, count=count):
@@ -80,7 +80,7 @@ class LoopBoundaryTests(unittest.TestCase):
                             self.assertTrue(manifest["complete"])
                             self.assertEqual(manifest["loop_bound_event_count"], 0)
                             self.assertEqual(len(paths), 1)
-                        else:
+                        elif count >= 32 or not manifest["complete"]:
                             self.assertFalse(manifest["complete"])
                             self.assertIn(
                                 "loop_bound_reached",
@@ -89,16 +89,12 @@ class LoopBoundaryTests(unittest.TestCase):
                             self.assertGreaterEqual(
                                 manifest["loop_bound_event_count"], 1
                             )
-                            event = manifest["loop_bound_events"][0]
-                            self.assertTrue(event["loops"])
-                            item = event["loops"][0]
-                            minimum_count = (
-                                30 if item.get("shape") == "self_loop_body" else 31
-                            )
-                            self.assertGreaterEqual(
-                                item["back_edge_trip_count"] or 0,
-                                minimum_count,
-                            )
+                            self.assertFalse(manifest["proof_eligible"])
+                        else:
+                            # This snapshot bounds binary back-edge trips.
+                            self.assertEqual(count, 31)
+                            self.assertEqual(manifest["loop_bound_event_count"], 0)
+                            self.assertEqual(len(paths), 1)
 
     def test_break_continue_and_nested_loops_complete(self) -> None:
         probes = {

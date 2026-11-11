@@ -1,0 +1,61 @@
+{
+  "snapshot": "2026-11-11 compiler_wrongcode run1",
+  "scope": "Symbolic execution, equivalence verifier, and their transitive local runtime dependencies. Historical benchmark orchestration, ranking, and result tables are preserved.",
+  "files": {
+    "scripts/backend_preflight.py": "32af15c13abe9a012f7a00759b0f8d264db3e09e3173722cd641e5a873f3a26d",
+    "scripts/benchmark_smt_path_union.py": "82a5cc1959300fba6f8b63e135e40fda5275d7478b4093c13db3392be50678c1",
+    "scripts/binary_identity.py": "706ee7a35ed477c1609119bdf2f4434657f6e519fb042a2d9175273e78434d69",
+    "scripts/fixed_math_runtime.py": "70825072b3046c9d9797f830c0cf3674584899fca2287cab7242b7d9013b97ea",
+    "scripts/input_domain_contract.py": "5f875f8c1143f0d4e5e09e9a6aa9f59c59ebca869b3f7a87c3ff2204bea5f10b",
+    "scripts/loop_frontier_audit.py": "7bc601b45d53cba368b64982f693e9b28e035389dc634502b323ad635510f1c7",
+    "scripts/path_relation_policy.py": "9a56a3b5b412e5a34aeb095f14843d6c213b37400af78dfdccf26d3b3869e349",
+    "scripts/program_counterexample.py": "67b42e2abc0739dfddf90ae7cccea1d0145b1c0128a89ef3e3769eae9a246b5c",
+    "scripts/round017_counted_loops.py": "c408e444f2edf659246615fcc48febb5d972239b254f910f661f83c463489daa",
+    "scripts/round017_semantic_models.py": "f76e71c71b95c5204956a36c8b32cbdf8af7b70f78b11b88bd11d3b31cc7fbd7",
+    "scripts/se_script_improved.py": "5c5ea7e74599bcbae419013258761e1cd018ebf2878c7e5deeb6b209c3f4856b",
+    "scripts/smt_path_union.py": "dd692c696e289e48f81820f87bbc216fe6d1a7503b7591f4170534cc486e543b",
+    "scripts/solver_backends.py": "8028501e50ae133d4c8beaf37dcb067e4df7cab625b289a9cc1913fd5f21fa60",
+    "scripts/static_counterexample_candidate.py": "3a27f1635a93e5762e7434c072fbaef6b4f03cfe2035a1a122c7108db592315e",
+    "scripts/verify_ranked_path_equivalence.py": "63ead494d60647090b4bfe3f879bba54198dc9a2ede35ea5c35f90974d6b3eba",
+    "configs/round016_ardiff_numeric_bounds_v1.json": "8e15afdddb9f937c2372cfd4c38b6e3a0296e825b5574cc5206a645f1b011b6b"
+  },
+  "regression_tests": [
+    "test_binary_identity.py",
+    "test_unknown_accounting.py",
+    "test_fixed_math_runtime.py",
+    "test_round017_semantic_models.py",
+    "test_round016_semantic_domain.py",
+    "test_solver_backends.py",
+    "test_backend_preflight.py",
+    "test_static_counterexample_candidate.py",
+    "test_path_relation_policy.py"
+  ],
+  "known_limitations": [
+    "AMD64 long input arguments can be truncated through 32-bit argument registers.",
+    "Non-floating long returns are extracted through eax; differences only in high 32 bits can yield false EQ."
+  ],
+  "post_experiment_semantic_fixes": false,
+  "packaging_adapter": {
+    "path": "scripts/run_current_method.py",
+    "sha256": "768879bc2e83d14aa08e053b6db6bd236b80f22df3859caa8b7dc83d24531af5",
+    "origin": "Portable one-pair adaptation of the frozen compiler_wrongcode run1 runner; same SE/verifier arguments and per-process budgets."
+  },
+  "test_migration": {
+    "verifier_classes": "CoverageTests, SignedZeroStructuredOutputTests, FailureClassificationTests copied from the deployed research tests; historical build/ranking harness tests retained.",
+    "replay": "Old standard-seed and heuristic-definedness tests replaced with current static-candidate, stable-replay and final-authorization tests.",
+    "globals": "Tests match initialized-entry and written-cell contracts.",
+    "loop_boundary": "Checks binary loop-trip bounds and proof ineligibility after incomplete exploration.",
+    "known_failures": [
+      "long argument register width",
+      "long return register width"
+    ]
+  },
+  "validation": {
+    "unit_tests_run": 251,
+    "expected_failures": 2,
+    "unexpected_failures": 0,
+    "integration_smoke": "C02 through portable runner: NEQ, artifact identity passed, concrete replay confirmed.",
+    "fresh_docker_build": "Completed from repository Dockerfile with Bitwuzla 0.9.1",
+    "fresh_image_unit_tests": "251 run, 2 explicit expected ABI failures, 0 unexpected failures"
+  }
+}

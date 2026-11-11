@@ -262,3 +262,108 @@ Percentages are rounded to two decimals; displayed components can differ from
 | Complete OSF family table | [`results/osf/family_summary.csv`](results/osf/family_summary.csv) |
 | Complete OSF failure table | [`results/osf/failure_cases.csv`](results/osf/failure_cases.csv) |
 | Complete OSF label audit | [`results/osf/label_audit.csv`](results/osf/label_audit.csv) |
+
+## Current method snapshot — 2026-11-11
+
+The symbolic executor, equivalence verifier, and their local runtime dependencies
+now match the method used in `compiler_wrongcode_20261111/run1`, after the
+historical-UNKNOWN accounting update. File hashes are recorded in
+[`configs/current_method_snapshot.json`](configs/current_method_snapshot.json).
+The historical evaluation tables and result files above have not been changed
+or regenerated. Their configurations describe those recorded experiments;
+they are not measurements of this new snapshot. Historical benchmark/ranking
+orchestration is retained for compatibility.
+
+The current method includes shared input-domain contracts, ELF/source/artifact
+identity checks, static candidate provenance and repeated binary replay,
+fixed-runtime external-math evidence, initialized single-entry execution,
+loop/model evidence checks, and separation of historical solver UNKNOWN events
+from unresolved final proof obligations. The solver stack is angr/claripy
+9.2.192, Z3 4.12.2, and Bitwuzla 0.9.1.
+
+For the measured configuration, use the Linux entry point
+[`scripts/run_current_method.py`](scripts/run_current_method.py) with two
+already compiled ELF programs and their actual source files. For example,
+after building the C02 source with the pinned compilers listed below:
+
+```bash
+python scripts/run_current_method.py \
+  --old-binary work/c02_chibicc --new-binary work/c02_gcc \
+  --old-source benchmark/compiler_wrongcode/C02_bitfield_assignment.c \
+  --new-source benchmark/compiler_wrongcode/C02_bitfield_assignment.c \
+  --old-compiler 'chibicc 90d1f7f199cc55b13c7fdb5839d1409806633fdb, default code generation; GCC -no-pie link' \
+  --new-compiler 'GCC 12.2.0, -std=c11 -O0 -fno-pie; -no-pie link' \
+  --signature 'long(unsigned int)' \
+  --domain-profile-json configs/compiler_wrongcode_full_type_v1.json \
+  --pair-id C02_bitfield_assignment --out-dir work/current_c02
+```
+
+Use a new output directory for each attempt. The runner executes serially with
+60 seconds internal / 75 seconds external and 5 GiB per SE process, at most
+128 paths and loop bound 30; verification uses B10Z50, 5 seconds per query,
+120 seconds external and 4 GiB. It enables `--initialized-entry`,
+`--fixed-math-runtime`, `--static-only`, `--naive`, full SMT audit, and mandatory
+artifact identity checks. No known witness or expected verdict is supplied to
+the method, and no automatic budget escalation occurs. The wrapper records
+caller-supplied build descriptions and verifies artifact identity; it does not
+independently prove which compiler produced an arbitrary supplied ELF.
+
+**Known limitations of this measured snapshot:** AMD64 `long` input arguments
+can be truncated through 32-bit argument registers, and non-floating `long`
+returns are read through `eax`. Differences confined to the upper 32 bits can
+therefore produce false EQ. Both limitations remain explicitly covered by
+expected-failure tests in
+[`tests/test_current_abi_limitations.py`](tests/test_current_abi_limitations.py).
+No post-experiment ABI fix is included in this update. A successful concrete
+NEQ replay does not establish that the complete 64-bit domain was modeled
+correctly. The deployed loop limit counts binary loop trips, which need not
+equal the number of source-level iterations after optimization.
+
+## Eight confirmed compiler wrong-code bugs
+
+These are **known upstream bugs independently reproduced and detected by the
+method**, not newly discovered compiler vulnerabilities. Each pair compiles
+the same C source for **x86-64 Linux, System V AMD64 ABI, LP64**. All eight NEQ
+cases were confirmed by actual binary execution. The table lists the eight
+successful detections from the frozen ten-case experiment, not an eight-case
+accuracy denominator. The full run had eight NEQ and two false EQ; the latter
+exposed the return-width limitation described above.
+
+Compiler versions used:
+
+| Role | Compiler and pinned version |
+|---|---|
+| Target for C01, C02, C04, C05, C07, C09, C10 | **chibicc**, commit `90d1f7f199cc55b13c7fdb5839d1409806633fdb` |
+| Target for C08 | **slimcc**, commit `8148979457ddcdb71f670c24e687ebd1199c3899` |
+| Reference for every pair | **GCC 12.2.0**, Debian `12.2.0-14+deb12u1`, `-std=c11 -O0 -fno-pie` |
+
+Targets used default code generation; both object files were linked through
+GCC with `-no-pie`. These are cross-compiler comparisons, not optimization-level
+comparisons. TinyCC was examined during preparation, but no TinyCC bug is
+claimed in this successful set.
+
+| Case and source | Target compiler | Bug mechanism | Method witness | Target result | GCC result | Upstream evidence |
+|---|---|---|---|---:|---:|---|
+| [C01](benchmark/compiler_wrongcode/C01_switch64.c) | chibicc | 64-bit switch label `0x100000000L` is truncated to zero | `v = 0` | 2 | 1 | [chibicc #175](https://github.com/rui314/chibicc/issues/175) |
+| [C02](benchmark/compiler_wrongcode/C02_bitfield_assignment.c) | chibicc | A 3-bit unsigned bit-field assignment expression returns the original value instead of the converted value | `v = 4294967288` | 4294967288 | 0 | [chibicc #175](https://github.com/rui314/chibicc/issues/175) |
+| [C04](benchmark/compiler_wrongcode/C04_bool_initializer.c) | chibicc | `_Bool g = 256` is initialized to zero instead of one | No arguments | 0 | 1 | [chibicc #175, comment](https://github.com/rui314/chibicc/issues/175#issuecomment-6204519490) |
+| [C05](benchmark/compiler_wrongcode/C05_bool_bitfield.c) | chibicc | Reading a one-bit `_Bool` field incorrectly sign-extends one to minus one | `v = 1` | -1 | 1 | [chibicc #175, comment](https://github.com/rui314/chibicc/issues/175#issuecomment-6204519490) |
+| [C07](benchmark/compiler_wrongcode/C07_unary_promotion.c) | chibicc | Unary plus fails to promote `char` to `int` in `sizeof(+c)` | No arguments | 1 | 4 | [chibicc #169](https://github.com/rui314/chibicc/issues/169) |
+| [C08](benchmark/compiler_wrongcode/C08_shift_constant_width.c) | slimcc | Constant folding of `3U << 31 >> 31` fails to preserve 32-bit unsigned width | No arguments | 3 | 1 | [slimcc #43](https://github.com/fuhsnn/slimcc/issues/43) |
+| [C09](benchmark/compiler_wrongcode/C09_fp_logical_constant.c) | chibicc | Floating constant logical AND `0.5 && 0.3` evaluates to zero | No arguments | 0 | 1 | [slimcc #63](https://github.com/fuhsnn/slimcc/issues/63), reproduced in pinned chibicc |
+| [C10](benchmark/compiler_wrongcode/C10_fp_narrow_constant.c) | chibicc | `(float)16777217.0` omits binary32 precision narrowing before integer initialization | No arguments | 16777217 | 16777216 | [slimcc #56](https://github.com/fuhsnn/slimcc/issues/56), reproduced in pinned chibicc |
+
+C01 and C02 were detected using inputs different from the admission witnesses.
+C02's original replay text was `-8`, encoding BV32 `0xfffffff8`; independent
+replay with the canonical unsigned decimal `4294967288` confirmed the same
+difference. Parameterless cases have an empty input assignment as their
+witness. C09/C10 are compile-time floating-point errors manifested as constant
+integer results, not demonstrations of complex runtime floating-point proofs.
+C10 uses the shared binary32/default round-to-nearest-even environment.
+
+Machine-readable compiler commits, source and ELF hashes, method witnesses,
+and confirmed outputs are in
+[`benchmark/compiler_wrongcode/confirmed_bugs.json`](benchmark/compiler_wrongcode/confirmed_bugs.json).
+The source reproducers are included; compiler source archives and generated
+binaries are excluded from this minimal repository. These small, loop-free
+examples do not measure coverage of complex optimizer or interprocedural bugs.

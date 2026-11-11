@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 import sys
@@ -74,6 +75,16 @@ class SymbolicOutputTrackingTests(unittest.TestCase):
                 output = path["semantic_summary"]["program_output"]
                 self.assertTrue(output["available"])
                 self.assertTrue({"printf", "puts"} & set(output["hooks"]))
+            manifest = json.loads(
+                (directory / "probe_exploration.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(len(manifest["analysis_script_sha256"]), 64)
+            self.assertIn(
+                "analysis_script",
+                manifest,
+            )
 
     def test_printf_formatted_argument_is_recorded_symbolically(self) -> None:
         with tempfile.TemporaryDirectory() as raw_dir:
@@ -129,6 +140,56 @@ class SymbolicOutputTrackingTests(unittest.TestCase):
                 segments[2],
                 {"kind": "text", "value": "\n", "sink": "stdout"},
             )
+
+    def test_printf_float_argument_records_ieee_bits(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_dir:
+            directory = Path(raw_dir)
+            source = directory / "printf_float_probe.c"
+            binary = directory / "printf_float_probe"
+            source.write_text(
+                "#include <stdio.h>\n"
+                "double snippet(double value) {\n"
+                '  printf("value=%a\\n", value);\n'
+                "  return value;\n"
+                "}\n"
+                "int main(void) { return snippet(0.0) != 0.0; }\n",
+                encoding="utf-8",
+            )
+            completed = subprocess.run(
+                [
+                    "gcc",
+                    "-O0",
+                    "-fno-builtin",
+                    "-fno-pie",
+                    "-no-pie",
+                    "-o",
+                    str(binary),
+                    str(source),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            analyzer = se_script_improved.BenchmarkSymbolicExecution(
+                str(binary),
+                str(directory / "printf_float_probe"),
+                timeout=30,
+                snippet_signature="double(double)",
+                loop_bound=5,
+                max_paths=10,
+            )
+            paths = analyzer.run_symbolic_execution()
+            self.assertEqual(len(paths), 1)
+            segments = verifier.flatten_output_segments(
+                paths[0]["semantic_summary"]
+            )
+            self.assertIsNotNone(segments)
+            formatted = segments[1]
+            self.assertEqual(formatted["kind"], "formatted_value")
+            self.assertEqual(formatted["specifier"], "%a")
+            self.assertIn("fp.to_ieee_bv", formatted["smt"])
+            self.assertNotIn("(assert\n false)", formatted["smt"])
 
 
 if __name__ == "__main__":

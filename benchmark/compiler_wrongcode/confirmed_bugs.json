@@ -1,0 +1,247 @@
+{
+  "experiment": "compiler_wrongcode_20261111/run1",
+  "case_selection": "Eight confirmed NEQ cases from the fixed ten-case experiment; not a new eight-case accuracy denominator.",
+  "known_trigger_used_by_verifier": false,
+  "cases": [
+    {
+      "case_id": "C01_switch64",
+      "source": "benchmark/compiler_wrongcode/C01_switch64.c",
+      "source_sha256": "c133481e9519033c8ba11d9815e6dab4ef4c6f1864085ea3901858ef19aed7f2",
+      "signature": "long(long)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/rui314/chibicc/issues/175",
+      "root_cause_id": "case_labels_stored_as_int",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "0\n",
+      "canonical_stdin": "0\n",
+      "target_stdout": "2\n",
+      "reference_stdout": "1\n",
+      "binary_A_sha256": "23093938b8ff25c957db181b0d6f57fd8ab4a3bed8149f2afad54e9b6ad6f466",
+      "binary_B_sha256": "1f323644625ec06c6e3a031f9e034001150f72796664fb857d99b3d1971c3893"
+    },
+    {
+      "case_id": "C02_bitfield_assignment",
+      "source": "benchmark/compiler_wrongcode/C02_bitfield_assignment.c",
+      "source_sha256": "15700249a7a08c5e8a839d7118efb8ffae22ca81446219b3baba580c1af9f34c",
+      "signature": "long(unsigned int)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/rui314/chibicc/issues/175",
+      "root_cause_id": "assignment_result_not_truncated_to_bitfield",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "-8\n",
+      "canonical_stdin": "4294967288\n",
+      "target_stdout": "4294967288\n",
+      "reference_stdout": "0\n",
+      "binary_A_sha256": "814378f1198aaf18c6a65585a7c8dd14136ddda046dad1d24dd9e45a158f49e7",
+      "binary_B_sha256": "542421ddd9445042a29b104bc6eeb3cedc6bfcde8d074fb2a23714e96d4ee655"
+    },
+    {
+      "case_id": "C04_bool_initializer",
+      "source": "benchmark/compiler_wrongcode/C04_bool_initializer.c",
+      "source_sha256": "593cf5d7d563a313aec1b3fa14e0b788241c535975ea6fd40f82553c99408074",
+      "signature": "long(void)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/rui314/chibicc/issues/175#issuecomment-6204519490",
+      "root_cause_id": "bool_initializer_truncates_instead_of_nonzero",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "\n",
+      "canonical_stdin": "\n",
+      "target_stdout": "0\n",
+      "reference_stdout": "1\n",
+      "binary_A_sha256": "705c1972f7e3d9c271b1a47971b43a967f2364b47a396f5e8793995eee861a7c",
+      "binary_B_sha256": "87d4c7d99a1ff989461468752d7f9505179af5e4fbb4394c73d807ce8938cf75"
+    },
+    {
+      "case_id": "C05_bool_bitfield",
+      "source": "benchmark/compiler_wrongcode/C05_bool_bitfield.c",
+      "source_sha256": "1bb12150469c88e13bf196e14916c8c7eaa934553ffa657c40c389a3970c2a46",
+      "signature": "long(unsigned int)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/rui314/chibicc/issues/175#issuecomment-6204519490",
+      "root_cause_id": "bool_bitfield_read_sign_extends",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "1\n",
+      "canonical_stdin": "1\n",
+      "target_stdout": "-1\n",
+      "reference_stdout": "1\n",
+      "binary_A_sha256": "dde5480b99daabd599c1368cee20c1a0e7a69021f55dc41c72b79d3788f1cf10",
+      "binary_B_sha256": "fac3a28e303845c9191f0353a1141bc67e0cd9c43d77808ef8a42d736f8c8a32"
+    },
+    {
+      "case_id": "C07_unary_promotion",
+      "source": "benchmark/compiler_wrongcode/C07_unary_promotion.c",
+      "source_sha256": "cf7468023f32c3711a40bb159f4f231ed9910e4a141acdecb437dde52e161e14",
+      "signature": "long(void)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/rui314/chibicc/issues/169",
+      "root_cause_id": "unary_plus_type_missing_integer_promotion",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "\n",
+      "canonical_stdin": "\n",
+      "target_stdout": "1\n",
+      "reference_stdout": "4\n",
+      "binary_A_sha256": "3cfd56da2461a9f8691f7eb2caff5e8c84e7c3c5ef29d2b0d70a2262d797b9c3",
+      "binary_B_sha256": "89cc7b222829ece8a894cd33e9557c2b39751207adc48e0336e32019df895bd1"
+    },
+    {
+      "case_id": "C08_shift_constant_width",
+      "source": "benchmark/compiler_wrongcode/C08_shift_constant_width.c",
+      "source_sha256": "322431f2883aa65734f3536df3f6162c03ac3125cbd488f71f527b9db4417fe6",
+      "signature": "long(void)",
+      "compiler": "slimcc",
+      "compiler_commit": "8148979457ddcdb71f670c24e687ebd1199c3899",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/fuhsnn/slimcc/issues/43",
+      "root_cause_id": "right_shift_constant_uses_wrong_lhs_width",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "\n",
+      "canonical_stdin": "\n",
+      "target_stdout": "3\n",
+      "reference_stdout": "1\n",
+      "binary_A_sha256": "978ba2ae074bd213917bb7ec3541c983ee646e9bea408f1a1d6b1ef43dc4a922",
+      "binary_B_sha256": "27f2e96e17ff90a4661563382bc924c6f79eb275006ef3f93cf95c193535086b"
+    },
+    {
+      "case_id": "C09_fp_logical_constant",
+      "source": "benchmark/compiler_wrongcode/C09_fp_logical_constant.c",
+      "source_sha256": "9d1902dca513c26c8c6d51071ba94bf241a060fe00c906d7e80f43ccb9958614",
+      "signature": "long(void)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/fuhsnn/slimcc/issues/63",
+      "root_cause_id": "logical_constant_operands_converted_to_integer",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "\n",
+      "canonical_stdin": "\n",
+      "target_stdout": "0\n",
+      "reference_stdout": "1\n",
+      "binary_A_sha256": "4cdd143ef568cfd6c7cac705a9ca84b228c84345cae98bae14a1bbd567a03582",
+      "binary_B_sha256": "87d4c7d99a1ff989461468752d7f9505179af5e4fbb4394c73d807ce8938cf75"
+    },
+    {
+      "case_id": "C10_fp_narrow_constant",
+      "source": "benchmark/compiler_wrongcode/C10_fp_narrow_constant.c",
+      "source_sha256": "197f2baba10cadb0d0807e4e6f446168c7b91d5dab7fa5a520e22d5e375fc052",
+      "signature": "long(void)",
+      "compiler": "chibicc",
+      "compiler_commit": "90d1f7f199cc55b13c7fdb5839d1409806633fdb",
+      "reference_compiler": "GCC 12.2.0 (Debian 12.2.0-14+deb12u1)",
+      "reference_compile_flags": [
+        "-std=c11",
+        "-O0",
+        "-fno-pie",
+        "-c"
+      ],
+      "target_compile_flags": [
+        "-c"
+      ],
+      "linker": "GCC -no-pie",
+      "abi": "x86_64_linux_sysv_LP64",
+      "upstream_report": "https://github.com/fuhsnn/slimcc/issues/56",
+      "root_cause_id": "constant_fp_narrowing_cast_omitted",
+      "method_verdict": "NEQ",
+      "candidate_source": "static_path_overlap_model",
+      "method_stdin": "\n",
+      "canonical_stdin": "\n",
+      "target_stdout": "16777217\n",
+      "reference_stdout": "16777216\n",
+      "binary_A_sha256": "ecc4369aa3e7c4f1f1b01ce2cf9ac1cc3d92bc654445dd3d39794a5f7f71d32b",
+      "binary_B_sha256": "3aa09298dd2268cd07e35844fe1cc1eb3d7955d74cb2702a28875b6a66a6d5b7"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "symbolicana.input_domain_profile.v1",
+  "profile_id": "ardiff_numeric_bounds_v1",
+  "source": {
+    "decision_date": "2026-10-28",
+    "decision_owner": "user",
+    "upstream_repository": "https://github.com/shrBadihi/ARDiff_Equiv_Checking",
+    "upstream_commit": "57405831f74f362510c059ed5dab3b9f9975d4f1",
+    "upstream_file": "Implementation/src/main/java/Runner/Runner.java",
+    "upstream_file_sha256": "6a629ce7287de0adb465e6b6655255ff725c308dd229a017d996ca73ae27a34a",
+    "runner_benchmark_script": "Implementation/RunningBenchmarksOnLinux.sh",
+    "runner_benchmark_script_sha256": "4bf86614734f08f52459d00380f3c210846384c2198749e1115f252c2bd21861",
+    "note": "The EqBench paper and dataset do not prescribe this numeric range. This profile records the user-selected ARDiff implementation defaults."
+  },
+  "integer": {
+    "minimum": -100,
+    "maximum": 100,
+    "signed_intersection": true,
+    "unsigned_intersection": [
+      0,
+      100
+    ],
+    "apply_to_pointer_addresses": false
+  },
+  "floating_point": {
+    "minimum": -100.0,
+    "maximum": 100.0,
+    "include_endpoints": true,
+    "include_positive_zero": true,
+    "include_negative_zero": true,
+    "include_subnormal": true,
+    "include_nan": false,
+    "include_positive_infinity": false,
+    "include_negative_infinity": false
+  },
+  "internal_values": {
+    "restrict": false,
+    "nan_inf_follow_program_semantics": true
+  },
+  "application": {
+    "se": true,
+    "smt": true,
+    "model_to_input": true,
+    "replay": true,
+    "final_acceptance": true
+  }
+}

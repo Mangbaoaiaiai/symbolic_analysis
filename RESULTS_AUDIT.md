@@ -3,8 +3,13 @@
 Audit date: 2026-10-22.
 
 This document records the current implementation's fixed 62-case experiment
-and a complete 272-entry OSF run. The published tables are curated outputs:
+and a complete 272-entry EqBench run. The published tables are curated outputs:
 generated paths, binaries, caches, logs, and local work paths are excluded.
+
+The 272-case benchmark is **EqBench** (Badihi, Li, and Rubin, MSR 2021).
+See the [original paper](https://doi.org/10.1109/MSR52588.2021.00084)
+and its [author-hosted PDF](https://people.ece.ubc.ca/mjulia/publications/EQBench_2021.pdf).
+The existing `results/osf/` paths identify the same recorded EqBench results.
 
 ## Run configuration
 
@@ -12,11 +17,11 @@ generated paths, binaries, caches, logs, and local work paths are excluded.
 |---|---|
 | Fixed benchmark | 62 cases: 33 EQ and 29 NEQ |
 | Fixed input range | integer/float `[-100,100]`; Ell `[0,10]` and `[-1,1]` |
-| OSF input range | complete representable 32-bit SMT input spaces |
+| EqBench input range | complete representable 32-bit SMT input spaces |
 | Optimization | GCC 12.2, x86-64, `-O3` |
 | Fixed benchmark max paths / loop bound | 128 / 30 |
-| OSF stage 1 | 2048 paths, loop bound 30, 600 s per binary |
-| OSF stage 2 retry | 8192 paths, loop bound 128, 1200 s per binary |
+| EqBench stage 1 | 2048 paths, loop bound 30, 600 s per binary |
+| EqBench stage 2 retry | 8192 paths, loop bound 128, 1200 s per binary |
 | Verifier wall limit | 600 s per case |
 | SMT query timeout | 60 s |
 | Python | 3.12.15 |
@@ -47,7 +52,7 @@ The four UNK cases are:
 The fixed benchmark and its input domains were not changed to alter the
 `58/62` result.
 
-## Complete OSF result
+## Complete EqBench result
 
 | Outcome | Cases |
 |---|---:|
@@ -123,7 +128,7 @@ the README.
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 142 | 142 | 96 | 90 | 79 | 38 | 41 | 0 | 2 | 1 | 14 | 46 |
 
-The subset has a separate denominator and is not added to the full OSF count.
+The subset has a separate denominator and is not added to the full EqBench count.
 
 ## Verification
 
@@ -142,7 +147,7 @@ git diff --check
 The shipped result files satisfy these checks:
 
 - Fixed benchmark: 62 unique cases, 58 correct, 0 wrong, 4 UNK.
-- OSF: 272 unique cases, 144 correct, 0 wrong EQ/NEQ, and no stage conflicts.
+- EqBench: 272 unique cases, 144 correct, 0 wrong EQ/NEQ, and no stage conflicts.
 - Exactly 5 source-level label inconsistencies and 3 final UB exclusions.
 - Every failure has a row in `failure_cases.csv`.
 - No host/container work paths, generated logs, binaries, or path directories
@@ -152,7 +157,7 @@ The shipped result files satisfy these checks:
 
 ## Limits
 
-The 144 determinate OSF outcomes are the result of the recorded resource limits
+The 144 determinate EqBench outcomes are the result of the recorded resource limits
 and complete-input-space profile. The remaining entries are constrained by
 harness coverage, path explosion, loop and path bounds, solver time, memory,
 and incomplete verification. The UB heuristic applies only to concrete

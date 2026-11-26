@@ -3,7 +3,21 @@
 # Symbolicana Experimental Results
 
 This README reports the current measured outcomes for the fixed 62-case
-benchmark and the complete 272-entry OSF accounting.
+benchmark and the complete 272-entry **EqBench** evaluation.
+
+The larger benchmark is **EqBench**, introduced by Sahar Badihi, Yi Li,
+and Julia Rubin in
+[**EqBench: A Dataset of Equivalent and Non-equivalent Program Pairs**](https://doi.org/10.1109/MSR52588.2021.00084),
+MSR 2021, pp. 610-614.
+[Read the original paper (PDF)](https://people.ece.ubc.ca/mjulia/publications/EQBench_2021.pdf)
+or visit the [authors' dataset repository](https://github.com/shrBadihi/EqBench).
+
+EqBench contains 147 equivalent and 125 non-equivalent program pairs in C
+and Java. This repository evaluates the C versions of all 272 pairs.
+The [dataset archive](https://osf.io/93s5b/) is hosted on OSF; OSF is the
+hosting platform, not the benchmark name. Existing lowercase identifiers
+such as `--suite osf`, `results/osf/`, and `benchmark/osf_benchmarks.zip`
+remain as compatibility paths for the recorded experiments.
 
 ## Quick start
 
@@ -23,13 +37,13 @@ python run_experiment.py \
   --run-name paper_latest
 ```
 
-Run the complete 272-entry OSF experiment:
+Run the complete 272-entry EqBench experiment:
 
 ```bash
 python run_experiment.py \
   --suite osf \
   --fresh \
-  --run-name osf_latest
+  --run-name eqbench_latest
 ```
 
 `--bindiff` selects the optional graph-reranking image. If it is unavailable,
@@ -45,7 +59,7 @@ written below `results/rerun/<run-name>/`.
 |---|---|
 | Fixed benchmark | 62 cases: 33 EQ and 29 NEQ |
 | Fixed input domain | Integers and floats in `[-100,100]`; Ell uses `[0,10]` and `[-1,1]` |
-| OSF input domain | Complete signed 32-bit and floating-point SMT bit-vector spaces |
+| EqBench input domain | Complete signed 32-bit and floating-point SMT bit-vector spaces |
 | Compilation | GCC 12.2, x86-64, `-O3` |
 | Symbolic execution | angr/claripy 9.2.192 |
 | Solver | Z3 4.12.2 |
@@ -66,7 +80,7 @@ therefore admit a different set of complete paths.
 Second, the paper does not state a fixed numeric interval for symbolic inputs.
 The fixed 62-case profile uses the same integer and floating-point assumption
 as the upstream ARDiff runner, `[-100,100]`, with Ell overrides `[0,10]` and
-`[-1,1]`. The complete OSF profile instead uses the full representable 32-bit
+`[-1,1]`. The complete EqBench profile instead uses the full representable 32-bit
 SMT input spaces. These domains change path feasibility and path counts, so
 the two result sets are not directly interchangeable.
 
@@ -123,7 +137,7 @@ for timing and ranking metrics; they remain UNK in the verdict denominator.
 |---|---|
 | `Case` | Official benchmark case identifier. |
 | `Family` | Benchmark family assigned by the benchmark manifest. |
-| `Cases` | Number of official entries in the family; the full OSF denominator is 272. |
+| `Cases` | Number of official entries in the family; the full EqBench denominator is 272. |
 | `Configuration` | One experimental variant under comparison. |
 | `Metric` | Aggregate quantity measured by a result table. |
 | `Result` | Value produced by the current run. |
@@ -161,7 +175,7 @@ for timing and ranking metrics; they remain UNK in the verdict denominator.
 | `no_complete_paths` | Symbolic execution produced no complete terminating path. |
 | `unsupported_harness` | The source signature could not be represented by the source-free harness. |
 
-## 3. Complete OSF evaluation
+## 3. Complete EqBench evaluation
 
 All 272 entries use the same complete-input-space profile. The table below is
 the strict audit of the current run, including every generation retry and
@@ -201,7 +215,7 @@ Coverage and failure accounting:
 The only unsupported entry is `REVE/average_Eq`; its source declares `int a[]`
 without an array extent.
 
-Per-family OSF results:
+Per-family EqBench results:
 
 | Family | Cases | Supported | Complete | Correct EQ | Correct NEQ | Wrong EQ | Wrong NEQ | Label inconsistent | UB | UNK | Failed | Not attempted | Timed cases | Mean verifier time / timed case (s) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -257,11 +271,11 @@ Percentages are rounded to two decimals; displayed components can differ from
 | Fixed 62 per-case outcomes | [`results/paper/cases.csv`](results/paper/cases.csv) |
 | Fixed 62 summary | [`results/paper/summary.json`](results/paper/summary.json) |
 | Fixed 62 definedness audit | [`results/paper/summary.md`](results/paper/summary.md) |
-| Complete OSF per-case outcomes | [`results/osf/cases.csv`](results/osf/cases.csv) |
-| Complete OSF summary | [`results/osf/summary.json`](results/osf/summary.json) |
-| Complete OSF family table | [`results/osf/family_summary.csv`](results/osf/family_summary.csv) |
-| Complete OSF failure table | [`results/osf/failure_cases.csv`](results/osf/failure_cases.csv) |
-| Complete OSF label audit | [`results/osf/label_audit.csv`](results/osf/label_audit.csv) |
+| Complete EqBench per-case outcomes | [`results/osf/cases.csv`](results/osf/cases.csv) |
+| Complete EqBench summary | [`results/osf/summary.json`](results/osf/summary.json) |
+| Complete EqBench family table | [`results/osf/family_summary.csv`](results/osf/family_summary.csv) |
+| Complete EqBench failure table | [`results/osf/failure_cases.csv`](results/osf/failure_cases.csv) |
+| Complete EqBench label audit | [`results/osf/label_audit.csv`](results/osf/label_audit.csv) |
 
 ## Current method snapshot — 2026-11-11
 

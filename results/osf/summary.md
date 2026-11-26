@@ -1,4 +1,9 @@
-# Complete OSF strict audit
+# Complete EqBench strict audit
+
+Benchmark: **EqBench**, by Sahar Badihi, Yi Li, and Julia Rubin (MSR 2021).
+[Original paper](https://doi.org/10.1109/MSR52588.2021.00084) ·
+[Author-hosted PDF](https://people.ece.ubc.ca/mjulia/publications/EQBench_2021.pdf).
+The directory name `osf` is retained for compatibility with the recorded run.
 
 ## Coverage
 

@@ -6,16 +6,17 @@
 - [x] The first half documents pinned tools and one-command reruns.
 - [x] The fixed benchmark reports `58/62` correct, `0` wrong, and `4` UNK.
 - [x] The fixed split reports `29/33` correct EQ and `29/29` correct NEQ.
-- [x] All 272 official OSF entries are present in the manifest and per-case
+- [x] All 272 official EqBench entries are present in the manifest and per-case
       result audit.
+- [x] The benchmark is attributed to [EqBench (MSR 2021)](https://doi.org/10.1109/MSR52588.2021.00084), with an original-paper link in the README.
 - [x] The benchmark archive and source manifests are included without
       generated path files.
-- [x] The OSF aggregate table and all per-family tables are included.
+- [x] The EqBench aggregate table and all per-family tables are included.
 - [x] The source and benchmark licenses are included.
 - [x] Generated paths, binaries, caches, raw logs, and local workspace paths
       are excluded.
 
-## Complete OSF audit
+## Complete EqBench audit
 
 - [x] `results/osf/summary.json` records `"provisional": false` and
       `"full_osf_rerun_complete": true`.
@@ -42,7 +43,7 @@
       9.2.192, and Z3 4.12.2.
 - [x] The Docker unit/integration suite passes (`162` tests).
 - [x] `python scripts/validate_delivery_results.py` passes for the complete
-      OSF table.
+      EqBench table.
 - [x] `git diff --check` passes.
 - [x] The curated tables contain no host or container work paths.
 

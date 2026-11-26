@@ -1,0 +1,288 @@
+{
+  "schema": "symbolicana.compiler_initializer_findings.v1",
+  "recorded_date": "2026-11-26",
+  "recorded_date_timezone": "Asia/Shanghai",
+  "experiment": "compiler_initializer_boe_coverage_20261126",
+  "discovery_workflow": "Source analysis and concrete differential execution identified the candidates; BOE coverage was evaluated afterward.",
+  "compiler": {
+    "name": "TinyCC",
+    "version_string": "0.9.28rc (x86_64 Linux)",
+    "baseline_commit": "ce2a61d9cdbaac6dda53095cf501e39182b481c9",
+    "baseline_binary_sha256": "cb5f2a887cef742d53df23467abc0e0192b11e286a5728d50947a943e3463b4a",
+    "diagnostic_patch": "patches/h1_static_zero.patch",
+    "diagnostic_patch_binary_sha256": "c4636aa1f81ea163333fc1a6db71af3852df1bdf7a4f55cf88ae15a3a5c570fd",
+    "patch_status": "Local diagnostic change, not an upstream release or a production-ready general fix",
+    "target_compile_flags": [
+      "-std=gnu11",
+      "-fno-asynchronous-unwind-tables",
+      "-c"
+    ],
+    "reference": "GCC 12.2.0",
+    "reference_compile_flags": [
+      "-std=gnu11",
+      "-O0",
+      "-fno-pie",
+      "-c"
+    ],
+    "reference_cross_check": "GCC -O2 for concrete admission only",
+    "link_command_template": "gcc -no-pie TARGET_OBJECT COMMON_GCC_DRIVER_OBJECT -lm -o PROGRAM",
+    "abi": "x86_64_linux_sysv_LP64"
+  },
+  "observation_contract": {
+    "entry": "snippet",
+    "signature": "int(void)",
+    "input_schema": [],
+    "initialization": "initialized_single_call; each ELF retains its own loader data/bss",
+    "observable": "32-bit int return value",
+    "scope": "The adapted entry contract, not a claim of complete original printf-program equivalence"
+  },
+  "findings": [
+    {
+      "id": "H1_static_aggregate_reinitialization",
+      "source": "S1/original.c",
+      "adapted_source": "S1/adapted.c",
+      "mechanism": "A repeated whole-aggregate initializer requests zeroing, but init_putz() leaves the static-section bytes unchanged.",
+      "original_target_output": "a=2\nb=10\n",
+      "original_reference_output": "a=2\nb=0\n",
+      "baseline_static_bytes": "020000000a000000",
+      "corrected_static_bytes": "0200000000000000",
+      "diagnostic_patch_effect": "S1/U4/U5 recovered; S3/S4 stayed correct; U1/U2/U3 stayed incorrect in the recorded ten-case matrix.",
+      "public_record_status": "no_matching_record_in_search_scope",
+      "search_scope": {
+        "new_query_groups": 7,
+        "reused_historical_query_groups": 14,
+        "exhaustive": false
+      },
+      "closest_public_record": "https://savannah.nongnu.org/bugs/?func=detailitem&item_id=68807",
+      "relation_to_closest_record": "Related; same root cause or duplicate status not established.",
+      "upstream_submission": "No H1 issue was submitted in the recorded workflow.",
+      "standards_basis": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/dr_253.htm"
+    },
+    {
+      "id": "union_member_switch_initialization",
+      "public_reproducer": "U1/original.c",
+      "automatic_storage_reproducer": "U3/original.c",
+      "adapted_source": "U3/adapted.c",
+      "mechanism": "Switching the initialized union member through a chained designator leaves earlier member bytes in the new member.",
+      "original_target_output": "42 0 1 0\n",
+      "original_reference_output": "0 0 1 0\n",
+      "upstream_report": "https://savannah.nongnu.org/bugs/?func=detailitem&item_id=68807",
+      "public_record_status": "Known reported behavior; U3 is an automatic-storage extension reproduction.",
+      "independent_new_bug_count": 0,
+      "history": "The tested error predates DIF_DIRTY; 2d3eea20 changed the implementation path without changing these fixed-case outcomes."
+    }
+  ],
+  "boe_pairs": [
+    {
+      "pair_id": "P1_H1_baseline",
+      "case_id": "S1",
+      "old_config": "tcc_baseline",
+      "new_config": "gcc_o0",
+      "source": "S1/adapted.c",
+      "verdict": "NEQ",
+      "old_return": "<BV32 0xa>",
+      "new_return": "<BV32 0x0>",
+      "eq_proof_eligible": true,
+      "counterexample_execution_eligible": true,
+      "directional_confirmation_count": 2,
+      "distinct_confirmed_input_assignments": 1,
+      "evidence": "evidence/P1_H1_baseline.json"
+    },
+    {
+      "pair_id": "P2_union_baseline",
+      "case_id": "U3",
+      "old_config": "tcc_baseline",
+      "new_config": "gcc_o0",
+      "source": "U3/adapted.c",
+      "verdict": "NEQ",
+      "old_return": "<BV32 0x2a>",
+      "new_return": "<BV32 0x0>",
+      "eq_proof_eligible": false,
+      "counterexample_execution_eligible": true,
+      "directional_confirmation_count": 2,
+      "distinct_confirmed_input_assignments": 1,
+      "evidence": "evidence/P2_union_baseline.json"
+    },
+    {
+      "pair_id": "P3_H1_patched",
+      "case_id": "S1",
+      "old_config": "tcc_h1_patch",
+      "new_config": "gcc_o0",
+      "source": "S1/adapted.c",
+      "verdict": "EQ",
+      "old_return": "<BV32 0x0>",
+      "new_return": "<BV32 0x0>",
+      "eq_proof_eligible": true,
+      "counterexample_execution_eligible": true,
+      "directional_confirmation_count": 0,
+      "distinct_confirmed_input_assignments": 0,
+      "evidence": "evidence/P3_H1_patched.json"
+    }
+  ],
+  "concrete_admission": [
+    {
+      "case_id": "S1",
+      "config": "gcc_o0",
+      "object_sha256": "63f78851939806faa089d81d2b181dde5d9d60942cc9525fe08ca8700eab31ea",
+      "returned_values": [
+        0,
+        0,
+        0
+      ],
+      "elf_sha256": "a5e000b951f785ab165eeb284042719ea13921b08cc1159c6b88df19343f6a9f"
+    },
+    {
+      "case_id": "S1",
+      "config": "gcc_o2",
+      "object_sha256": "5d200af9825c91cd84cab48e21a0d932761d7b61775bd1353459b775d5e382b0",
+      "returned_values": [
+        0,
+        0,
+        0
+      ],
+      "elf_sha256": "355e8c79533a691ecb9cc2d2d8e4e68e0f851f3c00985283491bf305b685dc35"
+    },
+    {
+      "case_id": "S1",
+      "config": "tcc_baseline",
+      "object_sha256": "8a5b8126a9cc2af7f55a692fb653f426b60ffc67892601601977848e859b7851",
+      "returned_values": [
+        10,
+        10,
+        10
+      ],
+      "elf_sha256": "0edd3c70f640f44d01375f0073c5c68cacac907a8e43f8688570dd7852107908"
+    },
+    {
+      "case_id": "S1",
+      "config": "tcc_h1_patch",
+      "object_sha256": "db88f5a27d1694932bedef31559644efb990321a22017e67d3e0df5304f44291",
+      "returned_values": [
+        0,
+        0,
+        0
+      ],
+      "elf_sha256": "68dcf170165447973442e01467f037740cbde62c26e814b7d9ff69f99fa0c86a"
+    },
+    {
+      "case_id": "U3",
+      "config": "gcc_o0",
+      "object_sha256": "32377b4a69f81dcb895711623342d04d95df967f9eff2ba9b00ec1b423598e03",
+      "returned_values": [
+        0,
+        0,
+        0
+      ],
+      "elf_sha256": "79b7b2fdb88d0515939b0953adab64eea98727c5abf775f3fa45c127754812d6"
+    },
+    {
+      "case_id": "U3",
+      "config": "gcc_o2",
+      "object_sha256": "5d200af9825c91cd84cab48e21a0d932761d7b61775bd1353459b775d5e382b0",
+      "returned_values": [
+        0,
+        0,
+        0
+      ],
+      "elf_sha256": "355e8c79533a691ecb9cc2d2d8e4e68e0f851f3c00985283491bf305b685dc35"
+    },
+    {
+      "case_id": "U3",
+      "config": "tcc_baseline",
+      "object_sha256": "be7354895fc68deddfb5f9697c27cb2b6491e0e51e2f3c3eea7501904f3077d7",
+      "returned_values": [
+        42,
+        42,
+        42
+      ],
+      "elf_sha256": "8affa4b3c9ec6e40fc67263593f41985c4261a942d336c0e4108e7137ba39c07"
+    }
+  ],
+  "counts": {
+    "adapted_programs": 2,
+    "concrete_admission_configurations": 7,
+    "concrete_admission_runs": 21,
+    "unique_boe_elfs": 5,
+    "symbolic_execution_processes": 6,
+    "verifier_processes": 3,
+    "confirmed_neq_pairs": 2,
+    "eq_pairs": 1,
+    "false_eq_pairs": 0,
+    "note": "Admission runs exclude BOE confirmation replays. Directional replay records are not distinct inputs or defects. These three pairs are not a general accuracy estimate."
+  },
+  "historical_fixed_case_results": [
+    {
+      "version": "V_report",
+      "commit": "e23dabed154a8495f3ac1ff3cc9d04fa1c207893",
+      "S1": "a=2,b=10",
+      "U1": "42 0 1 0",
+      "U3": "42 0 1 0",
+      "DIF_DIRTY": false,
+      "evidence": "measured"
+    },
+    {
+      "version": "V_parent",
+      "commit": "32d1c0a5614b9979768b3711726db3d601750ed3",
+      "S1": "a=2,b=10",
+      "U1": "42 0 1 0",
+      "U3": "42 0 1 0",
+      "DIF_DIRTY": false,
+      "evidence": "measured"
+    },
+    {
+      "version": "V_change",
+      "commit": "2d3eea205cb6c0f796d01d7d0858eb6c6c1d993f",
+      "S1": "a=2,b=10",
+      "U1": "42 0 1 0",
+      "U3": "42 0 1 0",
+      "DIF_DIRTY": true,
+      "evidence": "measured"
+    },
+    {
+      "version": "current",
+      "commit": "ce2a61d9cdbaac6dda53095cf501e39182b481c9",
+      "S1": "a=2,b=10",
+      "U1": "42 0 1 0",
+      "U3": "42 0 1 0",
+      "DIF_DIRTY": true,
+      "evidence": "historical_reused"
+    }
+  ],
+  "method_snapshot": "method_snapshot.json",
+  "source_file_hashes": {
+    "S1/original.c": "122fcb6c0e82bd25a1c9aa87863e3311fc9ab8dcedc5596f9af97146ada2e936",
+    "S1/adapted.c": "5021770d844196db0b25d99d72d80e8781b4af3839c765a78645a9598e77a5d6",
+    "U1/original.c": "44e8bc99c1a4a58bc9698b19c3c4c272d66df899c55760fccba0b3e76b382e5a",
+    "U3/original.c": "6b576e56a93866df7a306093aa3b0f601c98dbac1f256f4c544256810695a790",
+    "U3/adapted.c": "767ac98c73b9ce2af9919381a1525fb445c85db65300bb7ed90610b4b5e51e4e",
+    "driver.c": "ac58e338c104da6341415f7b65c71c6cdea1fc9ca46a686ee96fe44be9f331ac",
+    "patches/h1_static_zero.patch": "143a96b11a27ab3bfc7850dca961819491800876045a598c1b030faaa5e46453"
+  },
+  "provenance": [
+    {
+      "experiment": "compiler_initializer_boe_coverage_20261126",
+      "file": "results/concrete_results.json",
+      "sha256": "6fee6ba9964b7a0fc6c52571674ef479315ee46a56afbcd6dd94eba2448cac15"
+    },
+    {
+      "experiment": "compiler_initializer_h1_public_review_20261126",
+      "file": "results/final_classification.json",
+      "sha256": "270600219609dfe11daf655d58de1e7a55ccceb9acea8ab0c5dc5ad3de6472e6"
+    },
+    {
+      "experiment": "compiler_initializer_history_attribution_20261126",
+      "file": "results/final_answers.json",
+      "sha256": "20294f11ba5c3a56a38208f1d85f9efebb59a16f119d4d1f8f1cd41e745c0d0c"
+    }
+  ],
+  "diagnostic_patch_provenance": {
+    "experiment": "compiler_initializer_h1_patch_check_20261126",
+    "archived_file": "patch/h1_static_zero.patch",
+    "archived_sha256": "84f516f89d2b9fa882e53335a81ca5d9a2538259bc69d59c8c84f467a7b675c6",
+    "distributed_file": "patches/h1_static_zero.patch",
+    "distributed_sha256": "143a96b11a27ab3bfc7850dca961819491800876045a598c1b030faaa5e46453",
+    "transformation": "CRLF to LF only, for portable git apply; patch content unchanged",
+    "baseline_tccgen_sha256": "044c431b48fb242b143effd32597d1afc8f4638f237c7dd355dccecd46f79817",
+    "patched_tccgen_sha256": "5fac72bd853dc41ffd93ec552f312c7ec27b4e482e870c5a2841479925b6adbe"
+  }
+}

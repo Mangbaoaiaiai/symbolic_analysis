@@ -1,0 +1,11 @@
+{
+  "schema": "boe.initializer.boe_coverage.method_snapshot.v1",
+  "files": {
+    "scripts/se_script_improved.py": "5c5ea7e74599bcbae419013258761e1cd018ebf2878c7e5deeb6b209c3f4856b",
+    "scripts/verify_ranked_path_equivalence.py": "63ead494d60647090b4bfe3f879bba54198dc9a2ede35ea5c35f90974d6b3eba",
+    "scripts/input_domain_contract.py": "5f875f8c1143f0d4e5e09e9a6aa9f59c59ebca869b3f7a87c3ff2204bea5f10b",
+    "scripts/binary_identity.py": "706ee7a35ed477c1609119bdf2f4434657f6e519fb042a2d9175273e78434d69",
+    "configs/round016_ardiff_numeric_bounds_v1.json": "8e15afdddb9f937c2372cfd4c38b6e3a0296e825b5574cc5206a645f1b011b6b"
+  },
+  "captured_utc": "2026-11-25T20:04:20.596157+00:00"
+}

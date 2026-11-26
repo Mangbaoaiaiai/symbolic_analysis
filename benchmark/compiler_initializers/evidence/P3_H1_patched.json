@@ -1,0 +1,89 @@
+{
+  "schema": "symbolicana.compiler_initializer_evidence.v1",
+  "pair_id": "P3_H1_patched",
+  "source_record": {
+    "experiment": "compiler_initializer_boe_coverage_20261126",
+    "relative_path": "attempts/P3_H1_patched/verification_report.json",
+    "sha256": "abe7ddbae9ea8457c5334dd5f5bf635fd2268cec7fc2fb045e0b169238b886f2",
+    "kind": "Selected fields from the archived raw report; full raw logs are not bundled."
+  },
+  "signature": "int(void)",
+  "input_schema": [],
+  "source": "S1/adapted.c",
+  "source_sha256": "5021770d844196db0b25d99d72d80e8781b4af3839c765a78645a9598e77a5d6",
+  "verdict": "EQ",
+  "termination_reason": "complete_identity_proof",
+  "fast_path_branch": "exact_identity_EQ",
+  "artifact_identity_check_pass": true,
+  "artifact_identity_hash": "2014e053e7bcc5f600a22c4241f59e0b9352c9347574f43f0dbbd27dfa1b42bd",
+  "authorization": {
+    "eq_proof_eligible": true,
+    "semantic_model_eq_eligible": true,
+    "semantic_model_neq_eligible": true,
+    "counterexample_execution_eligible": true,
+    "matching_complete": true,
+    "required_semantic_checks_complete": true,
+    "confirmed_counterexample_count": 0
+  },
+  "semantic_model_audit": {
+    "schema": "symbolicana.round017.combined_semantic_model_audit.v1",
+    "side_count": 2,
+    "validation_errors": [],
+    "eq_blockers": [],
+    "eq_eligible": true,
+    "neq_replay_required_symbols": [],
+    "neq_requires_current_static_candidate_and_replay": false,
+    "applicable": true,
+    "legacy_artifact": false
+  },
+  "sides": {
+    "old": {
+      "compiler_config": "tcc_h1_patch",
+      "binary_sha256": "68dcf170165447973442e01467f037740cbde62c26e814b7d9ff69f99fa0c86a",
+      "path_sha256": "d65884d172d80f475c13754d6d883d40c8de606d89c953185a6478bb091aa5fe",
+      "complete": true,
+      "terminating_path_count": 1,
+      "entry_state_contract": {
+        "global_initialization": "ELF_loader_data_bss",
+        "mode": "initialized_single_call",
+        "scope": "one_snippet_invocation"
+      },
+      "return_value": {
+        "available": true,
+        "bits": 32,
+        "repr": "<BV32 0x0>"
+      }
+    },
+    "new": {
+      "compiler_config": "gcc_o0",
+      "binary_sha256": "a5e000b951f785ab165eeb284042719ea13921b08cc1159c6b88df19343f6a9f",
+      "path_sha256": "8e9438626305a6688afeb5b05094ff375fc88a7e62598f389830f848396e02c1",
+      "complete": true,
+      "terminating_path_count": 1,
+      "entry_state_contract": {
+        "global_initialization": "ELF_loader_data_bss",
+        "mode": "initialized_single_call",
+        "scope": "one_snippet_invocation"
+      },
+      "return_value": {
+        "available": true,
+        "bits": 32,
+        "repr": "<BV32 0x0>"
+      }
+    }
+  },
+  "confirmed_mismatches": [],
+  "smt": {
+    "solver_calls": 0,
+    "audited_query_count": 0,
+    "unknown_count": 0
+  },
+  "fresh_analysis_route_audit": {
+    "historical_cache_loads": 0,
+    "standard_seed_invocations": 0,
+    "random_input_invocations": 0,
+    "fuzz_input_invocations": 0
+  },
+  "oracle_path_truth_used": false,
+  "program_ground_truth_used": false
+}

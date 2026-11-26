@@ -1,0 +1,203 @@
+{
+  "schema": "symbolicana.compiler_initializer_evidence.v1",
+  "pair_id": "P2_union_baseline",
+  "source_record": {
+    "experiment": "compiler_initializer_boe_coverage_20261126",
+    "relative_path": "attempts/P2_union_baseline/verification_report.json",
+    "sha256": "71a8d1f6bc9781369d989320d1c31b1dfbd0b2e42ce863a7b5132502522edc63",
+    "kind": "Selected fields from the archived raw report; full raw logs are not bundled."
+  },
+  "signature": "int(void)",
+  "input_schema": [],
+  "source": "U3/adapted.c",
+  "source_sha256": "767ac98c73b9ce2af9919381a1525fb445c85db65300bb7ed90610b4b5e51e4e",
+  "verdict": "NEQ",
+  "termination_reason": "confirmed_counterexample",
+  "fast_path_branch": "directional_NEQ",
+  "artifact_identity_check_pass": true,
+  "artifact_identity_hash": "8b2db9bd9bb349c3df3c16a58ba7214555c9e0128ce7e165d6b84e7f46a4a098",
+  "authorization": {
+    "eq_proof_eligible": false,
+    "semantic_model_eq_eligible": false,
+    "semantic_model_neq_eligible": true,
+    "counterexample_execution_eligible": true,
+    "matching_complete": false,
+    "required_semantic_checks_complete": false,
+    "confirmed_counterexample_count": 2
+  },
+  "semantic_model_audit": {
+    "schema": "symbolicana.round017.combined_semantic_model_audit.v1",
+    "side_count": 2,
+    "validation_errors": [],
+    "eq_blockers": [
+      "old:semantic_model_not_eq_eligible",
+      "old:unqualified_external_model:memset"
+    ],
+    "eq_eligible": false,
+    "neq_replay_required_symbols": [
+      "old:memset"
+    ],
+    "neq_requires_current_static_candidate_and_replay": true,
+    "applicable": true,
+    "legacy_artifact": false
+  },
+  "sides": {
+    "old": {
+      "compiler_config": "tcc_baseline",
+      "binary_sha256": "8affa4b3c9ec6e40fc67263593f41985c4261a942d336c0e4108e7137ba39c07",
+      "path_sha256": "2ebef9d18755b8152e27a0abc5f6a191aa854408a0bb0d0113351f56a153b54d",
+      "complete": true,
+      "terminating_path_count": 1,
+      "entry_state_contract": {
+        "global_initialization": "ELF_loader_data_bss",
+        "mode": "initialized_single_call",
+        "scope": "one_snippet_invocation"
+      },
+      "return_value": {
+        "available": true,
+        "bits": 32,
+        "repr": "<BV32 0x2a>"
+      }
+    },
+    "new": {
+      "compiler_config": "gcc_o0",
+      "binary_sha256": "79b7b2fdb88d0515939b0953adab64eea98727c5abf775f3fa45c127754812d6",
+      "path_sha256": "bcf99c2cfe2ef0c0b01bc8537a9bab9c9bc9741acbe80bde234a2aecf45aeaa6",
+      "complete": true,
+      "terminating_path_count": 1,
+      "entry_state_contract": {
+        "global_initialization": "ELF_loader_data_bss",
+        "mode": "initialized_single_call",
+        "scope": "one_snippet_invocation"
+      },
+      "return_value": {
+        "available": true,
+        "bits": 32,
+        "repr": "<BV32 0x0>"
+      }
+    }
+  },
+  "confirmed_mismatches": [
+    {
+      "direction": "old_to_new",
+      "candidate_id": "cex-cdfb619595a2c4918b7d",
+      "candidate_source": "static_path_overlap_model",
+      "mismatch_component": "return_value",
+      "inputs": [],
+      "confirmed": true,
+      "reason": "observable_output_diff",
+      "left": {
+        "completed": true,
+        "returncode": 0,
+        "stdout": "42\n",
+        "stderr": ""
+      },
+      "right": {
+        "completed": true,
+        "returncode": 0,
+        "stdout": "0\n",
+        "stderr": ""
+      },
+      "left_runs": [
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        },
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        }
+      ],
+      "right_runs": [
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "0\n",
+          "stderr": ""
+        },
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "0\n",
+          "stderr": ""
+        }
+      ],
+      "query_revalidation": {
+        "status": "sat",
+        "reason": "completed_inputs_satisfy_original_candidate_query",
+        "query_sha256": "2cb272b98d93b6e4194b22037c7d779ca13f691f26e4cc2f4de860e9f0453f2c"
+      }
+    },
+    {
+      "direction": "new_to_old",
+      "candidate_id": "cex-e2588bbb1aa655b60148",
+      "candidate_source": "static_path_overlap_model",
+      "mismatch_component": "return_value",
+      "inputs": [],
+      "confirmed": true,
+      "reason": "observable_output_diff",
+      "left": {
+        "completed": true,
+        "returncode": 0,
+        "stdout": "0\n",
+        "stderr": ""
+      },
+      "right": {
+        "completed": true,
+        "returncode": 0,
+        "stdout": "42\n",
+        "stderr": ""
+      },
+      "left_runs": [
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "0\n",
+          "stderr": ""
+        },
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "0\n",
+          "stderr": ""
+        }
+      ],
+      "right_runs": [
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        },
+        {
+          "completed": true,
+          "returncode": 0,
+          "stdout": "42\n",
+          "stderr": ""
+        }
+      ],
+      "query_revalidation": {
+        "status": "sat",
+        "reason": "completed_inputs_satisfy_original_candidate_query",
+        "query_sha256": "6b74bb08e9b455e56b5e51c6d0a064a7ff0270d533aff22f4ce15a2f1a031c93"
+      }
+    }
+  ],
+  "smt": {
+    "solver_calls": 8,
+    "audited_query_count": 10,
+    "unknown_count": 0
+  },
+  "fresh_analysis_route_audit": {
+    "historical_cache_loads": 0,
+    "standard_seed_invocations": 0,
+    "random_input_invocations": 0,
+    "fuzz_input_invocations": 0
+  },
+  "oracle_path_truth_used": false,
+  "program_ground_truth_used": false
+}

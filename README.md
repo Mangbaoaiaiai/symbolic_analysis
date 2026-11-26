@@ -367,3 +367,48 @@ and confirmed outputs are in
 The source reproducers are included; compiler source archives and generated
 binaries are excluded from this minimal repository. These small, loop-free
 examples do not measure coverage of complex optimizer or interprocedural bugs.
+
+## TinyCC initializer findings — 2026-11-26
+
+Two initializer behavior groups were investigated using **TinyCC 0.9.28rc**,
+commit **ce2a61d9cdbaac6dda53095cf501e39182b481c9**, against **GCC 12.2.0**
+on x86-64 Linux. Source analysis and concrete differential execution identified
+the candidates; the unchanged BOE method was then evaluated on them.
+
+| Finding and reproducer | Mechanism | Public-record status |
+|---|---|---|
+| [H1: static aggregate reinitialization](benchmark/compiler_initializers/S1/original.c) | A later whole-element initializer omits a previously nonzero member. The static zeroing branch does not clear its old section bytes, leaving b=10 instead of b=0. | Confirmed implementation error; no matching record found in the bounded search. First discovery and independence from related reports are not claimed. |
+| [Union member switching](benchmark/compiler_initializers/U3/original.c) | A chained initializer switches union members but retains old bytes, producing 42 0 1 0 instead of 0 0 1 0. | [Savannah #68807](https://savannah.nongnu.org/bugs/?func=detailitem&item_id=68807) reports the file-scope form. This automatic-object variant is grouped with that known problem, not counted as a new independent bug. |
+
+H1 has a [local diagnostic patch](benchmark/compiler_initializers/patches/h1_static_zero.patch)
+that restores static clearing in the tested cases. It is not an upstream fix
+or a general production-ready patch. A seven-query mechanism search and the
+reused fourteen-query archive found no clear H1 match; this is a bounded
+prior-report check, not proof that no earlier report exists.
+
+The three recorded BOE comparisons use the same adapted C source on both
+sides, no arguments, each ELF's own initialized global data, and a 32-bit int
+return-value contract:
+
+| Pair | Target compiler | GCC O0 reference | BOE result | Evidence |
+|---|---|---|---|---|
+| H1 before the diagnostic patch | TinyCC: 10 | 0 | **NEQ** | [Static candidate and confirmed executable replay](benchmark/compiler_initializers/evidence/P1_H1_baseline.json) |
+| Union automatic-object variant | TinyCC: 42 | 0 | **NEQ** | [Confirmed executable replay](benchmark/compiler_initializers/evidence/P2_union_baseline.json); the unqualified memset model blocks EQ eligibility |
+| H1 after the diagnostic patch | Locally patched TinyCC: 0 | 0 | **EQ** | [Complete eligible path-identity proof](benchmark/compiler_initializers/evidence/P3_H1_patched.json) |
+
+There were two adapted programs, seven concrete admission configurations,
+21 admission runs, six independent symbolic executions, and three verifier
+processes. BOE confirmation replays are additional to the admission runs.
+Each NEQ pair has one empty-input witness, recorded in two directions.
+The EQ result applies to the adapted single-call return-value contract, not
+to all observable behavior of the original printf programs. These small,
+parameterless cases do not measure complex input-space search or overall
+accuracy.
+
+The [reproduction guide](benchmark/compiler_initializers/README.md) includes
+original and adapted sources, the common driver, pinned compiler information,
+and commands for all three BOE comparisons.
+[Machine-readable results](benchmark/compiler_initializers/summary.json)
+and the [recorded method hashes](benchmark/compiler_initializers/method_snapshot.json)
+identify the measured run. Compiler trees, ELF binaries, and raw solver logs
+are excluded from this minimal package.

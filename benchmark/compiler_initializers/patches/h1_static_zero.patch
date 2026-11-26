@@ -1,0 +1,16 @@
+--- a/tccgen.c
++++ b/tccgen.c
+@@ -7724,9 +7724,12 @@
+ static void init_putz(init_params *p, unsigned long c, int size)
+ {
+     init_assert(p, c + size);
+     if (p->sec) {
+-        /* nothing to do because globals are already set to zero */
++        /* clear previously written bytes when a static object is reinitialized */
++        if (!NODATA_WANTED && p->sec->sh_type != SHT_NOBITS && size > 0) {
++            memset(p->sec->data + c, 0, (size_t)size);
++        }
+     } else {
+         vpush_helper_func(TOK_memset);
+         vseti(VT_LOCAL, c);
+         vpushi(0);
